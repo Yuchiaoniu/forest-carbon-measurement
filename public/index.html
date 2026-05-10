@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>林業碳匯測量系統</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: system-ui, sans-serif; background: #f0f4f0; color: #1a2e1a; min-height: 100vh; }
+  .container { max-width: 600px; margin: 0 auto; padding: 24px 16px; }
+  h1 { font-size: 1.4rem; font-weight: 700; margin-bottom: 4px; }
+  p.sub { color: #555; font-size: 0.9rem; margin-bottom: 24px; }
+  .card { background: white; border-radius: 12px; padding: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); margin-bottom: 16px; }
+  .upload-area { border: 2px dashed #4a9a4a; border-radius: 8px; padding: 40px 20px; text-align: center; cursor: pointer; transition: background 0.2s; }
+  .upload-area:hover, .upload-area.drag { background: #f0fff0; }
+  .upload-area input { display: none; }
+  .upload-icon { font-size: 2.5rem; margin-bottom: 8px; }
+  .btn { background: #2d7a2d; color: white; border: none; border-radius: 8px; padding: 12px 24px; font-size: 1rem; cursor: pointer; width: 100%; margin-top: 12px; }
+  .btn:disabled { background: #aaa; cursor: not-allowed; }
+  .progress { display: none; }
+  .step { display: flex; align-items: center; gap: 8px; padding: 8px 0; border-bottom: 1px solid #eee; font-size: 0.9rem; }
+  .step-icon { width: 20px; text-align: center; }
+  .result { display: none; }
+  .metric { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #f0f0f0; }
+  .metric-label { color: #666; font-size: 0.9rem; }
+  .metric-value { font-weight: 600; }
+  .badge { display: inline-block; padding: 2px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; }
+  .badge-high { background: #dcfce7; color: #166534; }
+  .badge-medium { background: #fef9c3; color: #854d0e; }
+  .badge-low { background: #fee2e2; color: #991b1b; }
+  .tx-hash { font-family: monospace; font-size: 0.7rem; word-break: break-all; color: #666; margin-top: 4px; }
+  .error-msg { color: #b91c1c; background: #fee2e2; padding: 12px; border-radius: 8px; font-size: 0.9rem; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>🌲 林業碳匯測量系統</h1>
+  <p class="sub">上傳樹木影片，AI 自動估算胸徑、材積與碳儲量並上鏈記錄</p>
+
+  <div class="card" id="upload-card">
+    <div class="upload-area" id="drop-zone">
+      <div class="upload-icon">📹</div>
+      <div>點擊或拖曳影片至此</div>
+      <div style="font-size:0.8rem;color:#888;margin-top:4px">.mov / .mp4，最大 500MB</div>
+      <input type="file" id="file-input" accept=".mov,.mp4">
+    </div>
+    <button class="btn" id="upload-btn" disabled>開始分析</button>
+  </div>
+
+  <div class="card progress" id="progress-card">
+    <div style="font-weight:600;margin-bottom:12px">分析中...</div>
+    <div id="steps">
+      <div class="step" id="s-hashing">  <span class="step-icon">⏳</span> 計算影片指紋</div>
+      <div class="step" id="s-metadata"> <span class="step-icon">⏳</span> 擷取相機元數據</div>
+      <div class="step" id="s-frames">   <span class="step-icon">⏳</span> 選取最清晰關鍵幀</div>
+      <div class="step" id="s-species">  <span class="step-icon">⏳</span> 辨識樹種</div>
+      <div class="step" id="s-ai_analysis"><span class="step-icon">⏳</span> AI 視覺分析樹幹</div>
+      <div class="step" id="s-saving">   <span class="step-icon">⏳</span> 儲存測量結果</div>
+      <div class="step" id="s-blockchain"><span class="step-icon">⏳</span> 寫入區塊鏈</div>
+    </div>
+  </div>
+
+  <div class="card result" id="result-card">
+    <div style="font-weight:600;font-size:1.1rem;margin-bottom:16px">✅ 測量完成</div>
+    <div id="metrics"></div>
+    <button class="btn" style="margin-top:16px;background:#eee;color:#333" onclick="reset()">分析另一支影片</button>
+  </div>
+
+  <div id="error-container"></div>
+</div>
+
+<script>
+let jobId = null, pollTimer = null
+
+const dropZone = document.getElementById('drop-zone')
+const fileInput = document.getElementById('file-input')
+const uploadBtn = document.getElementById('upload-btn')
+let selectedFile = null
+
+dropZone.addEventListener('click', () => fileInput.click())
+dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('drag') })
+dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag'))
+dropZone.addEventListener('drop', e => {
+  e.preventDefault(); dropZone.classList.remove('drag')
+  const f = e.dataTransfer.files[0]
+  if (f) selectFile(f)
+})
+fileInput.addEventListener('change', () => fileInput.files[0] && selectFile(fileInput.files[0]))
+
+function selectFile(f) {
+  selectedFile = f
+  dropZone.querySelector('div:nth-child(2)').textContent = f.name
+  uploadBtn.disabled = false
+}
+
+uploadBtn.addEventListener('click', async () => {
+  if (!selectedFile) return
+  uploadBtn.disabled = true
+  document.getElementById('upload-card').style.display = 'none'
+  document.getElementById('progress-card').style.display = 'block'
+
+  const fd = new FormData()
+  fd.append('video', selectedFile)
+
+  const res = await fetch('/api/upload', { method: 'POST', body: fd })
+  const data = await res.json()
+  if (!res.ok) return showError(data.error)
+  jobId = data.jobId
+  pollTimer = setInterval(poll, 2000)
+})
+
+async function poll() {
+  const res = await fetch(`/api/status/${jobId}`)
+  const data = await res.json()
+
+  if (data.step) updateStep(data.step)
+  if (data.status === 'done') {
+    clearInterval(pollTimer)
+    showResult(data.result)
+  } else if (data.status === 'error') {
+    clearInterval(pollTimer)
+    showError(data.error)
+  }
+}
+
+function updateStep(step) {
+  const order = ['hashing','metadata','frames','species','ai_analysis','saving','blockchain']
+  const idx = order.indexOf(step)
+  order.forEach((s, i) => {
+    const el = document.getElementById(`s-${s}`)
+    if (!el) return
+    el.querySelector('.step-icon').textContent = i < idx ? '✅' : i === idx ? '🔄' : '⏳'
+  })
+}
+
+function showResult(r) {
+  document.getElementById('progress-card').style.display = 'none'
+  document.getElementById('result-card').style.display = 'block'
+  const confidence = r.confidence || 'medium'
+  const badgeClass = `badge-${confidence}`
+  document.getElementById('metrics').innerHTML = `
+    <div class="metric"><span class="metric-label">樹種</span><span class="metric-value">${r.species || '未知'} <small style="color:#888">(${r.speciesSource})</small></span></div>
+    <div class="metric"><span class="metric-label">胸徑 DBH</span><span class="metric-value">${r.dbhCm} cm</span></div>
+    <div class="metric"><span class="metric-label">估算樹高</span><span class="metric-value">${r.estimatedHeightM} m</span></div>
+    <div class="metric"><span class="metric-label">單株材積</span><span class="metric-value">${r.volumeM3} m³</span></div>
+    <div class="metric"><span class="metric-label">碳儲量</span><span class="metric-value">${r.carbonKg} kg C</span></div>
+    <div class="metric"><span class="metric-label">GPS</span><span class="metric-value">${r.gps || '無'}</span></div>
+    <div class="metric"><span class="metric-label">測量信心</span><span class="metric-value"><span class="badge ${badgeClass}">${confidence.toUpperCase()}</span></span></div>
+    <div class="metric"><span class="metric-label">幀品質</span><span class="metric-value">${r.frameQuality}</span></div>
+    ${r.txHash ? `<div class="metric"><span class="metric-label">區塊鏈記錄</span><span class="metric-value">✅ 已上鏈<div class="tx-hash">${r.txHash}</div></span></div>` : '<div class="metric"><span class="metric-label">區塊鏈</span><span class="metric-value">⏳ 等待上鏈</span></div>'}
+  `
+}
+
+function showError(msg) {
+  document.getElementById('progress-card').style.display = 'none'
+  document.getElementById('error-container').innerHTML = `<div class="card error-msg">❌ ${msg}</div>`
+  document.getElementById('upload-card').style.display = 'block'
+  uploadBtn.disabled = false
+}
+
+function reset() {
+  document.getElementById('result-card').style.display = 'none'
+  document.getElementById('upload-card').style.display = 'block'
+  document.getElementById('error-container').innerHTML = ''
+  selectedFile = null
+  uploadBtn.disabled = true
+  dropZone.querySelector('div:nth-child(2)').textContent = '點擊或拖曳影片至此'
+  fileInput.value = ''
+}
+</script>
+</body>
+</html>

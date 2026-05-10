@@ -1,0 +1,25 @@
+# 環境變數（含 API 金鑰，絕對不推）
+.env
+
+# 依賴套件
+node_modules/
+
+# 上傳的影片（可能很大）
+uploads/
+
+# 暫存幀
+tmp_frames/
+
+# SQLite 資料庫（本地資料，不版控）
+data.db
+
+# 系統檔案
+.DS_Store
+Thumbs.db
+
+# 日誌
+*.log
+npm-debug.log*
+
+# 編譯輸出
+artifacts/
