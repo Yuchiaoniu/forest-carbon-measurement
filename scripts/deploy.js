@@ -1,42 +1,57 @@
 require('dotenv').config()
 const { ethers } = require('ethers')
+const solc = require('solc')
 const fs = require('fs')
 const path = require('path')
 
-// ABI 與 bytecode（solc 編譯輸出）
-// 為簡化部署流程，使用預編譯的 ABI + bytecode
-const ABI = [
-  'constructor()',
-  'function recordMeasurement(string gps, string species, uint32 dbhMm, uint32 volumeCm3x100, uint32 carbonG, bytes32 videoHash) returns (uint256)',
-  'function getMeasurement(uint256 id) view returns (tuple(string gps, string species, uint32 dbhMm, uint32 volumeCm3x100, uint32 carbonG, bytes32 videoHash, uint256 timestamp))',
-  'function measurementCount() view returns (uint256)',
-  'event MeasurementRecorded(uint256 indexed id, string gps, string species, uint32 dbhMm, uint32 carbonG, bytes32 videoHash, uint256 timestamp)',
-]
-
-// Bytecode（需先用 solc 編譯 CarbonCredit.sol）
-// 執行：npx solc --bin --abi contracts/CarbonCredit.sol -o artifacts/
-// 或使用 Hardhat：npx hardhat compile
-const BYTECODE_PATH = path.join(__dirname, '../artifacts/CarbonCredit.bin')
-
 async function main() {
-  if (!fs.existsSync(BYTECODE_PATH)) {
-    console.log('❌ 找不到 artifacts/CarbonCredit.bin')
-    console.log('   請先執行：npx hardhat compile 或 npx solc --bin contracts/CarbonCredit.sol -o artifacts/')
+  console.log('📦 編譯 CarbonCredit.sol...')
+
+  const source = fs.readFileSync(
+    path.join(__dirname, '../contracts/CarbonCredit.sol'), 'utf8'
+  )
+
+  const input = {
+    language: 'Solidity',
+    sources: { 'CarbonCredit.sol': { content: source } },
+    settings: {
+      evmVersion: 'paris',
+      outputSelection: { '*': { '*': ['abi', 'evm.bytecode'] } },
+    },
+  }
+
+  const output = JSON.parse(solc.compile(JSON.stringify(input)))
+
+  if (output.errors?.some(e => e.severity === 'error')) {
+    console.error('❌ 編譯錯誤：', output.errors)
     process.exit(1)
   }
 
-  const bytecode = '0x' + fs.readFileSync(BYTECODE_PATH, 'utf8').trim()
+  const contract = output.contracts['CarbonCredit.sol']['CarbonCredit']
+  const abi = contract.abi
+  const bytecode = '0x' + contract.evm.bytecode.object
+
+  console.log('✅ 編譯成功')
+  console.log(`🔗 連接節點：${process.env.BESU_RPC_URL}`)
+
   const provider = new ethers.JsonRpcProvider(process.env.BESU_RPC_URL)
   const wallet = new ethers.Wallet(process.env.DEPLOYER_PRIVATE_KEY, provider)
 
-  console.log(`🔗 連接節點：${process.env.BESU_RPC_URL}`)
   console.log(`💼 部署帳號：${wallet.address}`)
 
-  const factory = new ethers.ContractFactory(ABI, bytecode, wallet)
-  const contract = await factory.deploy()
-  await contract.waitForDeployment()
+  const balance = await provider.getBalance(wallet.address)
+  console.log(`💰 餘額：${ethers.formatEther(balance)} ETH`)
 
-  const address = await contract.getAddress()
+  const factory = new ethers.ContractFactory(abi, bytecode, wallet)
+  console.log('🚀 部署中...')
+
+  const deployedContract = await factory.deploy({
+    gasLimit: 6000000,
+    gasPrice: 0,
+  })
+  await deployedContract.waitForDeployment()
+
+  const address = await deployedContract.getAddress()
   console.log(`✅ 合約已部署：${address}`)
 
   // 自動寫入 .env
@@ -44,7 +59,8 @@ async function main() {
   let env = fs.readFileSync(envPath, 'utf8')
   env = env.replace(/^CONTRACT_ADDRESS=.*$/m, `CONTRACT_ADDRESS=${address}`)
   fs.writeFileSync(envPath, env)
-  console.log(`📝 CONTRACT_ADDRESS 已寫入 .env`)
+  console.log('📝 CONTRACT_ADDRESS 已寫入 .env')
+  console.log('\n🌲 完成！現在可以執行 npm start 啟動系統。')
 }
 
-main().catch(e => { console.error(e); process.exit(1) })
+main().catch(e => { console.error(e.message); process.exit(1) })

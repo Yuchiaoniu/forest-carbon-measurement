@@ -7,19 +7,25 @@ const PLANTNET_URL = 'https://my-api.plantnet.org/v2/identify/all'
 async function identifySpecies(framePaths, apiKey) {
   try {
     const form = new FormData()
-    framePaths.slice(0, 2).forEach(p => {
-      form.append('images', fs.createReadStream(p))
-    })
-    form.append('organs', 'bark')
-    form.append('organs', 'habit')
+    const images = framePaths.slice(0, 2)
 
-    const res = await axios.post(`${PLANTNET_URL}?api-key=${apiKey}&lang=zh-TW`, form, {
-      headers: form.getHeaders(),
-      timeout: 15000,
-    })
+    // Pl@ntNet 要求 images 和 organs 數量一致，逐一對應
+    images.forEach(p => form.append('images', fs.createReadStream(p)))
+    images.forEach(() => form.append('organs', 'bark'))
+
+    const res = await axios.post(
+      `${PLANTNET_URL}?api-key=${apiKey}&lang=en&include-related-images=false`,
+      form,
+      { headers: form.getHeaders(), timeout: 15000 }
+    )
 
     const best = res.data.results?.[0]
-    if (!best) return null
+    if (!best) {
+      console.log('[Pl@ntNet] 無結果')
+      return null
+    }
+
+    console.log(`[Pl@ntNet] ${best.species?.scientificNameWithoutAuthor} 信心=${(best.score*100).toFixed(1)}%`)
 
     return {
       species: best.species?.scientificNameWithoutAuthor || null,
@@ -28,6 +34,7 @@ async function identifySpecies(framePaths, apiKey) {
       source: 'plantnet',
     }
   } catch (err) {
+    console.error('[Pl@ntNet] 錯誤：', err.response?.status, err.response?.data?.message || err.message)
     return null
   }
 }

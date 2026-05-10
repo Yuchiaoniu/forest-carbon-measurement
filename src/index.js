@@ -8,7 +8,8 @@ const { v4: uuidv4 } = require('uuid')
 
 const { extractMetadata } = require('./services/metadataService')
 const { extractFrames, selectBestFrames, frameToBase64 } = require('./services/frameService')
-const { identifySpecies } = require('./services/plantnetService')
+const { identifySpecies: plantnetIdentify } = require('./services/plantnetService')
+const { identifySpecies: inaturalistIdentify } = require('./services/inaturalistService')
 const { analyzeTrunkWithRetry, getMedianResult, identifySpeciesFallback } = require('./services/geminiService')
 const { calculate } = require('./services/calculationService')
 const { findByVideoHash, insert, updateTxHash, getPendingTx } = require('./db/trees')
@@ -92,18 +93,40 @@ async function processVideo(jobId, videoPath) {
     const { frames, frameQuality } = await selectBestFrames(candidates)
     const frameBase64s = frames.map(frameToBase64)
 
-    // 4. 樹種辨識
+    // 4. 樹種辨識（Pl@ntNet + iNaturalist 同時執行）
     jobs[jobId].step = 'species'
-    let species = null, speciesSource = 'unknown'
-    const plantnetResult = await identifySpecies(frames, process.env.PLANTNET_API_KEY)
-    if (plantnetResult && plantnetResult.confidence >= 0.80) {
-      species = plantnetResult.species
-      speciesSource = 'plantnet'
+    const [plantnetResult, inatResult] = await Promise.all([
+      plantnetIdentify(frames, process.env.PLANTNET_API_KEY),
+      inaturalistIdentify(frames, process.env.INATURALIST_API_TOKEN),
+    ])
+
+    let species = null, speciesSource = 'unknown', speciesVotes = {}
+    if (plantnetResult?.species) speciesVotes[plantnetResult.species] = { score: plantnetResult.confidence, source: 'plantnet' }
+    if (inatResult?.species)    speciesVotes[inatResult.species]    = { score: inatResult.confidence,    source: 'inaturalist' }
+
+    // 兩者相符（同屬）→ 取信心較高者；否則各自保留
+    const votes = Object.entries(speciesVotes)
+    if (votes.length === 2) {
+      const [a, b] = votes
+      const sameGenus = a[0].split(' ')[0] === b[0].split(' ')[0]
+      if (sameGenus) {
+        // 同屬，取信心高的那個，來源標為 dual
+        const winner = a[1].score >= b[1].score ? a : b
+        species = winner[0]; speciesSource = 'dual-' + winner[1].source
+      } else {
+        // 不同屬，各自信心比較
+        const winner = a[1].score >= b[1].score ? a : b
+        species = winner[0]; speciesSource = winner[1].source + '-only'
+      }
+    } else if (votes.length === 1) {
+      species = votes[0][0]; speciesSource = votes[0][1].source
     } else {
+      // 兩者都失敗，用 Gemini
       const geminiSpecies = await identifySpeciesFallback(frameBase64s, metadata.gps)
-      species = geminiSpecies?.scientificName || null
-      speciesSource = 'gemini'
+      species = geminiSpecies?.scientificName || null; speciesSource = 'gemini'
     }
+
+    console.log(`[Species] ${species} (${speciesSource}) | Pl@ntNet:${plantnetResult?.species||'-'} iNat:${inatResult?.species||'-'}`)
 
     // 5. AI 視覺分析
     jobs[jobId].step = 'ai_analysis'
@@ -122,7 +145,7 @@ async function processVideo(jobId, videoPath) {
       metadata,
       frameQuality,
     })
-    if (!calc) throw new Error('DBH 計算失敗')
+    if (!calc) throw new Error(`DBH 計算失敗 [pixelWidth=${median.pixelWidth}, dist=${median.estimatedDistanceM}, focal=${metadata.focalLengthMm}, sensor=${metadata.sensorWidthMm}, imgW=${metadata.imageWidth}]`)
 
     // 7. 存入 SQLite
     jobs[jobId].step = 'saving'
@@ -151,12 +174,18 @@ async function processVideo(jobId, videoPath) {
       }
     }
 
-    const result = { species, speciesSource, ...calc, txHash, frameQuality, gps: metadata.gps }
+    const result = {
+      species, speciesSource, ...calc, txHash, frameQuality, gps: metadata.gps,
+      speciesDetail: {
+        plantnet: plantnetResult ? { species: plantnetResult.species, confidence: plantnetResult.confidence } : null,
+        inaturalist: inatResult ? { species: inatResult.species, confidence: inatResult.confidence } : null,
+      }
+    }
     jobs[jobId] = { status: 'done', result }
 
   } finally {
-    // 清理暫存幀
-    fs.rmSync(framesDir, { recursive: true, force: true })
+    // 暫存幀保留不刪，路徑：tmp_frames/[jobId]/
+    console.log(`[frames] 關鍵幀位置：${path.resolve(framesDir)}`)
   }
 }
 

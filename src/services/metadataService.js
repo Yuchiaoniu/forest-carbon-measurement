@@ -7,9 +7,23 @@ async function extractMetadata(videoPath) {
   const model = tags.Model || tags.DeviceModelName || null
   const sensor = getSensorInfo(model)
 
-  const focalLength = tags.FocalLength
+  // 直接焦距
+  let focalLength = tags.FocalLength
     ? parseFloat(String(tags.FocalLength).replace(/[^\d.]/g, ''))
     : null
+
+  // 備援1：從 35mm 等效焦距 + 感光元件寬度反推
+  if (!focalLength) {
+    const equiv35mm = tags.FocalLengthIn35mmFormat || tags['FocalLengthIn35mmFormat']
+    const equiv = equiv35mm ? parseFloat(String(equiv35mm).replace(/[^\d.]/g, '')) : null
+    if (equiv && sensor.sensorWidth) {
+      focalLength = Math.round((equiv * sensor.sensorWidth / 36) * 100) / 100
+    }
+  }
+  // 備援2：從設備資料庫直接取已知焦距
+  if (!focalLength && sensor.focalLength) {
+    focalLength = sensor.focalLength
+  }
 
   let gps = null
   if (tags.GPSLatitude && tags.GPSLongitude) {

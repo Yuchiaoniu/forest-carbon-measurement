@@ -1,10 +1,12 @@
 const ffmpeg = require('fluent-ffmpeg')
 const ffmpegPath = require('@ffmpeg-installer/ffmpeg').path
+const ffprobePath = require('@ffprobe-installer/ffprobe').path
 const path = require('path')
 const fs = require('fs')
 const { execSync } = require('child_process')
 
 ffmpeg.setFfmpegPath(ffmpegPath)
+ffmpeg.setFfprobePath(ffprobePath)
 
 async function extractFrames(videoPath, outputDir, count = 10) {
   return new Promise((resolve, reject) => {

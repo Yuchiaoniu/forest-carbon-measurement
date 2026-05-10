@@ -9,7 +9,7 @@ function getClient() {
 // 樹幹分析：回傳像素寬度與估算距離
 async function analyzeTrunk(frameBase64Array, metadata) {
   const model = getClient().getGenerativeModel({
-    model: 'gemini-2.0-flash',
+    model: 'gemini-2.5-flash',
     generationConfig: {
       responseMimeType: 'application/json',
       responseSchema: {
@@ -84,7 +84,7 @@ function stdDev(arr) {
 // 樹種辨識（Pl@ntNet fallback）
 async function identifySpeciesFallback(frameBase64Array, gps) {
   const model = getClient().getGenerativeModel({
-    model: 'gemini-2.0-flash',
+    model: 'gemini-2.5-flash',
     generationConfig: {
       responseMimeType: 'application/json',
       responseSchema: {
