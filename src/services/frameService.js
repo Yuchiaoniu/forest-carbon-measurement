@@ -8,18 +8,28 @@ const { execSync } = require('child_process')
 ffmpeg.setFfmpegPath(ffmpegPath)
 ffmpeg.setFfprobePath(ffprobePath)
 
-async function extractFrames(videoPath, outputDir, count = 10) {
+// 前段（前20%）取5幀，確保捕捉到參照物；後段（後80%）取8幀均勻取樣
+const FRONT_FRAMES = 5
+const BACK_FRAMES = 8
+
+async function extractFrames(videoPath, outputDir) {
   return new Promise((resolve, reject) => {
-    const timestamps = []
-    // 先取得影片時長
     ffmpeg.ffprobe(videoPath, (err, meta) => {
       if (err) return reject(err)
       const duration = meta.format.duration || 5
-      // 均勻取樣時間點（避開頭尾 10%）
-      for (let i = 1; i <= count; i++) {
-        timestamps.push((duration * 0.1) + (duration * 0.8 * i / (count + 1)))
-      }
 
+      const frontEnd = duration * 0.20
+      const backStart = frontEnd
+      const backEnd = duration * 0.95
+
+      const frontTs = Array.from({ length: FRONT_FRAMES }, (_, i) =>
+        frontEnd * (i + 1) / (FRONT_FRAMES + 1)
+      )
+      const backTs = Array.from({ length: BACK_FRAMES }, (_, i) =>
+        backStart + (backEnd - backStart) * (i + 1) / (BACK_FRAMES + 1)
+      )
+
+      const timestamps = [...frontTs, ...backTs]
       const framePaths = []
       let done = 0
 
@@ -29,11 +39,7 @@ async function extractFrames(videoPath, outputDir, count = 10) {
           .seekInput(t)
           .frames(1)
           .output(outPath)
-          .on('end', () => {
-            framePaths[idx] = outPath
-            done++
-            if (done === timestamps.length) resolve(framePaths.filter(Boolean))
-          })
+          .on('end', () => { framePaths[idx] = outPath; done++; if (done === timestamps.length) resolve(framePaths.filter(Boolean)) })
           .on('error', () => { done++; if (done === timestamps.length) resolve(framePaths.filter(Boolean)) })
           .run()
       })
@@ -43,14 +49,10 @@ async function extractFrames(videoPath, outputDir, count = 10) {
 
 function getSharpnessScore(framePath) {
   try {
-    // 使用 ffmpeg lavfi 的 blurdetect 濾鏡取得模糊值（越低越模糊）
-    // blur_slope 越高代表越清晰，但不同版本 ffmpeg 輸出格式不同
-    // 改用簡單的 signalstats 取 YAVG，並用 edge 偵測
     const result = execSync(
       `"${ffmpegPath}" -i "${framePath}" -vf "edgedetect=low=0.1:high=0.3,signalstats" -f null - 2>&1`,
       { timeout: 10000 }
     ).toString()
-    // 從 YAVG 行取平均亮度作為替代清晰度指標
     const match = result.match(/YAVG:(\d+\.?\d*)/)
     return match ? parseFloat(match[1]) : 50
   } catch {
@@ -58,11 +60,16 @@ function getSharpnessScore(framePath) {
   }
 }
 
-async function selectBestFrames(framePaths, targetCount = 3) {
-  const scored = framePaths.map(p => ({ path: p, score: getSharpnessScore(p) }))
-  scored.sort((a, b) => b.score - a.score)
-  const best = scored.slice(0, targetCount)
-  const maxScore = best[0]?.score || 0
+// 前段取 2 幀（保留參照物出現機率）+ 後段取 3 幀（多角度）= 共 5 幀送 Gemini
+async function selectBestFrames(framePaths) {
+  const score = (p) => ({ path: p, score: getSharpnessScore(p) })
+  const sortDesc = (arr) => [...arr].sort((a, b) => b.score - a.score)
+
+  const frontScored = sortDesc(framePaths.slice(0, FRONT_FRAMES).map(score))
+  const backScored  = sortDesc(framePaths.slice(FRONT_FRAMES).map(score))
+
+  const best = [...frontScored.slice(0, 2), ...backScored.slice(0, 3)]
+  const maxScore = Math.max(...best.map(f => f.score))
   const quality = maxScore >= 30 ? 'good' : 'low'
   return { frames: best.map(f => f.path), frameQuality: quality }
 }
