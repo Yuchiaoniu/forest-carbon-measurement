@@ -26,9 +26,10 @@
 
 ## 5. 關鍵幀擷取
 
-- [x] 5.1 實作 FFmpeg 均勻取 10 候選幀（src/services/frameService.js）
-- [x] 5.2 實作 Laplacian variance 清晰度評分，選出最佳 3 幀
-- [x] 5.3 實作 frameQuality 標記邏輯
+- [x] 5.1 前段（前20%）取5幀、後段（後80%）取8幀，確保前段捕捉到參照物特寫（src/services/frameService.js）
+- [x] 5.2 FFmpeg edgedetect + signalstats YAVG 作為清晰度評分（替代 Laplacian variance）
+- [x] 5.3 前段取最清晰2幀、後段取最清晰3幀 = 共5幀送 Gemini
+- [x] 5.4 frameQuality 標記（maxScore ≥ 30 → good，否則 low）
 
 ## 6. 樹種辨識
 
@@ -38,9 +39,10 @@
 
 ## 7. AI 視覺分析
 
-- [x] 7.1 實作 Gemini Flash 多幀分析 prompt（含結構化 JSON schema 要求）
-- [x] 7.2 實作 3 幀結果中位數計算邏輯
-- [x] 7.3 實作格式錯誤重試機制（最多 1 次）
+- [x] 7.1 實作 Gemini Flash 多幀分析 prompt（含15個結構化 JSON schema 欄位）
+- [x] 7.2 實作 5 幀結果中位數計算邏輯（路徑 0/A/B 各自有效幀中位數）
+- [x] 7.3 實作格式錯誤重試機制（最多 1 次，延遲 2 秒）
+- [x] 7.4 輸出 leafFrameIndices；index.js 中 Gemini 先於 PlantNet/iNaturalist 執行，優先使用葉片幀做樹種辨識
 
 ## 8. DBH 與材積計算
 
