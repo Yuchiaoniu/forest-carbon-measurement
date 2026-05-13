@@ -31,12 +31,14 @@ function calcCarbon(volumeM3, formula) {
   return volumeM3 * formula.woodDensity * formula.bef * 0.5
 }
 
-function getConfidence({ frameQuality, distanceStdPct, validFrames, sensorIsDefault, referenceUsed, referenceConfidence, directMeasurementUsed }) {
+function getConfidence({ frameQuality, distanceStdPct, validFrames, sensorIsDefault, referenceUsed, referenceConfidence, directMeasurementUsed, referenceOffTrunkDetected }) {
   if (directMeasurementUsed) return 'high'
   if (referenceUsed) {
     if (referenceConfidence !== undefined && referenceConfidence < 0.7) return 'medium'
     return 'high'
   }
+  // 偵測到參照物但不在樹幹旁（深度不可靠），降為 medium
+  if (referenceOffTrunkDetected) return 'medium'
   if (frameQuality === 'good' && distanceStdPct < 20 && validFrames >= 2 && !sensorIsDefault) return 'high'
   if (frameQuality === 'low' || distanceStdPct >= 20 || validFrames < 2) return 'low'
   return 'medium'
@@ -49,6 +51,7 @@ function calculate({
   referencePixelWidth, referencePixelHeight,
   referenceEstimatedWidthMm, referenceConfidence,
   directMeasurementCm, measurementType,
+  referenceOffTrunkDetected,
 }) {
   const formula = getFormulaByScientificName(species)
 
@@ -109,7 +112,7 @@ function calculate({
   const confidence = getConfidence({
     frameQuality, distanceStdPct, validFrames,
     sensorIsDefault: metadata.sensorIsDefault,
-    referenceUsed, referenceConfidence, directMeasurementUsed,
+    referenceUsed, referenceConfidence, directMeasurementUsed, referenceOffTrunkDetected,
   })
 
   return {
