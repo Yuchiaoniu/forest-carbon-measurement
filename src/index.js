@@ -296,7 +296,7 @@ async function processVideo(jobId, videoPath) {
     // 5. AI 視覺分析
     jobs[jobId].step = 'ai_analysis'
     const rawAnalysis = await analyzeTrunkWithRetry(frameBase64s, metadata)
-    const median = getMedianResult(rawAnalysis.frames || [])
+    const median = getMedianResult(rawAnalysis.frames || [], metadata.imageWidth, metadata.imageHeight)
 
     if (!median) throw new Error('無法識別樹幹，請重新拍攝')
 

@@ -2,8 +2,10 @@ const { getFormulaByScientificName } = require('../data/formulaDb')
 
 // 參照物物理尺寸（mm）
 const REFERENCE_SIZES = {
-  creditcard: { width: 85.6, height: 53.98, ratio: 85.6 / 53.98 },  // 1.586
-  a4:         { width: 210,  height: 297,   ratio: 210 / 297 },       // 0.707（短邊/長邊）
+  creditcard: { width: 85.6,  height: 53.98, ratio: 85.6 / 53.98 },  // 1.586
+  a4:         { width: 210,   height: 297,   ratio: 210 / 297 },       // 0.707（短邊/長邊）
+  ruler30:    { width: 300,   height: 30,    ratio: 300 / 30 },        // 10.0（30cm尺）
+  ruler100:   { width: 1000,  height: 30,    ratio: 1000 / 30 },       // 33.3（1m尺）
 }
 
 // 薄透鏡公式計算 DBH
@@ -25,11 +27,13 @@ function calculateWithReference(trunkPx, refPx, refMm) {
 // 長寬比驗證（防止誤判）
 function validateReferenceAspectRatio(type, pixelWidth, pixelHeight) {
   if (!pixelWidth || !pixelHeight || pixelHeight === 0) return false
-  const observed = pixelWidth / pixelHeight
   const ref = REFERENCE_SIZES[type]
   if (!ref) return false
+  // 直尺細長，長寬比誤差大，跳過長寬比驗證，只確認 pixelWidth > pixelHeight
+  if (type === 'ruler30' || type === 'ruler100') return pixelWidth > pixelHeight
+  const observed = pixelWidth / pixelHeight
   const expected = ref.ratio
-  const tolerance = 0.15  // ±15%
+  const tolerance = 0.20  // ±20%（放寬，允許輕微傾斜）
   return Math.abs(observed - expected) / expected <= tolerance
 }
 
