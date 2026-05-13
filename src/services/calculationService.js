@@ -1,40 +1,18 @@
 const { getFormulaByScientificName } = require('../data/formulaDb')
 
-// 參照物物理尺寸（mm）
+// 參照物物理尺寸（mm）- 代表長度方向
 const REFERENCE_SIZES = {
-  creditcard: { width: 85.6,  height: 53.98, ratio: 85.6 / 53.98 },  // 1.586
-  a4:         { width: 210,   height: 297,   ratio: 210 / 297 },       // 0.707（短邊/長邊）
-  ruler30:    { width: 300,   height: 30,    ratio: 300 / 30 },        // 10.0（30cm尺）
-  ruler100:   { width: 1000,  height: 30,    ratio: 1000 / 30 },       // 33.3（1m尺）
+  creditcard: { width: 85.6,  height: 53.98 },
+  a4:         { width: 210,   height: 297   },
+  ruler30:    { width: 300,   height: 30    },
+  ruler100:   { width: 1000,  height: 30    },
 }
 
-// 薄透鏡公式計算 DBH
+// 薄透鏡公式計算 DBH（公分）
 function calcDbh(pixelWidth, sensorWidthMm, distanceM, imageWidthPx, focalLengthMm) {
-  const distanceMm = distanceM * 1000
-  if (!pixelWidth || !sensorWidthMm || !distanceMm || !imageWidthPx || !focalLengthMm) return null
-  const dbhMm = (pixelWidth * sensorWidthMm * distanceMm) / (imageWidthPx * focalLengthMm)
+  if (!pixelWidth || !sensorWidthMm || !distanceM || !imageWidthPx || !focalLengthMm) return null
+  const dbhMm = (pixelWidth * sensorWidthMm * distanceM * 1000) / (imageWidthPx * focalLengthMm)
   return Math.round(dbhMm) / 10
-}
-
-// 比例尺換算 DBH（有實體參照物時使用）
-function calculateWithReference(trunkPx, refPx, refMm) {
-  if (!trunkPx || !refPx || !refMm) return null
-  const scaleMMperPx = refMm / refPx
-  const dbhMm = trunkPx * scaleMMperPx
-  return { dbhCm: Math.round(dbhMm / 10 * 10) / 10, scaleMMperPx }
-}
-
-// 長寬比驗證（防止誤判）
-function validateReferenceAspectRatio(type, pixelWidth, pixelHeight) {
-  if (!pixelWidth || !pixelHeight || pixelHeight === 0) return false
-  const ref = REFERENCE_SIZES[type]
-  if (!ref) return false
-  // 直尺細長，長寬比誤差大，跳過長寬比驗證，只確認 pixelWidth > pixelHeight
-  if (type === 'ruler30' || type === 'ruler100') return pixelWidth > pixelHeight
-  const observed = pixelWidth / pixelHeight
-  const expected = ref.ratio
-  const tolerance = 0.20  // ±20%（放寬，允許輕微傾斜）
-  return Math.abs(observed - expected) / expected <= tolerance
 }
 
 function estimateHeight(dbhCm, formula) {
@@ -50,42 +28,38 @@ function calcCarbon(volumeM3, formula) {
 }
 
 function getConfidence({ frameQuality, distanceStdPct, validFrames, sensorIsDefault, referenceUsed }) {
-  if (referenceUsed) return 'high'  // 有參照物，強制 high
+  if (referenceUsed) return 'high'
   if (frameQuality === 'good' && distanceStdPct < 20 && validFrames >= 2 && !sensorIsDefault) return 'high'
   if (frameQuality === 'low' || distanceStdPct >= 20 || validFrames < 2) return 'low'
   return 'medium'
 }
 
-function calculate({ species, pixelWidth, estimatedDistanceM, distanceStdPct,
+function calculate({
+  species, pixelWidth, estimatedDistanceM, distanceStdPct,
   validFrames, metadata, frameQuality,
-  referenceDetected, referenceType, referencePixelWidth, referencePixelHeight }) {
-
+  referenceDetected, referenceType, trunkToReferenceRatio,
+  referencePixelWidth, referencePixelHeight,
+}) {
   const formula = getFormulaByScientificName(species)
 
-  // 嘗試參照物路徑
   let dbhCm = null
   let referenceUsed = false
-  let referenceScaleMmPerPx = null
 
-  if (referenceDetected && referenceType && referencePixelWidth > 0) {
-    const valid = validateReferenceAspectRatio(referenceType, referencePixelWidth, referencePixelHeight)
-    if (valid) {
-      const refMm = REFERENCE_SIZES[referenceType]?.width
-      const refResult = calculateWithReference(pixelWidth, referencePixelWidth, refMm)
-      if (refResult) {
-        dbhCm = refResult.dbhCm
-        referenceUsed = true
-        referenceScaleMmPerPx = Math.round(refResult.scaleMMperPx * 10000) / 10000
-        console.log(`[calc] 參照物模式 (${referenceType}) scale=${referenceScaleMmPerPx}mm/px DBH=${dbhCm}cm`)
-      }
-    } else {
-      console.log(`[calc] 參照物長寬比驗證失敗 (${referenceType})，改用 AI 估距`)
+  // 路徑 A：倍數比較（優先）
+  if (referenceDetected && referenceType && trunkToReferenceRatio > 0) {
+    const refSize = REFERENCE_SIZES[referenceType]
+    if (refSize) {
+      dbhCm = Math.round(trunkToReferenceRatio * refSize.width / 10 * 10) / 10
+      referenceUsed = true
+      console.log(`[calc] 路徑A (${referenceType}) ratio=${trunkToReferenceRatio.toFixed(3)} → DBH=${dbhCm}cm`)
     }
   }
 
-  // 無參照物或驗證失敗：薄透鏡公式
+  // 路徑 B：薄透鏡公式（備援）
   let distanceWarning = false
   let distanceUsedM = estimatedDistanceM
+  let routeBDbhCm = null  // 路徑B的估算值，供修正因子學習使用
+
   if (!referenceUsed) {
     if (!distanceUsedM || distanceUsedM <= 0 || distanceUsedM > 50) {
       distanceUsedM = 3.0
@@ -93,12 +67,24 @@ function calculate({ species, pixelWidth, estimatedDistanceM, distanceStdPct,
     }
     dbhCm = calcDbh(pixelWidth, metadata.sensorWidthMm, distanceUsedM, metadata.imageWidth, metadata.focalLengthMm)
     if (!dbhCm) return null
+  } else {
+    // 路徑A成功時，同時計算路徑B（用於修正因子學習）
+    if (distanceUsedM > 0 && distanceUsedM <= 50 && pixelWidth > 0) {
+      routeBDbhCm = calcDbh(pixelWidth, metadata.sensorWidthMm, distanceUsedM, metadata.imageWidth, metadata.focalLengthMm)
+    }
+    if (!routeBDbhCm) {
+      // 距離估算不可用時，用路徑A值本身（修正因子=1，不影響系統但也不學習）
+      routeBDbhCm = dbhCm
+    }
   }
 
   const heightM = estimateHeight(dbhCm, formula)
   const volumeM3 = calcVolume(dbhCm, heightM, formula)
   const carbonKg = calcCarbon(volumeM3, formula)
-  const confidence = getConfidence({ frameQuality, distanceStdPct, validFrames, sensorIsDefault: metadata.sensorIsDefault, referenceUsed })
+  const confidence = getConfidence({
+    frameQuality, distanceStdPct, validFrames,
+    sensorIsDefault: metadata.sensorIsDefault, referenceUsed,
+  })
 
   return {
     dbhCm: Math.round(dbhCm * 10) / 10,
@@ -111,7 +97,7 @@ function calculate({ species, pixelWidth, estimatedDistanceM, distanceStdPct,
     distanceUsedM: referenceUsed ? null : distanceUsedM,
     referenceUsed,
     referenceType: referenceUsed ? referenceType : null,
-    referenceScaleMmPerPx,
+    routeBDbhCm,  // 路徑B的平行估算，供支柱二學習
   }
 }
 

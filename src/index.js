@@ -311,6 +311,7 @@ async function processVideo(jobId, videoPath) {
       frameQuality,
       referenceDetected: median.referenceDetected,
       referenceType: median.referenceType,
+      trunkToReferenceRatio: median.trunkToReferenceRatio,
       referencePixelWidth: median.referencePixelWidth,
       referencePixelHeight: median.referencePixelHeight,
     })
@@ -348,7 +349,7 @@ async function processVideo(jobId, videoPath) {
 
     // 有參照物時自動寫入 ground_truth 並快照修正因子
     if (calc.referenceUsed) {
-      insertGroundTruth({ treeId, actualDbhCm: calc.dbhCm, estimatedDbhCm: calc.dbhCm, source: 'reference' })
+      insertGroundTruth({ treeId, actualDbhCm: calc.dbhCm, estimatedDbhCm: calc.routeBDbhCm, source: 'reference' })
       if (species) snapshotFactor(species, 'reference_measurement')
       console.log(`[ground_truth] 參照物測量自動寫入 tree=${treeId}`)
     }
