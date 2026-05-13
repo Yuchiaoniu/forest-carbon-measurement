@@ -314,6 +314,8 @@ async function processVideo(jobId, videoPath) {
       trunkToReferenceRatio: median.trunkToReferenceRatio,
       referencePixelWidth: median.referencePixelWidth,
       referencePixelHeight: median.referencePixelHeight,
+      referenceEstimatedWidthMm: median.referenceEstimatedWidthMm,
+      referenceConfidence: median.referenceConfidence,
     })
     if (!calc) throw new Error(`DBH 計算失敗 [pixelWidth=${median.pixelWidth}, dist=${median.estimatedDistanceM}, focal=${metadata.focalLengthMm}, sensor=${metadata.sensorWidthMm}, imgW=${metadata.imageWidth}]`)
 

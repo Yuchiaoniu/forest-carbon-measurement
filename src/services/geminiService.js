@@ -19,20 +19,23 @@ async function analyzeTrunk(frameBase64Array, metadata) {
             items: {
               type: SchemaType.OBJECT,
               properties: {
-                trunkDetected:          { type: SchemaType.BOOLEAN },
-                trunkWidthFraction:     { type: SchemaType.NUMBER },
-                estimatedDistanceM:     { type: SchemaType.NUMBER },
-                breastHeightVisible:    { type: SchemaType.BOOLEAN },
-                referenceDetected:      { type: SchemaType.BOOLEAN },
-                referenceType:          { type: SchemaType.STRING },
-                trunkToReferenceRatio:  { type: SchemaType.NUMBER },
-                referenceWidthFraction: { type: SchemaType.NUMBER },
-                referenceHeightFraction:{ type: SchemaType.NUMBER },
+                trunkDetected:              { type: SchemaType.BOOLEAN },
+                trunkWidthFraction:         { type: SchemaType.NUMBER },
+                estimatedDistanceM:         { type: SchemaType.NUMBER },
+                breastHeightVisible:        { type: SchemaType.BOOLEAN },
+                referenceDetected:          { type: SchemaType.BOOLEAN },
+                referenceType:              { type: SchemaType.STRING },
+                trunkToReferenceRatio:      { type: SchemaType.NUMBER },
+                referenceWidthFraction:     { type: SchemaType.NUMBER },
+                referenceHeightFraction:    { type: SchemaType.NUMBER },
+                referenceEstimatedWidthMm:  { type: SchemaType.NUMBER },
+                referenceConfidence:        { type: SchemaType.NUMBER },
               },
               required: [
                 'trunkDetected', 'trunkWidthFraction', 'estimatedDistanceM',
                 'breastHeightVisible', 'referenceDetected', 'referenceType',
                 'trunkToReferenceRatio', 'referenceWidthFraction', 'referenceHeightFraction',
+                'referenceEstimatedWidthMm', 'referenceConfidence',
               ],
             },
           },
@@ -63,20 +66,43 @@ async function analyzeTrunk(frameBase64Array, metadata) {
    - 只在 referenceDetected=true 時填入有效值；否則填 0
    - 例：樹幹 ~38mm，信用卡長邊 85.6mm → ratio = 38/85.6 = 0.44
    - 例：樹幹 ~210mm，A4 短邊 210mm   → ratio = 210/210 = 1.00
-   - 例：樹幹 ~60mm，30cm 尺          → ratio = 60/300 = 0.20
 
 【實體參照物偵測】
-6. referenceDetected：畫面中是否有已知尺寸的參照物（貼近或靠著樹幹）
-7. referenceType：填入以下其中一個
-   - "creditcard"  信用卡 85.6mm×53.98mm，長寬比 1.59
-   - "a4"          A4 紙 210mm×297mm，長寬比 0.71（直放）
-   - "ruler30"     30 公分直尺
-   - "ruler100"    1 公尺直尺
-   - ""            未偵測到
-8. referenceWidthFraction：參照物寬度（代表長度方向）佔畫面寬度比例
-   - 信用卡：長邊（85.6mm）；A4：短邊（210mm）；直尺：長度方向
-   - 未偵測到填 0
-9. referenceHeightFraction：參照物高度佔畫面高度比例，未偵測到填 0
+6. referenceDetected：畫面中是否有可判斷尺寸的實體物件（貼近或靠著樹幹）
+
+7. referenceType：依以下優先順序填入最佳選項
+
+   ★ 已知清單（優先辨識，尺寸固定，精度高）：
+   - "creditcard"    信用卡／金融卡／悠遊卡   85.6×53.98mm（長寬比 1.59）
+   - "businesscard"  台灣標準名片             90×54mm（長寬比 1.67）
+   - "a4"            A4 紙                   210×297mm（長寬比 0.71，直放）
+   - "a5"            A5 紙                   148×210mm
+   - "b5notebook"    B5 筆記本               182×257mm
+   - "ruler30"       30cm 直尺               300mm
+   - "ruler100"      1m 直尺                 1000mm
+   - "banknote100"   台幣100元紙鈔            130×65mm
+   - "banknote500"   台幣500元紙鈔            154×67mm
+   - "banknote1000"  台幣1000元紙鈔           160×80mm
+
+   ★ 開放辨識（不在清單但你認識且知道尺寸）：
+   - "unknown"  填此值，同時在 referenceEstimatedWidthMm 填入你估算的實際代表長度（mm）
+               例：iPhone 15 Pro 寬約 71mm、A6 紙 105mm、國際護照 125mm
+
+   - ""         完全無法判斷尺寸 → referenceDetected=false
+
+8. referenceEstimatedWidthMm：
+   - 已知清單物件：填 0（系統會自動查表）
+   - "unknown" 物件：填入你估算的實際代表長度（mm）
+   - 未偵測到：填 0
+
+9. referenceConfidence：對參照物辨識的信心（0.0–1.0）
+   - 已知清單且完整可見：0.9–1.0
+   - 已知清單但部分遮擋或角度傾斜：0.6–0.8
+   - "unknown" 但有把握估算尺寸：0.5–0.7
+   - 不確定：填 0.0 並將 referenceDetected=false
+
+10. referenceWidthFraction：參照物代表長度方向佔畫面寬度比例（0.0–1.0），未偵測到填 0
+11. referenceHeightFraction：參照物高度佔畫面高度比例，未偵測到填 0
 
 注意：參照物傾斜 45° 以內仍可偵測，傾斜 >45° 才填 referenceDetected=false。`
 
@@ -102,7 +128,6 @@ function getMedianResult(frames, imageWidth, imageHeight) {
 
   const raw = frames.map(normalize)
 
-  // 合理性篩選：trunk 不超過畫面 80%（通常是誤判）
   const valid = raw.filter(f =>
     f.trunkDetected &&
     f.pixelWidth > 0 &&
@@ -120,17 +145,30 @@ function getMedianResult(frames, imageWidth, imageHeight) {
 
   // 路徑 A：有 referenceDetected 且 trunkToReferenceRatio > 0 的幀
   const refFrames = valid.filter(f =>
-    f.referenceDetected && (f.trunkToReferenceRatio || 0) > 0 && f.referencePixelWidth > 0
+    f.referenceDetected &&
+    (f.trunkToReferenceRatio || 0) > 0 &&
+    f.referencePixelWidth > 0 &&
+    (f.referenceConfidence || 0) >= 0.4
   )
   let referenceDetected = false, referenceType = ''
   let trunkToReferenceRatio = 0, referencePixelWidth = 0, referencePixelHeight = 0
+  let referenceEstimatedWidthMm = 0, referenceConfidence = 0
 
   if (refFrames.length > 0) {
     referenceDetected = true
-    referenceType = refFrames[0].referenceType
-    trunkToReferenceRatio = median(refFrames.map(f => f.trunkToReferenceRatio))
-    referencePixelWidth = median(refFrames.map(f => f.referencePixelWidth))
-    referencePixelHeight = median(refFrames.map(f => f.referencePixelHeight))
+    // referenceType 取出現最多次的那個
+    const typeCounts = {}
+    refFrames.forEach(f => { typeCounts[f.referenceType] = (typeCounts[f.referenceType] || 0) + 1 })
+    referenceType = Object.entries(typeCounts).sort((a, b) => b[1] - a[1])[0][0]
+
+    const sameTypeFrames = refFrames.filter(f => f.referenceType === referenceType)
+    trunkToReferenceRatio      = median(sameTypeFrames.map(f => f.trunkToReferenceRatio))
+    referencePixelWidth        = median(sameTypeFrames.map(f => f.referencePixelWidth))
+    referencePixelHeight       = median(sameTypeFrames.map(f => f.referencePixelHeight))
+    referenceConfidence        = median(sameTypeFrames.map(f => f.referenceConfidence || 0))
+    // unknown 類型時取非零的估算寬度中位數
+    const estWidths = sameTypeFrames.map(f => f.referenceEstimatedWidthMm || 0).filter(v => v > 0)
+    referenceEstimatedWidthMm  = estWidths.length > 0 ? median(estWidths) : 0
   }
 
   return {
@@ -143,6 +181,8 @@ function getMedianResult(frames, imageWidth, imageHeight) {
     trunkToReferenceRatio,
     referencePixelWidth,
     referencePixelHeight,
+    referenceEstimatedWidthMm,
+    referenceConfidence,
   }
 }
 
