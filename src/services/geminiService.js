@@ -19,23 +19,26 @@ async function analyzeTrunk(frameBase64Array, metadata) {
             items: {
               type: SchemaType.OBJECT,
               properties: {
-                trunkDetected:              { type: SchemaType.BOOLEAN },
-                trunkWidthFraction:         { type: SchemaType.NUMBER },
-                estimatedDistanceM:         { type: SchemaType.NUMBER },
-                breastHeightVisible:        { type: SchemaType.BOOLEAN },
-                referenceDetected:          { type: SchemaType.BOOLEAN },
-                referenceType:              { type: SchemaType.STRING },
-                trunkToReferenceRatio:      { type: SchemaType.NUMBER },
-                referenceWidthFraction:     { type: SchemaType.NUMBER },
-                referenceHeightFraction:    { type: SchemaType.NUMBER },
-                referenceEstimatedWidthMm:  { type: SchemaType.NUMBER },
-                referenceConfidence:        { type: SchemaType.NUMBER },
+                trunkDetected:             { type: SchemaType.BOOLEAN },
+                trunkWidthFraction:        { type: SchemaType.NUMBER },
+                estimatedDistanceM:        { type: SchemaType.NUMBER },
+                breastHeightVisible:       { type: SchemaType.BOOLEAN },
+                referenceDetected:         { type: SchemaType.BOOLEAN },
+                referenceType:             { type: SchemaType.STRING },
+                trunkToReferenceRatio:     { type: SchemaType.NUMBER },
+                referenceWidthFraction:    { type: SchemaType.NUMBER },
+                referenceHeightFraction:   { type: SchemaType.NUMBER },
+                referenceEstimatedWidthMm: { type: SchemaType.NUMBER },
+                referenceConfidence:       { type: SchemaType.NUMBER },
+                directMeasurementCm:       { type: SchemaType.NUMBER },
+                measurementType:           { type: SchemaType.STRING },
               },
               required: [
                 'trunkDetected', 'trunkWidthFraction', 'estimatedDistanceM',
                 'breastHeightVisible', 'referenceDetected', 'referenceType',
                 'trunkToReferenceRatio', 'referenceWidthFraction', 'referenceHeightFraction',
                 'referenceEstimatedWidthMm', 'referenceConfidence',
+                'directMeasurementCm', 'measurementType',
               ],
             },
           },
@@ -51,31 +54,32 @@ async function analyzeTrunk(frameBase64Array, metadata) {
 
 對每張圖片回傳以下資訊：
 
-【樹幹偵測】
-1. trunkDetected：是否清楚看到樹幹
-2. breastHeightVisible：胸高（地面往上約 1.3 公尺）是否在畫面內
-3. estimatedDistanceM：相機到樹幹中心的距離（公尺），根據透視感判斷
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+【路徑0：直接量測讀數】 ← 最高精度，優先判斷
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+如果畫面中有人用捲尺、皮尺或直尺直接量測樹幹，且能清楚看到數字讀數：
 
-【樹幹寬度 - 兩種量法都要填】
-4. trunkWidthFraction：胸高處樹幹寬度佔畫面寬度的比例（0.0–1.0）
-   - 只測樹幹本體（樹皮左緣到右緣），不含背景和光影
-   - 一棵中型樹在 2–3 公尺距離通常是 0.10–0.30
-   - 若 >0.60 表示相機非常近，請重新評估
+1. directMeasurementCm：讀到的數值（公分）
+   - 捲尺 / 皮尺繞樹一圈 → 填周長讀數（cm），measurementType="circumference"
+   - 直尺直接橫量樹幹直徑 → 填直徑讀數（cm），measurementType="diameter"
+   - 看不到讀數 / 沒有直接量測 → 填 0
 
-5. trunkToReferenceRatio：胸高處樹幹寬度是參照物代表長度的幾倍
-   - 只在 referenceDetected=true 時填入有效值；否則填 0
-   - 例：樹幹 ~38mm，信用卡長邊 85.6mm → ratio = 38/85.6 = 0.44
-   - 例：樹幹 ~210mm，A4 短邊 210mm   → ratio = 210/210 = 1.00
+2. measurementType：
+   - "circumference"  捲尺繞圈，讀到的是周長
+   - "diameter"       直尺橫量，讀到的是直徑
+   - ""               無直接量測
 
-【實體參照物偵測】
-6. referenceDetected：畫面中是否有可判斷尺寸的實體物件（貼近或靠著樹幹）
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+【路徑A：參照物倍數比較】 ← 次優先
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+3. referenceDetected：畫面中是否有可判斷尺寸的實體物件（貼近或靠著樹幹）
 
-7. referenceType：依以下優先順序填入最佳選項
+4. referenceType：依以下優先順序填入
 
-   ★ 已知清單（優先辨識，尺寸固定，精度高）：
-   - "creditcard"    信用卡／金融卡／悠遊卡   85.6×53.98mm（長寬比 1.59）
-   - "businesscard"  台灣標準名片             90×54mm（長寬比 1.67）
-   - "a4"            A4 紙                   210×297mm（長寬比 0.71，直放）
+   ★ 已知清單（優先，尺寸固定）：
+   - "creditcard"    信用卡／金融卡／悠遊卡   85.6×53.98mm
+   - "businesscard"  台灣標準名片             90×54mm
+   - "a4"            A4 紙                   210×297mm
    - "a5"            A5 紙                   148×210mm
    - "b5notebook"    B5 筆記本               182×257mm
    - "ruler30"       30cm 直尺               300mm
@@ -85,24 +89,30 @@ async function analyzeTrunk(frameBase64Array, metadata) {
    - "banknote1000"  台幣1000元紙鈔           160×80mm
 
    ★ 開放辨識（不在清單但你認識且知道尺寸）：
-   - "unknown"  填此值，同時在 referenceEstimatedWidthMm 填入你估算的實際代表長度（mm）
-               例：iPhone 15 Pro 寬約 71mm、A6 紙 105mm、國際護照 125mm
+   - "unknown"  同時在 referenceEstimatedWidthMm 填入估算實際寬度（mm）
 
-   - ""         完全無法判斷尺寸 → referenceDetected=false
+   - ""  完全無法判斷 → referenceDetected=false
 
-8. referenceEstimatedWidthMm：
-   - 已知清單物件：填 0（系統會自動查表）
-   - "unknown" 物件：填入你估算的實際代表長度（mm）
-   - 未偵測到：填 0
+5. trunkToReferenceRatio：胸高處樹幹寬度是參照物代表長度的幾倍
+   - 只在 referenceDetected=true 時填；否則填 0
+   - 例：樹幹 ~38mm，信用卡 85.6mm → ratio = 0.44
+   - 例：樹幹 ~210mm，A4短邊 210mm  → ratio = 1.00
 
-9. referenceConfidence：對參照物辨識的信心（0.0–1.0）
-   - 已知清單且完整可見：0.9–1.0
-   - 已知清單但部分遮擋或角度傾斜：0.6–0.8
-   - "unknown" 但有把握估算尺寸：0.5–0.7
-   - 不確定：填 0.0 並將 referenceDetected=false
+6. referenceEstimatedWidthMm：已知清單填 0；unknown 類型填估算寬度（mm）
+7. referenceConfidence：辨識信心 0.0–1.0（清單且完整可見→0.9–1.0；遮擋→0.6–0.8；unknown→0.5–0.7）
+8. referenceWidthFraction：參照物代表長度方向佔畫面寬度比例（0.0–1.0），未偵測填 0
+9. referenceHeightFraction：參照物高度佔畫面高度比例，未偵測填 0
 
-10. referenceWidthFraction：參照物代表長度方向佔畫面寬度比例（0.0–1.0），未偵測到填 0
-11. referenceHeightFraction：參照物高度佔畫面高度比例，未偵測到填 0
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+【路徑B：樹幹測量（備援）】
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+10. trunkDetected：是否清楚看到樹幹
+11. breastHeightVisible：胸高（距地面約 1.3 公尺）是否在畫面內
+12. estimatedDistanceM：相機到樹幹中心的距離（公尺），根據透視感判斷
+13. trunkWidthFraction：胸高處樹幹寬度佔畫面寬度比例（0.0–1.0）
+    - 只測樹幹本體（左緣到右緣），不含背景和光影
+    - 中型樹在 2–3 公尺距離通常是 0.10–0.30
+    - 若 >0.60 表示相機非常近，請重新評估
 
 注意：參照物傾斜 45° 以內仍可偵測，傾斜 >45° 才填 referenceDetected=false。`
 
@@ -128,22 +138,39 @@ function getMedianResult(frames, imageWidth, imageHeight) {
 
   const raw = frames.map(normalize)
 
+  const sortedArr = (arr) => [...arr].sort((a, b) => a - b)
+  const median = (arr) => { const s = sortedArr(arr); return s[Math.floor(s.length / 2)] }
+  const modeStr = (arr) => Object.entries(
+    arr.reduce((acc, v) => { acc[v] = (acc[v] || 0) + 1; return acc }, {})
+  ).sort((a, b) => b[1] - a[1])[0][0]
+
+  // ── 路徑 0：直接讀數（從所有幀，包含捲尺特寫）
+  const directFrames = raw.filter(f => (f.directMeasurementCm || 0) > 0)
+  let directMeasurementCm = 0, measurementType = ''
+  if (directFrames.length > 0) {
+    directMeasurementCm = median(directFrames.map(f => f.directMeasurementCm))
+    measurementType = modeStr(directFrames.map(f => f.measurementType || 'diameter'))
+  }
+
+  // ── 有效幀篩選（樹幹清楚可見）
   const valid = raw.filter(f =>
     f.trunkDetected &&
     f.pixelWidth > 0 &&
     f.pixelWidth < iw * 0.8 &&
     f.estimatedDistanceM > 0
   )
-  if (valid.length === 0) return null
 
-  const sorted = (arr) => [...arr].sort((a, b) => a - b)
-  const median = (arr) => { const s = sorted(arr); return s[Math.floor(s.length / 2)] }
+  // 有直接讀數時，即使 valid 幀不足也可繼續
+  if (valid.length === 0 && directMeasurementCm === 0) return null
 
-  const distances = valid.map(f => f.estimatedDistanceM)
-  const distStd = stdDev(distances)
-  const distMean = distances.reduce((a, b) => a + b, 0) / distances.length
+  // 有效幀不足時用空值（DBH 會由路徑 0 提供）
+  const pixelWidth        = valid.length > 0 ? median(valid.map(f => f.pixelWidth)) : 0
+  const estimatedDistanceM = valid.length > 0 ? median(valid.map(f => f.estimatedDistanceM)) : 0
+  const distances         = valid.map(f => f.estimatedDistanceM)
+  const distMean          = distances.length > 0 ? distances.reduce((a, b) => a + b, 0) / distances.length : 0
+  const distStd           = distances.length > 0 ? stdDev(distances) : 0
 
-  // 路徑 A：有 referenceDetected 且 trunkToReferenceRatio > 0 的幀
+  // ── 路徑 A：參照物倍數比較
   const refFrames = valid.filter(f =>
     f.referenceDetected &&
     (f.trunkToReferenceRatio || 0) > 0 &&
@@ -156,24 +183,19 @@ function getMedianResult(frames, imageWidth, imageHeight) {
 
   if (refFrames.length > 0) {
     referenceDetected = true
-    // referenceType 取出現最多次的那個
-    const typeCounts = {}
-    refFrames.forEach(f => { typeCounts[f.referenceType] = (typeCounts[f.referenceType] || 0) + 1 })
-    referenceType = Object.entries(typeCounts).sort((a, b) => b[1] - a[1])[0][0]
-
-    const sameTypeFrames = refFrames.filter(f => f.referenceType === referenceType)
-    trunkToReferenceRatio      = median(sameTypeFrames.map(f => f.trunkToReferenceRatio))
-    referencePixelWidth        = median(sameTypeFrames.map(f => f.referencePixelWidth))
-    referencePixelHeight       = median(sameTypeFrames.map(f => f.referencePixelHeight))
-    referenceConfidence        = median(sameTypeFrames.map(f => f.referenceConfidence || 0))
-    // unknown 類型時取非零的估算寬度中位數
-    const estWidths = sameTypeFrames.map(f => f.referenceEstimatedWidthMm || 0).filter(v => v > 0)
-    referenceEstimatedWidthMm  = estWidths.length > 0 ? median(estWidths) : 0
+    referenceType = modeStr(refFrames.map(f => f.referenceType))
+    const sameType = refFrames.filter(f => f.referenceType === referenceType)
+    trunkToReferenceRatio     = median(sameType.map(f => f.trunkToReferenceRatio))
+    referencePixelWidth       = median(sameType.map(f => f.referencePixelWidth))
+    referencePixelHeight      = median(sameType.map(f => f.referencePixelHeight))
+    referenceConfidence       = median(sameType.map(f => f.referenceConfidence || 0))
+    const estWidths = sameType.map(f => f.referenceEstimatedWidthMm || 0).filter(v => v > 0)
+    referenceEstimatedWidthMm = estWidths.length > 0 ? median(estWidths) : 0
   }
 
   return {
-    pixelWidth: median(valid.map(f => f.pixelWidth)),
-    estimatedDistanceM: median(distances),
+    pixelWidth,
+    estimatedDistanceM,
     validFrames: valid.length,
     distanceStdPct: distMean > 0 ? (distStd / distMean) * 100 : 100,
     referenceDetected,
@@ -183,6 +205,8 @@ function getMedianResult(frames, imageWidth, imageHeight) {
     referencePixelHeight,
     referenceEstimatedWidthMm,
     referenceConfidence,
+    directMeasurementCm,
+    measurementType,
   }
 }
 

@@ -316,6 +316,8 @@ async function processVideo(jobId, videoPath) {
       referencePixelHeight: median.referencePixelHeight,
       referenceEstimatedWidthMm: median.referenceEstimatedWidthMm,
       referenceConfidence: median.referenceConfidence,
+      directMeasurementCm: median.directMeasurementCm,
+      measurementType: median.measurementType,
     })
     if (!calc) throw new Error(`DBH 計算失敗 [pixelWidth=${median.pixelWidth}, dist=${median.estimatedDistanceM}, focal=${metadata.focalLengthMm}, sensor=${metadata.sensorWidthMm}, imgW=${metadata.imageWidth}]`)
 
@@ -349,11 +351,12 @@ async function processVideo(jobId, videoPath) {
     })
     const chainJobId = createBlockchainJob(treeId)
 
-    // 有參照物時自動寫入 ground_truth 並快照修正因子
-    if (calc.referenceUsed) {
-      insertGroundTruth({ treeId, actualDbhCm: calc.dbhCm, estimatedDbhCm: calc.routeBDbhCm, source: 'reference' })
-      if (species) snapshotFactor(species, 'reference_measurement')
-      console.log(`[ground_truth] 參照物測量自動寫入 tree=${treeId}`)
+    // 路徑 0 或路徑 A 時自動寫入 ground_truth 並快照修正因子
+    if (calc.directMeasurementUsed || calc.referenceUsed) {
+      const gtSource = calc.directMeasurementUsed ? 'direct_measurement' : 'reference'
+      insertGroundTruth({ treeId, actualDbhCm: calc.dbhCm, estimatedDbhCm: calc.routeBDbhCm, source: gtSource })
+      if (species) snapshotFactor(species, gtSource)
+      console.log(`[ground_truth] ${gtSource} 自動寫入 tree=${treeId} actual=${calc.dbhCm}cm estimated=${calc.routeBDbhCm}cm`)
     }
 
     // 8. 上鏈
