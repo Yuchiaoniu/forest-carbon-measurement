@@ -10,14 +10,14 @@ function insert(data) {
   getDb().prepare(`
     INSERT INTO trees (id, plot_id, video_hash, species, species_source, dbh_cm,
       volume_m3, carbon_kg, confidence, gps, focal_length_mm, sensor_width_mm,
-      device_model, frame_quality, tx_hash, tx_status, raw_result)
+      device_model, frame_quality, raw_result, original_dbh_cm, applied_correction_factor)
     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
   `).run(
     id, data.plotId || null, data.videoHash, data.species, data.speciesSource,
     data.dbhCm, data.volumeM3, data.carbonKg, data.confidence, data.gps,
     data.focalLengthMm, data.sensorWidthMm, data.deviceModel, data.frameQuality,
-    data.txHash || null, data.txStatus || 'pending',
-    JSON.stringify(data.rawResult || {})
+    JSON.stringify(data.rawResult || {}),
+    data.originalDbhCm ?? null, data.appliedCorrectionFactor ?? null
   )
   return id
 }

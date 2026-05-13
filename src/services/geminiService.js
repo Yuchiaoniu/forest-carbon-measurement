@@ -6,7 +6,6 @@ function getClient() {
   return genAI
 }
 
-// 樹幹分析：回傳像素寬度與估算距離
 async function analyzeTrunk(frameBase64Array, metadata) {
   const model = getClient().getGenerativeModel({
     model: 'gemini-2.5-flash',
@@ -20,12 +19,19 @@ async function analyzeTrunk(frameBase64Array, metadata) {
             items: {
               type: SchemaType.OBJECT,
               properties: {
-                trunkDetected:      { type: SchemaType.BOOLEAN },
-                pixelWidth:         { type: SchemaType.NUMBER },
-                estimatedDistanceM: { type: SchemaType.NUMBER },
-                breastHeightVisible:{ type: SchemaType.BOOLEAN },
+                trunkDetected:        { type: SchemaType.BOOLEAN },
+                pixelWidth:           { type: SchemaType.NUMBER },
+                estimatedDistanceM:   { type: SchemaType.NUMBER },
+                breastHeightVisible:  { type: SchemaType.BOOLEAN },
+                referenceDetected:    { type: SchemaType.BOOLEAN },
+                referenceType:        { type: SchemaType.STRING },
+                referencePixelWidth:  { type: SchemaType.NUMBER },
+                referencePixelHeight: { type: SchemaType.NUMBER },
               },
-              required: ['trunkDetected','pixelWidth','estimatedDistanceM','breastHeightVisible'],
+              required: [
+                'trunkDetected','pixelWidth','estimatedDistanceM','breastHeightVisible',
+                'referenceDetected','referenceType','referencePixelWidth','referencePixelHeight',
+              ],
             },
           },
         },
@@ -38,13 +44,23 @@ async function analyzeTrunk(frameBase64Array, metadata) {
   const prompt = `你是林業測量 AI。圖片為手機拍攝的樹木影片關鍵幀。
 相機參數：焦距=${focalLengthMm}mm，感光元件寬=${sensorWidthMm}mm，影像寬=${imageWidth}px。
 
-對每張圖片：
+對每張圖片回傳以下資訊：
+
+【樹幹測量】
 1. trunkDetected：是否看到明確的樹幹
-2. pixelWidth：胸高（約地面1.3公尺）處樹幹的橫向像素寬度（若看不到胸高則取可見最下方）
-3. estimatedDistanceM：根據透視感、景深、場景線索估算相機到樹幹的距離（公尺）
+2. pixelWidth：胸高（約地面1.3公尺）處樹幹的橫向像素寬度
+3. estimatedDistanceM：估算相機到樹幹的距離（公尺），請保守估算
 4. breastHeightVisible：胸高位置是否在畫面內
 
-請保守估算，寧可低估距離也不要高估。`
+【實體參照物偵測】
+5. referenceDetected：畫面中是否有信用卡或 A4 紙
+   - 信用卡：矩形卡片，長寬比約 1.59（85.6mm × 53.98mm），常見於人手持或貼樹幹
+   - A4 紙：白色矩形紙張，長寬比約 1.41（210mm × 297mm）
+6. referenceType：偵測到的類型，填 "creditcard"、"a4" 或 ""（未偵測到）
+7. referencePixelWidth：參照物的橫向像素寬度（信用卡用長邊，A4 用短邊 210mm 那邊），未偵測到填 0
+8. referencePixelHeight：參照物的縱向像素高度，未偵測到填 0
+
+注意：參照物若明顯傾斜或被遮蔽，仍回傳 referenceDetected=false。`
 
   const parts = [{ text: prompt }]
   frameBase64Array.forEach(b64 => {
@@ -55,7 +71,6 @@ async function analyzeTrunk(frameBase64Array, metadata) {
   return JSON.parse(result.response.text())
 }
 
-// 從分析結果取中位數
 function getMedianResult(frames) {
   const valid = frames.filter(f => f.trunkDetected && f.pixelWidth > 0 && f.estimatedDistanceM > 0)
   if (valid.length === 0) return null
@@ -68,11 +83,25 @@ function getMedianResult(frames) {
   const distStd = stdDev(distances)
   const distMean = distances.reduce((a, b) => a + b, 0) / distances.length
 
+  // 參照物：優先取有偵測到的幀
+  const refFrames = valid.filter(f => f.referenceDetected && f.referencePixelWidth > 0)
+  let referenceDetected = false, referenceType = '', referencePixelWidth = 0, referencePixelHeight = 0
+  if (refFrames.length > 0) {
+    referenceDetected = true
+    referenceType = refFrames[0].referenceType
+    referencePixelWidth = median(refFrames.map(f => f.referencePixelWidth))
+    referencePixelHeight = median(refFrames.map(f => f.referencePixelHeight))
+  }
+
   return {
     pixelWidth: median(widths),
     estimatedDistanceM: median(distances),
     validFrames: valid.length,
     distanceStdPct: distMean > 0 ? (distStd / distMean) * 100 : 100,
+    referenceDetected,
+    referenceType,
+    referencePixelWidth,
+    referencePixelHeight,
   }
 }
 
@@ -81,7 +110,6 @@ function stdDev(arr) {
   return Math.sqrt(arr.map(x => (x - mean) ** 2).reduce((a, b) => a + b, 0) / arr.length)
 }
 
-// 樹種辨識（Pl@ntNet fallback）
 async function identifySpeciesFallback(frameBase64Array, gps) {
   const model = getClient().getGenerativeModel({
     model: 'gemini-2.5-flash',
@@ -115,11 +143,9 @@ confidence 0-1，若無法判斷回傳 0.3 以下。`
   return JSON.parse(result.response.text())
 }
 
-// 帶重試的分析（spec: 最多 1 次重試）
 async function analyzeTrunkWithRetry(frameBase64Array, metadata) {
   try {
-    const raw = await analyzeTrunk(frameBase64Array, metadata)
-    return raw
+    return await analyzeTrunk(frameBase64Array, metadata)
   } catch {
     await new Promise(r => setTimeout(r, 2000))
     return analyzeTrunk(frameBase64Array, metadata)

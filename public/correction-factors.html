@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>修正因子學習進度</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: system-ui, sans-serif; background: #f0f4f0; color: #1a2e1a; }
+  .container { max-width: 700px; margin: 0 auto; padding: 24px 16px; }
+  h1 { font-size: 1.3rem; font-weight: 700; margin-bottom: 4px; }
+  .nav { font-size: 0.85rem; margin-bottom: 20px; }
+  .nav a { color: #2d7a2d; text-decoration: none; }
+  .card { background: white; border-radius: 12px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); margin-bottom: 16px; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+  th { text-align: left; padding: 8px 12px; background: #f8faf8; border-bottom: 2px solid #e0e8e0; color: #555; font-weight: 600; }
+  td { padding: 10px 12px; border-bottom: 1px solid #f0f0f0; }
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 12px; font-size: 0.75rem; font-weight: 600; }
+  .badge-ok  { background: #dcfce7; color: #166534; }
+  .badge-low { background: #fef9c3; color: #854d0e; }
+  .empty { text-align: center; padding: 40px; color: #888; }
+  .summary { display: flex; gap: 16px; margin-bottom: 20px; }
+  .stat { flex: 1; background: white; border-radius: 10px; padding: 16px; text-align: center; box-shadow: 0 2px 6px rgba(0,0,0,0.06); }
+  .stat-num { font-size: 1.8rem; font-weight: 700; color: #2d7a2d; }
+  .stat-label { font-size: 0.8rem; color: #666; margin-top: 2px; }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="nav"><a href="/">← 回到測量系統</a></div>
+  <h1>修正因子學習進度</h1>
+  <p style="color:#555;font-size:0.85rem;margin-bottom:20px">
+    系統從實測資料（信用卡/捲尺）學習各樹種的 DBH 修正因子，累積 5 筆以上後自動套用。
+  </p>
+
+  <div class="summary" id="summary">
+    <div class="stat"><div class="stat-num" id="s-total">-</div><div class="stat-label">總 ground truth 筆數</div></div>
+    <div class="stat"><div class="stat-num" id="s-applicable">-</div><div class="stat-label">已達門檻樹種數</div></div>
+    <div class="stat"><div class="stat-num" id="s-pending">-</div><div class="stat-label">資料不足樹種數</div></div>
+  </div>
+
+  <div class="card">
+    <table>
+      <thead>
+        <tr>
+          <th>樹種</th>
+          <th>樣本數</th>
+          <th>修正因子</th>
+          <th>標準差</th>
+          <th>狀態</th>
+        </tr>
+      </thead>
+      <tbody id="table-body">
+        <tr><td colspan="5" class="empty">載入中...</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<script>
+async function load() {
+  const res = await fetch('/api/correction-factors')
+  const data = await res.json()
+
+  const totalRes = await fetch('/api/ground-truth/stats')
+  const stats = await totalRes.json()
+  const total = stats.reduce((s, r) => s + (r.count || 0), 0)
+  const applicable = data.filter(d => d.applicable).length
+  const pending = data.filter(d => !d.applicable).length
+
+  document.getElementById('s-total').textContent = total
+  document.getElementById('s-applicable').textContent = applicable
+  document.getElementById('s-pending').textContent = pending
+
+  const tbody = document.getElementById('table-body')
+  if (data.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="5" class="empty">尚無資料，請先上傳影片並回報實測值</td></tr>'
+    return
+  }
+
+  tbody.innerHTML = data.map(d => `
+    <tr>
+      <td style="font-style:italic">${d.species}</td>
+      <td>${d.sampleCount}${d.recentCount ? ` <small style="color:#888">(近期 ${d.recentCount})</small>` : ''}</td>
+      <td>${d.applicable ? d.correctionFactor : '—'}</td>
+      <td>${d.applicable ? d.stdDev : '—'}</td>
+      <td>
+        ${d.applicable
+          ? '<span class="badge badge-ok">✅ 套用中</span>'
+          : `<span class="badge badge-low">需 ${d.minSamples - d.sampleCount} 筆</span>`}
+      </td>
+    </tr>
+  `).join('')
+}
+
+load()
+</script>
+</body>
+</html>

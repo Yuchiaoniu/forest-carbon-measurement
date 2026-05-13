@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>量測記錄 Dashboard</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: system-ui, sans-serif; background: #f0f4f0; color: #1a2e1a; }
+.container { max-width: 820px; margin: 0 auto; padding: 24px 16px; }
+
+/* Nav */
+.nav { font-size: 0.85rem; margin-bottom: 20px; }
+.nav a { color: #2d7a2d; text-decoration: none; }
+h1 { font-size: 1.3rem; font-weight: 700; margin-bottom: 4px; }
+.subtitle { color: #555; font-size: 0.85rem; margin-bottom: 20px; }
+
+/* Stats */
+.stats { display: flex; gap: 12px; margin-bottom: 20px; }
+.stat { flex: 1; background: white; border-radius: 10px; padding: 14px 16px;
+  text-align: center; box-shadow: 0 2px 6px rgba(0,0,0,0.06); }
+.stat-num { font-size: 1.7rem; font-weight: 700; color: #2d7a2d; }
+.stat-label { font-size: 0.75rem; color: #666; margin-top: 2px; }
+
+/* Toolbar */
+.toolbar { display: flex; gap: 10px; margin-bottom: 16px; flex-wrap: wrap; align-items: center; }
+.toolbar select, .toolbar input {
+  padding: 7px 12px; border: 1px solid #cce0cc; border-radius: 8px;
+  background: white; font-size: 0.85rem; color: #1a2e1a; }
+.toolbar select:focus, .toolbar input:focus { outline: none; border-color: #2d7a2d; }
+.btn { padding: 7px 14px; border-radius: 8px; border: none; cursor: pointer;
+  font-size: 0.85rem; font-weight: 600; }
+.btn-primary { background: #2d7a2d; color: white; }
+.btn-primary:hover { background: #246624; }
+.btn-outline { background: white; color: #2d7a2d; border: 1px solid #2d7a2d; }
+.btn-outline:hover { background: #f0f9f0; }
+.ml-auto { margin-left: auto; }
+
+/* Card */
+.card { background: white; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  margin-bottom: 12px; overflow: hidden; }
+.card-header { display: flex; align-items: center; gap: 10px; padding: 14px 18px;
+  cursor: pointer; user-select: none; }
+.tree-no, .species-name { user-select: text; }
+.card-header:hover { background: #f8faf8; }
+.tree-no { font-weight: 700; font-size: 1rem; color: #2d7a2d; min-width: 48px; }
+.species-name { font-weight: 600; font-size: 0.95rem; flex: 1; }
+.species-src { font-size: 0.75rem; color: #888; font-style: italic; }
+.badges { display: flex; gap: 6px; align-items: center; }
+.badge { display: inline-block; padding: 3px 9px; border-radius: 12px;
+  font-size: 0.72rem; font-weight: 600; white-space: nowrap; }
+.badge-high    { background: #dcfce7; color: #166534; }
+.badge-medium  { background: #fef9c3; color: #854d0e; }
+.badge-low     { background: #fee2e2; color: #991b1b; }
+.badge-chain   { background: #dbeafe; color: #1e40af; }
+.badge-pending { background: #f1f5f9; color: #64748b; }
+.badge-failed  { background: #fee2e2; color: #991b1b; }
+.chevron { font-size: 0.8rem; color: #888; transition: transform 0.2s; }
+.card.open .chevron { transform: rotate(180deg); }
+
+/* Card body */
+.card-body { display: none; padding: 0 18px 16px; }
+.card.open .card-body { display: block; }
+
+.sections { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; }
+.section-title { font-size: 0.78rem; font-weight: 700; color: #2d7a2d;
+  text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 8px; }
+.kv-table { width: 100%; font-size: 0.82rem; border-collapse: collapse; }
+.kv-table td { padding: 4px 0; vertical-align: top; }
+.kv-table td:first-child { color: #666; width: 44%; padding-right: 8px; white-space: nowrap; }
+.kv-table td:last-child { font-weight: 500; word-break: break-all; }
+.hash-val { font-family: monospace; font-size: 0.78rem; }
+.copy-btn { background: none; border: none; cursor: pointer; color: #2d7a2d;
+  font-size: 0.75rem; padding: 0 4px; }
+.copy-btn:hover { text-decoration: underline; }
+.ok  { color: #166534; }
+.warn { color: #854d0e; }
+.err  { color: #991b1b; }
+.gps-link { color: #2d7a2d; text-decoration: none; font-size: 0.8rem; }
+.gps-link:hover { text-decoration: underline; }
+
+/* Divider */
+.divider { border: none; border-top: 1px solid #f0f0f0; margin: 12px 0; }
+
+/* Empty */
+.empty { text-align: center; padding: 60px 20px; color: #888; }
+
+/* Toast */
+.toast { position: fixed; bottom: 24px; right: 24px; background: #1a2e1a; color: white;
+  padding: 10px 18px; border-radius: 8px; font-size: 0.85rem;
+  opacity: 0; transition: opacity 0.3s; pointer-events: none; z-index: 999; }
+.toast.show { opacity: 1; }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="nav"><a href="/">← 回到測量系統</a> ｜ <a href="/correction-factors.html">修正因子</a></div>
+  <h1>量測記錄 Dashboard</h1>
+  <p class="subtitle">所有上傳影片的量測結果、區塊鏈存證與拍攝元數據</p>
+
+  <div class="stats">
+    <div class="stat"><div class="stat-num" id="s-total">—</div><div class="stat-label">總量測筆數</div></div>
+    <div class="stat"><div class="stat-num" id="s-chain">—</div><div class="stat-label">已上鏈確認</div></div>
+    <div class="stat"><div class="stat-num" id="s-species">—</div><div class="stat-label">樹種數</div></div>
+    <div class="stat"><div class="stat-num" id="s-carbon">—</div><div class="stat-label">總碳儲量 (kg)</div></div>
+  </div>
+
+  <div class="toolbar">
+    <input id="search" type="text" placeholder="搜尋樹種…" style="width:160px">
+    <select id="filter-confidence">
+      <option value="">所有信心等級</option>
+      <option value="high">HIGH</option>
+      <option value="medium">MEDIUM</option>
+      <option value="low">LOW</option>
+    </select>
+    <select id="filter-chain">
+      <option value="">所有上鏈狀態</option>
+      <option value="confirmed">已確認</option>
+      <option value="pending">待確認</option>
+      <option value="failed">失敗</option>
+    </select>
+    <div class="ml-auto" style="display:flex;gap:8px">
+      <button class="btn btn-outline" onclick="expandAll()">全部展開</button>
+      <button class="btn btn-outline" onclick="collapseAll()">全部收合</button>
+      <a id="csv-btn" href="/api/evaluation/export.csv" class="btn btn-primary">匯出 CSV</a>
+    </div>
+  </div>
+
+  <div id="records"></div>
+  <div id="empty" class="empty" style="display:none">
+    尚無量測記錄。<br>請先到<a href="/" style="color:#2d7a2d">測量系統</a>上傳影片。
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+let allRecords = []
+
+async function load() {
+  try {
+    const res = await fetch('/api/trees')
+    allRecords = await res.json()
+    renderStats(allRecords)
+    renderRecords(allRecords)
+  } catch (e) {
+    document.getElementById('records').innerHTML =
+      `<div class="empty">載入失敗：${e.message}</div>`
+  }
+}
+
+function renderStats(records) {
+  document.getElementById('s-total').textContent = records.length
+  document.getElementById('s-chain').textContent =
+    records.filter(r => r.blockchain?.txStatus === 'confirmed').length
+  document.getElementById('s-species').textContent =
+    new Set(records.map(r => r.species).filter(Boolean)).size
+  const totalCarbon = records.reduce((s, r) => s + (r.carbonKg || 0), 0)
+  document.getElementById('s-carbon').textContent = totalCarbon.toFixed(1)
+}
+
+function renderRecords(records) {
+  const container = document.getElementById('records')
+  const empty = document.getElementById('empty')
+  if (!records.length) {
+    container.innerHTML = ''
+    empty.style.display = ''
+    return
+  }
+  empty.style.display = 'none'
+  // Show newest first in display
+  container.innerHTML = [...records].reverse().map(r => buildCard(r)).join('')
+}
+
+function buildCard(r) {
+  const conf = (r.confidence || 'low').toLowerCase()
+  const confLabel = conf === 'high' ? 'HIGH' : conf === 'medium' ? 'MEDIUM' : 'LOW'
+  const bcStatus = r.blockchain?.txStatus || 'none'
+  const bcBadge = bcStatus === 'confirmed'
+    ? `<span class="badge badge-chain">✅ 鏈上確認</span>`
+    : bcStatus === 'pending'
+    ? `<span class="badge badge-pending">⏳ 待上鏈</span>`
+    : bcStatus === 'failed'
+    ? `<span class="badge badge-failed">❌ 上鏈失敗</span>`
+    : `<span class="badge badge-pending">— 未上鏈</span>`
+
+  const path = r.referenceUsed
+    ? `路徑 A（${refLabel(r.referenceType)}）`
+    : '路徑 B（薄透鏡）'
+
+  // 誤差：只在有校準值且走路徑B時顯示
+  let errorRow = ''
+  if (r.calibration && !r.referenceUsed) {
+    const err = ((r.dbhCm - r.calibration.dbhCm) / r.calibration.dbhCm * 100)
+    const errClass = Math.abs(err) <= 10 ? 'ok' : Math.abs(err) <= 25 ? 'warn' : 'err'
+    errorRow = `<tr><td>誤差</td><td class="${errClass}">${err >= 0 ? '+' : ''}${err.toFixed(1)}%</td></tr>`
+  }
+
+  const refRow = r.calibration
+    ? `<tr><td>路徑A校準值</td><td>${r.calibration.dbhCm.toFixed(1)} cm（${refLabel(r.calibration.source)}）</td></tr>`
+    : ''
+
+  // 區塊鏈
+  const txHash = r.blockchain?.txHash
+  const txRow = txHash
+    ? `<tr><td>Tx Hash</td><td><span class="hash-val">${txHash.slice(0,10)}…${txHash.slice(-6)}</span>
+        <button class="copy-btn" onclick="copy('${txHash}')">複製</button></td></tr>`
+    : `<tr><td>Tx Hash</td><td class="warn">—</td></tr>`
+
+  const vhash = r.videoHash || ''
+  const vhashRow = vhash
+    ? `<tr><td>影片 SHA-256</td><td><span class="hash-val">${vhash.slice(0,10)}…${vhash.slice(-6)}</span>
+        <button class="copy-btn" onclick="copy('${vhash}')">複製</button></td></tr>`
+    : `<tr><td>影片 SHA-256</td><td>—</td></tr>`
+
+  const bcTime = r.blockchain?.createdAt
+    ? new Date(r.blockchain.createdAt * 1000).toLocaleString('zh-TW')
+    : '—'
+  const verifyRow = bcStatus === 'confirmed'
+    ? `<tr><td>驗證狀態</td><td class="ok">✅ 鏈上與本地一致</td></tr>`
+    : `<tr><td>驗證狀態</td><td class="warn">—</td></tr>`
+
+  // GPS 超連結
+  let gpsRow = `<tr><td>GPS</td><td>—</td></tr>`
+  if (r.gps) {
+    const parts = r.gps.split(',')
+    if (parts.length >= 2) {
+      const lat = parseFloat(parts[0]).toFixed(4)
+      const lng = parseFloat(parts[1]).toFixed(4)
+      const alt = r.altitude != null ? `<br><span style="color:#888">海拔 ${r.altitude} m</span>` : ''
+      gpsRow = `<tr><td>GPS</td><td>
+        <a class="gps-link" href="https://maps.google.com/?q=${lat},${lng}" target="_blank">${lat}, ${lng}</a>${alt}
+      </td></tr>`
+    }
+  }
+
+  const createdTime = r.createdAt
+    ? new Date(r.createdAt * 1000).toLocaleString('zh-TW')
+    : '—'
+
+  return `
+<div class="card" id="card-${r.id}">
+  <div class="card-header" onclick="toggle('${r.id}')">
+    <span class="tree-no">${r.treeNo}</span>
+    <span class="species-name">${r.species}
+      <span class="species-src">${r.speciesSource ? '(' + r.speciesSource + ')' : ''}</span>
+    </span>
+    <div class="badges">
+      <span class="badge badge-${conf}">${confLabel}</span>
+      ${bcBadge}
+    </div>
+    <span class="chevron">▼</span>
+  </div>
+  <div class="card-body">
+    <hr class="divider">
+    <div class="sections">
+
+      <div>
+        <div class="section-title">量測結果</div>
+        <table class="kv-table">
+          <tr><td>DBH 系統估算</td><td>${r.dbhCm != null ? r.dbhCm.toFixed(1) + ' cm' : '—'}</td></tr>
+          ${refRow}
+          ${errorRow}
+          <tr><td>碳儲量</td><td>${r.carbonKg != null ? (r.carbonKg * 1000).toFixed(0) + ' g' : '—'}</td></tr>
+          <tr><td>材積</td><td>${r.volumeM3 != null ? (r.volumeM3 * 1e6).toFixed(0) + ' cm³' : '—'}</td></tr>
+          <tr><td>估算路徑</td><td>${path}</td></tr>
+          ${r.appliedCorrectionFactor ? `<tr><td>修正因子</td><td>${r.appliedCorrectionFactor.toFixed(3)}</td></tr>` : ''}
+        </table>
+      </div>
+
+      <div>
+        <div class="section-title">區塊鏈存證</div>
+        <table class="kv-table">
+          ${txRow}
+          ${vhashRow}
+          <tr><td>上鏈時間</td><td>${bcTime}</td></tr>
+          ${verifyRow}
+        </table>
+      </div>
+
+      <div>
+        <div class="section-title">拍攝元數據（EXIF）</div>
+        <table class="kv-table">
+          <tr><td>手機型號</td><td>${r.deviceModel || '—'}</td></tr>
+          <tr><td>焦距</td><td>${r.focalLengthMm != null ? r.focalLengthMm + ' mm' : '—'}</td></tr>
+          <tr><td>感光元件寬</td><td>${r.sensorWidthMm != null ? r.sensorWidthMm.toFixed(2) + ' mm' : '—'}</td></tr>
+          ${gpsRow}
+          ${r.resolution ? `<tr><td>解析度</td><td>${r.resolution}</td></tr>` : ''}
+          ${r.fps ? `<tr><td>fps</td><td>${r.fps}</td></tr>` : ''}
+          <tr><td>拍攝時間</td><td>${createdTime}</td></tr>
+        </table>
+      </div>
+
+    </div>
+  </div>
+</div>`
+}
+
+function refLabel(src) {
+  if (!src) return '—'
+  if (src === 'credit_card' || src === 'creditcard') return '信用卡'
+  if (src === 'a4') return 'A4 紙'
+  return src
+}
+
+function toggle(id) {
+  document.getElementById('card-' + id).classList.toggle('open')
+}
+function expandAll() {
+  document.querySelectorAll('.card').forEach(c => c.classList.add('open'))
+}
+function collapseAll() {
+  document.querySelectorAll('.card').forEach(c => c.classList.remove('open'))
+}
+
+function copy(text) {
+  navigator.clipboard.writeText(text).then(() => showToast('已複製'))
+}
+function showToast(msg) {
+  const t = document.getElementById('toast')
+  t.textContent = msg
+  t.classList.add('show')
+  setTimeout(() => t.classList.remove('show'), 2000)
+}
+
+// Filters
+function applyFilters() {
+  const search = document.getElementById('search').value.toLowerCase()
+  const conf = document.getElementById('filter-confidence').value
+  const chain = document.getElementById('filter-chain').value
+  const filtered = allRecords.filter(r => {
+    if (search && !r.species?.toLowerCase().includes(search)) return false
+    if (conf && (r.confidence || '').toLowerCase() !== conf) return false
+    if (chain && r.blockchain?.txStatus !== chain) return false
+    return true
+  })
+  renderRecords(filtered)
+  renderStats(filtered)
+}
+document.getElementById('search').addEventListener('input', applyFilters)
+document.getElementById('filter-confidence').addEventListener('change', applyFilters)
+document.getElementById('filter-chain').addEventListener('change', applyFilters)
+
+load()
+</script>
+</body>
+</html>
