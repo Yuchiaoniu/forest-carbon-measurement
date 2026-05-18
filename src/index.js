@@ -19,6 +19,10 @@ const { create: createBlockchainJob, getPending, updateStatus, incrementRetry, g
 const { getFactorBySpecies, getAllFactors, snapshotFactor } = require('./services/correctionFactorService')
 const { recordMeasurement } = require('./services/blockchainService')
 const { runEvaluation, getLatestRun, exportCsv, buildDsrChecklist } = require('./services/evaluationService')
+const { assignToEvent } = require('./services/clusterService')
+const { generateStoryA, generateStoryC } = require('./services/storyService')
+const { insert: insertStory, getLatestByTree } = require('./db/stories')
+const { getById: getEventById, getTreesInEvent, setStoryC } = require('./db/events')
 const { getDb } = require('./db/init')
 
 const app = express()
@@ -180,11 +184,13 @@ app.get('/api/trees', (req, res) => {
       t.tx_status AS bc_tx_status,
       t.created_at AS bc_created_at,
       gt.actual_dbh_cm AS ref_dbh_cm,
-      gt.source        AS gt_source
+      gt.source        AS gt_source,
+      CASE WHEN s.id IS NOT NULL THEN 1 ELSE 0 END AS has_story
     FROM trees t
     LEFT JOIN ground_truth gt ON gt.id = (
       SELECT id FROM ground_truth WHERE tree_id = t.id ORDER BY created_at DESC LIMIT 1
     )
+    LEFT JOIN stories s ON s.tree_id = t.id AND s.story_type = 'A'
     ORDER BY t.created_at ASC
   `).all()
 
@@ -226,6 +232,7 @@ app.get('/api/trees', (req, res) => {
         dbhCm: r.ref_dbh_cm,
         source: r.gt_source,
       } : null,
+      hasStory: !!r.has_story,
     }
   }))
 })
@@ -390,6 +397,40 @@ async function processVideo(jobId, videoPath) {
     }
     jobs[jobId] = { status: 'done', result }
 
+    // 9. 時空聚類 + 非同步故事生成（不阻塞回應）
+    setImmediate(async () => {
+      try {
+        const { eventId, isNew } = assignToEvent(treeId)
+        if (eventId) {
+          result.eventId = eventId
+
+          // 方案 A 故事（單棵樹）
+          const storyA = await generateStoryA(treeId)
+          if (storyA) {
+            insertStory({
+              treeId,
+              eventId,
+              storyType: 'A',
+              markdown: storyA.markdown,
+              summary: storyA.summary,
+              weatherSnapshot: storyA.weather,
+            })
+            console.log(`[story] 方案A 故事生成完成：tree=${treeId}`)
+          }
+
+          // 方案 C 故事（Event 形成時，或每次更新後重生成）
+          const storyC = await generateStoryC(eventId)
+          if (storyC) {
+            insertStory({ eventId, storyType: 'C', markdown: storyC })
+            setStoryC(eventId, storyC)
+            console.log(`[story] 方案C 故事${isNew ? '首次' : '更新'}生成：event=${eventId}`)
+          }
+        }
+      } catch (storyErr) {
+        console.warn('[story] 故事生成失敗（不影響主流程）：', storyErr.message)
+      }
+    })
+
   } finally {
     // 暫存幀保留不刪，路徑：tmp_frames/[jobId]/
     console.log(`[frames] 關鍵幀位置：${path.resolve(framesDir)}`)
@@ -417,6 +458,103 @@ function formatResult(row) {
     appliedCorrectionFactor: row.applied_correction_factor || null,
   }
 }
+
+// GET /api/trees/:id/story（單棵樹 Markdown 故事）
+app.get('/api/trees/:id/story', async (req, res) => {
+  const treeId = req.params.id
+  const tree = getDb().prepare('SELECT id, species FROM trees WHERE id = ?').get(treeId)
+  if (!tree) return res.status(404).json({ error: '找不到該樹木紀錄' })
+
+  // 先查快取
+  let story = getLatestByTree(treeId, 'A')
+
+  // 無快取則即時生成
+  if (!story) {
+    if (!process.env.GEMINI_API_KEY) {
+      return res.status(503).json({ error: '故事生成需設定 GEMINI_API_KEY' })
+    }
+    try {
+      const storyA = await generateStoryA(treeId)
+      if (!storyA) return res.status(500).json({ error: '故事生成失敗' })
+      const storyId = insertStory({
+        treeId,
+        storyType: 'A',
+        markdown: storyA.markdown,
+        summary: storyA.summary,
+        weatherSnapshot: storyA.weather,
+      })
+      story = { id: storyId, markdown: storyA.markdown, created_at: Math.floor(Date.now() / 1000) }
+    } catch (e) {
+      return res.status(500).json({ error: e.message })
+    }
+  }
+
+  const format = req.query.format
+  if (format === 'json') {
+    return res.json({ treeId, markdown: story.markdown, generatedAt: story.created_at })
+  }
+  res.type('text/markdown; charset=utf-8').send(story.markdown)
+})
+
+// GET /api/events/:id（Event JSON）
+app.get('/api/events/:id', (req, res) => {
+  const event = getEventById(req.params.id)
+  if (!event) return res.status(404).json({ error: '找不到 Event' })
+  const trees = getTreesInEvent(event.id)
+  const comments = getDb().prepare(
+    `SELECT id, nickname, content, created_at FROM event_comments WHERE event_id = ? ORDER BY created_at ASC`
+  ).all(event.id)
+
+  res.json({
+    id: event.id,
+    name: event.name,
+    date: event.date,
+    locationGps: event.location_gps,
+    treeCount: event.tree_count,
+    totalCarbonKg: Math.round((event.total_carbon_kg || 0) * 10) / 10,
+    participantCount: event.participant_count,
+    storyC: event.story_c || null,
+    trees: trees.map(t => ({
+      id: t.id,
+      species: t.species,
+      dbhCm: t.dbh_cm,
+      carbonKg: t.carbon_kg,
+      gps: t.gps,
+      createdAt: t.created_at,
+    })),
+    comments,
+  })
+})
+
+// POST /api/events/:id/comments（participantToken 驗證）
+app.post('/api/events/:id/comments', (req, res) => {
+  const eventId = req.params.id
+  const { participantToken, nickname, content } = req.body || {}
+  if (!participantToken || !content) {
+    return res.status(400).json({ error: 'participantToken 和 content 必填' })
+  }
+  if (content.length > 500) {
+    return res.status(400).json({ error: '留言不得超過 500 字' })
+  }
+
+  // 驗證 token：確認該 event 下有對應 treeId（token = treeId）
+  const event = getEventById(eventId)
+  if (!event) return res.status(404).json({ error: '找不到 Event' })
+
+  const validTree = getDb().prepare(
+    'SELECT id FROM trees WHERE event_id = ? AND id = ?'
+  ).get(eventId, participantToken)
+  if (!validTree) return res.status(403).json({ error: 'participantToken 無效' })
+
+  const { randomUUID } = require('crypto')
+  const commentId = randomUUID()
+  getDb().prepare(`
+    INSERT INTO event_comments (id, event_id, participant_token, nickname, content)
+    VALUES (?, ?, ?, ?, ?)
+  `).run(commentId, eventId, participantToken, nickname || '匿名', content)
+
+  res.json({ id: commentId, message: '留言已新增' })
+})
 
 // 定時重試 pending 上鏈（每 5 分鐘）
 setInterval(async () => {

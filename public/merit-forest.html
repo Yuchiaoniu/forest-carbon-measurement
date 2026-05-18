@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>綠色冀泉 · 我的功德林</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+:root {
+  --bg:          #0b1a0f;
+  --surface:     #102416;
+  --surface2:    #163020;
+  --green-bright:#2dd66b;
+  --green-mid:   #1a9e4a;
+  --green-dim:   #134d26;
+  --gold:        #f5c842;
+  --gold-light:  #fde68a;
+  --text:        #e8f5eb;
+  --muted:       #7aab85;
+  --border:      #1f3d28;
+  --red:         #f87171;
+  --blue:        #60a5fa;
+}
+
+html, body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', 'Noto Sans TC', system-ui, sans-serif;
+  min-height: 100vh;
+  display: flex; justify-content: center;
+}
+
+/* ── Phone shell ── */
+.phone {
+  width: 100%; max-width: 390px;
+  min-height: 100vh;
+  background: var(--bg);
+  position: relative;
+  padding-bottom: 40px;
+}
+
+/* ── Navbar ── */
+.navbar {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 16px 14px;
+}
+.nav-back {
+  background: none; border: none; color: var(--green-bright);
+  font-size: 1.3rem; cursor: pointer; padding: 4px; line-height: 1;
+}
+.nav-title-wrap { flex: 1; text-align: center; }
+.nav-title {
+  font-size: 0.92rem; font-weight: 700; color: var(--text);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.nav-subtitle { font-size: 0.7rem; color: var(--muted); }
+.nav-gear {
+  background: none; border: none; color: var(--muted);
+  font-size: 1.2rem; cursor: pointer; padding: 4px;
+}
+
+/* ── Scroll body ── */
+.body { padding: 0 14px; display: flex; flex-direction: column; gap: 12px; }
+
+/* ── Hero card ── */
+.hero {
+  background: linear-gradient(145deg, #133a1c 0%, #0e2b14 60%, #0a1f0e 100%);
+  border: 1px solid var(--border);
+  border-radius: 16px; padding: 18px 20px;
+  position: relative; overflow: hidden;
+}
+.hero::before {
+  content:''; position:absolute; inset:0;
+  background: radial-gradient(ellipse at 80% 20%, rgba(45,214,107,0.10) 0%, transparent 60%);
+  pointer-events: none;
+}
+.hero-user {
+  font-size: 0.75rem; color: var(--muted); margin-bottom: 10px;
+}
+.hero-user strong { color: var(--text); }
+.hero-amount {
+  font-size: 2.4rem; font-weight: 800; color: var(--gold);
+  letter-spacing: -0.5px; line-height: 1.1;
+  text-shadow: 0 0 30px rgba(245,200,66,0.3);
+}
+.hero-unit { font-size: 1.1rem; font-weight: 700; color: var(--gold-light); }
+.hero-today {
+  margin-top: 10px;
+  display: inline-flex; align-items: center; gap: 5px;
+  background: rgba(45,214,107,0.12); border: 1px solid rgba(45,214,107,0.25);
+  border-radius: 20px; padding: 4px 12px;
+  font-size: 0.78rem; color: var(--green-bright); font-weight: 600;
+}
+.arrow-up { color: var(--green-bright); font-size: 0.8rem; }
+
+/* ── Section card ── */
+.section {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px; padding: 16px;
+}
+.section-header {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 14px;
+}
+.section-title {
+  font-size: 0.85rem; font-weight: 700; color: var(--text);
+  display: flex; align-items: center; gap: 6px;
+}
+.section-title::before {
+  content: ''; display: block; width: 3px; height: 14px;
+  background: var(--green-bright); border-radius: 2px;
+}
+
+/* ── Tree rows ── */
+.tree-row {
+  display: flex; align-items: center; gap: 10px;
+  padding: 9px 0; border-bottom: 1px solid var(--border);
+}
+.tree-row:last-child { border-bottom: none; padding-bottom: 0; }
+.tree-row-label { flex: 1; font-size: 0.83rem; color: var(--muted); }
+.tree-row-count { font-size: 1rem; font-weight: 700; color: var(--text); margin-right: 4px; }
+.tree-row-unit { font-size: 0.73rem; color: var(--muted); }
+.chip {
+  padding: 3px 9px; border-radius: 10px; border: none; cursor: pointer;
+  font-size: 0.72rem; font-weight: 600; font-family: inherit;
+  background: var(--green-dim); color: var(--green-bright);
+  white-space: nowrap;
+}
+.chip-outline {
+  background: transparent;
+  border: 1px solid var(--green-mid);
+  color: var(--green-bright);
+}
+.toggle-chip {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 3px 10px; border-radius: 10px; border: none; cursor: pointer;
+  font-size: 0.72rem; font-weight: 700; font-family: inherit;
+  background: rgba(45,214,107,0.15); color: var(--green-bright);
+}
+.toggle-dot {
+  width: 7px; height: 7px; border-radius: 50%; background: var(--green-bright);
+  box-shadow: 0 0 6px var(--green-bright);
+}
+
+/* ── RWA section ── */
+.rwa-header {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 12px;
+}
+.rwa-priority {
+  background: linear-gradient(135deg, #1a5c32, #0f3d20);
+  border: 1px solid var(--green-mid);
+  border-radius: 8px; padding: 4px 10px;
+  font-size: 0.72rem; font-weight: 700; color: var(--green-bright);
+  cursor: pointer;
+}
+.rwa-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.rwa-card {
+  background: var(--surface2);
+  border: 1px solid var(--border); border-radius: 12px; padding: 12px;
+}
+.rwa-card-head {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 10px;
+}
+.rwa-card-type {
+  font-size: 0.72rem; font-weight: 700; color: var(--muted);
+  display: flex; align-items: center; gap: 4px;
+}
+.rwa-card-type .dot {
+  width: 6px; height: 6px; border-radius: 50%;
+}
+.dot-eco   { background: #2dd66b; }
+.dot-econ  { background: #fbbf24; }
+.detail-chip {
+  font-size: 0.65rem; padding: 2px 6px; border-radius: 6px;
+  background: var(--green-dim); color: var(--green-bright);
+  cursor: pointer; border: none; font-family: inherit; font-weight: 600;
+}
+.rwa-metric { margin-top: 4px; }
+.rwa-metric-label {
+  font-size: 0.73rem; color: var(--muted); margin-bottom: 2px;
+}
+.rwa-metric-value {
+  font-size: 1.05rem; font-weight: 800; color: var(--text); line-height: 1.2;
+}
+.rwa-metric-value .unit { font-size: 0.72rem; font-weight: 500; color: var(--muted); }
+.rwa-sub {
+  font-size: 0.7rem; color: var(--muted); margin-top: 6px;
+}
+.rwa-note {
+  margin-top: 10px; padding: 8px 10px;
+  background: rgba(45,214,107,0.06); border-radius: 8px;
+  font-size: 0.71rem; color: var(--muted); line-height: 1.5;
+}
+.rwa-note strong { color: var(--green-bright); }
+
+/* ── Progress section ── */
+.progress-header {
+  display: flex; justify-content: space-between; margin-bottom: 10px;
+}
+.progress-pct { font-size: 0.85rem; font-weight: 700; color: var(--green-bright); }
+.progress-track {
+  height: 8px; background: var(--green-dim); border-radius: 10px; overflow: hidden;
+  margin-bottom: 10px;
+}
+.progress-fill {
+  height: 100%; border-radius: 10px;
+  background: linear-gradient(90deg, #16a34a, #2dd66b);
+  box-shadow: 0 0 8px rgba(45,214,107,0.5);
+  transition: width 1s ease;
+}
+.progress-msg {
+  display: flex; align-items: flex-start; gap: 6px;
+  font-size: 0.78rem; color: var(--muted); line-height: 1.5;
+}
+.check-icon { color: var(--green-bright); font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+</style>
+</head>
+<body>
+<div class="phone">
+
+  <!-- Navbar -->
+  <div class="navbar">
+    <button class="nav-back">‹</button>
+    <div class="nav-title-wrap">
+      <div class="nav-title">綠色冀泉 - 我的功德林</div>
+    </div>
+    <button class="nav-gear">⚙</button>
+  </div>
+
+  <!-- Body -->
+  <div class="body">
+
+    <!-- Hero GBC card -->
+    <div class="hero">
+      <div class="hero-user">使用者：<strong>陳宇華</strong></div>
+      <div>
+        <span class="hero-amount">625,450.00</span>
+        <span class="hero-unit"> GBC</span>
+      </div>
+      <div class="hero-today">
+        <span class="arrow-up">▲</span>
+        今日進帳 +6,250.0 GBC
+      </div>
+    </div>
+
+    <!-- 樹木總匯 -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-title">樹木總匯</div>
+        <span style="font-size:1.1rem">🌍</span>
+      </div>
+
+      <div class="tree-row">
+        <span class="tree-row-label">親手種植</span>
+        <span class="tree-row-count">4,500</span>
+        <span class="tree-row-unit">棵</span>
+        <button class="chip">明細</button>
+        <button class="toggle-chip">
+          <span class="toggle-dot"></span>自動計算：ON
+        </button>
+      </div>
+
+      <div class="tree-row">
+        <span class="tree-row-label">線上認養</span>
+        <span class="tree-row-count">500</span>
+        <span class="tree-row-unit">棵</span>
+        <button class="chip">明細</button>
+        <button class="chip chip-outline">新增樹</button>
+      </div>
+    </div>
+
+    <!-- 即時價值運算 RWA -->
+    <div class="section">
+      <div class="rwa-header">
+        <div class="section-title">即時價值運算（RWA）</div>
+        <button class="rwa-priority">隨線優先</button>
+      </div>
+
+      <div class="rwa-grid">
+
+        <!-- 生態價值 -->
+        <div class="rwa-card">
+          <div class="rwa-card-head">
+            <div class="rwa-card-type">
+              <span class="dot dot-eco"></span>生態價值
+            </div>
+            <button class="detail-chip">10項明細</button>
+          </div>
+          <div class="rwa-metric">
+            <div class="rwa-metric-label">二氧化碳吸收</div>
+            <div class="rwa-metric-value">21,053.5<span class="unit"> kg</span></div>
+          </div>
+          <div class="rwa-sub">涵養地下水 104,565L</div>
+        </div>
+
+        <!-- 經濟價值 -->
+        <div class="rwa-card">
+          <div class="rwa-card-head">
+            <div class="rwa-card-type">
+              <span class="dot dot-econ"></span>經濟價值
+            </div>
+            <button class="detail-chip">10項明細</button>
+          </div>
+          <div class="rwa-metric">
+            <div class="rwa-metric-label">碳吸存價值 NT$</div>
+            <div class="rwa-metric-value">97,688</div>
+          </div>
+          <div class="rwa-sub">木材經濟價值 NT$ 5,577</div>
+        </div>
+
+      </div>
+
+      <div class="rwa-note">
+        提示：自動計算會依「樹齡/存活率/係數設定」即時更新 10 項指標（可在
+        <strong>【設定】</strong>調整）
+      </div>
+    </div>
+
+    <!-- 年度淨零難度 -->
+    <div class="section">
+      <div class="progress-header">
+        <div class="section-title">年度淨零難度</div>
+        <span class="progress-pct">100%</span>
+      </div>
+      <div class="progress-track">
+        <div class="progress-fill" style="width:100%"></div>
+      </div>
+      <div class="progress-msg">
+        <span class="check-icon">✓</span>
+        <span>已超越目標！貢獻社會淨零 4,980 棵（利益眾生）</span>
+      </div>
+    </div>
+
+  </div><!-- /body -->
+
+  <!-- Bottom tab bar -->
+  <div style="
+    position: sticky; bottom: 0;
+    background: #080f09;
+    border-top: 1px solid var(--border);
+    display: flex; justify-content: space-around; align-items: center;
+    padding: 10px 0 18px;
+    margin-top: 16px;
+  ">
+    <div style="display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer">
+      <span style="font-size:1.3rem">🌳</span>
+      <span style="font-size:0.62rem;color:var(--green-bright);font-weight:700">功德林</span>
+    </div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer">
+      <span style="font-size:1.3rem">📊</span>
+      <span style="font-size:0.62rem;color:var(--muted)">統計</span>
+    </div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer">
+      <span style="font-size:1.3rem">🪙</span>
+      <span style="font-size:0.62rem;color:var(--muted)">GBC</span>
+    </div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer">
+      <span style="font-size:1.3rem">👤</span>
+      <span style="font-size:0.62rem;color:var(--muted)">我的</span>
+    </div>
+  </div>
+
+</div><!-- /phone -->
+</body>
+</html>

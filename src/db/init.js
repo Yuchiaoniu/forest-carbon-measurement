@@ -101,6 +101,47 @@ function getDb() {
         notes TEXT,
         created_at INTEGER DEFAULT (unixepoch())
       );
+
+      CREATE TABLE IF NOT EXISTS events (
+        id TEXT PRIMARY KEY,
+        name TEXT,
+        location_gps TEXT,
+        date TEXT NOT NULL,
+        total_carbon_kg REAL DEFAULT 0,
+        participant_count INTEGER DEFAULT 0,
+        tree_count INTEGER DEFAULT 0,
+        story_c TEXT,
+        created_at INTEGER DEFAULT (unixepoch()),
+        updated_at INTEGER DEFAULT (unixepoch())
+      );
+
+      CREATE INDEX IF NOT EXISTS idx_events_date ON events(date);
+
+      CREATE TABLE IF NOT EXISTS stories (
+        id TEXT PRIMARY KEY,
+        tree_id TEXT REFERENCES trees(id),
+        event_id TEXT REFERENCES events(id),
+        story_type TEXT NOT NULL,
+        markdown TEXT NOT NULL,
+        summary TEXT,
+        weather_snapshot TEXT,
+        created_at INTEGER DEFAULT (unixepoch())
+      );
+
+      CREATE INDEX IF NOT EXISTS idx_stories_tree ON stories(tree_id);
+      CREATE INDEX IF NOT EXISTS idx_stories_event ON stories(event_id);
+      CREATE INDEX IF NOT EXISTS idx_stories_type ON stories(story_type);
+
+      CREATE TABLE IF NOT EXISTS event_comments (
+        id TEXT PRIMARY KEY,
+        event_id TEXT NOT NULL REFERENCES events(id),
+        participant_token TEXT NOT NULL,
+        nickname TEXT,
+        content TEXT NOT NULL,
+        created_at INTEGER DEFAULT (unixepoch())
+      );
+
+      CREATE INDEX IF NOT EXISTS idx_comments_event ON event_comments(event_id);
     `)
 
     // 新增欄位（若不存在）
@@ -108,6 +149,7 @@ function getDb() {
     try { db.exec(`ALTER TABLE trees ADD COLUMN reference_type TEXT`) } catch(_) {}
     try { db.exec(`ALTER TABLE trees ADD COLUMN original_dbh_cm REAL`) } catch(_) {}
     try { db.exec(`ALTER TABLE trees ADD COLUMN applied_correction_factor REAL`) } catch(_) {}
+    try { db.exec(`ALTER TABLE trees ADD COLUMN event_id TEXT REFERENCES events(id)`) } catch(_) {}
   }
   return db
 }

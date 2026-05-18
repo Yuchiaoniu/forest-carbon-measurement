@@ -13,6 +13,16 @@ const REFERENCE_SIZES = {
   banknote1000: { width: 160,   height: 80    },
 }
 
+function validateReferenceAspectRatio(referenceType, pixelWidth, pixelHeight, tolerance = 0.15) {
+  if (!pixelWidth || !pixelHeight || pixelWidth <= 0 || pixelHeight <= 0) return true // 無像素資料不阻擋
+  const ref = REFERENCE_SIZES[referenceType]
+  if (!ref) return true // 未知類型不驗證
+  const expectedRatio = ref.width / ref.height
+  const actualRatio = pixelWidth / pixelHeight
+  const deviation = Math.abs(actualRatio - expectedRatio) / expectedRatio
+  return deviation <= tolerance
+}
+
 function calcDbh(pixelWidth, sensorWidthMm, distanceM, imageWidthPx, focalLengthMm) {
   if (!pixelWidth || !sensorWidthMm || !distanceM || !imageWidthPx || !focalLengthMm) return null
   const dbhMm = (pixelWidth * sensorWidthMm * distanceM * 1000) / (imageWidthPx * focalLengthMm)
@@ -73,16 +83,21 @@ function calculate({
 
   // ── 路徑 A：倍數比較（次優先）
   if (!directMeasurementUsed && referenceDetected && referenceType && trunkToReferenceRatio > 0) {
-    const refSize = REFERENCE_SIZES[referenceType]
-    if (refSize) {
-      refWidthMm = refSize.width
-    } else if (referenceType === 'unknown' && referenceEstimatedWidthMm > 0) {
-      refWidthMm = referenceEstimatedWidthMm
-    }
-    if (refWidthMm > 0) {
-      dbhCm = Math.round(trunkToReferenceRatio * refWidthMm / 10 * 10) / 10
-      referenceUsed = true
-      console.log(`[calc] 路徑A (${referenceType} ${refWidthMm}mm) ratio=${trunkToReferenceRatio.toFixed(3)} → DBH=${dbhCm}cm`)
+    const aspectOk = validateReferenceAspectRatio(referenceType, referencePixelWidth, referencePixelHeight)
+    if (!aspectOk) {
+      console.log(`[calc] 路徑A 長寬比驗證失敗 (${referenceType} px=${referencePixelWidth}×${referencePixelHeight}) → fallback 薄透鏡`)
+    } else {
+      const refSize = REFERENCE_SIZES[referenceType]
+      if (refSize) {
+        refWidthMm = refSize.width
+      } else if (referenceType === 'unknown' && referenceEstimatedWidthMm > 0) {
+        refWidthMm = referenceEstimatedWidthMm
+      }
+      if (refWidthMm > 0) {
+        dbhCm = Math.round(trunkToReferenceRatio * refWidthMm / 10 * 10) / 10
+        referenceUsed = true
+        console.log(`[calc] 路徑A (${referenceType} ${refWidthMm}mm) ratio=${trunkToReferenceRatio.toFixed(3)} → DBH=${dbhCm}cm`)
+      }
     }
   }
 
@@ -132,4 +147,4 @@ function calculate({
   }
 }
 
-module.exports = { calculate }
+module.exports = { calculate, validateReferenceAspectRatio, REFERENCE_SIZES }
