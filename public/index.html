@@ -650,7 +650,7 @@ function showResult(r) {
 
   const conf      = (r.confidence || 'medium').toLowerCase()
   const badgeCls  = `badge-${conf}`
-  const confText  = conf === 'high' ? 'HIGH ▲' : conf === 'medium' ? 'MEDIUM' : 'LOW ▼'
+  const confText  = conf === 'high' ? 'HIGH 精度' : conf === 'medium' ? 'MEDIUM 精度' : 'LOW 精度'
   const refBadge  = r.referenceUsed
     ? `<span class="badge badge-ref">🎯 精確模式 (${r.referenceType})</span>`
     : ''
@@ -695,7 +695,7 @@ function showResult(r) {
       <span class="metric-value">${r.gps || '—'}</span>
     </div>
     <div class="metric">
-      <span class="metric-label">測量信心</span>
+      <span class="metric-label">量測精度</span>
       <span class="metric-value"><span class="badge ${badgeCls}">${confText}</span></span>
     </div>
     <div class="metric">

@@ -234,10 +234,10 @@ body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color
   <div class="toolbar">
     <input id="search" type="text" placeholder="🔍 搜尋樹種…" style="width:160px">
     <select id="filter-confidence">
-      <option value="">所有信心等級</option>
-      <option value="high">HIGH</option>
-      <option value="medium">MEDIUM</option>
-      <option value="low">LOW</option>
+      <option value="">所有精度等級</option>
+      <option value="high">HIGH — 高精度</option>
+      <option value="medium">MEDIUM — 中精度</option>
+      <option value="low">LOW — 低精度</option>
     </select>
     <select id="filter-chain">
       <option value="">所有上鏈狀態</option>
@@ -334,7 +334,7 @@ function renderRecords(records) {
 
 function buildCard(r) {
   const conf     = (r.confidence || 'low').toLowerCase()
-  const confLabel = conf === 'high' ? 'HIGH' : conf === 'medium' ? 'MEDIUM' : 'LOW'
+  const confLabel = conf === 'high' ? 'HIGH 精度' : conf === 'medium' ? 'MEDIUM 精度' : 'LOW 精度'
   const bcStatus  = r.blockchain?.txStatus || 'none'
   const bcBadge   = bcStatus === 'confirmed'
     ? `<span class="badge badge-chain">✅ 鏈上確認</span>`
