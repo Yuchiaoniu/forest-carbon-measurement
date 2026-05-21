@@ -441,8 +441,8 @@ body {
 <div class="header">
   <div class="header-inner">
     <div class="header-nav">
-      <a href="/dashboard.html">📊 量測記錄</a>
-      <a href="/correction-factors.html">🧠 修正因子</a>
+      <a href="dashboard.html">📊 量測記錄</a>
+      <a href="correction-factors.html">🧠 修正因子</a>
     </div>
     <h1>🌲 林業碳匯測量系統</h1>
     <p>上傳樹木影片，AI 自動估算胸徑、材積與碳儲量，並寫入區塊鏈永久存證</p>
@@ -563,6 +563,10 @@ body {
 </div>
 
 <script>
+const API_BASE = location.hostname.endsWith('github.io')
+  ? 'https://forest-carbon.duckdns.org'
+  : ''
+
 let jobId = null, pollTimer = null, currentTreeId = null, selectedFile = null
 
 const dropZone  = document.getElementById('drop-zone')
@@ -598,7 +602,7 @@ uploadBtn.addEventListener('click', async () => {
   fd.append('video', selectedFile)
 
   try {
-    const res = await fetch('/api/upload', { method: 'POST', body: fd })
+    const res = await fetch(`${API_BASE}/api/upload`, { method: 'POST', body: fd })
     const data = await res.json()
     if (!res.ok) return showError(data.error)
     jobId = data.jobId
@@ -610,7 +614,7 @@ uploadBtn.addEventListener('click', async () => {
 
 async function poll() {
   try {
-    const res  = await fetch(`/api/status/${jobId}`)
+    const res  = await fetch(`${API_BASE}/api/status/${jobId}`)
     const data = await res.json()
     if (data.step) updateStep(data.step)
     if (data.status === 'done') {
@@ -730,7 +734,7 @@ function showError(msg) {
 async function submitGroundTruth() {
   const actualDbhCm = parseFloat(document.getElementById('actual-dbh').value)
   if (!actualDbhCm || !currentTreeId) return
-  const res = await fetch('/api/ground-truth', {
+  const res = await fetch(`${API_BASE}/api/ground-truth`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ treeId: currentTreeId, actualDbhCm })

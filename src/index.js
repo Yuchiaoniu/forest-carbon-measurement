@@ -30,6 +30,15 @@ const app = express()
 const PORT = process.env.PORT || 3000
 const UPLOAD_DIR = process.env.UPLOAD_DIR || './uploads'
 
+// CORS：允許 GitHub Pages 跨域呼叫 API
+app.use('/api', (req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*')
+  res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
+  res.header('Access-Control-Allow-Headers', 'Content-Type')
+  if (req.method === 'OPTIONS') return res.sendStatus(200)
+  next()
+})
+
 // 確保目錄存在
 fs.mkdirSync(UPLOAD_DIR, { recursive: true })
 fs.mkdirSync('./tmp_frames', { recursive: true })
