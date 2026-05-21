@@ -273,10 +273,16 @@ body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color
 <script>
 let allRecords = []
 
+const IS_GH_PAGES = location.hostname.endsWith('github.io')
+
 async function load() {
+  if (IS_GH_PAGES) {
+    document.getElementById('csv-btn').style.display = 'none'
+  }
   showSkeleton(true)
   try {
-    const res = await fetch('/api/trees')
+    const url = IS_GH_PAGES ? './data/trees.json' : '/api/trees'
+    const res = await fetch(url)
     allRecords = await res.json()
     renderStats(allRecords)
     renderRecords(allRecords)

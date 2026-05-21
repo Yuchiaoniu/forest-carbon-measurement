@@ -22,6 +22,7 @@ const { runEvaluation, getLatestRun, exportCsv, buildDsrChecklist } = require('.
 const { assignToEvent } = require('./services/clusterService')
 const { generateStoryA, generateStoryC } = require('./services/storyService')
 const { insert: insertStory, getLatestByTree } = require('./db/stories')
+const { pushTreesJson } = require('./services/githubSyncService')
 const { getById: getEventById, getTreesInEvent, setStoryC } = require('./db/events')
 const { getDb } = require('./db/init')
 
@@ -429,6 +430,8 @@ async function processVideo(jobId, videoPath) {
       } catch (storyErr) {
         console.warn('[story] 故事生成失敗（不影響主流程）：', storyErr.message)
       }
+      // GitHub 同步（故事生成後再推，確保 storyMarkdown 已寫入）
+      pushTreesJson()
     })
 
   } finally {

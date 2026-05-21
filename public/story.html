@@ -152,6 +152,7 @@ body {
 <script>
 const params = new URLSearchParams(location.search)
 const treeId = params.get('id')
+const IS_GH_PAGES = location.hostname.endsWith('github.io')
 
 async function loadStory() {
   const el = document.getElementById('content')
@@ -162,18 +163,34 @@ async function loadStory() {
   }
 
   try {
-    const res = await fetch(`/api/trees/${treeId}/story?format=json`)
-    if (!res.ok) {
-      const err = await res.json().catch(() => ({}))
-      el.innerHTML = `<div class="status-box"><div class="icon">🌿</div><div>${err.error || '故事尚未生成'}</div></div>`
-      return
+    let markdown, generatedAt
+
+    if (IS_GH_PAGES) {
+      const res = await fetch('./data/trees.json')
+      if (!res.ok) throw new Error('無法載入 trees.json')
+      const trees = await res.json()
+      const tree = trees.find(t => t.id === treeId)
+      if (!tree || !tree.storyMarkdown) {
+        el.innerHTML = `<div class="status-box"><div class="icon">🌿</div><div>故事尚未生成</div></div>`
+        return
+      }
+      markdown = tree.storyMarkdown
+      generatedAt = null
+    } else {
+      const res = await fetch(`/api/trees/${treeId}/story?format=json`)
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}))
+        el.innerHTML = `<div class="status-box"><div class="icon">🌿</div><div>${err.error || '故事尚未生成'}</div></div>`
+        return
+      }
+      const data = await res.json()
+      markdown = data.markdown
+      generatedAt = data.generatedAt
     }
 
-    const data = await res.json()
-    const html = marked.parse(data.markdown)
-
-    const genDate = data.generatedAt
-      ? new Date(data.generatedAt * 1000).toLocaleDateString('zh-TW', { year: 'numeric', month: 'long', day: 'numeric' })
+    const html = marked.parse(markdown)
+    const genDate = generatedAt
+      ? new Date(generatedAt * 1000).toLocaleDateString('zh-TW', { year: 'numeric', month: 'long', day: 'numeric' })
       : ''
 
     document.title = `永續故事｜${treeId.slice(0, 8)}`
@@ -182,7 +199,7 @@ async function loadStory() {
       <div class="story-body">${html}</div>
       <div class="action-bar">
         <button class="btn btn-outline" onclick="copyLink()">🔗 複製連結</button>
-        <a class="btn btn-muted" href="/dashboard.html">← 返回記錄</a>
+        <a class="btn btn-muted" href="dashboard.html">← 返回記錄</a>
         ${genDate ? `<span style="margin-left:auto;font-size:0.8rem;color:var(--muted);font-family:'Inter',sans-serif">生成於 ${genDate}</span>` : ''}
         <span class="copy-toast" id="copy-toast">已複製！</span>
       </div>
