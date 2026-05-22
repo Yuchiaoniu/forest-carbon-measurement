@@ -22,7 +22,7 @@ async function recordMeasurement({ gps, species, dbhCm, volumeM3, carbonKg, vide
   const dbhMm             = Math.round(dbhCm * 10)
   const volumeCm3x100     = Math.round(volumeM3 * 1e6)
   const carbonG           = Math.round(carbonKg * 1000)
-  const localTreeId       = BigInt(treeId || 0)
+  const localTreeId       = (() => { try { return BigInt(treeId || 0) } catch { return 0n } })()
 
   // 修正因子：乘以 10000 轉為整數（10000 = 1.0000），未修正則為 0
   const originalDbhMm         = originalDbhCm ? Math.round(originalDbhCm * 10) : 0
