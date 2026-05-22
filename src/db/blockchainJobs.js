@@ -10,6 +10,8 @@ function create(treeId) {
   return id
 }
 
+const MAX_RETRY = 5
+
 function getPending() {
   return getDb().prepare(`
     SELECT bj.id as jobId, bj.retry_count,
@@ -17,7 +19,7 @@ function getPending() {
            t.video_hash, t.raw_result
     FROM blockchain_jobs bj
     JOIN trees t ON bj.tree_id = t.id
-    WHERE bj.tx_status = 'pending' AND bj.tx_hash IS NULL
+    WHERE bj.tx_status = 'pending' AND bj.tx_hash IS NULL AND bj.retry_count < ${MAX_RETRY}
   `).all()
 }
 
@@ -35,11 +37,16 @@ function updateStatus(id, txHash, txStatus = 'confirmed') {
 }
 
 function incrementRetry(id) {
-  getDb().prepare(`
+  const db = getDb()
+  db.prepare(`
     UPDATE blockchain_jobs
     SET retry_count = retry_count + 1, last_attempted_at = unixepoch()
     WHERE id = ?
   `).run(id)
+  db.prepare(`
+    UPDATE blockchain_jobs SET tx_status = 'failed'
+    WHERE id = ? AND retry_count >= ?
+  `).run(id, MAX_RETRY)
 }
 
 function getByTreeId(treeId) {
