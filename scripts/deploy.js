@@ -16,6 +16,8 @@ async function main() {
     sources: { 'CarbonCredit.sol': { content: source } },
     settings: {
       evmVersion: 'paris',
+      viaIR: true,
+      optimizer: { enabled: true, runs: 200 },
       outputSelection: { '*': { '*': ['abi', 'evm.bytecode'] } },
     },
   }
