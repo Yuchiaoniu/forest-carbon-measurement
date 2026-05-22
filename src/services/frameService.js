@@ -47,16 +47,18 @@ async function extractFrames(videoPath, outputDir) {
   })
 }
 
+// Laplacian variance (Pertuz et al., 2013): 對灰階影像套用 Laplacian 卷積核，
+// 取像素標準差的平方作為清晰度分數，值越高代表影像越清晰。
 function getSharpnessScore(framePath) {
   try {
     const result = execSync(
-      `"${ffmpegPath}" -i "${framePath}" -vf "edgedetect=low=0.1:high=0.3,signalstats" -f null - 2>&1`,
+      `"${ffmpegPath}" -i "${framePath}" -vf "format=gray,convolution=0 1 0 1 -4 1 0 1 0:0 1 0 1 -4 1 0 1 0:0 1 0 1 -4 1 0 1 0:0 1 0 1 -4 1 0 1 0:1:1:1:1:128:128:128:128,signalstats" -f null - 2>&1`,
       { timeout: 10000 }
     ).toString()
-    const match = result.match(/YAVG:(\d+\.?\d*)/)
-    return match ? parseFloat(match[1]) : 50
+    const match = result.match(/YSTDDEV:(\d+\.?\d*)/)
+    return match ? parseFloat(match[1]) ** 2 : 0
   } catch {
-    return 50
+    return 0
   }
 }
 
@@ -70,7 +72,7 @@ async function selectBestFrames(framePaths) {
 
   const best = [...frontScored.slice(0, 2), ...backScored.slice(0, 3)]
   const maxScore = Math.max(...best.map(f => f.score))
-  const quality = maxScore >= 30 ? 'good' : 'low'
+  const quality = maxScore >= 100 ? 'good' : 'low'  // YSTDDEV ≥ 10 → variance ≥ 100
   return { frames: best.map(f => f.path), frameQuality: quality }
 }
 
