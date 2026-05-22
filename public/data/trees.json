@@ -1,1 +1,66 @@
-[]
+[
+  {
+    "treeNo": "T001",
+    "id": "204fac0c-2c29-45b3-a919-f69eb918ae17",
+    "species": "Fraxinus griffithii",
+    "speciesSource": "gemini",
+    "dbhCm": 256.9,
+    "originalDbhCm": null,
+    "appliedCorrectionFactor": null,
+    "volumeM3": 108.1177,
+    "carbonKg": 42814.6,
+    "confidence": "low",
+    "gps": "22.7377,121.0661",
+    "focalLengthMm": 5.7,
+    "sensorWidthMm": 7.6,
+    "deviceModel": "iPhone 13 Pro Max",
+    "frameQuality": "good",
+    "referenceUsed": false,
+    "referenceType": null,
+    "createdAt": 1778660999,
+    "altitude": 59.111,
+    "resolution": "1920 × 1080",
+    "fps": 29.996,
+    "blockchain": {
+      "txHash": "0x69d94137af35c6f0ae6dc34977d3216be9fab4a6a75acbb1c212237fb93e06c3",
+      "txStatus": "confirmed",
+      "createdAt": 1778660999
+    },
+    "calibration": null,
+    "hasStory": false,
+    "storyMarkdown": null,
+    "storySummary": null
+  },
+  {
+    "treeNo": "T002",
+    "id": "72a5e5e9-af37-4317-8e20-fce61594a2e5",
+    "species": "Melia azedarach",
+    "speciesSource": "plantnet",
+    "dbhCm": 32,
+    "originalDbhCm": null,
+    "appliedCorrectionFactor": null,
+    "volumeM3": 0.7009,
+    "carbonKg": 227.8,
+    "confidence": "high",
+    "gps": "22.7345,121.0658",
+    "focalLengthMm": 5.7,
+    "sensorWidthMm": 7.6,
+    "deviceModel": "iPhone 13 Pro Max",
+    "frameQuality": "good",
+    "referenceUsed": false,
+    "referenceType": null,
+    "createdAt": 1779458792,
+    "altitude": 65.079,
+    "resolution": "1920 × 1080",
+    "fps": 29.992,
+    "blockchain": {
+      "txHash": null,
+      "txStatus": "pending",
+      "createdAt": 1779458792
+    },
+    "calibration": null,
+    "hasStory": true,
+    "storyMarkdown": "# 🌳 未知樹種 的故事\n\n> **台灣南端山野** ｜ 2026年5月22日\n\n---\n\n## 🌿 生態多樣性貢獻\n\n| 項目 | 內容 |\n|------|------|\n| **中文名** | 未知樹種 |\n| **起源** | ❓ 未知 |\n| **林相層次** | 林冠層 |\n| **棲地類型** | 低海拔闊葉林 |\n| **生態多樣性貢獻評分** | ★★☆☆☆（2/5） |\n| **關鍵物種** | 否 |\n| **吸引鳥類** | 各類留鳥 |\n| **吸引昆蟲** | 多種昆蟲 |\n| **哺乳動物** | — |\n| **土壤功能** | 提供遮蔭與有機質，基礎生態服務功能 |\n| **花期** | 視樹種而定 |\n| **提供蜜源** | 否 |\n| **提供果實** | 否 |\n\n### 生態角色\n\n樹木為周遭生態系提供遮蔭、固碳、防風等基礎服務，是陸域生態系的核心組成\n\n\n\n---\n\n## 🌍 碳儲量意義\n\n這棵 未知樹種 目前儲存了 **227.8 kg** 的碳。相當於 33 個人一個月的呼吸排碳量。\n\n每多一棵這樣的樹，就是給大氣的一次小小還債。\n\n---\n\n## ✨ 這棵樹的故事\n\n我是一棵矗立台灣南端山野的楝樹，閱盡歲月風景。胸高直徑三十二公分，我的樹身雖非巍峨，卻飽含生命力量。靜靜地，我擁抱了227.8公斤碳，這碳量抵銷三十三人一個月呼吸排放。陽光下，我的枝葉是鳥類樂園。\n\n尤其烏頭翁，牠們在我繁茂枝葉築巢，呢喃輕語。多樣昆蟲也在我樹皮、花朵間穿梭，構築微觀生態圈。落葉化作沃土，滋養萬物生長，樹蔭更是庇護一方，守護下方土壤溫度濕潤。我的存在，默默編織生命網絡。每一次吐納，每一次結果，都是向大自然致敬。或許，每一棵挺拔樹木，都是寫予未來最真摯一封信。\n\n---\n\n_資料由 Forest Carbon Measurement 系統自動生成，Gemini 2.5 Flash 驅動，2026/5/22 更新_",
+    "storySummary": "未知樹種，32 cm，227.8 kg C，台灣南端山野"
+  }
+]
