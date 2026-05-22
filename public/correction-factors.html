@@ -4,93 +4,323 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>修正因子學習進度</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: system-ui, sans-serif; background: #f0f4f0; color: #1a2e1a; }
-  .container { max-width: 700px; margin: 0 auto; padding: 24px 16px; }
-  h1 { font-size: 1.3rem; font-weight: 700; margin-bottom: 4px; }
-  .nav { font-size: 0.85rem; margin-bottom: 20px; }
-  .nav a { color: #2d7a2d; text-decoration: none; }
-  .card { background: white; border-radius: 12px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); margin-bottom: 16px; }
-  table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
-  th { text-align: left; padding: 8px 12px; background: #f8faf8; border-bottom: 2px solid #e0e8e0; color: #555; font-weight: 600; }
-  td { padding: 10px 12px; border-bottom: 1px solid #f0f0f0; }
-  .badge { display: inline-block; padding: 2px 8px; border-radius: 12px; font-size: 0.75rem; font-weight: 600; }
-  .badge-ok  { background: #dcfce7; color: #166534; }
-  .badge-low { background: #fef9c3; color: #854d0e; }
-  .empty { text-align: center; padding: 40px; color: #888; }
-  .summary { display: flex; gap: 16px; margin-bottom: 20px; }
-  .stat { flex: 1; background: white; border-radius: 10px; padding: 16px; text-align: center; box-shadow: 0 2px 6px rgba(0,0,0,0.06); }
-  .stat-num { font-size: 1.8rem; font-weight: 700; color: #2d7a2d; }
-  .stat-label { font-size: 0.8rem; color: #666; margin-top: 2px; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --green-900: #14532d;
+  --green-800: #166534;
+  --green-700: #15803d;
+  --green-600: #16a34a;
+  --green-500: #22c55e;
+  --green-100: #dcfce7;
+  --green-50:  #f0fdf4;
+  --bg:        #f1f5f1;
+  --text:      #1a2e1a;
+  --muted:     #6b7280;
+  --border:    #e5e7eb;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.10);
+}
+
+body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+
+/* Header */
+.header {
+  background: linear-gradient(135deg, var(--green-900) 0%, var(--green-700) 60%, #2d6a4f 100%);
+  padding: 24px 24px 28px; position: relative; overflow: hidden;
+}
+.header::before {
+  content:''; position:absolute; inset:0;
+  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 5 L20 25 H40 Z M18 22 L8 42 H28 Z M42 22 L32 42 H52 Z' fill='white' fill-opacity='0.04'/%3E%3C/svg%3E") repeat;
+  pointer-events: none;
+}
+.header-inner { max-width: 720px; margin: 0 auto; position: relative; }
+.header-nav   { display: flex; gap: 16px; margin-bottom: 18px; }
+.header-nav a {
+  font-size: 0.8rem; color: rgba(255,255,255,0.75); text-decoration: none;
+  padding: 4px 10px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.2); transition: all 0.2s;
+}
+.header-nav a:hover { background: rgba(255,255,255,0.15); color: white; }
+.header h1 { font-size: 1.5rem; font-weight: 700; color: white; margin-bottom: 4px; }
+.header p  { font-size: 0.88rem; color: rgba(255,255,255,0.7); line-height: 1.5; }
+
+/* Container */
+.container { max-width: 720px; margin: -16px auto 0; padding: 0 16px 48px; }
+
+/* Stats */
+.stats {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 12px; margin: 16px 0 20px;
+}
+@media (max-width: 480px) { .stats { grid-template-columns: 1fr 1fr; } }
+.stat {
+  background: white; border-radius: 14px; padding: 18px 16px;
+  text-align: center; box-shadow: var(--shadow-md); position: relative; overflow: hidden; transition: transform 0.2s;
+}
+.stat:hover { transform: translateY(-2px); }
+.stat::before {
+  content:''; position: absolute; top:0; left:0; right:0; height: 3px; border-radius: 14px 14px 0 0;
+}
+.stat:nth-child(1)::before { background: linear-gradient(90deg, var(--green-600), var(--green-500)); }
+.stat:nth-child(2)::before { background: linear-gradient(90deg, #2563eb, #60a5fa); }
+.stat:nth-child(3)::before { background: linear-gradient(90deg, #d97706, #fbbf24); }
+.stat-icon  { font-size: 1.4rem; margin-bottom: 6px; }
+.stat-num   { font-size: 1.9rem; font-weight: 700; color: var(--green-800); line-height: 1; margin-bottom: 4px; }
+.stat-label { font-size: 0.75rem; color: var(--muted); }
+
+/* Info banner */
+.info-banner {
+  background: white; border-radius: 12px; padding: 14px 18px;
+  font-size: 0.85rem; color: var(--muted); margin-bottom: 16px;
+  box-shadow: var(--shadow-sm); border-left: 4px solid var(--green-500);
+  display: flex; gap: 10px; align-items: flex-start; line-height: 1.5;
+}
+
+/* Species cards */
+.species-card {
+  background: white; border-radius: 14px; box-shadow: var(--shadow-sm);
+  margin-bottom: 10px; overflow: hidden;
+  transition: box-shadow 0.2s, transform 0.2s;
+  border: 1px solid transparent;
+}
+.species-card:hover { box-shadow: var(--shadow-md); transform: translateY(-1px); }
+.species-card.active { border-color: #86efac; }
+
+.sc-header { padding: 16px 18px 14px; display: flex; align-items: center; gap: 14px; }
+.sc-icon {
+  width: 42px; height: 42px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0;
+}
+.sc-icon-ok  { background: var(--green-100); }
+.sc-icon-low { background: #fef3c7; }
+
+.sc-info { flex: 1; min-width: 0; }
+.sc-name {
+  font-weight: 600; font-size: 0.95rem; font-style: italic;
+  color: var(--text); margin-bottom: 2px;
+}
+.sc-meta { font-size: 0.78rem; color: var(--muted); }
+
+.sc-right { text-align: right; flex-shrink: 0; }
+.factor-num { font-size: 1.3rem; font-weight: 700; color: var(--green-800); }
+.factor-label { font-size: 0.72rem; color: var(--muted); }
+
+/* Progress bar */
+.sc-progress { padding: 0 18px 16px; }
+.progress-info { display: flex; justify-content: space-between; font-size: 0.78rem; color: var(--muted); margin-bottom: 6px; }
+.progress-track {
+  height: 8px; background: #f3f4f6; border-radius: 4px; overflow: hidden;
+}
+.progress-fill {
+  height: 100%; border-radius: 4px;
+  transition: width 1s cubic-bezier(0.4,0,0.2,1); width: 0;
+}
+.progress-fill-ok  { background: linear-gradient(90deg, var(--green-600), var(--green-500)); }
+.progress-fill-low { background: linear-gradient(90deg, #d97706, #fbbf24); }
+
+/* Stats row */
+.sc-stats {
+  display: grid; grid-template-columns: repeat(3,1fr);
+  gap: 1px; background: #f3f4f6; border-top: 1px solid #f3f4f6;
+}
+.sc-stat { padding: 10px 14px; background: white; text-align: center; }
+.sc-stat-val { font-size: 0.95rem; font-weight: 600; color: var(--text); }
+.sc-stat-key { font-size: 0.72rem; color: var(--muted); margin-top: 2px; }
+
+/* Badge */
+.badge {
+  display: inline-flex; align-items: center; gap: 3px;
+  padding: 3px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: 600;
+}
+.badge-ok  { background: var(--green-100); color: var(--green-800); }
+.badge-low { background: #fef9c3; color: #854d0e; }
+
+/* Empty */
+.empty { text-align: center; padding: 80px 20px; color: var(--muted); }
+.empty-icon { font-size: 3rem; margin-bottom: 12px; }
+
+/* Skeleton */
+.skeleton {
+  background: linear-gradient(90deg, #f3f4f6 25%, #e5e7eb 50%, #f3f4f6 75%);
+  background-size: 200% 100%; animation: shimmer 1.5s infinite;
+  border-radius: 14px; height: 100px; margin-bottom: 10px;
+}
+@keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
 </style>
 </head>
 <body>
-<div class="container">
-  <div class="nav"><a href="/">← 回到測量系統</a></div>
-  <h1>修正因子學習進度</h1>
-  <p style="color:#555;font-size:0.85rem;margin-bottom:20px">
-    系統從實測資料（信用卡/捲尺）學習各樹種的 DBH 修正因子，累積 5 筆以上後自動套用。
-  </p>
 
-  <div class="summary" id="summary">
-    <div class="stat"><div class="stat-num" id="s-total">-</div><div class="stat-label">總 ground truth 筆數</div></div>
-    <div class="stat"><div class="stat-num" id="s-applicable">-</div><div class="stat-label">已達門檻樹種數</div></div>
-    <div class="stat"><div class="stat-num" id="s-pending">-</div><div class="stat-label">資料不足樹種數</div></div>
-  </div>
-
-  <div class="card">
-    <table>
-      <thead>
-        <tr>
-          <th>樹種</th>
-          <th>樣本數</th>
-          <th>修正因子</th>
-          <th>標準差</th>
-          <th>狀態</th>
-        </tr>
-      </thead>
-      <tbody id="table-body">
-        <tr><td colspan="5" class="empty">載入中...</td></tr>
-      </tbody>
-    </table>
+<div class="header">
+  <div class="header-inner">
+    <div class="header-nav">
+      <a href="/">← 測量系統</a>
+      <a href="/dashboard.html">📊 量測記錄</a>
+    </div>
+    <h1>🧠 修正因子學習進度</h1>
+    <p>系統從實測資料（信用卡 / 捲尺）持續學習各樹種的 DBH 修正因子，累積 5 筆以上後自動套用</p>
   </div>
 </div>
 
+<div class="container">
+
+  <div class="stats">
+    <div class="stat">
+      <div class="stat-icon">📋</div>
+      <div class="stat-num" id="s-total">—</div>
+      <div class="stat-label">總 ground truth 筆數</div>
+    </div>
+    <div class="stat">
+      <div class="stat-icon">✅</div>
+      <div class="stat-num" id="s-applicable">—</div>
+      <div class="stat-label">已達門檻樹種數</div>
+    </div>
+    <div class="stat">
+      <div class="stat-icon">⏳</div>
+      <div class="stat-num" id="s-pending">—</div>
+      <div class="stat-label">資料不足樹種數</div>
+    </div>
+  </div>
+
+  <div class="info-banner">
+    💡 修正因子 = 實測值 ÷ AI 估測值，代表系統對該樹種的系統性偏差。值越接近 1.0 表示 AI 精度越高。近 30 天資料權重加倍，確保模型持續更新。
+  </div>
+
+  <div id="skeleton">
+    <div class="skeleton"></div>
+    <div class="skeleton"></div>
+    <div class="skeleton"></div>
+  </div>
+  <div id="cards"></div>
+  <div id="empty" class="empty" style="display:none">
+    <div class="empty-icon">🌱</div>
+    <div>尚無學習資料</div>
+    <div style="font-size:0.85rem;margin-top:8px">
+      上傳影片並回報實測值，系統即開始學習
+    </div>
+  </div>
+
+</div>
+
 <script>
+function animateNumber(el, target) {
+  const duration = 700, fps = 60, steps = duration / (1000/fps)
+  let step = 0
+  const timer = setInterval(() => {
+    step++
+    el.textContent = Math.round(target * (step/steps))
+    if (step >= steps) { el.textContent = target; clearInterval(timer) }
+  }, 1000/fps)
+}
+
 async function load() {
-  const res = await fetch('/api/correction-factors')
-  const data = await res.json()
+  try {
+    const [cfRes, statsRes] = await Promise.all([
+      fetch('/api/correction-factors'),
+      fetch('/api/ground-truth/stats')
+    ])
+    const data  = await cfRes.json()
+    const stats = await statsRes.json()
 
-  const totalRes = await fetch('/api/ground-truth/stats')
-  const stats = await totalRes.json()
-  const total = stats.reduce((s, r) => s + (r.count || 0), 0)
-  const applicable = data.filter(d => d.applicable).length
-  const pending = data.filter(d => !d.applicable).length
+    document.getElementById('skeleton').style.display = 'none'
 
-  document.getElementById('s-total').textContent = total
-  document.getElementById('s-applicable').textContent = applicable
-  document.getElementById('s-pending').textContent = pending
+    const total      = stats.reduce((s, r) => s + (r.count || 0), 0)
+    const applicable = data.filter(d => d.applicable).length
+    const pending    = data.filter(d => !d.applicable).length
 
-  const tbody = document.getElementById('table-body')
-  if (data.length === 0) {
-    tbody.innerHTML = '<tr><td colspan="5" class="empty">尚無資料，請先上傳影片並回報實測值</td></tr>'
-    return
+    animateNumber(document.getElementById('s-total'),      total)
+    animateNumber(document.getElementById('s-applicable'), applicable)
+    animateNumber(document.getElementById('s-pending'),    pending)
+
+    const container = document.getElementById('cards')
+    const empty     = document.getElementById('empty')
+
+    if (data.length === 0) {
+      empty.style.display = ''
+      return
+    }
+
+    // Sort: active first, then by sample count desc
+    const sorted = [...data].sort((a,b) => {
+      if (a.applicable !== b.applicable) return a.applicable ? -1 : 1
+      return (b.sampleCount || 0) - (a.sampleCount || 0)
+    })
+
+    container.innerHTML = sorted.map(d => buildCard(d)).join('')
+
+    // Animate progress bars after a tick
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      sorted.forEach((d, i) => {
+        const fill = document.getElementById(`fill-${i}`)
+        if (fill) {
+          const pct = Math.min(100, ((d.sampleCount || 0) / (d.minSamples || 5)) * 100)
+          fill.style.width = pct + '%'
+        }
+      })
+    }))
+
+  } catch (e) {
+    document.getElementById('skeleton').style.display = 'none'
+    document.getElementById('cards').innerHTML =
+      `<div class="empty"><div class="empty-icon">⚠️</div>載入失敗：${e.message}</div>`
   }
+}
 
-  tbody.innerHTML = data.map(d => `
-    <tr>
-      <td style="font-style:italic">${d.species}</td>
-      <td>${d.sampleCount}${d.recentCount ? ` <small style="color:#888">(近期 ${d.recentCount})</small>` : ''}</td>
-      <td>${d.applicable ? d.correctionFactor : '—'}</td>
-      <td>${d.applicable ? d.stdDev : '—'}</td>
-      <td>
-        ${d.applicable
-          ? '<span class="badge badge-ok">✅ 套用中</span>'
-          : `<span class="badge badge-low">需 ${d.minSamples - d.sampleCount} 筆</span>`}
-      </td>
-    </tr>
-  `).join('')
+function buildCard(d, i) {
+  const ok       = d.applicable
+  const minSamp  = d.minSamples || 5
+  const pct      = Math.min(100, ((d.sampleCount || 0) / minSamp) * 100)
+  const need     = Math.max(0, minSamp - (d.sampleCount || 0))
+  const idx      = [...document.querySelectorAll('.species-card')].length
+
+  return `
+<div class="species-card ${ok ? 'active' : ''}">
+  <div class="sc-header">
+    <div class="sc-icon ${ok ? 'sc-icon-ok' : 'sc-icon-low'}">${ok ? '✅' : '🌱'}</div>
+    <div class="sc-info">
+      <div class="sc-name">${d.species}</div>
+      <div class="sc-meta">
+        ${ok
+          ? `<span class="badge badge-ok">套用中</span>`
+          : `<span class="badge badge-low">再蒐集 ${need} 筆即可啟用</span>`
+        }
+        ${d.recentCount ? ` · 近期 ${d.recentCount} 筆` : ''}
+      </div>
+    </div>
+    <div class="sc-right">
+      <div class="factor-num">${ok ? 'x' + d.correctionFactor : '—'}</div>
+      <div class="factor-label">修正因子</div>
+    </div>
+  </div>
+
+  <div class="sc-progress">
+    <div class="progress-info">
+      <span>樣本累積</span>
+      <span>${d.sampleCount || 0} / ${minSamp} 筆</span>
+    </div>
+    <div class="progress-track">
+      <div class="progress-fill ${ok ? 'progress-fill-ok' : 'progress-fill-low'}"
+           id="fill-${idx}" style="width:0"></div>
+    </div>
+  </div>
+
+  <div class="sc-stats">
+    <div class="sc-stat">
+      <div class="sc-stat-val">${d.sampleCount || 0}</div>
+      <div class="sc-stat-key">總樣本數</div>
+    </div>
+    <div class="sc-stat">
+      <div class="sc-stat-val">${ok ? d.correctionFactor : '—'}</div>
+      <div class="sc-stat-key">修正因子</div>
+    </div>
+    <div class="sc-stat">
+      <div class="sc-stat-val">${ok ? (d.stdDev || '—') : '—'}</div>
+      <div class="sc-stat-key">標準差</div>
+    </div>
+  </div>
+</div>`
 }
 
 load()

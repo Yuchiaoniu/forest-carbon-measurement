@@ -389,6 +389,7 @@ async function processVideo(jobId, videoPath) {
         txHash = await recordMeasurement({
           gps: metadata.gps, species, dbhCm: calc.dbhCm,
           volumeM3: calc.volumeM3, carbonKg: calc.carbonKg, videoHash,
+          treeId, originalDbhCm, appliedCorrectionFactor,
         })
         updateStatus(chainJobId, txHash, 'confirmed')
       } catch (chainErr) {
