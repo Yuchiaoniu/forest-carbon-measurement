@@ -24,6 +24,7 @@ contract CarbonCredit {
         string  gps,
         string  species,
         uint32  dbhMm,
+        uint32  volumeCm3x100,
         uint32  carbonG,
         bytes32 videoHash,
         uint256 timestamp,
@@ -56,7 +57,7 @@ contract CarbonCredit {
             block.timestamp, localTreeId, originalDbhMm, correctionFactorX10000
         );
         emit MeasurementRecorded(
-            id, gps, species, dbhMm, carbonG, videoHash,
+            id, gps, species, dbhMm, volumeCm3x100, carbonG, videoHash,
             block.timestamp, localTreeId, originalDbhMm, correctionFactorX10000
         );
         return id;
