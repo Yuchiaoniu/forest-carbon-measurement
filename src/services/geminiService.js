@@ -94,9 +94,9 @@ async function analyzeTrunk(frameBase64Array, metadata) {
    - "b5notebook"    B5 筆記本       182×257mm
    - "ruler30"       30cm 直尺       300mm
    - "ruler100"      1m 直尺         1000mm
-   - "banknote100"   台幣100元        130×65mm
-   - "banknote500"   台幣500元        154×67mm
-   - "banknote1000"  台幣1000元       160×80mm
+   - "banknote100"   台幣100元        145×70mm
+   - "banknote500"   台幣500元        155×70mm
+   - "banknote1000"  台幣1000元       160×70mm
    - "unknown"       不在清單但你認識且知道尺寸，填 referenceEstimatedWidthMm
    - ""              無法判斷 → referenceDetected=false
 
