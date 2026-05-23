@@ -160,6 +160,7 @@ function getMedianResult(frames, imageWidth, imageHeight) {
     (f.directMeasurementConfidence || 0) >= 0.5
   )
   let directMeasurementCm = 0, measurementType = '', directCluster = null
+  let directMeasurementConfidence = 0
   if (directFrames.length > 0) {
     directCluster = clusterByRelativeDiff(
       directFrames.map(f => f.directMeasurementCm), 0.10
@@ -167,6 +168,7 @@ function getMedianResult(frames, imageWidth, imageHeight) {
     const winningIdx = directCluster.winningIndices
     const winnerVals = winningIdx.map(i => directFrames[i].directMeasurementCm)
     const winnerTypes = winningIdx.map(i => directFrames[i].measurementType || 'diameter')
+    const winnerConfs = winningIdx.map(i => directFrames[i].directMeasurementConfidence || 0)
 
     // 最大群只有 1 幀，且其餘幀差距 > 10%（即非孤立讀數）→ 退回路徑 A/B
     if (winnerVals.length === 1 && directFrames.length > 1) {
@@ -175,8 +177,14 @@ function getMedianResult(frames, imageWidth, imageHeight) {
     } else {
       directMeasurementCm = median(winnerVals)
       measurementType = modeStr(winnerTypes)
+      directMeasurementConfidence = median(winnerConfs)
     }
   }
+
+  // breastHeightVisible：1.3m 標記是否在任一幀被 Gemini 認出（用於後續可追溯）
+  const breastHeightFrames = raw.filter(f => f.breastHeightVisible === true).length
+  const breastHeightVisible = breastHeightFrames > 0
+  const breastHeightVisibleRatio = raw.length > 0 ? breastHeightFrames / raw.length : 0
 
   // ── 有效幀篩選（樹幹清楚可見）
   const valid = raw.filter(f =>
@@ -245,8 +253,12 @@ function getMedianResult(frames, imageWidth, imageHeight) {
     referenceConfidence,
     referenceOffTrunkDetected: refOffTrunkFrames.length > 0,
     directMeasurementCm,
+    directMeasurementConfidence,
     measurementType,
     directCluster,
+    breastHeightVisible,
+    breastHeightVisibleRatio,
+    breastHeightVisibleFrames: breastHeightFrames,
     leafFrameIndices,
   }
 }
