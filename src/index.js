@@ -258,7 +258,25 @@ async function processVideo(jobId, videoPath) {
     const videoHash = await hashFile(videoPath)
     const existing = findByVideoHash(videoHash)
     if (existing) {
-      jobs[jobId] = { status: 'done', cached: true, result: formatResult(existing) }
+      jobs[jobId] = { status: 'done', cached: true, result: { ...formatResult(existing), treeId: existing.id } }
+      setImmediate(async () => {
+        try {
+          if (!getLatestByTree(existing.id, 'A')) {
+            const storyA = await generateStoryA(existing.id)
+            if (storyA) {
+              insertStory({
+                treeId: existing.id, storyType: 'A',
+                markdown: storyA.markdown, summary: storyA.summary,
+                weatherSnapshot: storyA.weather,
+              })
+              console.log(`[story] 方案A 故事補生成（cache hit）：tree=${existing.id}`)
+              pushTreesJson()
+            }
+          }
+        } catch (e) {
+          console.warn('[story] cache hit 故事補生成失敗：', e.message)
+        }
+      })
       return
     }
 

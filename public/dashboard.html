@@ -405,7 +405,7 @@ function buildCard(r) {
     <div class="badges">
       <span class="badge badge-${conf}">${confLabel}</span>
       ${bcBadge}
-      ${r.hasStory ? `<a class="badge badge-story" href="/story.html?id=${r.id}" target="_blank" onclick="event.stopPropagation()">🌿 永續故事</a>` : ''}
+      ${r.hasStory ? `<a class="badge badge-story" href="/story.html?id=${r.id}" onclick="event.stopPropagation()">🌿 永續故事</a>` : ''}
     </div>
     <span class="chevron">▼</span>
   </div>
@@ -423,7 +423,7 @@ function buildCard(r) {
           <tr><td>估算路徑</td><td>${path}</td></tr>
           ${r.appliedCorrectionFactor ? `<tr><td>修正因子</td><td>${r.appliedCorrectionFactor.toFixed(3)}</td></tr>` : ''}
           <tr><td>永續故事</td><td>${r.hasStory
-            ? `<a href="/story.html?id=${r.id}" target="_blank" style="color:var(--green-700);font-weight:600;text-decoration:none;" onclick="event.stopPropagation()">🌿 查看故事 →</a>`
+            ? `<a href="/story.html?id=${r.id}" style="color:var(--green-700);font-weight:600;text-decoration:none;" onclick="event.stopPropagation()">🌿 查看故事 →</a>`
             : '<span style="color:var(--muted)">—</span>'
           }</td></tr>
         </table>
