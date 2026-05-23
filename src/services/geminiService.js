@@ -31,9 +31,10 @@ async function analyzeTrunk(frameBase64Array, metadata) {
                 referenceHeightFraction:   { type: SchemaType.NUMBER },
                 referenceEstimatedWidthMm: { type: SchemaType.NUMBER },
                 referenceConfidence:       { type: SchemaType.NUMBER },
-                directMeasurementCm:       { type: SchemaType.NUMBER },
-                measurementType:           { type: SchemaType.STRING },
-                leafVisible:               { type: SchemaType.BOOLEAN },
+                directMeasurementCm:         { type: SchemaType.NUMBER },
+                measurementType:             { type: SchemaType.STRING },
+                directMeasurementConfidence: { type: SchemaType.NUMBER },
+                leafVisible:                 { type: SchemaType.BOOLEAN },
               },
               required: [
                 'trunkDetected', 'trunkWidthFraction', 'estimatedDistanceM',
@@ -41,7 +42,7 @@ async function analyzeTrunk(frameBase64Array, metadata) {
                 'referenceAtTrunk', 'trunkToReferenceRatio',
                 'referenceWidthFraction', 'referenceHeightFraction',
                 'referenceEstimatedWidthMm', 'referenceConfidence',
-                'directMeasurementCm', 'measurementType',
+                'directMeasurementCm', 'measurementType', 'directMeasurementConfidence',
                 'leafVisible',
               ],
             },
@@ -68,6 +69,13 @@ async function analyzeTrunk(frameBase64Array, metadata) {
    - "circumference"  捲尺繞圈，讀到的是周長
    - "diameter"       直尺橫量，讀到的是直徑
    - ""               無直接量測
+2a. directMeasurementConfidence：讀數信心度 0.0–1.0，依下列因素評估：
+    - 數字清晰可辨、字體完整                                +0.3~0.5
+    - 皮尺平直未彎曲、刻度線清楚                            +0.2
+    - 視角正對讀數位置（無斜角壓縮）                        +0.2
+    - 量測位置明確在 1.3m 胸高處                            +0.1
+    - 無遮擋（手指、樹皮陰影未蓋住讀數）                    +0.1
+    無直接量測時填 0；模糊不清難辨填 0.1~0.3；清楚可信填 0.8~1.0。
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 【路徑A：參照物比例換算】← 次優先
@@ -145,11 +153,29 @@ function getMedianResult(frames, imageWidth, imageHeight) {
   ).sort((a, b) => b[1] - a[1])[0][0]
 
   // ── 路徑 0：直接讀數（從所有幀，含特寫）
-  const directFrames = raw.filter(f => (f.directMeasurementCm || 0) > 0)
-  let directMeasurementCm = 0, measurementType = ''
+  // 1) 過濾信心度 < 0.5 的低品質讀數
+  // 2) 群聚：差距 < 10% 視為同一次量測，取最大群中位數，避免跨次量測平均
+  const directFrames = raw.filter(f =>
+    (f.directMeasurementCm || 0) > 0 &&
+    (f.directMeasurementConfidence || 0) >= 0.5
+  )
+  let directMeasurementCm = 0, measurementType = '', directCluster = null
   if (directFrames.length > 0) {
-    directMeasurementCm = median(directFrames.map(f => f.directMeasurementCm))
-    measurementType = modeStr(directFrames.map(f => f.measurementType || 'diameter'))
+    directCluster = clusterByRelativeDiff(
+      directFrames.map(f => f.directMeasurementCm), 0.10
+    )
+    const winningIdx = directCluster.winningIndices
+    const winnerVals = winningIdx.map(i => directFrames[i].directMeasurementCm)
+    const winnerTypes = winningIdx.map(i => directFrames[i].measurementType || 'diameter')
+
+    // 最大群只有 1 幀，且其餘幀差距 > 10%（即非孤立讀數）→ 退回路徑 A/B
+    if (winnerVals.length === 1 && directFrames.length > 1) {
+      directMeasurementCm = 0
+      measurementType = ''
+    } else {
+      directMeasurementCm = median(winnerVals)
+      measurementType = modeStr(winnerTypes)
+    }
   }
 
   // ── 有效幀篩選（樹幹清楚可見）
@@ -220,7 +246,32 @@ function getMedianResult(frames, imageWidth, imageHeight) {
     referenceOffTrunkDetected: refOffTrunkFrames.length > 0,
     directMeasurementCm,
     measurementType,
+    directCluster,
     leafFrameIndices,
+  }
+}
+
+// 對數值陣列做相對差距群聚（greedy）：將彼此差距 < threshold 的值視為同群。
+// 回傳最大群的 indices；用於避免「跨次量測中位數混合」問題。
+function clusterByRelativeDiff(values, threshold) {
+  if (values.length === 0) return { clusters: [], winningIndices: [] }
+  const idx = values.map((v, i) => ({ v, i })).sort((a, b) => a.v - b.v)
+  const clusters = []
+  let current = [idx[0]]
+  for (let k = 1; k < idx.length; k++) {
+    const ref = current[current.length - 1].v
+    const cur = idx[k].v
+    if (ref > 0 && Math.abs(cur - ref) / ref <= threshold) {
+      current.push(idx[k])
+    } else {
+      clusters.push(current); current = [idx[k]]
+    }
+  }
+  clusters.push(current)
+  const winner = clusters.reduce((a, b) => (b.length > a.length ? b : a))
+  return {
+    clusterSizes: clusters.map(c => c.length),
+    winningIndices: winner.map(x => x.i),
   }
 }
 
