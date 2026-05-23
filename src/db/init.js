@@ -150,6 +150,8 @@ function getDb() {
     try { db.exec(`ALTER TABLE trees ADD COLUMN original_dbh_cm REAL`) } catch(_) {}
     try { db.exec(`ALTER TABLE trees ADD COLUMN applied_correction_factor REAL`) } catch(_) {}
     try { db.exec(`ALTER TABLE trees ADD COLUMN event_id TEXT REFERENCES events(id)`) } catch(_) {}
+    try { db.exec(`ALTER TABLE trees ADD COLUMN video_filename TEXT`) } catch(_) {}
+    try { db.exec(`ALTER TABLE trees ADD COLUMN video_original_name TEXT`) } catch(_) {}
   }
   return db
 }

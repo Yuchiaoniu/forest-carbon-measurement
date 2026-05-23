@@ -75,7 +75,7 @@ app.post('/api/upload', upload.single('video'), async (req, res) => {
   res.json({ jobId, status: 'processing' })
 
   // 非同步處理
-  processVideo(jobId, req.file.path).catch(err => {
+  processVideo(jobId, req.file.path, req.file.originalname).catch(err => {
     jobs[jobId] = { status: 'error', error: err.message }
   })
 })
@@ -189,6 +189,7 @@ app.get('/api/trees', (req, res) => {
       t.device_model, t.frame_quality, t.raw_result,
       t.reference_used, t.reference_type,
       t.original_dbh_cm, t.applied_correction_factor,
+      t.video_filename, t.video_original_name,
       t.created_at,
       t.tx_hash   AS bc_tx_hash,
       t.tx_status AS bc_tx_status,
@@ -209,6 +210,7 @@ app.get('/api/trees', (req, res) => {
     let raw = null
     try { raw = r.raw_result ? JSON.parse(r.raw_result) : null } catch (_) {}
     const meta = raw?.metadata || raw?.exif || null
+    const med = raw?.median || null
     return {
       treeNo: `T${String(i + 1).padStart(3, '0')}`,
       id: r.id,
@@ -228,6 +230,12 @@ app.get('/api/trees', (req, res) => {
       frameQuality: r.frame_quality,
       referenceUsed: !!r.reference_used,
       referenceType: r.reference_type,
+      videoFilename: r.video_filename || null,
+      videoOriginalName: r.video_original_name || null,
+      directMeasurementCm: med?.directMeasurementCm ?? 0,
+      directMeasurementConfidence: med?.directMeasurementConfidence ?? null,
+      measurementType: med?.measurementType ?? '',
+      breastHeightVisible: med?.breastHeightVisible ?? null,
       createdAt: r.created_at,
       altitude: meta?.altitude ?? null,
       resolution: meta?.imageWidth && meta?.imageHeight
@@ -248,7 +256,7 @@ app.get('/api/trees', (req, res) => {
 })
 
 // 主要處理流程
-async function processVideo(jobId, videoPath) {
+async function processVideo(jobId, videoPath, originalName) {
   const framesDir = path.join('./tmp_frames', jobId)
   fs.mkdirSync(framesDir, { recursive: true })
 
@@ -387,7 +395,9 @@ async function processVideo(jobId, videoPath) {
       referenceUsed: calc.referenceUsed ? 1 : 0,
       referenceType: calc.referenceType,
       originalDbhCm, appliedCorrectionFactor,
-      rawResult: { median, calc, metadata },
+      videoFilename: path.basename(videoPath),
+      videoOriginalName: originalName || null,
+      rawResult: { median, calc, metadata, rawFrames: rawAnalysis.frames || [] },
     })
     const chainJobId = createBlockchainJob(treeId)
 
@@ -489,6 +499,46 @@ function formatResult(row) {
     appliedCorrectionFactor: row.applied_correction_factor || null,
   }
 }
+
+// GET /api/trees/:id/video（串流原始影片，支援 HTTP Range 拖動時間軸）
+app.get('/api/trees/:id/video', (req, res) => {
+  const row = getDb().prepare('SELECT video_filename FROM trees WHERE id = ?').get(req.params.id)
+  if (!row || !row.video_filename) return res.status(404).json({ error: '找不到該影片' })
+
+  // 防 path traversal：只允許單純檔名（無斜線、無 ..）
+  const filename = row.video_filename
+  if (filename.includes('/') || filename.includes('\\') || filename.includes('..')) {
+    return res.status(400).json({ error: '無效檔名' })
+  }
+  const filePath = path.join(UPLOAD_DIR, filename)
+  if (!fs.existsSync(filePath)) return res.status(404).json({ error: '影片檔已不存在' })
+
+  const stat = fs.statSync(filePath)
+  const range = req.headers.range
+  const contentType = filename.toLowerCase().endsWith('.mp4') ? 'video/mp4' : 'video/quicktime'
+
+  if (range) {
+    const m = /^bytes=(\d+)-(\d*)$/.exec(range)
+    if (!m) return res.status(416).end()
+    const start = parseInt(m[1], 10)
+    const end = m[2] ? parseInt(m[2], 10) : stat.size - 1
+    if (start >= stat.size || end >= stat.size) return res.status(416).end()
+    res.writeHead(206, {
+      'Content-Range': `bytes ${start}-${end}/${stat.size}`,
+      'Accept-Ranges': 'bytes',
+      'Content-Length': end - start + 1,
+      'Content-Type': contentType,
+    })
+    fs.createReadStream(filePath, { start, end }).pipe(res)
+  } else {
+    res.writeHead(200, {
+      'Content-Length': stat.size,
+      'Content-Type': contentType,
+      'Accept-Ranges': 'bytes',
+    })
+    fs.createReadStream(filePath).pipe(res)
+  }
+})
 
 // GET /api/trees/:id/story（單棵樹 Markdown 故事）
 app.get('/api/trees/:id/story', async (req, res) => {

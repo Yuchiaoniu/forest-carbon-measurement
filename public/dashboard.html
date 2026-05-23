@@ -393,6 +393,28 @@ function buildCard(r) {
   const createdTime = r.createdAt
     ? new Date(r.createdAt * 1000).toLocaleString('zh-TW') : '—'
 
+  const mTypeLabel = r.measurementType === 'circumference' ? '周長（皮尺繞圈）'
+                   : r.measurementType === 'diameter'      ? '直徑（直尺橫量）'
+                   : ''
+  const directRow = (r.directMeasurementCm > 0)
+    ? `<tr><td>皮尺讀數</td><td>${r.directMeasurementCm.toFixed(1)} cm（${mTypeLabel}）${
+        r.directMeasurementConfidence != null ? `<span style="color:var(--muted);margin-left:6px;">信心 ${(r.directMeasurementConfidence*100).toFixed(0)}%</span>` : ''
+      }</td></tr>`
+    : `<tr><td>皮尺讀數</td><td><span style="color:var(--muted)">未偵測</span></td></tr>`
+
+  const videoSection = r.videoFilename
+    ? `<div>
+        <div class="section-title">🎬 原始影片
+          <span style="font-weight:400;color:var(--muted);font-size:0.85rem;margin-left:6px;">${r.videoOriginalName || r.videoFilename}</span>
+        </div>
+        <video controls preload="metadata" style="width:100%;max-height:360px;background:#000;border-radius:6px;" onclick="event.stopPropagation()">
+          <source src="/api/trees/${r.id}/video" type="video/quicktime">
+          <source src="/api/trees/${r.id}/video" type="video/mp4">
+          您的瀏覽器不支援 video 標籤。
+        </video>
+       </div>`
+    : ''
+
   return `
 <div class="card" id="card-${r.id}">
   <div class="card-header" onclick="toggle('${r.id}')">
@@ -416,6 +438,7 @@ function buildCard(r) {
         <div class="section-title">📐 量測結果</div>
         <table class="kv-table">
           <tr><td>DBH 系統估算</td><td>${r.dbhCm != null ? r.dbhCm.toFixed(1) + ' cm' : '—'}</td></tr>
+          ${directRow}
           ${refRow}
           ${errorRow}
           <tr><td>碳儲量</td><td>${r.carbonKg != null ? (r.carbonKg * 1000).toFixed(0) + ' g' : '—'}</td></tr>
@@ -449,6 +472,7 @@ function buildCard(r) {
           <tr><td>拍攝時間</td><td>${createdTime}</td></tr>
         </table>
       </div>
+      ${videoSection}
     </div>
   </div>
 </div>`
