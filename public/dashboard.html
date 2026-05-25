@@ -140,6 +140,8 @@ body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color
 .badge-failed  { background: #fee2e2; color: #991b1b; }
 .badge-story   { background: #f0fdf4; color: #15803d; text-decoration: none; }
 .badge-story:hover { background: #dcfce7; }
+.badge-env     { background: #eff6ff; color: #1e40af; text-decoration: none; }
+.badge-env:hover { background: #dbeafe; }
 
 .chevron { font-size: 0.75rem; color: var(--muted); transition: transform 0.25s; }
 .card.open .chevron { transform: rotate(180deg); }
@@ -160,6 +162,24 @@ body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color
 .kv-table td { padding: 5px 0; vertical-align: top; }
 .kv-table td:first-child { color: var(--muted); width: 44%; padding-right: 8px; white-space: nowrap; }
 .kv-table td:last-child  { font-weight: 500; word-break: break-all; }
+.paths-table { width: 100%; font-size: 0.78rem; border-collapse: collapse; }
+.paths-table th, .paths-table td { padding: 6px 8px; border-bottom: 1px solid #e8efe8; text-align: center; }
+.paths-table th { color: var(--muted); font-weight: 600; background: #f7faf7; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.04em; }
+.paths-table td:first-child, .paths-table th:first-child { text-align: left; color: var(--muted); font-weight: 500; }
+.paths-table .winner { background: #e8f5e9; font-weight: 700; color: var(--green-800); position: relative; }
+.paths-table .winner::after { content: '★'; position: absolute; top: 2px; right: 4px; font-size: 0.65rem; color: var(--green-700); }
+.paths-table .na { color: var(--muted); font-style: italic; }
+/* Path-frames evidence tiles */
+.path-frames-block { font-size: 0.78rem; }
+.pf-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 6px; }
+.pf-tile { border: 1px solid #e8efe8; border-radius: 6px; padding: 6px; background: #fcfdfc; }
+.pf-tile.pf-na { background: #f7f7f7; color: var(--muted); text-align: center; padding: 18px 6px; }
+.pf-tile img { width: 100%; max-height: 220px; object-fit: contain; background: #000; border-radius: 4px; cursor: zoom-in; display: block; }
+.pf-label { font-weight: 700; color: var(--green-800); margin-bottom: 4px; font-size: 0.78rem; }
+.pf-meta  { color: var(--muted); margin-top: 4px; font-size: 0.72rem; }
+.pf-missing { padding: 30px 6px; text-align: center; color: var(--muted); background: #f7f7f7; border-radius: 4px; font-size: 0.72rem; }
+.pf-grid-small { display: grid; grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); gap: 6px; }
+.pf-grid-small img { width: 100%; height: 70px; object-fit: cover; background: #000; border-radius: 4px; cursor: zoom-in; }
 .hash-val  { font-family: 'Courier New', monospace; font-size: 0.78rem; }
 .copy-btn  { background: none; border: none; cursor: pointer; color: var(--green-700); font-size: 0.73rem; padding: 0 4px; }
 .copy-btn:hover { text-decoration: underline; }
@@ -274,6 +294,7 @@ body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color
 let allRecords = []
 
 const IS_GH_PAGES = location.hostname.endsWith('github.io')
+const API_BASE = IS_GH_PAGES ? 'https://forest-carbon.duckdns.org' : ''
 
 async function load() {
   if (IS_GH_PAGES) {
@@ -281,7 +302,7 @@ async function load() {
   }
   showSkeleton(true)
   try {
-    const url = IS_GH_PAGES ? './data/trees.json' : '/api/trees'
+    const url = IS_GH_PAGES ? './data/trees.json' : `${API_BASE}/api/trees`
     const res = await fetch(url)
     allRecords = await res.json()
     renderStats(allRecords)
@@ -346,7 +367,56 @@ function buildCard(r) {
 
   const path = r.referenceUsed
     ? `路徑 A（${refLabel(r.referenceType)}）`
-    : '路徑 B（薄透鏡）'
+    : r.directMeasurementCm > 0 ? '路徑 0（直接讀數）' : '路徑 B（薄透鏡）'
+
+  // §27 三路徑並列表格
+  const renderPathCell = (p, pathKey, winnerKey, fmt) => {
+    if (!p?.computed) return '<td class="na">—</td>'
+    const cls = pathKey === winnerKey ? 'winner' : ''
+    return `<td class="${cls}">${fmt(p)}</td>`
+  }
+  const w = r.winnerPath
+  const pp = r.paths || {}
+  const fmtDbh    = (p) => p.dbhCm != null ? `${p.dbhCm.toFixed(1)} cm` : '—'
+  const fmtVolume = (p) => p.volumeM3 != null ? `${(p.volumeM3 * 1e6).toFixed(0)} cm³` : '—'
+  const fmtCarbon = (p) => p.carbonKg != null ? `${(p.carbonKg * 1000).toFixed(0)} g` : '—'
+  // §30 v2：移除 Path B 修正後一列，使用者已用人工皮尺判讀做 RQ1 比較，三路徑原始值即可
+  const pathsSection = `
+    <div>
+      <div class="section-title">🔀 三路徑並列估算</div>
+      <table class="paths-table">
+        <thead>
+          <tr><th></th><th>Path 0<br><span style="font-weight:400;font-size:0.65rem;">直接讀數</span></th>
+              <th>Path A<br><span style="font-weight:400;font-size:0.65rem;">參照物</span></th>
+              <th>Path B<br><span style="font-weight:400;font-size:0.65rem;">薄透鏡</span></th></tr>
+        </thead>
+        <tbody>
+          <tr><td>DBH</td>
+            ${renderPathCell(pp.path0, 'path0', w, fmtDbh)}
+            ${renderPathCell(pp.pathA, 'pathA', w, fmtDbh)}
+            ${renderPathCell(pp.pathB, 'pathB', w, fmtDbh)}</tr>
+          <tr><td>材積</td>
+            ${renderPathCell(pp.path0, 'path0', w, fmtVolume)}
+            ${renderPathCell(pp.pathA, 'pathA', w, fmtVolume)}
+            ${renderPathCell(pp.pathB, 'pathB', w, fmtVolume)}</tr>
+          <tr><td>碳儲量</td>
+            ${renderPathCell(pp.path0, 'path0', w, fmtCarbon)}
+            ${renderPathCell(pp.pathA, 'pathA', w, fmtCarbon)}
+            ${renderPathCell(pp.pathB, 'pathB', w, fmtCarbon)}</tr>
+        </tbody>
+      </table>
+      ${w ? `<div style="margin-top:6px;font-size:0.72rem;color:var(--muted);">★ winner = ${w}（依優先級 0 &gt; A &gt; B）</div>` : ''}
+      <div id="path-frames-${r.id}" class="path-frames-block" style="margin-top:10px;font-size:0.78rem;color:var(--muted);">點開卡片載入三路徑依據幀…</div>
+    </div>`
+
+  // §30 v2：自動從 Gemini 判讀皮尺數字當基準（lazy-load 進 #tape-compare-${r.id}）
+  const manualSection = `
+    <div>
+      <div class="section-title">📏 皮尺視覺判讀 vs 系統估算
+        <span style="font-weight:400;color:var(--muted);font-size:0.75rem;margin-left:6px;">Gemini 從關鍵幀讀皮尺數字 → 三路徑誤差</span>
+      </div>
+      <div id="tape-compare-${r.id}" style="font-size:0.85rem;color:var(--muted);">點開卡片載入皮尺對照…</div>
+    </div>`
 
   let errorRow = ''
   if (r.calibration && !r.referenceUsed) {
@@ -408,10 +478,22 @@ function buildCard(r) {
           <span style="font-weight:400;color:var(--muted);font-size:0.85rem;margin-left:6px;">${r.videoOriginalName || r.videoFilename}</span>
         </div>
         <video controls preload="metadata" style="width:100%;max-height:360px;background:#000;border-radius:6px;" onclick="event.stopPropagation()">
-          <source src="/api/trees/${r.id}/video" type="video/quicktime">
-          <source src="/api/trees/${r.id}/video" type="video/mp4">
+          <source src="${API_BASE}/api/trees/${r.id}/video" type="video/quicktime">
+          <source src="${API_BASE}/api/trees/${r.id}/video" type="video/mp4">
           您的瀏覽器不支援 video 標籤。
         </video>
+       </div>`
+    : ''
+
+  const evidenceSection = r.hasEvidenceFrame
+    ? `<div>
+        <div class="section-title">📷 測量依據
+          <span style="font-weight:400;color:var(--muted);font-size:0.85rem;margin-left:6px;">Gemini 判讀採用的關鍵幀</span>
+        </div>
+        <a href="${API_BASE}/api/trees/${r.id}/evidence-frame" target="_blank" onclick="event.stopPropagation()">
+          <img src="${API_BASE}/api/trees/${r.id}/evidence-frame" alt="測量依據幀"
+               style="width:100%;max-height:360px;object-fit:contain;background:#000;border-radius:6px;cursor:zoom-in;">
+        </a>
        </div>`
     : ''
 
@@ -428,6 +510,7 @@ function buildCard(r) {
       <span class="badge badge-${conf}">${confLabel}</span>
       ${bcBadge}
       ${r.hasStory ? `<a class="badge badge-story" href="/story.html?id=${r.id}" onclick="event.stopPropagation()">🌿 永續故事</a>` : ''}
+      ${r.hasEnvironment ? `<a class="badge badge-env" href="${API_BASE}/api/trees/${r.id}/environment" target="_blank" onclick="event.stopPropagation()" title="此樹已記錄環境快照（天氣 / 太陽位置 / 物候）">📊 環境快照</a>` : ''}
     </div>
     <span class="chevron">▼</span>
   </div>
@@ -451,6 +534,8 @@ function buildCard(r) {
           }</td></tr>
         </table>
       </div>
+      ${pathsSection}
+      ${manualSection}
       <div>
         <div class="section-title">⛓ 區塊鏈存證</div>
         <table class="kv-table">
@@ -472,6 +557,7 @@ function buildCard(r) {
           <tr><td>拍攝時間</td><td>${createdTime}</td></tr>
         </table>
       </div>
+      ${evidenceSection}
       ${videoSection}
     </div>
   </div>
@@ -485,13 +571,158 @@ function refLabel(src) {
   return src
 }
 
-function toggle(id) { document.getElementById('card-' + id).classList.toggle('open') }
-function expandAll()  { document.querySelectorAll('.card').forEach(c => c.classList.add('open')) }
+function toggle(id) {
+  const card = document.getElementById('card-' + id)
+  card.classList.toggle('open')
+  if (card.classList.contains('open')) loadPathFrames(id)
+}
+
+const _pathFramesCache = {}
+async function loadPathFrames(treeId) {
+  const box = document.getElementById('path-frames-' + treeId)
+  const tapeBox = document.getElementById('tape-compare-' + treeId)
+  if (!box || box.dataset.loaded === '1' || box.dataset.loading === '1') return
+  box.dataset.loading = '1'
+  try {
+    const data = _pathFramesCache[treeId] || await fetch(`${API_BASE}/api/trees/${treeId}/path-frames`).then(r => r.json())
+    _pathFramesCache[treeId] = data
+    box.innerHTML = renderPathFrames(treeId, data)
+    if (tapeBox) tapeBox.innerHTML = renderTapeCompare(treeId, data)
+    box.dataset.loaded = '1'
+  } catch (e) {
+    box.innerHTML = `<span style="color:var(--err)">依據幀載入失敗：${e.message}</span>`
+    if (tapeBox) tapeBox.innerHTML = `<span style="color:var(--err)">皮尺對照載入失敗：${e.message}</span>`
+  } finally {
+    box.dataset.loading = '0'
+  }
+}
+
+// §30 v2：皮尺視覺判讀對照（從 Gemini path-frames 讀皮尺數字當基準）
+function renderTapeCompare(treeId, data) {
+  const p0 = data.paths?.path0
+  if (!p0 || !p0.evidence || p0.evidence.value == null) {
+    return `<div style="color:var(--muted);font-size:0.85rem;">此筆未偵測到皮尺數字（path 0 evidence 缺失）。本筆樹無法做皮尺基準對照，請改用其他樹木的卡片驗證。</div>`
+  }
+  const r = (typeof allRecords !== 'undefined' ? allRecords : []).find(x => x.id === treeId)
+  if (!r) return `<div style="color:var(--muted);font-size:0.85rem;">本機紀錄查無此樹，無法計算誤差。</div>`
+
+  const reading = p0.evidence.value
+  const mtype = p0.evidence.measurementType
+  const isCirc = mtype === 'circumference'
+  const baselineDbh = isCirc ? reading / Math.PI : reading
+  const conf = p0.evidence.confidence != null ? p0.evidence.confidence : null
+  const frameIdx = p0.evidence.frameIdx
+  const imgUrl = frameIdx != null ? `${API_BASE}/api/trees/${treeId}/frames/${frameIdx}` : null
+
+  const paths = r.paths || {}
+  const pathRow = (label, p, isSelfRef) => {
+    if (!p?.computed || p.dbhCm == null) {
+      return `<tr><td>${label}</td><td><span style="color:var(--muted)">—</span></td><td><span style="color:var(--muted)">—</span></td></tr>`
+    }
+    let errCell
+    if (isSelfRef) {
+      errCell = `<span style="color:var(--muted)">自身基準 (0%)</span>`
+    } else {
+      const err = (p.dbhCm - baselineDbh) / baselineDbh * 100
+      const a = Math.abs(err)
+      const cls = a <= 10 ? 'ok' : a <= 25 ? 'warn' : 'err'
+      errCell = `<span class="${cls}">${err >= 0 ? '+' : ''}${err.toFixed(1)}%</span>`
+    }
+    return `<tr><td>${label}</td><td>${p.dbhCm.toFixed(1)} cm</td><td>${errCell}</td></tr>`
+  }
+
+  const imgBlock = imgUrl
+    ? `<a href="${imgUrl}" target="_blank" onclick="event.stopPropagation()">
+         <img src="${imgUrl}" style="width:100%;border-radius:6px;background:#000;cursor:zoom-in;" onerror="this.style.opacity=0.2" />
+       </a>
+       <div style="font-size:0.72rem;color:var(--muted);margin-top:4px;line-height:1.4;">
+         Gemini 從 frame_${frameIdx}.jpg 判讀：<b>${reading.toFixed(1)} cm</b>${isCirc ? '（周長）' : mtype === 'diameter' ? '（直徑）' : ''}${conf != null ? `<br>判讀信心 ${(conf * 100).toFixed(0)}%` : ''}
+       </div>`
+    : `<div style="color:var(--muted);font-size:0.78rem;">無依據幀圖片。</div>`
+
+  return `
+    <div style="display:grid;grid-template-columns:minmax(160px, 260px) 1fr;gap:12px;align-items:start;">
+      <div>${imgBlock}</div>
+      <div>
+        <div style="font-size:0.78rem;color:var(--ink);margin-bottom:6px;">
+          皮尺基準 DBH = ${isCirc ? `${reading.toFixed(1)} cm ÷ π` : `${reading.toFixed(1)} cm`} = <b style="color:var(--green-700);">${baselineDbh.toFixed(1)} cm</b>
+        </div>
+        <table class="kv-table" style="width:100%;">
+          <thead>
+            <tr style="background:#f5f7f5;">
+              <th style="text-align:left;padding:4px 6px;">路徑</th>
+              <th style="text-align:left;padding:4px 6px;">系統估算 DBH</th>
+              <th style="text-align:left;padding:4px 6px;">vs 皮尺誤差</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${pathRow('Path 0（直接讀數）', paths.path0, true)}
+            ${pathRow('Path A（參照物）', paths.pathA, false)}
+            ${pathRow('Path B（薄透鏡）', paths.pathB, false)}
+          </tbody>
+        </table>
+        <div style="font-size:0.72rem;color:var(--muted);margin-top:6px;line-height:1.5;">
+          ⚠️ Path 0 = 系統讀同條皮尺，必為 0% 誤差（自身基準，僅供確認 Gemini 判讀是否正確）。<br>
+          👁 請直接肉眼比對左側影像中的皮尺數字，確認 Gemini 讀到 <b>${reading.toFixed(1)} cm</b> 是否正確；若正確，Path A / Path B 該欄誤差即為 RQ1 系統精度。
+        </div>
+      </div>
+    </div>
+  `
+}
+
+function renderPathFrames(treeId, data) {
+  const tile = (label, frameIdx, meta) => {
+    if (frameIdx == null) return `<div class="pf-tile pf-na"><div class="pf-label">${label}</div><div class="pf-meta">無依據幀</div></div>`
+    const img = `${API_BASE}/api/trees/${treeId}/frames/${frameIdx}`
+    return `<div class="pf-tile">
+      <div class="pf-label">${label}</div>
+      <a href="${img}" target="_blank" onclick="event.stopPropagation()">
+        <img src="${img}" onerror="this.parentNode.replaceWith(Object.assign(document.createElement('div'),{className:'pf-missing',textContent:'frame_'+${frameIdx}+'.jpg 不存在'}))" />
+      </a>
+      <div class="pf-meta">frame_${frameIdx}.jpg${meta ? ' · ' + meta : ''}</div>
+    </div>`
+  }
+  const p = data.paths || {}
+  const p0Meta = p.path0?.evidence
+    ? `${p.path0.evidence.value?.toFixed(1) || '?'} cm（${p.path0.evidence.measurementType || ''}）信心 ${(p.path0.evidence.confidence * 100).toFixed(0)}%`
+    : null
+  const pAMeta = p.pathA?.evidence
+    ? `${p.pathA.evidence.referenceType || ''} · 信心 ${(p.pathA.evidence.confidence * 100).toFixed(0)}%`
+    : null
+
+  const pathBFramesGrid = p.pathB ? `
+    <div style="margin-top:8px;">
+      <div style="font-weight:600;color:var(--green-800);margin-bottom:4px;">Path B 取全部 ${data.frames.length} 幀中位數</div>
+      <div class="pf-grid-small">
+        ${data.frames.map(f => `
+          <a href="${API_BASE}/api/trees/${treeId}/frames/${f.frameIdx}" target="_blank" onclick="event.stopPropagation()" title="frame_${f.frameIdx}.jpg · trunkWidth=${(f.trunkWidthFraction || 0).toFixed(3)}">
+            <img src="${API_BASE}/api/trees/${treeId}/frames/${f.frameIdx}" onerror="this.style.opacity=0.15" />
+          </a>
+        `).join('')}
+      </div>
+    </div>` : ''
+
+  return `
+    <div class="pf-row">
+      ${p.path0 ? tile(`Path 0（${p.path0.dbhCm.toFixed(1)} cm）`, p.path0.evidence?.frameIdx, p0Meta) : ''}
+      ${p.pathA ? tile(`Path A（${p.pathA.dbhCm.toFixed(1)} cm）`, p.pathA.evidence?.frameIdx, pAMeta) : ''}
+    </div>
+    ${pathBFramesGrid}
+  `
+}
+function expandAll()  {
+  document.querySelectorAll('.card').forEach(c => {
+    c.classList.add('open')
+    const id = c.id.replace(/^card-/, '')
+    if (id) loadPathFrames(id)
+  })
+}
 function collapseAll(){ document.querySelectorAll('.card').forEach(c => c.classList.remove('open')) }
 
 function copy(text) {
   navigator.clipboard.writeText(text).then(() => showToast('✅ 已複製到剪貼簿'))
 }
+
 function showToast(msg) {
   const t = document.getElementById('toast')
   t.textContent = msg
