@@ -518,7 +518,18 @@ function buildCard(r) {
       }</td></tr>`
     : `<tr><td>皮尺讀數</td><td><span style="color:var(--muted)">未偵測</span></td></tr>`
 
-  const videoSection = r.videoFilename
+  // 影片來源：優先用 Google Drive iframe（節省 VM 磁碟、跨頁穩定），否則 fallback 至 VM 串流
+  const videoSection = r.videoDriveUrl
+    ? `<div>
+        <div class="section-title">🎬 原始影片
+          <span style="font-weight:400;color:var(--muted);font-size:0.85rem;margin-left:6px;">${r.videoOriginalName || r.videoFilename || ''}（Google Drive）</span>
+        </div>
+        <div style="position:relative;width:100%;padding-top:56.25%;background:#000;border-radius:6px;overflow:hidden;" onclick="event.stopPropagation()">
+          <iframe src="${r.videoDriveUrl}" allow="autoplay" allowfullscreen
+                  style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;"></iframe>
+        </div>
+       </div>`
+    : r.videoFilename
     ? `<div>
         <div class="section-title">🎬 原始影片
           <span style="font-weight:400;color:var(--muted);font-size:0.85rem;margin-left:6px;">${r.videoOriginalName || r.videoFilename}</span>
