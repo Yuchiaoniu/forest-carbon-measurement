@@ -4,11 +4,11 @@
     "id": "f658c6b4-5001-4491-978f-0f6ba60f703c",
     "species": "Camphora officinarum",
     "speciesSource": "plantnet",
-    "dbhCm": 20.2,
+    "dbhCm": 27.2,
     "originalDbhCm": null,
     "appliedCorrectionFactor": null,
-    "volumeM3": 0.2329,
-    "carbonKg": 75.7,
+    "volumeM3": 0.4962,
+    "carbonKg": 180.6,
     "confidence": "high",
     "gps": "22.7353,121.0696",
     "focalLengthMm": 5.7,
@@ -35,9 +35,9 @@
     "videoDriveUrl": "https://drive.google.com/file/d/13fgOJO--W4opami5ZVKoqIl7Nxk-Ec6F/preview",
     "paths": {
       "path0": {
-        "dbhCm": 20.2,
-        "volumeM3": 0.2329,
-        "carbonKg": 75.7,
+        "dbhCm": 27.2,
+        "volumeM3": 0.4962,
+        "carbonKg": 180.6,
         "computed": true
       },
       "pathA": {
@@ -69,11 +69,11 @@
     "id": "db0c5e0f-78b0-4e04-85f1-b98f476e4c7e",
     "species": "Liquidambar formosana",
     "speciesSource": "gemini",
-    "dbhCm": 93.3,
+    "dbhCm": 22.6,
     "originalDbhCm": null,
     "appliedCorrectionFactor": null,
-    "volumeM3": 8.8492,
-    "carbonKg": 2991,
+    "volumeM3": 0.313,
+    "carbonKg": 105.8,
     "confidence": "low",
     "gps": "22.7354,121.0696",
     "focalLengthMm": 5.7,
@@ -97,7 +97,10 @@
     "videoDriveUrl": "https://drive.google.com/file/d/1lpkf7TYbWLylUKtG0ABFdZDitkW2T0wN/preview",
     "paths": {
       "path0": {
-        "computed": false
+        "dbhCm": 22.6,
+        "volumeM3": 0.313,
+        "carbonKg": 105.8,
+        "computed": true
       },
       "pathA": {
         "computed": false
@@ -125,11 +128,11 @@
     "id": "f97a927b-ae4d-4b42-b224-418f6d9028dc",
     "species": "Calophyllum inophyllum",
     "speciesSource": "plantnet",
-    "dbhCm": 46,
+    "dbhCm": 27.7,
     "originalDbhCm": null,
     "appliedCorrectionFactor": null,
-    "volumeM3": 1.6716,
-    "carbonKg": 543.3,
+    "volumeM3": 0.6188,
+    "carbonKg": 241.3,
     "confidence": "low",
     "gps": "22.7352,121.0696",
     "focalLengthMm": 5.7,
@@ -153,7 +156,10 @@
     "videoDriveUrl": "https://drive.google.com/file/d/1F0437umBsIGv_-oetcpKQokZW9KSXjcp/preview",
     "paths": {
       "path0": {
-        "computed": false
+        "dbhCm": 27.7,
+        "volumeM3": 0.6188,
+        "carbonKg": 241.3,
+        "computed": true
       },
       "pathA": {
         "dbhCm": 39.4,
@@ -184,11 +190,11 @@
     "id": "60197586-ff81-4dc5-8994-65500a2280ce",
     "species": "Fraxinus griffithii",
     "speciesSource": "gemini",
-    "dbhCm": 58.7,
+    "dbhCm": 30.2,
     "originalDbhCm": null,
     "appliedCorrectionFactor": null,
-    "volumeM3": 3.1091,
-    "carbonKg": 1231.2,
+    "volumeM3": 0.6292,
+    "carbonKg": 249.1,
     "confidence": "low",
     "gps": "22.7346,121.0686",
     "focalLengthMm": 5.7,
@@ -212,7 +218,10 @@
     "videoDriveUrl": "https://drive.google.com/file/d/1fFNvMJSiDo6h0cGK7VBfDW7_Q9pE7aL4/preview",
     "paths": {
       "path0": {
-        "computed": false
+        "dbhCm": 30.2,
+        "volumeM3": 0.6292,
+        "carbonKg": 249.1,
+        "computed": true
       },
       "pathA": {
         "computed": false
@@ -240,11 +249,11 @@
     "id": "ef71202a-420a-45aa-a159-234db9e94533",
     "species": "Acacia confusa",
     "speciesSource": "gemini",
-    "dbhCm": 30.4,
+    "dbhCm": 28.6,
     "originalDbhCm": null,
     "appliedCorrectionFactor": null,
-    "volumeM3": 0.6432,
-    "carbonKg": 303.9,
+    "volumeM3": 0.5561,
+    "carbonKg": 262.8,
     "confidence": "high",
     "gps": "22.7346,121.0685",
     "focalLengthMm": 5.7,
@@ -271,9 +280,9 @@
     "videoDriveUrl": "https://drive.google.com/file/d/1oFUNweQ1E2BCJRuuEFgATXYRUV5rWzON/preview",
     "paths": {
       "path0": {
-        "dbhCm": 30.4,
-        "volumeM3": 0.6432,
-        "carbonKg": 303.9,
+        "dbhCm": 28.6,
+        "volumeM3": 0.5561,
+        "carbonKg": 262.8,
         "computed": true
       },
       "pathA": {
@@ -305,11 +314,11 @@
     "id": "39a452d7-18e1-49a5-8e60-1c4c3931d8b0",
     "species": "Bischofia javanica",
     "speciesSource": "plantnet",
-    "dbhCm": 34.4,
+    "dbhCm": 33.7,
     "originalDbhCm": null,
     "appliedCorrectionFactor": null,
-    "volumeM3": 0.8335,
-    "carbonKg": 270.9,
+    "volumeM3": 0.829,
+    "carbonKg": 323.3,
     "confidence": "high",
     "gps": "22.7342,121.0677",
     "focalLengthMm": 5.7,
@@ -336,9 +345,9 @@
     "videoDriveUrl": "https://drive.google.com/file/d/1ZVDRkpkw0M7RYwS03Fdf19pAJKT4AnZ5/preview",
     "paths": {
       "path0": {
-        "dbhCm": 34.4,
-        "volumeM3": 0.8335,
-        "carbonKg": 270.9,
+        "dbhCm": 33.7,
+        "volumeM3": 0.829,
+        "carbonKg": 323.3,
         "computed": true
       },
       "pathA": {
@@ -367,11 +376,11 @@
     "id": "2f3d72e9-59de-4e3e-8dd4-b6c5c2f6321d",
     "species": "Juglans nigra",
     "speciesSource": "plantnet",
-    "dbhCm": 90,
+    "dbhCm": 42,
     "originalDbhCm": null,
     "appliedCorrectionFactor": null,
-    "volumeM3": 8.3413,
-    "carbonKg": 2710.9,
+    "volumeM3": 1.629,
+    "carbonKg": 560,
     "confidence": "low",
     "gps": "22.7365,121.0694",
     "focalLengthMm": 5.7,
@@ -395,7 +404,10 @@
     "videoDriveUrl": "https://drive.google.com/file/d/1-yXWP7XWpgTeZBDQC9sHyOpIxljxm_tH/preview",
     "paths": {
       "path0": {
-        "computed": false
+        "dbhCm": 42,
+        "volumeM3": 1.629,
+        "carbonKg": 560,
+        "computed": true
       },
       "pathA": {
         "computed": false
@@ -423,11 +435,11 @@
     "id": "e6dc1550-d707-4e20-9ff2-ed25eb6304f0",
     "species": "Melia azedarach",
     "speciesSource": "plantnet",
-    "dbhCm": 166.5,
+    "dbhCm": 43.6,
     "originalDbhCm": null,
     "appliedCorrectionFactor": null,
-    "volumeM3": 36.4008,
-    "carbonKg": 11830.3,
+    "volumeM3": 1.5484,
+    "carbonKg": 533,
     "confidence": "low",
     "gps": "22.7366,121.0692",
     "focalLengthMm": 5.7,
@@ -451,7 +463,10 @@
     "videoDriveUrl": "https://drive.google.com/file/d/19hdCOLZKBOLf1F3rtZ1LLeukXUw2NAFy/preview",
     "paths": {
       "path0": {
-        "computed": false
+        "dbhCm": 43.6,
+        "volumeM3": 1.5484,
+        "carbonKg": 533,
+        "computed": true
       },
       "pathA": {
         "computed": false
@@ -479,11 +494,11 @@
     "id": "32b07239-e856-42bd-9ef1-09978d79013a",
     "species": "Camphora officinarum",
     "speciesSource": "plantnet",
-    "dbhCm": 38.5,
+    "dbhCm": 17.5,
     "originalDbhCm": null,
     "appliedCorrectionFactor": null,
-    "volumeM3": 1.0914,
-    "carbonKg": 354.7,
+    "volumeM3": 0.1726,
+    "carbonKg": 62.8,
     "confidence": "high",
     "gps": "22.7362,121.0691",
     "focalLengthMm": 5.7,
@@ -510,7 +525,10 @@
     "videoDriveUrl": "https://drive.google.com/file/d/1yvo9_vja1TJOFl8TTiHQDHi9vMNbRfTf/preview",
     "paths": {
       "path0": {
-        "computed": false
+        "dbhCm": 17.5,
+        "volumeM3": 0.1726,
+        "carbonKg": 62.8,
+        "computed": true
       },
       "pathA": {
         "dbhCm": 38.5,
@@ -541,11 +559,11 @@
     "id": "febd9eef-99a5-4e77-81c9-402786c9e63a",
     "species": "Pongamia pinnata",
     "speciesSource": "plantnet",
-    "dbhCm": 14.8,
+    "dbhCm": 16.9,
     "originalDbhCm": null,
     "appliedCorrectionFactor": null,
-    "volumeM3": 0.1106,
-    "carbonKg": 35.9,
+    "volumeM3": 0.1417,
+    "carbonKg": 61.7,
     "confidence": "low",
     "gps": "22.7357,121.0676",
     "focalLengthMm": 5.7,
@@ -569,7 +587,10 @@
     "videoDriveUrl": "https://drive.google.com/file/d/1vwIqBt4Zob3wno3999dgfQkF5SSggRi6/preview",
     "paths": {
       "path0": {
-        "computed": false
+        "dbhCm": 16.9,
+        "volumeM3": 0.1417,
+        "carbonKg": 61.7,
+        "computed": true
       },
       "pathA": {
         "dbhCm": 13,
@@ -600,11 +621,11 @@
     "id": "fcaf65a9-0341-455f-9581-3f61b922a890",
     "species": "Acacia confusa",
     "speciesSource": "gemini",
-    "dbhCm": 40,
+    "dbhCm": 43.9,
     "originalDbhCm": null,
     "appliedCorrectionFactor": null,
-    "volumeM3": 1.2372,
-    "carbonKg": 584.6,
+    "volumeM3": 1.5443,
+    "carbonKg": 729.7,
     "confidence": "low",
     "gps": "22.7356,121.0669",
     "focalLengthMm": 5.7,
@@ -628,7 +649,10 @@
     "videoDriveUrl": "https://drive.google.com/file/d/1lVacWtaNhrMq3oM2cfOgWYa7namSLlrK/preview",
     "paths": {
       "path0": {
-        "computed": false
+        "dbhCm": 43.9,
+        "volumeM3": 1.5443,
+        "carbonKg": 729.7,
+        "computed": true
       },
       "pathA": {
         "computed": false
@@ -656,11 +680,11 @@
     "id": "f5d4607c-4dd4-40b1-b1f2-a5ec1cfea850",
     "species": "Fraxinus griffithii",
     "speciesSource": "gemini",
-    "dbhCm": 7.5,
+    "dbhCm": 25.5,
     "originalDbhCm": null,
     "appliedCorrectionFactor": null,
-    "volumeM3": 0.0221,
-    "carbonKg": 8.8,
+    "volumeM3": 0.4189,
+    "carbonKg": 165.9,
     "confidence": "high",
     "gps": "22.7354,121.0668",
     "focalLengthMm": 5.7,
@@ -687,9 +711,9 @@
     "videoDriveUrl": "https://drive.google.com/file/d/1WOuTQSB1jn_mpeUNUILl0606-9B-VZZR/preview",
     "paths": {
       "path0": {
-        "dbhCm": 7.5,
-        "volumeM3": 0.0221,
-        "carbonKg": 8.8,
+        "dbhCm": 25.5,
+        "volumeM3": 0.4189,
+        "carbonKg": 165.9,
         "computed": true
       },
       "pathA": {
@@ -718,11 +742,11 @@
     "id": "437f088d-a568-4fe7-acbd-efb7b3ddfb98",
     "species": "Cinnamomum camphora",
     "speciesSource": "gemini",
-    "dbhCm": 7.8,
+    "dbhCm": 38.8,
     "originalDbhCm": null,
     "appliedCorrectionFactor": null,
-    "volumeM3": 0.0249,
-    "carbonKg": 9.1,
+    "volumeM3": 1.1618,
+    "carbonKg": 422.9,
     "confidence": "high",
     "gps": "22.7353,121.0666",
     "focalLengthMm": 5.7,
@@ -749,9 +773,9 @@
     "videoDriveUrl": "https://drive.google.com/file/d/1ybyFmKlFRx3kuNFVSNYJBP4dMa2KfcL7/preview",
     "paths": {
       "path0": {
-        "dbhCm": 7.8,
-        "volumeM3": 0.0249,
-        "carbonKg": 9.1,
+        "dbhCm": 38.8,
+        "volumeM3": 1.1618,
+        "carbonKg": 422.9,
         "computed": true
       },
       "pathA": {
@@ -780,11 +804,11 @@
     "id": "e06aa4b9-7d83-43a1-a98c-9c6e69221c6f",
     "species": "Cinnamomum camphora",
     "speciesSource": "gemini",
-    "dbhCm": 35,
+    "dbhCm": 31.5,
     "originalDbhCm": null,
     "appliedCorrectionFactor": null,
-    "volumeM3": 0.9077,
-    "carbonKg": 330.4,
+    "volumeM3": 0.7053,
+    "carbonKg": 256.7,
     "confidence": "high",
     "gps": "22.7353,121.0666",
     "focalLengthMm": 5.7,
@@ -811,9 +835,9 @@
     "videoDriveUrl": "https://drive.google.com/file/d/1EbJkGAZpmb9CbMm0YlnKQhqEKaJ9olzB/preview",
     "paths": {
       "path0": {
-        "dbhCm": 35,
-        "volumeM3": 0.9077,
-        "carbonKg": 330.4,
+        "dbhCm": 31.5,
+        "volumeM3": 0.7053,
+        "carbonKg": 256.7,
         "computed": true
       },
       "pathA": {
@@ -842,11 +866,11 @@
     "id": "4351f203-c97b-4de1-a081-4ac6e4a8dfe0",
     "species": "Fraxinus griffithii",
     "speciesSource": "gemini",
-    "dbhCm": 37.5,
+    "dbhCm": 31.8,
     "originalDbhCm": null,
     "appliedCorrectionFactor": null,
-    "volumeM3": 1.0588,
-    "carbonKg": 419.3,
+    "volumeM3": 0.7123,
+    "carbonKg": 282.1,
     "confidence": "high",
     "gps": "22.7353,121.0666",
     "focalLengthMm": 5.7,
@@ -873,7 +897,10 @@
     "videoDriveUrl": "https://drive.google.com/file/d/1Kzcy00bGk-kZjL8lQQ66wD1v-OZkOgAb/preview",
     "paths": {
       "path0": {
-        "computed": false
+        "dbhCm": 31.8,
+        "volumeM3": 0.7123,
+        "carbonKg": 282.1,
+        "computed": true
       },
       "pathA": {
         "dbhCm": 37.5,
@@ -904,11 +931,11 @@
     "id": "9df54055-bf0d-4136-b332-75afc01e3a4a",
     "species": "Fraxinus griffithii",
     "speciesSource": "gemini",
-    "dbhCm": 41.1,
+    "dbhCm": 30.6,
     "originalDbhCm": null,
     "appliedCorrectionFactor": null,
-    "volumeM3": 1.3198,
-    "carbonKg": 522.6,
+    "volumeM3": 0.6494,
+    "carbonKg": 257.2,
     "confidence": "high",
     "gps": "22.7353,121.0664",
     "focalLengthMm": 5.7,
@@ -935,9 +962,9 @@
     "videoDriveUrl": "https://drive.google.com/file/d/1DY1OV8PEPjR3XGIcyVne1AtO1QdpUHUF/preview",
     "paths": {
       "path0": {
-        "dbhCm": 41.1,
-        "volumeM3": 1.3198,
-        "carbonKg": 522.6,
+        "dbhCm": 30.6,
+        "volumeM3": 0.6494,
+        "carbonKg": 257.2,
         "computed": true
       },
       "pathA": {
@@ -969,11 +996,11 @@
     "id": "1517033e-ea12-424c-b471-e12442c8afdb",
     "species": "Fraxinus griffithii",
     "speciesSource": "gemini",
-    "dbhCm": 130,
+    "dbhCm": 29.9,
     "originalDbhCm": null,
     "appliedCorrectionFactor": null,
-    "volumeM3": 21.0254,
-    "carbonKg": 8326,
+    "volumeM3": 0.6142,
+    "carbonKg": 243.2,
     "confidence": "low",
     "gps": "22.7352,121.0665",
     "focalLengthMm": 5.7,
@@ -997,7 +1024,10 @@
     "videoDriveUrl": "https://drive.google.com/file/d/1v6BthyaAo0uY4HvIs-yK5_YETJnWSV-5/preview",
     "paths": {
       "path0": {
-        "computed": false
+        "dbhCm": 29.9,
+        "volumeM3": 0.6142,
+        "carbonKg": 243.2,
+        "computed": true
       },
       "pathA": {
         "dbhCm": 21.4,
@@ -1028,11 +1058,11 @@
     "id": "c30557df-e021-4c7c-85ff-8f294f50d4c9",
     "species": "Swietenia macrophylla",
     "speciesSource": "plantnet",
-    "dbhCm": 44.1,
+    "dbhCm": 30.9,
     "originalDbhCm": null,
     "appliedCorrectionFactor": null,
-    "volumeM3": 1.511,
-    "carbonKg": 491.1,
+    "volumeM3": 0.7169,
+    "carbonKg": 256.9,
     "confidence": "high",
     "gps": "22.7353,121.0664",
     "focalLengthMm": 5.7,
@@ -1059,9 +1089,9 @@
     "videoDriveUrl": "https://drive.google.com/file/d/1cbNBVVyqf0M0ShepbWT230yF4bddN4yA/preview",
     "paths": {
       "path0": {
-        "dbhCm": 44.1,
-        "volumeM3": 1.511,
-        "carbonKg": 491.1,
+        "dbhCm": 30.9,
+        "volumeM3": 0.7169,
+        "carbonKg": 256.9,
         "computed": true
       },
       "pathA": {
@@ -1090,11 +1120,11 @@
     "id": "760643aa-e9bd-4160-b5eb-c352141e14cd",
     "species": "Fraxinus griffithii",
     "speciesSource": "gemini",
-    "dbhCm": 14.2,
+    "dbhCm": 26.1,
     "originalDbhCm": null,
     "appliedCorrectionFactor": null,
-    "volumeM3": 0.1025,
-    "carbonKg": 40.6,
+    "volumeM3": 0.443,
+    "carbonKg": 175.4,
     "confidence": "high",
     "gps": "22.7353,121.0665",
     "focalLengthMm": 5.7,
@@ -1121,9 +1151,9 @@
     "videoDriveUrl": "https://drive.google.com/file/d/1e5CytcJRc7XhbdK_j0UWuUiYkH6YqKrD/preview",
     "paths": {
       "path0": {
-        "dbhCm": 14.2,
-        "volumeM3": 0.1025,
-        "carbonKg": 40.6,
+        "dbhCm": 26.1,
+        "volumeM3": 0.443,
+        "carbonKg": 175.4,
         "computed": true
       },
       "pathA": {
@@ -1152,11 +1182,11 @@
     "id": "c0de2c86-593f-4208-b993-f2054f8f01a0",
     "species": "Liquidambar styraciflua",
     "speciesSource": "plantnet",
-    "dbhCm": 22.3,
+    "dbhCm": 24.5,
     "originalDbhCm": null,
     "appliedCorrectionFactor": null,
-    "volumeM3": 0.3033,
-    "carbonKg": 102.5,
+    "volumeM3": 0.3786,
+    "carbonKg": 128,
     "confidence": "high",
     "gps": "22.735,121.0655",
     "focalLengthMm": 5.7,
@@ -1183,9 +1213,9 @@
     "videoDriveUrl": "https://drive.google.com/file/d/1MYhIVJI2SBkbpAZFBoq7OdJgA4N5pog6/preview",
     "paths": {
       "path0": {
-        "dbhCm": 22.3,
-        "volumeM3": 0.3033,
-        "carbonKg": 102.5,
+        "dbhCm": 24.5,
+        "volumeM3": 0.3786,
+        "carbonKg": 128,
         "computed": true
       },
       "pathA": {
@@ -1214,11 +1244,11 @@
     "id": "7cf542e6-fce8-4dbb-a7bb-d17cec3d9195",
     "species": "Cinnamomum camphora",
     "speciesSource": "plantnet",
-    "dbhCm": 15.8,
+    "dbhCm": 17.5,
     "originalDbhCm": null,
     "appliedCorrectionFactor": null,
-    "volumeM3": 0.1351,
-    "carbonKg": 49.2,
+    "volumeM3": 0.1726,
+    "carbonKg": 62.8,
     "confidence": "high",
     "gps": "22.7351,121.0657",
     "focalLengthMm": 5.7,
@@ -1245,9 +1275,9 @@
     "videoDriveUrl": "https://drive.google.com/file/d/13qfRS4GWJvWL-ur4F54pndHzsCTl5a9H/preview",
     "paths": {
       "path0": {
-        "dbhCm": 15.8,
-        "volumeM3": 0.1351,
-        "carbonKg": 49.2,
+        "dbhCm": 17.5,
+        "volumeM3": 0.1726,
+        "carbonKg": 62.8,
         "computed": true
       },
       "pathA": {
@@ -1276,11 +1306,11 @@
     "id": "3eaea6f9-02a9-4dae-95a0-dba4fbcd3d50",
     "species": "Liquidambar formosana",
     "speciesSource": "plantnet",
-    "dbhCm": 46.7,
+    "dbhCm": 21.6,
     "originalDbhCm": null,
     "appliedCorrectionFactor": null,
-    "volumeM3": 1.7317,
-    "carbonKg": 585.3,
+    "volumeM3": 0.2813,
+    "carbonKg": 95.1,
     "confidence": "high",
     "gps": "22.7351,121.0657",
     "focalLengthMm": 5.7,
@@ -1307,7 +1337,10 @@
     "videoDriveUrl": "https://drive.google.com/file/d/1dFF4DF0JVlZqgxCQeOSxMSvnlybOCOfn/preview",
     "paths": {
       "path0": {
-        "computed": false
+        "dbhCm": 21.6,
+        "volumeM3": 0.2813,
+        "carbonKg": 95.1,
+        "computed": true
       },
       "pathA": {
         "dbhCm": 46.7,
@@ -1338,11 +1371,11 @@
     "id": "0534de10-cade-4b94-825b-63a35294b8c5",
     "species": "Calophyllum inophyllum",
     "speciesSource": "plantnet",
-    "dbhCm": 17.8,
+    "dbhCm": 26.3,
     "originalDbhCm": null,
     "appliedCorrectionFactor": null,
-    "volumeM3": 0.172,
-    "carbonKg": 55.9,
+    "volumeM3": 0.5454,
+    "carbonKg": 212.7,
     "confidence": "high",
     "gps": "22.7348,121.0693",
     "focalLengthMm": 5.7,
@@ -1369,9 +1402,9 @@
     "videoDriveUrl": "https://drive.google.com/file/d/1LLyAp4BjgjwX5cPHdP42rmasGPcZSycH/preview",
     "paths": {
       "path0": {
-        "dbhCm": 17.8,
-        "volumeM3": 0.172,
-        "carbonKg": 55.9,
+        "dbhCm": 26.3,
+        "volumeM3": 0.5454,
+        "carbonKg": 212.7,
         "computed": true
       },
       "pathA": {
@@ -1403,11 +1436,11 @@
     "id": "86482354-2593-4696-bba3-623ee7840025",
     "species": "Calophyllum inophyllum",
     "speciesSource": "plantnet",
-    "dbhCm": 24.2,
+    "dbhCm": 19.4,
     "originalDbhCm": null,
     "appliedCorrectionFactor": null,
-    "volumeM3": 0.359,
-    "carbonKg": 116.7,
+    "volumeM3": 0.2599,
+    "carbonKg": 101.4,
     "confidence": "low",
     "gps": "22.7346,121.0688",
     "focalLengthMm": 5.7,
@@ -1431,7 +1464,10 @@
     "videoDriveUrl": "https://drive.google.com/file/d/1HrK9Iz2h2PqyeyC1b1rLvFipP6jpwD-P/preview",
     "paths": {
       "path0": {
-        "computed": false
+        "dbhCm": 19.4,
+        "volumeM3": 0.2599,
+        "carbonKg": 101.4,
+        "computed": true
       },
       "pathA": {
         "dbhCm": 22.9,
@@ -1462,11 +1498,11 @@
     "id": "3e82c4bb-bd67-4353-95c1-54fbc4393c1d",
     "species": "Cinnamomum camphora",
     "speciesSource": "gemini",
-    "dbhCm": 17.3,
+    "dbhCm": 31.2,
     "originalDbhCm": null,
     "appliedCorrectionFactor": null,
-    "volumeM3": 0.1679,
-    "carbonKg": 61.1,
+    "volumeM3": 0.6893,
+    "carbonKg": 250.9,
     "confidence": "high",
     "gps": "22.734,121.0675",
     "focalLengthMm": 5.7,
@@ -1493,9 +1529,9 @@
     "videoDriveUrl": "https://drive.google.com/file/d/1vk4A2WYgoGBxN581kf5H3vshPOimerGj/preview",
     "paths": {
       "path0": {
-        "dbhCm": 17.3,
-        "volumeM3": 0.1679,
-        "carbonKg": 61.1,
+        "dbhCm": 31.2,
+        "volumeM3": 0.6893,
+        "carbonKg": 250.9,
         "computed": true
       },
       "pathA": {
@@ -1527,11 +1563,11 @@
     "id": "a50469c3-6fd3-41c3-9702-2eceab799ebb",
     "species": "Liquidambar formosana",
     "speciesSource": "gemini",
-    "dbhCm": 110.4,
+    "dbhCm": 22,
     "originalDbhCm": null,
     "appliedCorrectionFactor": null,
-    "volumeM3": 13.1575,
-    "carbonKg": 4447.2,
+    "volumeM3": 0.2938,
+    "carbonKg": 99.3,
     "confidence": "low",
     "gps": "22.734,121.0673",
     "focalLengthMm": 5.7,
@@ -1555,7 +1591,10 @@
     "videoDriveUrl": "https://drive.google.com/file/d/1mAsxJchl2JRrYMyxSWBz8yRzTTvNpDmD/preview",
     "paths": {
       "path0": {
-        "computed": false
+        "dbhCm": 22,
+        "volumeM3": 0.2938,
+        "carbonKg": 99.3,
+        "computed": true
       },
       "pathA": {
         "dbhCm": 21.4,
@@ -1586,11 +1625,11 @@
     "id": "31765a01-8f88-4800-a1a5-2263aeb9160b",
     "species": "Swietenia macrophylla",
     "speciesSource": "plantnet",
-    "dbhCm": 40,
+    "dbhCm": 43,
     "originalDbhCm": null,
     "appliedCorrectionFactor": null,
-    "volumeM3": 1.1961,
-    "carbonKg": 388.7,
+    "volumeM3": 1.5971,
+    "carbonKg": 572.4,
     "confidence": "low",
     "gps": "22.7354,121.0668",
     "focalLengthMm": 5.7,
@@ -1614,7 +1653,10 @@
     "videoDriveUrl": "https://drive.google.com/file/d/1U3Mi5Gtu_BqsYV2CjAyVQB4wy6J2ZbAu/preview",
     "paths": {
       "path0": {
-        "computed": false
+        "dbhCm": 43,
+        "volumeM3": 1.5971,
+        "carbonKg": 572.4,
+        "computed": true
       },
       "pathA": {
         "computed": false
@@ -1642,11 +1684,11 @@
     "id": "79c5f1a7-06b9-4a54-badd-113adbcf7b27",
     "species": "Cinnamomum camphora",
     "speciesSource": "gemini",
-    "dbhCm": 9.1,
+    "dbhCm": 35.7,
     "originalDbhCm": null,
     "appliedCorrectionFactor": null,
-    "volumeM3": 0.036,
-    "carbonKg": 13.1,
+    "volumeM3": 0.9518,
+    "carbonKg": 346.4,
     "confidence": "high",
     "gps": "22.7354,121.0667",
     "focalLengthMm": 5.7,
@@ -1673,9 +1715,9 @@
     "videoDriveUrl": "https://drive.google.com/file/d/1z1kzhPx4kUOj6opGt4ZILyawIQjcSvyp/preview",
     "paths": {
       "path0": {
-        "dbhCm": 9.1,
-        "volumeM3": 0.036,
-        "carbonKg": 13.1,
+        "dbhCm": 35.7,
+        "volumeM3": 0.9518,
+        "carbonKg": 346.4,
         "computed": true
       },
       "pathA": {
@@ -1707,11 +1749,11 @@
     "id": "fb485240-642b-4b7d-844e-0bdd54f57465",
     "species": "Fraxinus griffithii",
     "speciesSource": "gemini",
-    "dbhCm": 150,
+    "dbhCm": 30.6,
     "originalDbhCm": null,
     "appliedCorrectionFactor": null,
-    "volumeM3": 29.6584,
-    "carbonKg": 11744.7,
+    "volumeM3": 0.6494,
+    "carbonKg": 257.2,
     "confidence": "low",
     "gps": "22.7353,121.0665",
     "focalLengthMm": 5.7,
@@ -1735,7 +1777,10 @@
     "videoDriveUrl": "https://drive.google.com/file/d/1CgeLGT-k2NiW54MXdInjuI5OAlYsTlf5/preview",
     "paths": {
       "path0": {
-        "computed": false
+        "dbhCm": 30.6,
+        "volumeM3": 0.6494,
+        "carbonKg": 257.2,
+        "computed": true
       },
       "pathA": {
         "computed": false
@@ -1763,11 +1808,11 @@
     "id": "b07b4d32-3f84-4e43-86f9-617dd0349fd7",
     "species": "Swietenia macrophylla",
     "speciesSource": "plantnet",
-    "dbhCm": 56,
+    "dbhCm": 38.5,
     "originalDbhCm": null,
     "appliedCorrectionFactor": null,
-    "volumeM3": 2.6775,
-    "carbonKg": 870.2,
+    "volumeM3": 1.2217,
+    "carbonKg": 437.9,
     "confidence": "low",
     "gps": "22.7353,121.0663",
     "focalLengthMm": 5.7,
@@ -1791,7 +1836,10 @@
     "videoDriveUrl": "https://drive.google.com/file/d/1DgPf1kPfqynAWSJBY44XM65dVkeLross/preview",
     "paths": {
       "path0": {
-        "computed": false
+        "dbhCm": 38.5,
+        "volumeM3": 1.2217,
+        "carbonKg": 437.9,
+        "computed": true
       },
       "pathA": {
         "computed": false
@@ -1850,7 +1898,10 @@
     "videoDriveUrl": "https://drive.google.com/file/d/1hAJOWC6SO9urNIn0aLESVQ7u1JUfZeHT/preview",
     "paths": {
       "path0": {
-        "computed": false
+        "dbhCm": 32.5,
+        "volumeM3": 0.7542,
+        "carbonKg": 356.4,
+        "computed": true
       },
       "pathA": {
         "dbhCm": 32.5,
