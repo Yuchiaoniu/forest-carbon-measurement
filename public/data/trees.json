@@ -156,7 +156,10 @@
         "computed": false
       },
       "pathA": {
-        "computed": false
+        "dbhCm": 39.4,
+        "volumeM3": 1.4599,
+        "carbonKg": 569.4,
+        "computed": true
       },
       "pathB": {
         "dbhCm": 46,
@@ -569,7 +572,10 @@
         "computed": false
       },
       "pathA": {
-        "computed": false
+        "dbhCm": 13,
+        "volumeM3": 0.0754,
+        "carbonKg": 32.9,
+        "computed": true
       },
       "pathB": {
         "dbhCm": 14.8,
@@ -994,7 +1000,10 @@
         "computed": false
       },
       "pathA": {
-        "computed": false
+        "dbhCm": 21.4,
+        "volumeM3": 0.2749,
+        "carbonKg": 108.9,
+        "computed": true
       },
       "pathB": {
         "dbhCm": 130,
@@ -1366,7 +1375,10 @@
         "computed": true
       },
       "pathA": {
-        "computed": false
+        "dbhCm": 17.1,
+        "volumeM3": 0.1911,
+        "carbonKg": 74.5,
+        "computed": true
       },
       "pathB": {
         "dbhCm": 42.6,
@@ -1422,7 +1434,10 @@
         "computed": false
       },
       "pathA": {
-        "computed": false
+        "dbhCm": 22.9,
+        "volumeM3": 0.3893,
+        "carbonKg": 151.8,
+        "computed": true
       },
       "pathB": {
         "dbhCm": 24.2,
@@ -1543,7 +1558,10 @@
         "computed": false
       },
       "pathA": {
-        "computed": false
+        "dbhCm": 21.4,
+        "volumeM3": 0.2752,
+        "carbonKg": 93,
+        "computed": true
       },
       "pathB": {
         "dbhCm": 110.4,
