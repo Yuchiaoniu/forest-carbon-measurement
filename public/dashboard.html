@@ -409,14 +409,60 @@ function buildCard(r) {
       <div id="path-frames-${r.id}" class="path-frames-block" style="margin-top:10px;font-size:0.78rem;color:var(--muted);">點開卡片載入三路徑依據幀…</div>
     </div>`
 
-  // §30 v2：自動從 Gemini 判讀皮尺數字當基準（lazy-load 進 #tape-compare-${r.id}）
-  const manualSection = `
-    <div>
-      <div class="section-title">📏 皮尺視覺判讀 vs 系統估算
-        <span style="font-weight:400;color:var(--muted);font-size:0.75rem;margin-left:6px;">Gemini 從關鍵幀讀皮尺數字 → 三路徑誤差</span>
-      </div>
-      <div id="tape-compare-${r.id}" style="font-size:0.85rem;color:var(--muted);">點開卡片載入皮尺對照…</div>
-    </div>`
+  // §31 人工皮尺批次標註（ground truth）：直接 inline 顯示
+  const fmtTs = (sec) => {
+    if (sec == null) return '—'
+    const s = Math.round(sec)
+    const hh = String(Math.floor(s / 3600)).padStart(2, '0')
+    const mm = String(Math.floor((s % 3600) / 60)).padStart(2, '0')
+    const ss = String(s % 60).padStart(2, '0')
+    return `${hh}:${mm}:${ss}`
+  }
+  const pathErrCell = (pathDbh, gtDbh) => {
+    if (pathDbh == null || gtDbh == null) return '<td>—</td>'
+    const err = ((pathDbh - gtDbh) / gtDbh * 100)
+    const cls = Math.abs(err) <= 10 ? 'ok' : Math.abs(err) <= 25 ? 'warn' : 'err'
+    const sign = err >= 0 ? '+' : ''
+    return `<td>${pathDbh.toFixed(1)}<br><span class="${cls}" style="font-size:0.7rem;">${sign}${err.toFixed(1)}%</span></td>`
+  }
+  let manualSection
+  if (r.manualTape) {
+    const mt = r.manualTape
+    const gt = mt.dbhCm
+    manualSection = `
+      <div>
+        <div class="section-title">📏 人工皮尺實量（Ground Truth）
+          <span style="font-weight:400;color:var(--muted);font-size:0.75rem;margin-left:6px;">${mt.annotator || '—'} 於關鍵幀人工判讀</span>
+        </div>
+        <table class="kv" style="font-size:0.82rem;">
+          <tr><td>樹幹周長</td><td><strong>${mt.circCm} cm</strong></td></tr>
+          <tr><td>DBH = 周長 ÷ π</td><td><strong style="color:var(--accent);">${gt.toFixed(1)} cm</strong></td></tr>
+          <tr><td>關鍵幀時間</td><td>${fmtTs(mt.frameTsSec)}（${mt.frameTsSec} s）</td></tr>
+        </table>
+        <table class="path-table" style="margin-top:8px;width:100%;text-align:center;font-size:0.78rem;">
+          <thead>
+            <tr><th></th><th>Path 0<br><span style="font-weight:400;font-size:0.65rem;">原 AI 皮尺</span></th>
+                <th>Path A<br><span style="font-weight:400;font-size:0.65rem;">參照物</span></th>
+                <th>Path B<br><span style="font-weight:400;font-size:0.65rem;">薄透鏡</span></th></tr>
+          </thead>
+          <tbody>
+            <tr><td>vs 人工皮尺</td>
+              ${pathErrCell(pp.path0?.dbhCm, gt)}
+              ${pathErrCell(pp.pathA?.dbhCm, gt)}
+              ${pathErrCell(pp.pathB?.dbhCm, gt)}
+            </tr>
+          </tbody>
+        </table>
+      </div>`
+  } else {
+    manualSection = `
+      <div>
+        <div class="section-title">📏 人工皮尺實量
+          <span style="font-weight:400;color:var(--muted);font-size:0.75rem;margin-left:6px;">尚未標註</span>
+        </div>
+        <div style="font-size:0.85rem;color:var(--muted);">這棵樹還沒有人工皮尺基準值。</div>
+      </div>`
+  }
 
   let errorRow = ''
   if (r.calibration && !r.referenceUsed) {
