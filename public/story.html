@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>永續故事</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/marked@9/marked.min.js"></script>
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -15,24 +15,22 @@
   --green-800: #166534;
   --green-700: #15803d;
   --green-600: #16a34a;
+  --green-500: #22c55e;
   --green-100: #dcfce7;
   --green-50:  #f0fdf4;
-  --bg:        #fafaf8;
+  --bg:        #f1f5f1;
   --text:      #1a2e1a;
   --muted:     #6b7280;
   --border:    #e5e7eb;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.10);
 }
 
-body {
-  font-family: 'Noto Serif TC', 'Georgia', serif;
-  background: var(--bg);
-  color: var(--text);
-  min-height: 100vh;
-}
+body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
 
 .header {
   background: linear-gradient(135deg, var(--green-900) 0%, var(--green-700) 60%, #2d6a4f 100%);
-  padding: 24px 24px 32px;
+  padding: 24px 24px 28px;
   position: relative; overflow: hidden;
 }
 .header::before {
@@ -40,185 +38,209 @@ body {
   background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 5 L20 25 H40 Z M18 22 L8 42 H28 Z M42 22 L32 42 H52 Z' fill='white' fill-opacity='0.04'/%3E%3C/svg%3E") repeat;
   pointer-events: none;
 }
-.header-inner { max-width: 720px; margin: 0 auto; position: relative; }
-.header-nav { display: flex; gap: 12px; margin-bottom: 20px; }
+.header-inner { max-width: 760px; margin: 0 auto; position: relative; }
+.header-nav { display: flex; gap: 16px; margin-bottom: 18px; }
 .header-nav a {
   font-size: 0.8rem; color: rgba(255,255,255,0.75); text-decoration: none;
   padding: 4px 10px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.2);
-  font-family: 'Inter', sans-serif; transition: all 0.2s;
+  transition: all 0.2s;
 }
 .header-nav a:hover { background: rgba(255,255,255,0.15); color: white; }
-.header-title { font-size: 1.05rem; color: rgba(255,255,255,0.65); font-family: 'Inter', sans-serif; margin-bottom: 4px; }
+.header-title { font-size: 1.4rem; font-weight: 700; color: white; margin-bottom: 4px; }
+.header-sub { font-size: 0.85rem; color: rgba(255,255,255,0.65); }
 
-.container { max-width: 720px; margin: 0 auto; padding: 40px 20px 80px; }
+.container { max-width: 760px; margin: -16px auto 0; padding: 0 16px 64px; }
 
-/* Loading / Error */
-.status-box {
-  text-align: center; padding: 80px 20px; color: var(--muted);
-  font-family: 'Inter', sans-serif;
+/* Meta card */
+.meta-card {
+  background: white; border-radius: 14px; box-shadow: var(--shadow-md);
+  padding: 20px 24px; margin-bottom: 20px;
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px 24px;
 }
-.status-box .icon { font-size: 2.8rem; margin-bottom: 16px; }
+.meta-item {}
+.meta-label { font-size: 0.72rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600; margin-bottom: 3px; }
+.meta-value { font-size: 0.92rem; font-weight: 600; color: var(--text); }
+.meta-value a { color: var(--green-700); text-decoration: none; }
+.meta-value a:hover { text-decoration: underline; }
 
-/* Markdown rendering */
-.story-body h1 {
-  font-size: 1.8rem; font-weight: 700; color: var(--green-900);
-  margin-bottom: 8px; line-height: 1.3;
+/* Story card */
+.story-card {
+  background: white; border-radius: 14px; box-shadow: var(--shadow-sm);
+  padding: 28px 32px;
 }
-.story-body h2 {
-  font-size: 1.15rem; font-weight: 700; color: var(--green-800);
-  margin: 36px 0 12px; padding-bottom: 6px;
-  border-bottom: 2px solid var(--green-100);
-}
+@media (max-width: 600px) { .story-card { padding: 20px 18px; } }
+
+/* Markdown styles */
+.story-body { line-height: 1.85; color: var(--text); font-size: 0.95rem; }
+.story-body h1 { font-size: 1.4rem; font-weight: 700; margin: 0 0 16px; color: var(--green-900); }
+.story-body h2 { font-size: 1.05rem; font-weight: 700; margin: 28px 0 10px; color: var(--green-800); display: flex; align-items: center; gap: 6px; }
+.story-body h3 { font-size: 0.9rem; font-weight: 700; margin: 20px 0 8px; color: var(--green-700); }
+.story-body p  { margin-bottom: 14px; }
 .story-body blockquote {
-  border-left: 4px solid var(--green-500, #22c55e);
-  padding: 10px 16px; margin: 16px 0;
-  background: var(--green-50); border-radius: 0 8px 8px 0;
-  color: var(--green-800); font-style: normal;
+  border-left: 3px solid var(--green-500); margin: 0 0 14px;
+  padding: 8px 16px; background: var(--green-50); border-radius: 0 8px 8px 0;
+  color: var(--green-800); font-style: italic;
 }
-.story-body blockquote strong { font-weight: 700; }
-.story-body p {
-  line-height: 1.85; margin-bottom: 16px;
-  font-size: 1.05rem; color: #2d3a2d;
-}
-.story-body table {
-  width: 100%; border-collapse: collapse;
-  margin: 16px 0; font-family: 'Inter', sans-serif;
-  font-size: 0.88rem;
-}
-.story-body th {
-  background: var(--green-100); color: var(--green-900);
-  padding: 8px 12px; text-align: left; font-weight: 700;
-}
-.story-body td { padding: 7px 12px; border-bottom: 1px solid var(--border); }
+.story-body hr { border: none; border-top: 1px solid var(--border); margin: 20px 0; }
+.story-body table { width: 100%; border-collapse: collapse; margin-bottom: 16px; font-size: 0.88rem; }
+.story-body th { background: var(--green-50); color: var(--green-800); font-weight: 700; padding: 8px 12px; text-align: left; border-bottom: 2px solid var(--green-100); }
+.story-body td { padding: 7px 12px; border-bottom: 1px solid #f0f4f0; vertical-align: top; }
 .story-body tr:last-child td { border-bottom: none; }
-.story-body hr {
-  border: none; border-top: 1px solid var(--border);
-  margin: 28px 0;
-}
-.story-body em { color: var(--muted); font-style: italic; font-size: 0.85rem; }
-.story-body strong { font-weight: 700; color: var(--green-900); }
+.story-body strong { color: var(--green-800); }
+.story-body ul, .story-body ol { padding-left: 1.4em; margin-bottom: 14px; }
+.story-body li { margin-bottom: 4px; }
 
-/* Share / back bar */
-.action-bar {
-  display: flex; gap: 10px; align-items: center; flex-wrap: wrap;
-  margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--border);
-  font-family: 'Inter', sans-serif;
+/* Loading / error */
+.loading { text-align: center; padding: 80px 20px; color: var(--muted); font-size: 0.9rem; }
+.loading-spinner {
+  width: 36px; height: 36px; border: 3px solid var(--green-100);
+  border-top-color: var(--green-600); border-radius: 50%;
+  animation: spin 0.8s linear infinite; margin: 0 auto 16px;
 }
-.btn {
-  padding: 9px 16px; border-radius: 8px; border: none; cursor: pointer;
-  font-size: 0.85rem; font-weight: 600; font-family: inherit; text-decoration: none;
-  transition: all 0.2s; display: inline-flex; align-items: center; gap: 6px;
+@keyframes spin { to { transform: rotate(360deg); } }
+.error-box {
+  background: #fee2e2; border: 1px solid #fca5a5; border-radius: 12px;
+  padding: 20px 24px; color: #991b1b; font-size: 0.88rem;
 }
-.btn-primary { background: var(--green-700); color: white; }
-.btn-primary:hover { background: var(--green-800); }
-.btn-outline {
-  background: white; color: var(--green-800);
-  border: 1.5px solid var(--green-600);
-}
-.btn-outline:hover { background: var(--green-50); }
-.btn-muted {
-  background: #f3f4f6; color: var(--muted);
-  border: 1px solid var(--border);
-}
-.btn-muted:hover { background: var(--border); }
 
-.copy-toast {
-  display: none; font-size: 0.8rem; color: var(--green-700); font-weight: 600;
+.no-story {
+  text-align: center; padding: 60px 20px; color: var(--muted);
 }
-.copy-toast.show { display: inline; }
+.no-story-icon { font-size: 2.5rem; margin-bottom: 12px; }
+.no-story p { font-size: 0.88rem; line-height: 1.6; max-width: 320px; margin: 0 auto; }
+
+.generated-at { font-size: 0.75rem; color: var(--muted); margin-top: 20px; text-align: right; }
 </style>
 </head>
 <body>
 
 <div class="header">
   <div class="header-inner">
-    <div class="header-nav">
-      <a href="/dashboard.html">← 量測記錄</a>
-      <a href="/">測量系統</a>
-    </div>
-    <div class="header-title">永續故事</div>
+    <nav class="header-nav">
+      <a href="./dashboard.html">← 返回 Dashboard</a>
+    </nav>
+    <div class="header-title" id="hdrTitle">🌿 永續故事</div>
+    <div class="header-sub" id="hdrSub">載入中…</div>
   </div>
 </div>
 
 <div class="container">
-  <div id="content">
-    <div class="status-box">
-      <div class="icon">🌱</div>
-      <div>載入故事中…</div>
+  <div class="meta-card" id="metaCard" style="display:none"></div>
+
+  <div class="story-card" id="storyCard">
+    <div class="loading" id="loadingEl">
+      <div class="loading-spinner"></div>
+      正在生成永續故事…
     </div>
   </div>
 </div>
 
 <script>
+const IS_GH_PAGES = location.hostname.endsWith('github.io')
+const API_BASE = IS_GH_PAGES ? 'https://forest-carbon.duckdns.org' : ''
+
 const params = new URLSearchParams(location.search)
 const treeId = params.get('id')
-const IS_GH_PAGES = location.hostname.endsWith('github.io')
 
-async function loadStory() {
-  const el = document.getElementById('content')
+function fmtDate(iso) {
+  if (!iso) return '—'
+  const d = new Date(typeof iso === 'number' ? iso : iso)
+  if (isNaN(d)) return '—'
+  return d.toLocaleDateString('zh-TW', { year: 'numeric', month: 'long', day: 'numeric' })
+}
 
+function fmtGps(gps) {
+  if (!gps || (!gps.lat && !gps.lng)) return null
+  const lat = Number(gps.lat).toFixed(5)
+  const lng = Number(gps.lng).toFixed(5)
+  return { lat, lng, url: `https://maps.google.com/?q=${lat},${lng}` }
+}
+
+function renderMeta(tree) {
+  const gps = fmtGps(tree.gps)
+  const items = [
+    { label: '樹種', value: tree.species || '未知樹種' },
+    { label: '胸徑 (DBH)', value: tree.dbhCm ? `${Number(tree.dbhCm).toFixed(1)} cm` : '—' },
+    { label: '碳儲量', value: tree.carbonKg ? `${Number(tree.carbonKg).toFixed(1)} kg` : '—' },
+    { label: '拍攝日期', value: fmtDate(tree.createdAt) },
+    gps ? { label: 'GPS', value: `<a href="${gps.url}" target="_blank">${gps.lat}, ${gps.lng}</a>` } : null,
+    tree.altitude ? { label: '海拔', value: `${Math.round(tree.altitude)} m` } : null,
+  ].filter(Boolean)
+
+  const mc = document.getElementById('metaCard')
+  mc.innerHTML = items.map(it =>
+    `<div class="meta-item"><div class="meta-label">${it.label}</div><div class="meta-value">${it.value}</div></div>`
+  ).join('')
+  mc.style.display = 'grid'
+}
+
+function renderStory(markdown, generatedAt) {
+  const sc = document.getElementById('storyCard')
+  if (!markdown) {
+    sc.innerHTML = `<div class="no-story"><div class="no-story-icon">🌱</div><p>這棵樹的故事正在生成中，請稍後再來。<br>故事在影片上傳後由 AI 非同步產生。</p></div>`
+    return
+  }
+  const html = marked.parse(markdown)
+  sc.innerHTML = `<div class="story-body">${html}</div>` +
+    (generatedAt ? `<div class="generated-at">故事生成時間：${fmtDate(generatedAt)}</div>` : '')
+}
+
+async function loadFromGhPages() {
+  const res = await fetch('./data/trees.json')
+  if (!res.ok) throw new Error('無法載入 trees.json')
+  const trees = await res.json()
+  const tree = trees.find(t => t.id === treeId)
+  if (!tree) throw new Error('找不到指定樹木（id=' + treeId + '）')
+  return { tree, markdown: tree.storyMarkdown || null, generatedAt: null }
+}
+
+async function loadFromApi() {
+  const [treesRes, storyRes] = await Promise.all([
+    fetch(`${API_BASE}/api/trees`),
+    fetch(`${API_BASE}/api/trees/${treeId}/story?format=json`)
+  ])
+  const trees = treesRes.ok ? await treesRes.json() : []
+  const tree = trees.find(t => t.id === treeId) || { id: treeId }
+
+  let markdown = null, generatedAt = null
+  if (storyRes.ok) {
+    const sd = await storyRes.json()
+    markdown = sd.markdown || null
+    generatedAt = sd.generatedAt || null
+  }
+  return { tree, markdown, generatedAt }
+}
+
+async function main() {
   if (!treeId) {
-    el.innerHTML = `<div class="status-box"><div class="icon">⚠️</div><div>缺少樹木 ID（?id=...）</div></div>`
+    document.getElementById('storyCard').innerHTML =
+      '<div class="error-box">網址缺少 <code>?id=</code> 參數，請從 Dashboard 點擊「🌿 永續故事」連結進入。</div>'
+    document.getElementById('hdrSub').textContent = '參數錯誤'
     return
   }
 
   try {
-    let markdown, generatedAt
+    const { tree, markdown, generatedAt } = IS_GH_PAGES
+      ? await loadFromGhPages()
+      : await loadFromApi()
 
-    if (IS_GH_PAGES) {
-      const res = await fetch('./data/trees.json')
-      if (!res.ok) throw new Error('無法載入 trees.json')
-      const trees = await res.json()
-      const tree = trees.find(t => t.id === treeId)
-      if (!tree || !tree.storyMarkdown) {
-        el.innerHTML = `<div class="status-box"><div class="icon">🌿</div><div>故事尚未生成</div></div>`
-        return
-      }
-      markdown = tree.storyMarkdown
-      generatedAt = null
-    } else {
-      const res = await fetch(`/api/trees/${treeId}/story?format=json`)
-      if (!res.ok) {
-        const err = await res.json().catch(() => ({}))
-        el.innerHTML = `<div class="status-box"><div class="icon">🌿</div><div>${err.error || '故事尚未生成'}</div></div>`
-        return
-      }
-      const data = await res.json()
-      markdown = data.markdown
-      generatedAt = data.generatedAt
-    }
+    const species = tree.species || '未知樹種'
+    document.title = `${species} 的永續故事`
+    document.getElementById('hdrTitle').textContent = `🌿 ${species} 的永續故事`
+    document.getElementById('hdrSub').textContent =
+      tree.dbhCm ? `胸徑 ${Number(tree.dbhCm).toFixed(1)} cm・碳儲量 ${Number(tree.carbonKg || 0).toFixed(1)} kg` : ''
 
-    const html = marked.parse(markdown)
-    const genDate = generatedAt
-      ? new Date(generatedAt * 1000).toLocaleDateString('zh-TW', { year: 'numeric', month: 'long', day: 'numeric' })
-      : ''
-
-    document.title = `永續故事｜${treeId.slice(0, 8)}`
-
-    el.innerHTML = `
-      <div class="story-body">${html}</div>
-      <div class="action-bar">
-        <button class="btn btn-outline" onclick="copyLink()">🔗 複製連結</button>
-        <a class="btn btn-muted" href="dashboard.html">← 返回記錄</a>
-        ${genDate ? `<span style="margin-left:auto;font-size:0.8rem;color:var(--muted);font-family:'Inter',sans-serif">生成於 ${genDate}</span>` : ''}
-        <span class="copy-toast" id="copy-toast">已複製！</span>
-      </div>
-    `
+    renderMeta(tree)
+    renderStory(markdown, generatedAt)
   } catch (e) {
-    el.innerHTML = `<div class="status-box"><div class="icon">⚠️</div><div>載入失敗：${e.message}</div></div>`
+    document.getElementById('storyCard').innerHTML =
+      `<div class="error-box">載入失敗：${e.message}</div>`
+    document.getElementById('hdrSub').textContent = '載入失敗'
+    console.error(e)
   }
 }
 
-function copyLink() {
-  navigator.clipboard.writeText(location.href).then(() => {
-    const t = document.getElementById('copy-toast')
-    if (!t) return
-    t.classList.add('show')
-    setTimeout(() => t.classList.remove('show'), 2000)
-  })
-}
-
-loadStory()
+main()
 </script>
 </body>
 </html>
