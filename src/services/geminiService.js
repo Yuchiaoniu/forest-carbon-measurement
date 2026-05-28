@@ -31,6 +31,8 @@ async function analyzeTrunk(frameBase64Array, metadata) {
                 referenceHeightFraction:   { type: SchemaType.NUMBER },
                 referenceEstimatedWidthMm: { type: SchemaType.NUMBER },
                 referenceConfidence:       { type: SchemaType.NUMBER },
+                referenceOrthogonalToCamera: { type: SchemaType.BOOLEAN },
+                referenceFullyVisible:        { type: SchemaType.BOOLEAN },
                 directMeasurementCm:         { type: SchemaType.NUMBER },
                 measurementType:             { type: SchemaType.STRING },
                 directMeasurementConfidence: { type: SchemaType.NUMBER },
@@ -42,6 +44,7 @@ async function analyzeTrunk(frameBase64Array, metadata) {
                 'referenceAtTrunk', 'trunkToReferenceRatio',
                 'referenceWidthFraction', 'referenceHeightFraction',
                 'referenceEstimatedWidthMm', 'referenceConfidence',
+                'referenceOrthogonalToCamera', 'referenceFullyVisible',
                 'directMeasurementCm', 'measurementType', 'directMeasurementConfidence',
                 'leafVisible',
               ],
@@ -121,6 +124,13 @@ async function analyzeTrunk(frameBase64Array, metadata) {
 15. leafVisible：畫面中是否有清晰可辨識樹種的葉片、花、果實或明顯樹冠
     - true  = 葉片細節清楚，適合植物辨識 API 使用
     - false = 只有樹幹、土壤或模糊背景
+
+10a. referenceOrthogonalToCamera：參照物（信用卡等）是否**正面朝向相機**（正交於視線）？
+    - true  = 卡片平面大致垂直於拍攝方向，傾斜 < 30°，可見長邊完整寬度
+    - false = 卡片側立或斜向（傾斜 > 30°），畫面呈現明顯壓縮變形
+10b. referenceFullyVisible：參照物是否**完整出現**在畫面中（四個角都可見，無遮擋）？
+    - true  = 整個參照物在畫面內，邊緣無裁切、無重大遮蔽
+    - false = 參照物邊緣超出畫面、被裁掉、或有重大遮蔽
 
 注意：參照物傾斜 45° 以內仍可偵測；referenceAtTrunk 只看水平距離，不看高度。`
 
@@ -208,7 +218,9 @@ function getMedianResult(frames, imageWidth, imageHeight) {
     f.referenceAtTrunk !== false &&          // 必須靠著樹幹
     (f.trunkToReferenceRatio || 0) > 0 &&
     f.referencePixelWidth > 0 &&
-    (f.referenceConfidence || 0) >= 0.4
+    (f.referenceConfidence || 0) >= 0.4 &&
+    f.referenceOrthogonalToCamera !== false &&   // §34 卡片正面朝相機
+    f.referenceFullyVisible !== false            // §34 卡片完整入鏡
   )
   // 也收集「偵測到但不在樹幹旁」的幀，用於產生警告
   const refOffTrunkFrames = valid.filter(f =>
