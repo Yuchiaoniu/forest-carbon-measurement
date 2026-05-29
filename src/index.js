@@ -7,13 +7,15 @@ const fs = require('fs')
 const { v4: uuidv4 } = require('uuid')
 
 const { extractMetadata } = require('./services/metadataService')
-const { extractFrames, selectBestFrames, frameToBase64 } = require('./services/frameService')
+const { extractAndDetectCard, selectRegularFrames, frameToBase64 } = require('./services/frameService')
+const { pickEvidenceFrameIdx, generateThumbnail } = require('./services/evidenceFrameService')
 const { identifySpecies: plantnetIdentify } = require('./services/plantnetService')
 const { identifySpecies: inaturalistIdentify } = require('./services/inaturalistService')
-const { analyzeTrunkWithRetry, getMedianResult, identifySpeciesFallback } = require('./services/geminiService')
+const { analyzeTrunkWithRetry, getMedianResult, identifySpeciesFallback, analyzeTrunkPathAOnly, getPathAMedianRatio } = require('./services/geminiService')
 const { calculate } = require('./services/calculationService')
 const { findByVideoHash, insert } = require('./db/trees')
-const { insert: insertGroundTruth, getByTreeId, getStats } = require('./db/groundTruth')
+const frameAnalyses = require('./db/frameAnalyses')
+const { insert: insertGroundTruth, upsertManual: upsertManualGroundTruth, getByTreeId, getStats } = require('./db/groundTruth')
 const { getBySpecies: getFactorLogBySpecies } = require('./db/correctionFactorLog')
 const { create: createBlockchainJob, getPending, updateStatus, incrementRetry, getByTreeId: getJobByTreeId } = require('./db/blockchainJobs')
 const { getFactorBySpecies, getAllFactors, snapshotFactor } = require('./services/correctionFactorService')
@@ -21,14 +23,49 @@ const { recordMeasurement } = require('./services/blockchainService')
 const { runEvaluation, getLatestRun, exportCsv, buildDsrChecklist } = require('./services/evaluationService')
 const { assignToEvent } = require('./services/clusterService')
 const { generateStoryA, generateStoryC } = require('./services/storyService')
+const { persistEnvironmentContext } = require('./services/weatherService')
 const { insert: insertStory, getLatestByTree } = require('./db/stories')
 const { pushTreesJson } = require('./services/githubSyncService')
 const { getById: getEventById, getTreesInEvent, setStoryC } = require('./db/events')
 const { getDb } = require('./db/init')
 
+// === 觀測性：全域 crash logger ===
+// 同步寫到 logs/crash.log，避開 PM2 stderr 在程序瞬死時來不及 flush 的問題
+const LOG_DIR = path.join(process.cwd(), 'logs')
+const CRASH_LOG = path.join(LOG_DIR, 'crash.log')
+try { fs.mkdirSync(LOG_DIR, { recursive: true }) } catch (_) {}
+
+function writeCrashLog(label, err) {
+  const ts = new Date().toISOString()
+  let inFlight = 'unknown'
+  try {
+    if (typeof jobs !== 'undefined' && jobs) {
+      const list = Object.entries(jobs)
+        .filter(([_, j]) => j && j.status === 'processing')
+        .map(([id, j]) => `${id.slice(0, 8)}:${j.step || '?'}`)
+      inFlight = list.length ? list.join(', ') : 'none'
+    }
+  } catch (_) {}
+  const stack = err && err.stack ? err.stack : String(err)
+  const entry = `\n=== ${ts} ${label} ===\nin-flight: ${inFlight}\n${stack}\n`
+  try { fs.appendFileSync(CRASH_LOG, entry) } catch (_) {}
+  try { fs.writeSync(2, entry) } catch (_) {}
+}
+
+process.on('uncaughtException', (err) => {
+  writeCrashLog('uncaughtException', err)
+  process.exit(1)
+})
+process.on('unhandledRejection', (reason) => {
+  const err = reason instanceof Error ? reason : new Error(String(reason))
+  writeCrashLog('unhandledRejection', err)
+})
+// === END 觀測性 ===
+
 const app = express()
 const PORT = process.env.PORT || 3000
 const UPLOAD_DIR = process.env.UPLOAD_DIR || './uploads'
+const EVIDENCE_DIR = path.join(UPLOAD_DIR, 'evidence')
 
 // CORS：允許 GitHub Pages 跨域呼叫 API
 app.use('/api', (req, res, next) => {
@@ -41,6 +78,7 @@ app.use('/api', (req, res, next) => {
 
 // 確保目錄存在
 fs.mkdirSync(UPLOAD_DIR, { recursive: true })
+fs.mkdirSync(EVIDENCE_DIR, { recursive: true })
 fs.mkdirSync('./tmp_frames', { recursive: true })
 
 // 初始化 DB
@@ -100,6 +138,19 @@ app.post('/api/ground-truth', (req, res) => {
   if (tree.species) snapshotFactor(tree.species, 'ground_truth_added')
   console.log(`[ground_truth] 手動回報 tree=${treeId} actual=${actualDbhCm}cm estimated=${tree.dbh_cm}cm factor=${correctionFactor}`)
   res.json({ id, correctionFactor, message: '實測值已記錄' })
+})
+
+// §30 POST /api/ground-truth/manual（人工皮尺實量；獨立於 path 0/A 自填）
+app.post('/api/ground-truth/manual', (req, res) => {
+  const { treeId, manualDbhCm, measuredBy, notes } = req.body || {}
+  if (!treeId) return res.status(400).json({ error: 'treeId 必填' })
+  const v = Number(manualDbhCm)
+  if (!Number.isFinite(v) || v <= 0) return res.status(400).json({ error: 'manualDbhCm 必須為正數' })
+  const tree = getDb().prepare('SELECT id FROM trees WHERE id = ?').get(treeId)
+  if (!tree) return res.status(404).json({ error: '找不到該筆測量紀錄' })
+  const r = upsertManualGroundTruth({ treeId, manualDbhCm: v, measuredBy: measuredBy || null, notes: notes || null })
+  console.log(`[ground_truth] manual tree=${treeId} manual=${v}cm updated=${r.updated}`)
+  res.json({ id: r.id, updated: r.updated, manualDbhCm: v })
 })
 
 // GET /api/ground-truth/stats
@@ -189,19 +240,35 @@ app.get('/api/trees', (req, res) => {
       t.device_model, t.frame_quality, t.raw_result,
       t.reference_used, t.reference_type,
       t.original_dbh_cm, t.applied_correction_factor,
-      t.video_filename, t.video_original_name,
+      t.video_filename, t.video_original_name, t.video_drive_url,
+      t.path0_dbh_cm, t.pathA_dbh_cm, t.pathB_dbh_cm, t.pathB_dbh_cm_corrected,
+      t.path0_volume_m3, t.pathA_volume_m3, t.pathB_volume_m3,
+      t.path0_carbon_kg, t.pathA_carbon_kg, t.pathB_carbon_kg, t.winner_path,
+      t.manual_tape_circ_cm, t.manual_tape_dbh_cm,
+      t.manual_tape_frame_ts_sec, t.manual_tape_annotator, t.manual_tape_annotated_at,
       t.created_at,
       t.tx_hash   AS bc_tx_hash,
       t.tx_status AS bc_tx_status,
       t.created_at AS bc_created_at,
       gt.actual_dbh_cm AS ref_dbh_cm,
       gt.source        AS gt_source,
-      CASE WHEN s.id IS NOT NULL THEN 1 ELSE 0 END AS has_story
+      gtm.manual_dbh_cm AS manual_dbh_cm,
+      gtm.measured_by   AS manual_measured_by,
+      gtm.measured_at   AS manual_measured_at,
+      gtm.notes         AS manual_notes,
+      CASE WHEN s.id IS NOT NULL THEN 1 ELSE 0 END AS has_story,
+      CASE WHEN env.id IS NOT NULL THEN 1 ELSE 0 END AS has_environment
     FROM trees t
     LEFT JOIN ground_truth gt ON gt.id = (
       SELECT id FROM ground_truth WHERE tree_id = t.id ORDER BY created_at DESC LIMIT 1
     )
+    LEFT JOIN ground_truth gtm ON gtm.id = (
+      SELECT id FROM ground_truth WHERE tree_id = t.id AND source = 'manual' LIMIT 1
+    )
     LEFT JOIN stories s ON s.tree_id = t.id AND s.story_type = 'A'
+    LEFT JOIN environmental_context env ON env.id = (
+      SELECT id FROM environmental_context WHERE tree_id = t.id ORDER BY fetched_at DESC LIMIT 1
+    )
     ORDER BY t.created_at ASC
   `).all()
 
@@ -232,6 +299,8 @@ app.get('/api/trees', (req, res) => {
       referenceType: r.reference_type,
       videoFilename: r.video_filename || null,
       videoOriginalName: r.video_original_name || null,
+      videoDriveUrl: r.video_drive_url || null,
+      hasEvidenceFrame: fs.existsSync(path.join(EVIDENCE_DIR, `${r.id}.jpg`)),
       directMeasurementCm: med?.directMeasurementCm ?? 0,
       directMeasurementConfidence: med?.directMeasurementConfidence ?? null,
       measurementType: med?.measurementType ?? '',
@@ -250,7 +319,37 @@ app.get('/api/trees', (req, res) => {
         dbhCm: r.ref_dbh_cm,
         source: r.gt_source,
       } : null,
+      // §30 人工皮尺實量（與 path 0/A 自填的 actual_dbh_cm 完全獨立）
+      manualMeasurement: r.manual_dbh_cm != null ? {
+        dbhCm: r.manual_dbh_cm,
+        measuredBy: r.manual_measured_by,
+        measuredAt: r.manual_measured_at,
+        notes: r.manual_notes,
+      } : null,
+      // §31 影片皮尺批次標註（ground truth from manual circ + keyframe ts）
+      manualTape: r.manual_tape_circ_cm != null ? {
+        circCm: r.manual_tape_circ_cm,
+        dbhCm: r.manual_tape_dbh_cm,
+        frameTsSec: r.manual_tape_frame_ts_sec,
+        annotator: r.manual_tape_annotator,
+        annotatedAt: r.manual_tape_annotated_at,
+      } : null,
       hasStory: !!r.has_story,
+      hasEnvironment: !!r.has_environment,
+      // §27 三路徑並列
+      paths: {
+        path0: r.path0_dbh_cm != null ? {
+          dbhCm: r.path0_dbh_cm, volumeM3: r.path0_volume_m3, carbonKg: r.path0_carbon_kg, computed: true,
+        } : { computed: false },
+        pathA: r.pathA_dbh_cm != null ? {
+          dbhCm: r.pathA_dbh_cm, volumeM3: r.pathA_volume_m3, carbonKg: r.pathA_carbon_kg, computed: true,
+        } : { computed: false },
+        pathB: r.pathB_dbh_cm != null ? {
+          dbhCm: r.pathB_dbh_cm, dbhCmCorrected: r.pathB_dbh_cm_corrected,
+          volumeM3: r.pathB_volume_m3, carbonKg: r.pathB_carbon_kg, computed: true,
+        } : { computed: false },
+      },
+      winnerPath: r.winner_path || null,
     }
   }))
 })
@@ -294,14 +393,36 @@ async function processVideo(jobId, videoPath, originalName) {
 
     // 3. 擷取關鍵幀
     jobs[jobId].step = 'frames'
-    const candidates = await extractFrames(videoPath, framesDir)
-    const { frames, frameQuality } = await selectBestFrames(candidates)
-    const frameBase64s = frames.map(frameToBase64)
+    const { cardFrames, allFrames, frameQuality } = await extractAndDetectCard(videoPath, framesDir)
+    const regularFrames = selectRegularFrames(allFrames, 5)
+    const frameBase64s = regularFrames.map(f => frameToBase64(f.path))
+    console.log(`[frames] 2fps scan: ${allFrames.length} frames total, ${cardFrames.length} card frames (${cardFrames.filter(f=>f.isOrthogonal).length} orthogonal)`)
 
     // 4. AI 視覺分析（先跑，結果用於選葉片幀做樹種辨識）
     jobs[jobId].step = 'ai_analysis'
     const rawAnalysis = await analyzeTrunkWithRetry(frameBase64s, metadata)
     const median = getMedianResult(rawAnalysis.frames || [], metadata.imageWidth, metadata.imageHeight)
+
+    // §35.4 Path A override: OpenCV-confirmed card frames → ratio-only Gemini
+    if (cardFrames.length > 0) {
+      try {
+        const bestCard = cardFrames.slice(0, 3)
+        const cardBase64s = bestCard.map(f => frameToBase64(f.path))
+        const cardAnalysis = await analyzeTrunkPathAOnly(cardBase64s)
+        const pathAResult = getPathAMedianRatio(cardAnalysis.frames || [])
+        if (pathAResult) {
+          console.log(`[pathA-opencv] ratio=${pathAResult.ratio.toFixed(3)} dbh=${pathAResult.dbhCm}cm conf=${pathAResult.confidence.toFixed(2)}`)
+          median.referenceDetected = true
+          median.referenceType = 'creditcard'
+          median.referenceAtTrunk = true
+          median.trunkToReferenceRatio = pathAResult.ratio
+          median.referenceConfidence = pathAResult.confidence
+          median.referenceOffTrunkDetected = false
+        }
+      } catch (e) {
+        console.warn(`[pathA-opencv] failed: ${e.message}`)
+      }
+    }
 
     if (!median) throw new Error('無法識別樹幹，請重新拍攝')
 
@@ -384,8 +505,22 @@ async function processVideo(jobId, videoPath, originalName) {
       }
     }
 
-    // 7. 存入 SQLite
+    // 7. 存入 SQLite（含三路徑並列）
     jobs[jobId].step = 'saving'
+    // Path B 修正後 DBH：若 winner 不是 Path B 且 Path B 有值，套 CF 取得修正版以利對照
+    let pathBDbhCmCorrected = null
+    if (calc.paths?.pathB && species) {
+      try {
+        const cfB = getFactorBySpecies(species)
+        if (cfB.applicable) {
+          pathBDbhCmCorrected = Math.round(calc.paths.pathB.dbhCm * cfB.correctionFactor * 10) / 10
+        }
+      } catch (_) {}
+    }
+    // 若 winner 是 Path B 且 CF 已套用，pathB_dbh_cm 仍存原始值，pathB_dbh_cm_corrected 存修正後
+    if (calc.winner === 'pathB' && correctionApplied) {
+      pathBDbhCmCorrected = calc.dbhCm  // 已修正
+    }
     const treeId = insert({
       videoHash, species, speciesSource,
       dbhCm: calc.dbhCm, volumeM3: calc.volumeM3, carbonKg: calc.carbonKg,
@@ -395,18 +530,69 @@ async function processVideo(jobId, videoPath, originalName) {
       referenceUsed: calc.referenceUsed ? 1 : 0,
       referenceType: calc.referenceType,
       originalDbhCm, appliedCorrectionFactor,
-      videoFilename: path.basename(videoPath),
+      videoFilename: null,
       videoOriginalName: originalName || null,
       rawResult: { median, calc, metadata, rawFrames: rawAnalysis.frames || [] },
+      paths: calc.paths,
+      winnerPath: calc.winner,
+      pathBDbhCmCorrected,
+      // §27.7.5 元數據完整封存
+      createDate: metadata.createDateUnix,
+      frameRate: metadata.frameRate,
+      imageWidth: metadata.imageWidth,
+      imageHeight: metadata.imageHeight,
+      altitudeM: metadata.altitudeM,
+      illuminanceLux: metadata.illuminanceLux,
+      durationSec: metadata.durationSec,
+      videoCodec: metadata.videoCodec,
+      orientation: metadata.orientation,
+      gpsImgDirectionDeg: metadata.gpsImgDirectionDeg,
+      devicePressureHpa: metadata.devicePressureHpa,
+      deviceAmbientTempC: metadata.deviceAmbientTempC,
     })
     const chainJobId = createBlockchainJob(treeId)
 
-    // 路徑 0 或路徑 A 時自動寫入 ground_truth 並快照修正因子
+    // 7b. 產生測量依據幀縮圖（800×600）→ uploads/evidence/{treeId}.jpg
+    try {
+      const ev = pickEvidenceFrameIdx(median, rawAnalysis.frames || [])
+      if (ev && frames[ev.frameIdx]) {
+        const dest = path.join(EVIDENCE_DIR, `${treeId}.jpg`)
+        await generateThumbnail(frames[ev.frameIdx], dest)
+        console.log(`[evidence] tree=${treeId} frame=${ev.frameIdx} reason=${ev.reason}`)
+      } else {
+        console.log(`[evidence] tree=${treeId} 無可用依據幀（路徑 B 或資料不足）`)
+      }
+    } catch (evErr) {
+      console.warn('[evidence] 產生失敗（不影響主流程）：', evErr.message)
+    }
+
+    // §29.3 per-frame 分析持久化：frame_idx 取 chosenPath 內 frame_N.jpg 的 N
+    try {
+      const enrichedFrames = (rawAnalysis.frames || []).map((f, arrayIdx) => {
+        const chosenPath = frames[arrayIdx] || ''
+        const m = chosenPath.match(/frame_(\d+)\.jpg$/)
+        const realFrameIdx = m ? parseInt(m[1], 10) : arrayIdx
+        return { ...f, frameIdx: realFrameIdx, frameQualityLabel: frameQuality }
+      })
+      const n = frameAnalyses.insertMany(treeId, enrichedFrames)
+      // 同時記錄該樹對應 tmp_frames 子目錄（jobId）
+      getDb().prepare('UPDATE trees SET tmp_frames_dir = ? WHERE id = ?').run(jobId, treeId)
+      console.log(`[frame_analyses] tree=${treeId} rows=${n} dir=${jobId}`)
+    } catch (faErr) {
+      console.warn('[frame_analyses] 持久化失敗（不影響主流程）：', faErr.message)
+    }
+
+    // 路徑 0 或路徑 A 時自動寫入 ground_truth 並快照修正因子（per-path）
     if (calc.directMeasurementUsed || calc.referenceUsed) {
       const gtSource = calc.directMeasurementUsed ? 'direct_measurement' : 'reference'
       insertGroundTruth({ treeId, actualDbhCm: calc.dbhCm, estimatedDbhCm: calc.routeBDbhCm, source: gtSource })
-      if (species) snapshotFactor(species, gtSource)
-      console.log(`[ground_truth] ${gtSource} 自動寫入 tree=${treeId} actual=${calc.dbhCm}cm estimated=${calc.routeBDbhCm}cm`)
+      if (species) {
+        // Path A CF：只有當 Path 0 是 ground truth、且 Path A 有值才有意義
+        if (calc.directMeasurementUsed && calc.paths?.pathA) snapshotFactor(species, gtSource, 'A')
+        // Path B CF：Path 0 或 Path A 為 ground truth 時都可訓練 Path B
+        if (calc.paths?.pathB) snapshotFactor(species, gtSource, 'B')
+      }
+      console.log(`[ground_truth] ${gtSource} 自動寫入 tree=${treeId} actual=${calc.dbhCm}cm | pathA=${calc.paths?.pathA?.dbhCm ?? '-'} pathB=${calc.paths?.pathB?.dbhCm ?? '-'}`)
     }
 
     // 8. 上鏈
@@ -438,6 +624,19 @@ async function processVideo(jobId, videoPath, originalName) {
 
     // 9. 時空聚類 + 非同步故事生成（不阻塞回應）
     setImmediate(async () => {
+      // 9a. 環境快照寫入（必須先於故事生成，因為故事會讀取 environmental_context）
+      try {
+        let envLat = null, envLng = null
+        if (metadata.gps && typeof metadata.gps === 'string') {
+          const m = metadata.gps.match(/^(-?[0-9.]+),\s*(-?[0-9.]+)$/)
+          if (m) { envLat = parseFloat(m[1]); envLng = parseFloat(m[2]) }
+        }
+        const envUnixTs = metadata.createDateUnix || Math.floor(Date.now() / 1000)
+        await persistEnvironmentContext(treeId, envLat, envLng, envUnixTs, metadata.altitudeM ?? null)
+      } catch (envErr) {
+        console.warn('[envctx] 環境快照失敗（不影響主流程）：', envErr.message)
+      }
+
       try {
         const { eventId, isNew } = assignToEvent(treeId)
         if (eventId) {
@@ -473,6 +672,8 @@ async function processVideo(jobId, videoPath, originalName) {
     })
 
   } finally {
+    // 處理完即刪原始影片（VM 磁碟有限；source-of-truth 由使用者保存在 Google Drive）
+    try { fs.unlinkSync(videoPath) } catch (_) {}
     // 暫存幀保留不刪，路徑：tmp_frames/[jobId]/
     console.log(`[frames] 關鍵幀位置：${path.resolve(framesDir)}`)
   }
@@ -538,6 +739,162 @@ app.get('/api/trees/:id/video', (req, res) => {
     })
     fs.createReadStream(filePath).pipe(res)
   }
+})
+
+// GET /api/trees/:id/environment（環境快照：天氣 + UV + 日照 + 太陽位置 + 物候）
+app.get('/api/trees/:id/environment', (req, res) => {
+  const treeId = req.params.id
+  if (!/^[a-f0-9-]{36}$/i.test(treeId)) return res.status(400).json({ error: '無效 ID' })
+  try {
+    const { getByTreeId: getEnvByTreeId } = require('./db/environmentalContext')
+    const env = getEnvByTreeId(treeId)
+    if (!env) return res.status(404).json({ error: '此樹尚無環境快照' })
+    res.json(env)
+  } catch (err) {
+    res.status(500).json({ error: err.message })
+  }
+})
+
+// GET /api/trees/:id/path-frames（§29.4：三路徑各自的依據幀 + 全部 frame_analyses）
+app.get('/api/trees/:id/path-frames', (req, res) => {
+  const treeId = req.params.id
+  if (!/^[a-f0-9-]{36}$/i.test(treeId)) return res.status(400).json({ error: '無效 ID' })
+
+  const tree = getDb().prepare(`
+    SELECT id, raw_result, tmp_frames_dir,
+           path0_dbh_cm, pathA_dbh_cm, pathB_dbh_cm, winner_path,
+           manual_tape_dbh_cm, manual_tape_circ_cm,
+           manual_tape_frame_ts_sec, duration_sec
+    FROM trees WHERE id = ?
+  `).get(treeId)
+  if (!tree) return res.status(404).json({ error: '找不到該樹木紀錄' })
+
+  let raw = null
+  try { raw = tree.raw_result ? JSON.parse(tree.raw_result) : null } catch (_) {}
+  const median = raw?.median || null
+
+  const rows = frameAnalyses.getByTreeId(treeId)
+
+  // 路徑 0 證據：優先用人工皮尺值（manual_tape_*），從 tmp_frames 13 幀中
+  // 挑離 manual_tape_frame_ts_sec 最近的那張（均勻取樣 0~12）。
+  // 若無人工值，fallback 原本的 AI OCR 篩選邏輯。
+  function pickPath0() {
+    if (tree.manual_tape_dbh_cm > 0) {
+      const ts = tree.manual_tape_frame_ts_sec
+      const dur = tree.duration_sec
+      let frameIdx = 6
+      if (ts != null && dur > 0) {
+        frameIdx = Math.round((ts / dur) * 12)
+        if (frameIdx < 0) frameIdx = 0
+        if (frameIdx > 12) frameIdx = 12
+      }
+      const isCirc = tree.manual_tape_circ_cm > 0
+      return {
+        frameIdx,
+        reason: 'manual_tape',
+        value: isCirc ? tree.manual_tape_circ_cm : tree.manual_tape_dbh_cm,
+        measurementType: isCirc ? 'circumference' : 'diameter',
+        confidence: 1.0,
+        manualTapeDbhCm: tree.manual_tape_dbh_cm,
+        manualTapeTsSec: ts,
+      }
+    }
+    if (!median || !(median.directMeasurementCm > 0)) return null
+    const target = median.directMeasurementCm
+    const cands = rows.filter(r =>
+      (r.direct_measurement_cm || 0) > 0 &&
+      (r.direct_confidence || 0) >= 0.5 &&
+      Math.abs(r.direct_measurement_cm - target) / target <= 0.10
+    ).sort((a, b) => (b.direct_confidence || 0) - (a.direct_confidence || 0))
+    if (cands.length === 0) return null
+    const c = cands[0]
+    return {
+      frameIdx: c.frame_idx,
+      reason: 'tape',
+      value: c.direct_measurement_cm,
+      measurementType: c.measurement_type || '',
+      confidence: c.direct_confidence,
+    }
+  }
+  function pickPathA() {
+    if (!median?.referenceDetected || !median?.referenceAtTrunk) return null
+    const cands = rows.filter(r =>
+      r.reference_detected === 1 &&
+      r.reference_at_trunk !== 0 &&
+      (r.reference_confidence || 0) >= 0.4
+    ).sort((a, b) => (b.reference_confidence || 0) - (a.reference_confidence || 0))
+    if (cands.length === 0) return null
+    const c = cands[0]
+    return {
+      frameIdx: c.frame_idx,
+      reason: 'reference',
+      referenceType: c.reference_type || '',
+      confidence: c.reference_confidence,
+    }
+  }
+
+  res.json({
+    treeId,
+    tmpFramesDir: tree.tmp_frames_dir || null,
+    winnerPath: tree.winner_path || null,
+    paths: {
+      path0: tree.path0_dbh_cm != null ? { dbhCm: tree.path0_dbh_cm, evidence: pickPath0() } : null,
+      pathA: tree.pathA_dbh_cm != null ? { dbhCm: tree.pathA_dbh_cm, evidence: pickPathA() } : null,
+      pathB: tree.pathB_dbh_cm != null ? {
+        dbhCm: tree.pathB_dbh_cm,
+        evidence: null,
+        note: '路徑 B（視覺估算）使用全部 5 幀中位數，無單一依據幀',
+      } : null,
+    },
+    frames: rows.map(r => ({
+      frameIdx: r.frame_idx,
+      directMeasurementCm: r.direct_measurement_cm,
+      directConfidence: r.direct_confidence,
+      measurementType: r.measurement_type,
+      referenceDetected: r.reference_detected === 1,
+      referenceAtTrunk: r.reference_at_trunk === 1,
+      referenceType: r.reference_type,
+      referenceConfidence: r.reference_confidence,
+      trunkWidthFraction: r.trunk_width_fraction,
+      referenceWidthFraction: r.reference_width_fraction,
+      breastHeightVisible: r.breast_height_visible === 1,
+      leafVisible: r.leaf_visible === 1,
+      frameQualityLabel: r.frame_quality_label,
+    })),
+  })
+})
+
+// GET /api/trees/:id/frames/:idx（§29.5：原始關鍵幀 JPG，從 tmp_frames_dir 讀）
+app.get('/api/trees/:id/frames/:idx', (req, res) => {
+  const treeId = req.params.id
+  const idx = parseInt(req.params.idx, 10)
+  if (!/^[a-f0-9-]{36}$/i.test(treeId)) return res.status(400).json({ error: '無效 ID' })
+  if (!Number.isInteger(idx) || idx < 0 || idx > 99) return res.status(400).json({ error: '無效 idx' })
+
+  const row = getDb().prepare('SELECT tmp_frames_dir FROM trees WHERE id = ?').get(treeId)
+  if (!row || !row.tmp_frames_dir) return res.status(404).json({ error: '尚無關鍵幀目錄' })
+
+  const dir = row.tmp_frames_dir
+  if (dir.includes('/') || dir.includes('\\') || dir.includes('..')) {
+    return res.status(400).json({ error: '無效目錄名' })
+  }
+  const filePath = path.join(process.cwd(), 'tmp_frames', dir, `frame_${idx}.jpg`)
+  if (!fs.existsSync(filePath)) return res.status(404).json({ error: `找不到 frame_${idx}.jpg` })
+
+  res.type('image/jpeg')
+  res.setHeader('Cache-Control', 'public, max-age=86400')
+  fs.createReadStream(filePath).pipe(res)
+})
+
+// GET /api/trees/:id/evidence-frame（測量依據幀縮圖）
+app.get('/api/trees/:id/evidence-frame', (req, res) => {
+  const id = req.params.id
+  if (!/^[a-f0-9-]{36}$/i.test(id)) return res.status(400).json({ error: '無效 ID' })
+  const filePath = path.join(EVIDENCE_DIR, `${id}.jpg`)
+  if (!fs.existsSync(filePath)) return res.status(404).json({ error: '尚無依據幀' })
+  res.type('image/jpeg')
+  res.setHeader('Cache-Control', 'public, max-age=86400')
+  fs.createReadStream(filePath).pipe(res)
 })
 
 // GET /api/trees/:id/story（單棵樹 Markdown 故事）

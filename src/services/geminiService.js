@@ -346,4 +346,63 @@ async function analyzeTrunkWithRetry(frameBase64Array, metadata) {
   }
 }
 
-module.exports = { analyzeTrunkWithRetry, getMedianResult, identifySpeciesFallback }
+
+// ── §35.4 Path A only (OpenCV pre-confirmed card frames) ──────────────────
+
+const CREDITCARD_WIDTH_MM = 85.6
+
+const RATIO_SCHEMA = {
+  type: SchemaType.OBJECT,
+  properties: {
+    frames: {
+      type: SchemaType.ARRAY,
+      items: {
+        type: SchemaType.OBJECT,
+        properties: {
+          trunkToCardRatio: { type: SchemaType.NUMBER },
+          confidence:       { type: SchemaType.NUMBER },
+        },
+        required: ['trunkToCardRatio', 'confidence'],
+      },
+    },
+  },
+  required: ['frames'],
+}
+
+const RATIO_PROMPT = `你是林業測量 AI。這些圖片已由 OpenCV 確認含有正交信用卡（長邊 85.6mm）靠著樹幹，且已校正為水平視角。
+
+請對每張圖片回傳：
+1. trunkToCardRatio：胸高（約 1.3m）樹幹寬 ÷ 信用卡長邊的倍數（無法判斷填 0）
+2. confidence：信心度 0.0–1.0
+
+不需要重新驗證卡片是否存在或正交，OpenCV 已確認。專注在估算比例。`
+
+async function analyzeTrunkPathAOnly(cardFrameBase64Array) {
+  const model = getClient().getGenerativeModel({
+    model: 'gemini-2.5-flash',
+    generationConfig: { responseMimeType: 'application/json', responseSchema: RATIO_SCHEMA },
+  })
+  const parts = [{ text: RATIO_PROMPT }]
+  cardFrameBase64Array.forEach(b64 => {
+    parts.push({ inlineData: { mimeType: 'image/jpeg', data: b64 } })
+  })
+  const result = await model.generateContent(parts)
+  return JSON.parse(result.response.text())
+}
+
+function getPathAMedianRatio(frames) {
+  const valid = frames
+    .filter(f => f.trunkToCardRatio > 0 && f.confidence >= 0.4)
+    .map(f => {
+      const dbhCm = Math.round(f.trunkToCardRatio * CREDITCARD_WIDTH_MM / 10 * 10) / 10
+      return (dbhCm >= 1 && dbhCm <= 200)
+        ? { dbhCm, confidence: f.confidence, ratio: f.trunkToCardRatio }
+        : null
+    })
+    .filter(Boolean)
+  if (!valid.length) return null
+  const sorted = [...valid].sort((a, b) => a.dbhCm - b.dbhCm)
+  return sorted[Math.floor(sorted.length / 2)]
+}
+
+module.exports = { analyzeTrunkWithRetry, getMedianResult, identifySpeciesFallback, analyzeTrunkPathAOnly, getPathAMedianRatio }
