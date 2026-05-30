@@ -42,9 +42,9 @@
         "computed": true
       },
       "pathA": {
-        "dbhCm": 20.2,
-        "volumeM3": 0.2329,
-        "carbonKg": 75.7,
+        "dbhCm": 27.9,
+        "volumeM3": 0.5274,
+        "carbonKg": 192,
         "computed": true
       },
       "pathB": {
@@ -67,189 +67,6 @@
   },
   {
     "treeNo": "T002",
-    "id": "db0c5e0f-78b0-4e04-85f1-b98f476e4c7e",
-    "species": "Liquidambar formosana",
-    "speciesSource": "gemini",
-    "dbhCm": 22.6,
-    "originalDbhCm": null,
-    "appliedCorrectionFactor": null,
-    "volumeM3": 0.313,
-    "carbonKg": 105.8,
-    "confidence": "low",
-    "gps": "22.7354,121.0696",
-    "focalLengthMm": 5.7,
-    "sensorWidthMm": 7.6,
-    "deviceModel": "iPhone 13 Pro Max",
-    "frameQuality": "low",
-    "referenceUsed": false,
-    "referenceType": null,
-    "createdAt": 1779675419,
-    "altitude": 59.654,
-    "resolution": "1920 × 1080",
-    "fps": 29.996,
-    "blockchain": {
-      "txHash": "0x33c29e239eda897a18aab236afb69e3b6d448e1f8a2c02b23ff53843749780ce",
-      "txStatus": "confirmed",
-      "createdAt": 1779675419
-    },
-    "calibration": null,
-    "videoFilename": null,
-    "videoOriginalName": "IMG_5786.mov",
-    "videoDriveUrl": "https://drive.google.com/file/d/1lpkf7TYbWLylUKtG0ABFdZDitkW2T0wN/preview",
-    "winnerPath": "path0",
-    "paths": {
-      "path0": {
-        "dbhCm": 22.6,
-        "volumeM3": 0.313,
-        "carbonKg": 105.8,
-        "computed": true
-      },
-      "pathA": {
-        "computed": false
-      },
-      "pathB": {
-        "dbhCm": 93.3,
-        "dbhCmCorrected": null,
-        "volumeM3": 8.8492,
-        "carbonKg": 2991,
-        "computed": true
-      }
-    },
-    "manualTape": {
-      "circCm": 71,
-      "dbhCm": 22.6,
-      "frameTsSec": 17,
-      "annotator": "yuchi"
-    },
-    "hasStory": true,
-    "storyMarkdown": "# 🌳 楓香 的故事\n\n> **台灣南端山野** ｜ 2026年5月23日\n\n---\n\n## 🌿 生態多樣性貢獻\n\n| 項目 | 內容 |\n|------|------|\n| **中文名** | 楓香 |\n| **起源** | 🟢 台灣原生 |\n| **林相層次** | 林冠層 |\n| **棲地類型** | 低海拔闊葉林 |\n| **生態多樣性貢獻評分** | ★★★★☆（4/5） |\n| **關鍵物種** | 否 |\n| **吸引鳥類** | 台灣藍鵲、冠羽畫眉、台灣山鷓鴣、白耳畫眉 |\n| **吸引昆蟲** | 大紫蛺蝶、枯葉蛺蝶、楓天牛、多種造癭蜂 |\n| **哺乳動物** | 台灣獼猴、赤腹松鼠 |\n| **土壤功能** | 秋季落葉量大，腐植質豐富，提升表土有機碳含量，落葉層是多種無脊椎動物的庇護所 |\n| **花期** | 3–4 月 |\n| **提供蜜源** | 否 |\n| **提供果實** | ✅ 是（鳥類/哺乳類食源） |\n\n### 生態角色\n\n台灣低中海拔重要的季節性樹種，秋冬變紅色葉片是低海拔闊葉林景觀指標。帶刺蒴果提供台灣獼猴及松鼠的食源，大型樹冠成為猛禽的瞭望棲位，多種天牛幼蟲以樹幹為食，間接維繫啄木鳥族群\n\n> **保育備註：** 台灣原生，闊葉林重要伴生樹種，秋冬變色景觀樹\n\n---\n\n## 🍃 此刻的 楓香（5 月）\n\n葉片轉為深綠，造癭蜂於嫩葉產卵\n\n---\n\n## 🌍 碳儲量意義\n\n這棵 楓香 目前儲存了 **2991 kg** 的碳。相當於一輛汽車行駛約 14243 公里所排放的碳。\n\n每多一棵這樣的樹，就是給大氣的一次小小還債。\n\n---\n\n## ✨ 這棵樹的故事\n\n雷雨方歇，南境山野氤氳瀰漫，氣溫徘徊近三十度，濕度蒸騰，東風輕拂，捎來遠方海的味道。雲層半掩，難得的日照僅短短一小時，此刻的林間，盡是生命的喧嘩。\n\n這棵楓香老樹，胸高直徑逾九十公分，屹立台灣南端海岸防風林帶，深綠葉片飽含雨水，閃耀著旺盛生機。造癭蜂悄然於嫩葉產卵，為即將孵化的幼蟲，編織出奇特的生命居所。在牠深綠的枝葉間，臺灣藍鵲正忙著育雛，牠們敏捷穿梭，呼喚聲迴盪山谷。樹洞裡，飛鼠幼崽靜待親鳥歸巢，林間，甲蟲大啖樹液，多種昆蟲翩然飛舞，共譜雨季勃發的生命樂章。\n\n數十載歲月，牠深根盤踞，不只是屏障海岸的綠色衛士，更是無數生命的庇護所。每年秋季，大量落葉化作沃土，豐富土壤有機質，提升表土有機碳含量，為地下隱匿的無脊椎動物，提供溫暖安穩的棲所。牠默默承載近三千公斤碳量，為空氣滌清塵埃，為地球溫存綠意，是一封寫給未來的綠色情書。願這份歲月累積的堅持與豐饒，永續守護我們世代的家園，綻放無盡的希望。\n\n---\n\n## 📊 拍攝當下環境快照\n\n- **天氣**：雷雨、氣溫 29.3°C、濕度 81%、氣壓 1003.5 hPa、雲量 50%\n- **風況**：東風，1.4 m/s\n- **光環境**：UV 指數 4.7、日照 1 小時、短波輻射 592 W/m²\n- **太陽位置**：日出 下午09:13、日落 上午10:33、日長 13.33 小時、太陽仰角 22.99°、方位 283.6°\n- **棲地座標**：海拔 60 m、海岸防風林帶、雨季\n- **當下物候**：鳥類繁殖初期、昆蟲羽化期、甲蟲樹液取食期、白蟻分飛、低海拔花期高峰、菌類子實體爆發窗口、飛鼠育幼期\n\n---\n\n_資料由 Forest Carbon Measurement 系統自動生成，Gemini 2.5 Flash 驅動，2026/5/25 更新_",
-    "storySummary": "楓香，93.3 cm，2991 kg C，台灣南端山野"
-  },
-  {
-    "treeNo": "T003",
-    "id": "f97a927b-ae4d-4b42-b224-418f6d9028dc",
-    "species": "Calophyllum inophyllum",
-    "speciesSource": "plantnet",
-    "dbhCm": 27.7,
-    "originalDbhCm": null,
-    "appliedCorrectionFactor": null,
-    "volumeM3": 0.6188,
-    "carbonKg": 241.3,
-    "confidence": "low",
-    "gps": "22.7352,121.0696",
-    "focalLengthMm": 5.7,
-    "sensorWidthMm": 7.6,
-    "deviceModel": "iPhone 13 Pro Max",
-    "frameQuality": "low",
-    "referenceUsed": false,
-    "referenceType": null,
-    "createdAt": 1779675561,
-    "altitude": 63.528,
-    "resolution": "1920 × 1080",
-    "fps": 29.995,
-    "blockchain": {
-      "txHash": "0x2aabb73e00ce5c1ceaff048cb6ff0ef0b904878cad8a443fca5ec62347a05189",
-      "txStatus": "confirmed",
-      "createdAt": 1779675561
-    },
-    "calibration": null,
-    "videoFilename": null,
-    "videoOriginalName": "IMG_5788.mov",
-    "videoDriveUrl": "https://drive.google.com/file/d/1F0437umBsIGv_-oetcpKQokZW9KSXjcp/preview",
-    "winnerPath": "path0",
-    "paths": {
-      "path0": {
-        "dbhCm": 27.7,
-        "volumeM3": 0.6188,
-        "carbonKg": 241.3,
-        "computed": true
-      },
-      "pathA": {
-        "dbhCm": 39.4,
-        "volumeM3": 1.4599,
-        "carbonKg": 569.4,
-        "computed": true
-      },
-      "pathB": {
-        "dbhCm": 46,
-        "dbhCmCorrected": null,
-        "volumeM3": 1.6716,
-        "carbonKg": 543.3,
-        "computed": true
-      }
-    },
-    "manualTape": {
-      "circCm": 87,
-      "dbhCm": 27.7,
-      "frameTsSec": 5,
-      "annotator": "yuchi"
-    },
-    "hasStory": true,
-    "storyMarkdown": "# 🌳 未知樹種 的故事\n\n> **台灣南端山野** ｜ 2026年5月23日\n\n---\n\n## 🌿 生態多樣性貢獻\n\n| 項目 | 內容 |\n|------|------|\n| **中文名** | 未知樹種 |\n| **起源** | ❓ 未知 |\n| **林相層次** | 林冠層 |\n| **棲地類型** | 低海拔闊葉林 |\n| **生態多樣性貢獻評分** | ★★☆☆☆（2/5） |\n| **關鍵物種** | 否 |\n| **吸引鳥類** | 各類留鳥 |\n| **吸引昆蟲** | 多種昆蟲 |\n| **哺乳動物** | — |\n| **土壤功能** | 提供遮蔭與有機質，基礎生態服務功能 |\n| **花期** | 視樹種而定 |\n| **提供蜜源** | 否 |\n| **提供果實** | 否 |\n\n### 生態角色\n\n樹木為周遭生態系提供遮蔭、固碳、防風等基礎服務，是陸域生態系的核心組成\n\n\n\n---\n\n## 🍃 此刻的 未知樹種（5 月）\n\n春末花期延續，動物育雛達高峰\n\n---\n\n## 🌍 碳儲量意義\n\n這棵 未知樹種 目前儲存了 **543.3 kg** 的碳。相當於一輛汽車行駛約 2587 公里所排放的碳。\n\n每多一棵這樣的樹，就是給大氣的一次小小還債。\n\n---\n\n## ✨ 這棵樹的故事\n\n南台灣海岸防風林帶深處，一棵古老的瓊崖海棠，胸高直徑已達四十六公分，默默挺立於雷雨滂沱之間。它歷經無數熱帶風霜，此刻正承接著五月豐沛的雨水，空氣中瀰漫著濕黏的熱氣，約莫二十九度，溫柔東風輕輕拂過，彷彿為即將到來的大雨作引。天色晦暗，烏雲籠罩，太陽僅露臉一小時，卻無損它生命底蘊的繁盛。\n\n這棵巨木，如同綠色堡壘，替大地吸納了超過五百公斤的碳，抵銷約一輛汽車奔馳兩千五百多公里的排放，它深沉的呼吸，正是地球的寧靜饋贈。春末花期延續，白色花朵點綴枝頭，散發淡雅幽香，吸引各式昆蟲前來採蜜。一陣轟隆雷聲響徹天際，閃電劃破半掩的雲層，雨勢卻激發了更多生命動態。\n\n樹冠深處，正逢繁殖期的五色鳥或許正孵育著新生命，雛鳥嗷嗷待哺。樹皮上，甲蟲趁著潮濕取食樹液，飽餐一頓；雨季也帶來白蟻分飛，昆蟲羽化，為整片生態系注入蓬勃生機。潮濕的土壤中，菌類子實體悄然冒出頭，形成一片微觀的奇景。瓊崖海棠寬大的樹蔭，庇護了下方土壤與無數小生物，提供腐葉有機質，成為這片海岸林地最穩固的基石。\n\n每一次雷雨洗禮，都讓這棵樹的生命力更加堅韌。它不僅是一棵樹，更是一座生機勃勃的生態島嶼，承載著過去，也為未來寫下充滿希望的信箋。\n\n---\n\n## 📊 拍攝當下環境快照\n\n- **天氣**：雷雨、氣溫 29.3°C、濕度 81%、氣壓 1003.5 hPa、雲量 50%\n- **風況**：東風，1.4 m/s\n- **光環境**：UV 指數 4.7、日照 1 小時、短波輻射 592 W/m²\n- **太陽位置**：日出 下午09:13、日落 上午10:33、日長 13.33 小時、太陽仰角 19.47°、方位 284.78°\n- **棲地座標**：海拔 64 m、海岸防風林帶、雨季\n- **當下物候**：鳥類繁殖初期、昆蟲羽化期、甲蟲樹液取食期、白蟻分飛、低海拔花期高峰、菌類子實體爆發窗口、飛鼠育幼期\n\n---\n\n_資料由 Forest Carbon Measurement 系統自動生成，Gemini 2.5 Flash 驅動，2026/5/25 更新_",
-    "storySummary": "未知樹種，46 cm，543.3 kg C，台灣南端山野"
-  },
-  {
-    "treeNo": "T004",
-    "id": "60197586-ff81-4dc5-8994-65500a2280ce",
-    "species": "Fraxinus griffithii",
-    "speciesSource": "gemini",
-    "dbhCm": 30.2,
-    "originalDbhCm": null,
-    "appliedCorrectionFactor": null,
-    "volumeM3": 0.6292,
-    "carbonKg": 249.1,
-    "confidence": "low",
-    "gps": "22.7346,121.0686",
-    "focalLengthMm": 5.7,
-    "sensorWidthMm": 7.6,
-    "deviceModel": "iPhone 13 Pro Max",
-    "frameQuality": "low",
-    "referenceUsed": false,
-    "referenceType": null,
-    "createdAt": 1779675687,
-    "altitude": 57.523,
-    "resolution": "1920 × 1080",
-    "fps": 29.996,
-    "blockchain": {
-      "txHash": "0x55509cc9284547b53c0e0868a297fb4618fa479b43ddc18b5464039ba0ebfe65",
-      "txStatus": "confirmed",
-      "createdAt": 1779675687
-    },
-    "calibration": null,
-    "videoFilename": null,
-    "videoOriginalName": "IMG_5791.mov",
-    "videoDriveUrl": "https://drive.google.com/file/d/1fFNvMJSiDo6h0cGK7VBfDW7_Q9pE7aL4/preview",
-    "winnerPath": "path0",
-    "paths": {
-      "path0": {
-        "dbhCm": 30.2,
-        "volumeM3": 0.6292,
-        "carbonKg": 249.1,
-        "computed": true
-      },
-      "pathA": {
-        "computed": false
-      },
-      "pathB": {
-        "dbhCm": 58.7,
-        "dbhCmCorrected": null,
-        "volumeM3": 3.1091,
-        "carbonKg": 1231.2,
-        "computed": true
-      }
-    },
-    "manualTape": {
-      "circCm": 95,
-      "dbhCm": 30.2,
-      "frameTsSec": 7,
-      "annotator": "yuchi"
-    },
-    "hasStory": true,
-    "storyMarkdown": "# 🌳 光臘樹 的故事\n\n> **台灣南端山野** ｜ 2026年5月23日\n\n---\n\n## 🌿 生態多樣性貢獻\n\n| 項目 | 內容 |\n|------|------|\n| **中文名** | 光臘樹 |\n| **起源** | 🟢 台灣原生 |\n| **林相層次** | 林冠層 |\n| **棲地類型** | 低海拔闊葉林 |\n| **生態多樣性貢獻評分** | ★★★★★（5/5） |\n| **關鍵物種** | ⭐ 是（關鍵物種） |\n| **吸引鳥類** | 台灣藍鵲、白頭翁、五色鳥、紅頭山雀 |\n| **吸引昆蟲** | 台灣長臂金龜（二級保育類）、獨角仙、台灣大鍬形蟲、深山锹形蟲 |\n| **哺乳動物** | 台灣獼猴、台灣野豬 |\n| **土壤功能** | 樹液分解吸引真菌，促進腐植質循環，林下有機質積累顯著 |\n| **花期** | 4–6 月 |\n| **提供蜜源** | ✅ 是 |\n| **提供果實** | ✅ 是（鳥類/哺乳類食源） |\n\n### 生態角色\n\n台灣低海拔的「生態熱點」樹種，樹幹傷口滲出的樹液是台灣長臂金龜（保育二級）、獨角仙、鍬形蟲等甲蟲夏季最重要的食物來源。單株光臘樹在夏夜可吸引超過百隻甲蟲聚集，是台灣最具代表性的甲蟲寄主植物\n\n> **保育備註：** 台灣原生，台灣長臂金龜指標棲地植物，具高生態保育優先性\n\n---\n\n## 🍃 此刻的 光臘樹（5 月）\n\n盛花期延續，地表幼蟲化蛹\n\n---\n\n## 🌍 碳儲量意義\n\n這棵 光臘樹 目前儲存了 **1231.2 kg** 的碳。相當於一輛汽車行駛約 5863 公里所排放的碳。\n\n每多一棵這樣的樹，就是給大氣的一次小小還債。\n\n---\n\n## ✨ 這棵樹的故事\n\n雷雨初歇，南台灣山野熱氣蒸騰，一股潮濕的東風輕輕拂過，雲量半掩天光，將午後的炙熱稍稍軟化。這棵胸高直徑近六十公分的老光臘樹巍然矗立，歷經風霜，其深吸著南國的鹹濕空氣，將千年碳息，凝固於年輪深處，成為一片綠色奇蹟。海拔僅五十八公尺的海岸防風林帶，它是一個沉靜的巨人，守護著這方土地。\n\n此刻，雨季的澎湃生命力正自其身畔勃發。盛花延續，引來無數嗡嗡訪客。樹皮紋理間，晶瑩樹液緩緩滲出，為羽化期初啟的獨角仙與台灣大鍬形蟲，預備一場甘甜盛宴。林下腐植層，無數幼蟲正在化蛹，預告著又一波生命的躍動。一隻台灣藍鵲警覺地環顧四周，或許巢中雛鳥正嗷嗷待哺，而牠選擇這棵原生巨木，作為繁衍生命的安全港灣。\n\n其廣闊樹冠不僅遮蔽烈日，滋養林下沃土，豐富的有機質更為菌類子實體的爆發創造肥沃基底。樹液分解，引動真菌與微生物的狂歡，加速腐植質循環，讓生命生生不息。這棵屹立多年的光臘樹，不只是眼前的風景，它是一封寫給未來的信，信裡載滿希望，承諾著一片永續豐饒的家園。\n\n---\n\n## 📊 拍攝當下環境快照\n\n- **天氣**：雷雨、氣溫 29.3°C、濕度 81%、氣壓 1003.6 hPa、雲量 50%\n- **風況**：東風，1.4 m/s\n- **光環境**：UV 指數 4.7、日照 1 小時、短波輻射 592 W/m²\n- **太陽位置**：日出 下午09:13、日落 上午10:33、日長 13.33 小時、太陽仰角 17.25°、方位 285.54°\n- **棲地座標**：海拔 58 m、海岸防風林帶、雨季\n- **當下物候**：鳥類繁殖初期、昆蟲羽化期、甲蟲樹液取食期、白蟻分飛、低海拔花期高峰、菌類子實體爆發窗口、飛鼠育幼期\n\n---\n\n_資料由 Forest Carbon Measurement 系統自動生成，Gemini 2.5 Flash 驅動，2026/5/25 更新_",
-    "storySummary": "光臘樹，58.7 cm，1231.2 kg C，台灣南端山野"
-  },
-  {
-    "treeNo": "T005",
     "id": "ef71202a-420a-45aa-a159-234db9e94533",
     "species": "Acacia confusa",
     "speciesSource": "gemini",
@@ -315,7 +132,7 @@
     "storySummary": "相思樹，30.4 cm，303.9 kg C，台灣南端山野"
   },
   {
-    "treeNo": "T006",
+    "treeNo": "T003",
     "id": "39a452d7-18e1-49a5-8e60-1c4c3931d8b0",
     "species": "Bischofia javanica",
     "speciesSource": "plantnet",
@@ -357,7 +174,10 @@
         "computed": true
       },
       "pathA": {
-        "computed": false
+        "dbhCm": 36.6,
+        "volumeM3": 1.0103,
+        "carbonKg": 394,
+        "computed": true
       },
       "pathB": {
         "dbhCm": 96.7,
@@ -378,7 +198,7 @@
     "storySummary": "茄苳，34.4 cm，270.9 kg C，台灣南端山野"
   },
   {
-    "treeNo": "T007",
+    "treeNo": "T004",
     "id": "2f3d72e9-59de-4e3e-8dd4-b6c5c2f6321d",
     "species": "Juglans nigra",
     "speciesSource": "plantnet",
@@ -417,7 +237,10 @@
         "computed": true
       },
       "pathA": {
-        "computed": false
+        "dbhCm": 47.1,
+        "volumeM3": 2.1677,
+        "carbonKg": 745.2,
+        "computed": true
       },
       "pathB": {
         "dbhCm": 90,
@@ -438,7 +261,7 @@
     "storySummary": "未知樹種，90 cm，2710.9 kg C，台灣南端山野"
   },
   {
-    "treeNo": "T008",
+    "treeNo": "T005",
     "id": "e6dc1550-d707-4e20-9ff2-ed25eb6304f0",
     "species": "Melia azedarach",
     "speciesSource": "plantnet",
@@ -477,7 +300,10 @@
         "computed": true
       },
       "pathA": {
-        "computed": false
+        "dbhCm": 47.1,
+        "volumeM3": 1.8617,
+        "carbonKg": 640.9,
+        "computed": true
       },
       "pathB": {
         "dbhCm": 166.5,
@@ -498,136 +324,7 @@
     "storySummary": "未知樹種，166.5 cm，11830.3 kg C，台灣南端山野"
   },
   {
-    "treeNo": "T009",
-    "id": "32b07239-e856-42bd-9ef1-09978d79013a",
-    "species": "Camphora officinarum",
-    "speciesSource": "plantnet",
-    "dbhCm": 17.5,
-    "originalDbhCm": null,
-    "appliedCorrectionFactor": null,
-    "volumeM3": 0.1726,
-    "carbonKg": 62.8,
-    "confidence": "high",
-    "gps": "22.7362,121.0691",
-    "focalLengthMm": 5.7,
-    "sensorWidthMm": 7.6,
-    "deviceModel": "iPhone 13 Pro Max",
-    "frameQuality": "low",
-    "referenceUsed": false,
-    "referenceType": null,
-    "createdAt": 1779676206,
-    "altitude": 68.312,
-    "resolution": "1920 × 1080",
-    "fps": 29.996,
-    "blockchain": {
-      "txHash": "0x15c0e19ece4a8059dfa02d15a0a5d1fc0c469341bdb6d97a14fa478c066f72ad",
-      "txStatus": "confirmed",
-      "createdAt": 1779676206
-    },
-    "calibration": {
-      "dbhCm": 38.5,
-      "source": "reference"
-    },
-    "videoFilename": null,
-    "videoOriginalName": "IMG_5800.mov",
-    "videoDriveUrl": "https://drive.google.com/file/d/1yvo9_vja1TJOFl8TTiHQDHi9vMNbRfTf/preview",
-    "winnerPath": "path0",
-    "paths": {
-      "path0": {
-        "dbhCm": 17.5,
-        "volumeM3": 0.1726,
-        "carbonKg": 62.8,
-        "computed": true
-      },
-      "pathA": {
-        "dbhCm": 38.5,
-        "volumeM3": 1.0914,
-        "carbonKg": 354.7,
-        "computed": true
-      },
-      "pathB": {
-        "dbhCm": 39,
-        "dbhCmCorrected": null,
-        "volumeM3": 1.1257,
-        "carbonKg": 365.9,
-        "computed": true
-      }
-    },
-    "manualTape": {
-      "circCm": 55,
-      "dbhCm": 17.5,
-      "frameTsSec": 85,
-      "annotator": "yuchi"
-    },
-    "hasStory": true,
-    "storyMarkdown": "# 🌳 未知樹種 的故事\n\n> **台灣南端山野** ｜ 2026年5月24日\n\n---\n\n## 🌿 生態多樣性貢獻\n\n| 項目 | 內容 |\n|------|------|\n| **中文名** | 未知樹種 |\n| **起源** | ❓ 未知 |\n| **林相層次** | 林冠層 |\n| **棲地類型** | 低海拔闊葉林 |\n| **生態多樣性貢獻評分** | ★★☆☆☆（2/5） |\n| **關鍵物種** | 否 |\n| **吸引鳥類** | 各類留鳥 |\n| **吸引昆蟲** | 多種昆蟲 |\n| **哺乳動物** | — |\n| **土壤功能** | 提供遮蔭與有機質，基礎生態服務功能 |\n| **花期** | 視樹種而定 |\n| **提供蜜源** | 否 |\n| **提供果實** | 否 |\n\n### 生態角色\n\n樹木為周遭生態系提供遮蔭、固碳、防風等基礎服務，是陸域生態系的核心組成\n\n\n\n---\n\n## 🍃 此刻的 未知樹種（5 月）\n\n春末花期延續，動物育雛達高峰\n\n---\n\n## 🌍 碳儲量意義\n\n這棵 未知樹種 目前儲存了 **354.7 kg** 的碳。相當於 51 個人一個月的呼吸排碳量。\n\n每多一棵這樣的樹，就是給大氣的一次小小還債。\n\n---\n\n## ✨ 這棵樹的故事\n\n在台灣南端的海岸防風林帶，炙熱的五月豔陽將天空洗刷得澄澈無雲，溫度攀升至三十度之上，空氣中飽含著熱帶雨季特有的豐沛水氣。輕柔的東南風徐徐吹拂，一株古老的樟樹巍然矗立，胸高直徑已然訴說著漫長歲月。\n\n這棵樟樹不只是一抹翠綠風景，它悄然吸納了三百五十四點七公斤的碳，相當於五十一個人一個月的呼吸吐納，無聲地為地球編織著生命的序章。此刻，樹梢間持續上演著春末的花期，淡淡的清香瀰漫，吸引著多樣的昆蟲家族。甲蟲們貪婪地吮吸著樹液，在光滑的樹幹上留下忙碌的身影；而白蟻則抓住這個季節的窗口，展開一年一度的分飛，向新生的世界遷徙。\n\n樹冠下，是各類留鳥的育雛天堂，親鳥們來回穿梭，啁啾聲此起彼落，幼鳥的飢餓啼聲劃破午后寧靜。牠們在濃密的枝葉間尋得庇護與豐足的食物。這棵大樹慷慨地提供陰涼，它的落葉滋養著腳下的土壤，為菌類子實體的爆發創造肥沃的溫床，也默默支撐著底層生態的繁茂。\n\n望著這片綠意盎然，我不禁思索，這不僅是一棵樹，更是一份無言的承諾，寫給未來世代，承載著生命循環不息的希望。\n\n---\n\n## 📊 拍攝當下環境快照\n\n- **天氣**：晴朗無雲、氣溫 30.2°C、濕度 72%、氣壓 1003.3 hPa、雲量 8%\n- **風況**：東南風，1.2 m/s\n- **光環境**：UV 指數 5.1、日照 1 小時、短波輻射 639 W/m²\n- **太陽位置**：日出 下午09:13、日落 上午10:34、日長 13.34 小時、太陽仰角 21.13°、方位 284.43°\n- **棲地座標**：海拔 68 m、海岸防風林帶、雨季\n- **當下物候**：鳥類繁殖初期、昆蟲羽化期、甲蟲樹液取食期、白蟻分飛、低海拔花期高峰、菌類子實體爆發窗口、飛鼠育幼期\n\n---\n\n_資料由 Forest Carbon Measurement 系統自動生成，Gemini 2.5 Flash 驅動，2026/5/25 更新_",
-    "storySummary": "未知樹種，38.5 cm，354.7 kg C，台灣南端山野"
-  },
-  {
-    "treeNo": "T010",
-    "id": "febd9eef-99a5-4e77-81c9-402786c9e63a",
-    "species": "Pongamia pinnata",
-    "speciesSource": "plantnet",
-    "dbhCm": 16.9,
-    "originalDbhCm": null,
-    "appliedCorrectionFactor": null,
-    "volumeM3": 0.1417,
-    "carbonKg": 61.7,
-    "confidence": "low",
-    "gps": "22.7357,121.0676",
-    "focalLengthMm": 5.7,
-    "sensorWidthMm": 7.6,
-    "deviceModel": "iPhone 13 Pro Max",
-    "frameQuality": "low",
-    "referenceUsed": false,
-    "referenceType": null,
-    "createdAt": 1779676865,
-    "altitude": 56.548,
-    "resolution": "1920 × 1080",
-    "fps": 29.995,
-    "blockchain": {
-      "txHash": "0xbbba69deff3a17ff1dfbc6812839dbab7e4a4584bbbd3c0368246245940d8071",
-      "txStatus": "confirmed",
-      "createdAt": 1779676865
-    },
-    "calibration": null,
-    "videoFilename": null,
-    "videoOriginalName": "IMG_5801.mov",
-    "videoDriveUrl": "https://drive.google.com/file/d/1vwIqBt4Zob3wno3999dgfQkF5SSggRi6/preview",
-    "winnerPath": "path0",
-    "paths": {
-      "path0": {
-        "dbhCm": 16.9,
-        "volumeM3": 0.1417,
-        "carbonKg": 61.7,
-        "computed": true
-      },
-      "pathA": {
-        "dbhCm": 13,
-        "volumeM3": 0.0754,
-        "carbonKg": 32.9,
-        "computed": true
-      },
-      "pathB": {
-        "dbhCm": 14.8,
-        "dbhCmCorrected": null,
-        "volumeM3": 0.1106,
-        "carbonKg": 35.9,
-        "computed": true
-      }
-    },
-    "manualTape": {
-      "circCm": 53,
-      "dbhCm": 16.9,
-      "frameTsSec": 54,
-      "annotator": "yuchi"
-    },
-    "hasStory": true,
-    "storyMarkdown": "# 🌳 未知樹種 的故事\n\n> **台灣南端山野** ｜ 2026年5月24日\n\n---\n\n## 🌿 生態多樣性貢獻\n\n| 項目 | 內容 |\n|------|------|\n| **中文名** | 未知樹種 |\n| **起源** | ❓ 未知 |\n| **林相層次** | 林冠層 |\n| **棲地類型** | 低海拔闊葉林 |\n| **生態多樣性貢獻評分** | ★★☆☆☆（2/5） |\n| **關鍵物種** | 否 |\n| **吸引鳥類** | 各類留鳥 |\n| **吸引昆蟲** | 多種昆蟲 |\n| **哺乳動物** | — |\n| **土壤功能** | 提供遮蔭與有機質，基礎生態服務功能 |\n| **花期** | 視樹種而定 |\n| **提供蜜源** | 否 |\n| **提供果實** | 否 |\n\n### 生態角色\n\n樹木為周遭生態系提供遮蔭、固碳、防風等基礎服務，是陸域生態系的核心組成\n\n\n\n---\n\n## 🍃 此刻的 未知樹種（5 月）\n\n春末花期延續，動物育雛達高峰\n\n---\n\n## 🌍 碳儲量意義\n\n這棵 未知樹種 目前儲存了 **35.9 kg** 的碳。等同於 72 度電的碳排放量。\n\n每多一棵這樣的樹，就是給大氣的一次小小還債。\n\n---\n\n## ✨ 這棵樹的故事\n\n台灣南端山野，海岸防風林帶間，一株水黃皮（Pongamia pinnata）小樹正靜靜生長。時值五月，南國的雨季已然開啟序幕，午後陽光依然灼熱，氣溫攀升至三十度之上，空氣瀰漫著七成濕意，偶有微弱東南風輕撫葉梢。這棵胸徑十四點八公分的年輕生命，已悄然儲存三十五點九公斤的碳，約莫七十二度電的碳排放量，它默默為這片土地編織著未來的呼吸。\n\n此刻，樹冠層下，春末花期尚有餘韻，淡雅花朵吸引多種昆蟲紛紛而至，許多甲蟲正貪婪吸吮著樹液。頭頂上方，晴朗天幕只綴著百分之八浮雲，紫外線指數攀升。一隻台灣畫眉輕巧穿梭枝椏，牠的巢穴或許就在附近，育雛季節讓牠格外忙碌，頻繁覓食，為巢中嗷嗷待哺的雛鳥奔波。樹蔭為牠們提供珍貴庇護。\n\n周遭林地，昆蟲羽化、白蟻分飛的景象頻繁上演，菌類子實體也趁著濕熱氣候，從腐木或土壤中冒出頭來。入夜後，或許還有飛鼠媽媽帶領幼崽在此休憩。這棵小樹，不只是獨立生命，更是生態系統中溫暖的提供者，它的落葉滋養大地，形成有機質，為地底下的根系網絡與微生物社群創造生機。它穩固住這片脆弱的海岸，抵禦著風雨侵蝕。\n\n仰望樹梢，我知道這不僅僅是一棵樹，它是生命流轉的見證，是無數生物依存的家園。每一片葉的生長，都是對未來許下的承諾。它，正在為我們寫一封來自大地的信，關於希望，關於生生不息。\n\n---\n\n## 📊 拍攝當下環境快照\n\n- **天氣**：晴朗無雲、氣溫 30.2°C、濕度 72%、氣壓 1003.7 hPa、雲量 8%\n- **風況**：東南風，1.2 m/s\n- **光環境**：UV 指數 5.1、日照 1 小時、短波輻射 639 W/m²\n- **太陽位置**：日出 下午09:13、日落 上午10:34、日長 13.34 小時、太陽仰角 19.58°、方位 284.95°\n- **棲地座標**：海拔 57 m、海岸防風林帶、雨季\n- **當下物候**：鳥類繁殖初期、昆蟲羽化期、甲蟲樹液取食期、白蟻分飛、低海拔花期高峰、菌類子實體爆發窗口、飛鼠育幼期\n\n---\n\n_資料由 Forest Carbon Measurement 系統自動生成，Gemini 2.5 Flash 驅動，2026/5/25 更新_",
-    "storySummary": "未知樹種，14.8 cm，35.9 kg C，台灣南端山野"
-  },
-  {
-    "treeNo": "T011",
+    "treeNo": "T006",
     "id": "fcaf65a9-0341-455f-9581-3f61b922a890",
     "species": "Acacia confusa",
     "speciesSource": "gemini",
@@ -666,7 +363,10 @@
         "computed": true
       },
       "pathA": {
-        "computed": false
+        "dbhCm": 41.1,
+        "volumeM3": 1.3198,
+        "carbonKg": 623.6,
+        "computed": true
       },
       "pathB": {
         "dbhCm": 40,
@@ -687,7 +387,7 @@
     "storySummary": "相思樹，40 cm，584.6 kg C，台灣南端山野"
   },
   {
-    "treeNo": "T012",
+    "treeNo": "T007",
     "id": "f5d4607c-4dd4-40b1-b1f2-a5ec1cfea850",
     "species": "Fraxinus griffithii",
     "speciesSource": "gemini",
@@ -729,7 +429,10 @@
         "computed": true
       },
       "pathA": {
-        "computed": false
+        "dbhCm": 28.5,
+        "volumeM3": 0.5474,
+        "carbonKg": 216.8,
+        "computed": true
       },
       "pathB": {
         "dbhCm": 49.1,
@@ -741,7 +444,7 @@
     },
     "manualTape": {
       "circCm": 80,
-      "dbhCm": 25.5,
+      "dbhCm": 24.83,
       "frameTsSec": 178,
       "annotator": "yuchi"
     },
@@ -750,133 +453,7 @@
     "storySummary": "光臘樹，7.5 cm，8.8 kg C，台灣南端山野"
   },
   {
-    "treeNo": "T013",
-    "id": "437f088d-a568-4fe7-acbd-efb7b3ddfb98",
-    "species": "Cinnamomum camphora",
-    "speciesSource": "gemini",
-    "dbhCm": 38.8,
-    "originalDbhCm": null,
-    "appliedCorrectionFactor": null,
-    "volumeM3": 1.1618,
-    "carbonKg": 422.9,
-    "confidence": "high",
-    "gps": "22.7353,121.0666",
-    "focalLengthMm": 5.7,
-    "sensorWidthMm": 7.6,
-    "deviceModel": "iPhone 13 Pro Max",
-    "frameQuality": "low",
-    "referenceUsed": false,
-    "referenceType": null,
-    "createdAt": 1779678712,
-    "altitude": 71.049,
-    "resolution": "1920 × 1080",
-    "fps": 29.996,
-    "blockchain": {
-      "txHash": "0xf50ea9800552445ebba889f1aca7bb1e0b3e062107c023b1a911d0e34bceea4a",
-      "txStatus": "confirmed",
-      "createdAt": 1779678712
-    },
-    "calibration": {
-      "dbhCm": 7.8,
-      "source": "direct_measurement"
-    },
-    "videoFilename": null,
-    "videoOriginalName": "IMG_5806.mov",
-    "videoDriveUrl": "https://drive.google.com/file/d/1ybyFmKlFRx3kuNFVSNYJBP4dMa2KfcL7/preview",
-    "winnerPath": "path0",
-    "paths": {
-      "path0": {
-        "dbhCm": 38.8,
-        "volumeM3": 1.1618,
-        "carbonKg": 422.9,
-        "computed": true
-      },
-      "pathA": {
-        "computed": false
-      },
-      "pathB": {
-        "dbhCm": 44.4,
-        "dbhCmCorrected": null,
-        "volumeM3": 1.6046,
-        "carbonKg": 584.1,
-        "computed": true
-      }
-    },
-    "manualTape": {
-      "circCm": 122,
-      "dbhCm": 38.8,
-      "frameTsSec": 134,
-      "annotator": "yuchi"
-    },
-    "hasStory": true,
-    "storyMarkdown": "# 🌳 樟樹 的故事\n\n> **台灣南端山野** ｜ 2026年5月24日\n\n---\n\n## 🌿 生態多樣性貢獻\n\n| 項目 | 內容 |\n|------|------|\n| **中文名** | 樟樹 |\n| **起源** | 🟢 台灣原生 |\n| **林相層次** | 林冠層 |\n| **棲地類型** | 低海拔闊葉林 |\n| **生態多樣性貢獻評分** | ★★★★★（5/5） |\n| **關鍵物種** | ⭐ 是（關鍵物種） |\n| **吸引鳥類** | 紅嘴黑鵯、台灣藍鵲、白頭翁、大冠鷲、灰頭椋鳥、樹鵲 |\n| **吸引昆蟲** | 台灣黃斑蛺蝶、樟蠶蛾、獨角仙、台灣大鍬形蟲、台灣長臂金龜 |\n| **哺乳動物** | 台灣獼猴、白鼻心 |\n| **土壤功能** | 深根系穩固坡面，樟腦揮發物抑制病原菌，落葉腐植質富含有機氮 |\n| **花期** | 3–5 月 |\n| **提供蜜源** | ✅ 是 |\n| **提供果實** | ✅ 是（鳥類/哺乳類食源） |\n\n### 生態角色\n\n台灣低海拔闊葉林的優勢樹種，樟腦化合物為多種昆蟲提供化學信號，成熟黑色核果是紅嘴黑鵯、台灣藍鵲的主要食源，粗獷樹皮與老樹洞提供猛禽及夜棲動物巢位，被列為台灣「國樹候選」之一\n\n> **保育備註：** 台灣本島原生，低海拔次生林重要先鋒樹種\n\n---\n\n## 🍃 此刻的 樟樹（5 月）\n\n花期尾聲，新葉抽長，台灣藍鵲常於樹冠築巢\n\n---\n\n## 🌍 碳儲量意義\n\n這棵 樟樹 目前儲存了 **9.1 kg** 的碳。等同於 18 頓廢紙回收的減碳效益。\n\n每多一棵這樣的樹，就是給大氣的一次小小還債。\n\n---\n\n## ✨ 這棵樹的故事\n\n五月的南臺灣，晴朗無雲的天空，豔陽高掛。氣溫已攀上攝氏三十度，海風輕拂，卻帶不走空氣中七成二的濕潤，微風自東南徐徐吹來，帶來些許熱帶的芬芳。海岸防風林帶間，一株年輕的樟樹，正奮力向上伸展。\n\n它雖胸徑僅七點八公分，身量猶輕，卻已默默積累九點一公斤的碳，彷彿吸納了十八頓廢紙的繁重記憶。深根緊抓土地，穩固著這片雨季初來的坡面。枝葉間，樟腦氣息隨風瀰漫，無形中為周遭生態築起一道天然屏障，抑制病菌蔓延。待秋日落葉歸根，化作富含有機氮的腐植質，滋養腳下萬物生機。\n\n此刻，正值花期尾聲，嫩綠新葉從老葉間探出頭來，閃爍著生命的光芒。不遠處，台灣藍鵲銜來細枝，在茂密的枝椏間忙碌築巢，一季的繁衍即將展開。翩翩飛舞的台灣黃斑蛺蝶，在樹冠穿梭，尋覓著初夏的蜜露。或許，樹皮深處，獨角仙與台灣大鍬形蟲已預備破蛹而出，等待夜色降臨，爭奪一滴甜美的樹液。雨季初啟的林間，萬物生機勃發，菌類正悄悄探出頭來，而低海拔的花朵也爭相綻放。\n\n這棵原生的生命之樹，不僅是眼前的風景，更是串連過去與未來的活體詩篇。它無聲訴說著堅持，悄然寫下一封給明日的綠色邀請函，為這片山野，許諾一個生生不息的希望。\n\n---\n\n## 📊 拍攝當下環境快照\n\n- **天氣**：晴朗無雲、氣溫 30.2°C、濕度 72%、氣壓 1003.5 hPa、雲量 8%\n- **風況**：東南風，1.2 m/s\n- **光環境**：UV 指數 5.1、日照 1 小時、短波輻射 639 W/m²\n- **太陽位置**：日出 下午09:13、日落 上午10:34、日長 13.34 小時、太陽仰角 15.28°、方位 286.45°\n- **棲地座標**：海拔 71 m、海岸防風林帶、雨季\n- **當下物候**：鳥類繁殖初期、昆蟲羽化期、甲蟲樹液取食期、白蟻分飛、低海拔花期高峰、菌類子實體爆發窗口、飛鼠育幼期\n\n---\n\n_資料由 Forest Carbon Measurement 系統自動生成，Gemini 2.5 Flash 驅動，2026/5/25 更新_",
-    "storySummary": "樟樹，7.8 cm，9.1 kg C，台灣南端山野"
-  },
-  {
-    "treeNo": "T014",
-    "id": "e06aa4b9-7d83-43a1-a98c-9c6e69221c6f",
-    "species": "Cinnamomum camphora",
-    "speciesSource": "gemini",
-    "dbhCm": 31.5,
-    "originalDbhCm": null,
-    "appliedCorrectionFactor": null,
-    "volumeM3": 0.7053,
-    "carbonKg": 256.7,
-    "confidence": "high",
-    "gps": "22.7353,121.0666",
-    "focalLengthMm": 5.7,
-    "sensorWidthMm": 7.6,
-    "deviceModel": "iPhone 13 Pro Max",
-    "frameQuality": "low",
-    "referenceUsed": false,
-    "referenceType": null,
-    "createdAt": 1779678885,
-    "altitude": 70.291,
-    "resolution": "1920 × 1080",
-    "fps": 29.996,
-    "blockchain": {
-      "txHash": "0xb05436888c06c6be89498a644e85f11959c9788d898c8e637befd5dfa87b5c99",
-      "txStatus": "confirmed",
-      "createdAt": 1779678885
-    },
-    "calibration": {
-      "dbhCm": 35,
-      "source": "direct_measurement"
-    },
-    "videoFilename": null,
-    "videoOriginalName": "IMG_5807.mov",
-    "videoDriveUrl": "https://drive.google.com/file/d/1EbJkGAZpmb9CbMm0YlnKQhqEKaJ9olzB/preview",
-    "winnerPath": "path0",
-    "paths": {
-      "path0": {
-        "dbhCm": 31.5,
-        "volumeM3": 0.7053,
-        "carbonKg": 256.7,
-        "computed": true
-      },
-      "pathA": {
-        "computed": false
-      },
-      "pathB": {
-        "dbhCm": 32.7,
-        "dbhCmCorrected": null,
-        "volumeM3": 0.7713,
-        "carbonKg": 280.8,
-        "computed": true
-      }
-    },
-    "manualTape": {
-      "circCm": 99,
-      "dbhCm": 31.5,
-      "frameTsSec": 108,
-      "annotator": "yuchi"
-    },
-    "hasStory": true,
-    "storyMarkdown": "# 🌳 樟樹 的故事\n\n> **台灣南端山野** ｜ 2026年5月24日\n\n---\n\n## 🌿 生態多樣性貢獻\n\n| 項目 | 內容 |\n|------|------|\n| **中文名** | 樟樹 |\n| **起源** | 🟢 台灣原生 |\n| **林相層次** | 林冠層 |\n| **棲地類型** | 低海拔闊葉林 |\n| **生態多樣性貢獻評分** | ★★★★★（5/5） |\n| **關鍵物種** | ⭐ 是（關鍵物種） |\n| **吸引鳥類** | 紅嘴黑鵯、台灣藍鵲、白頭翁、大冠鷲、灰頭椋鳥、樹鵲 |\n| **吸引昆蟲** | 台灣黃斑蛺蝶、樟蠶蛾、獨角仙、台灣大鍬形蟲、台灣長臂金龜 |\n| **哺乳動物** | 台灣獼猴、白鼻心 |\n| **土壤功能** | 深根系穩固坡面，樟腦揮發物抑制病原菌，落葉腐植質富含有機氮 |\n| **花期** | 3–5 月 |\n| **提供蜜源** | ✅ 是 |\n| **提供果實** | ✅ 是（鳥類/哺乳類食源） |\n\n### 生態角色\n\n台灣低海拔闊葉林的優勢樹種，樟腦化合物為多種昆蟲提供化學信號，成熟黑色核果是紅嘴黑鵯、台灣藍鵲的主要食源，粗獷樹皮與老樹洞提供猛禽及夜棲動物巢位，被列為台灣「國樹候選」之一\n\n> **保育備註：** 台灣本島原生，低海拔次生林重要先鋒樹種\n\n---\n\n## 🍃 此刻的 樟樹（5 月）\n\n花期尾聲，新葉抽長，台灣藍鵲常於樹冠築巢\n\n---\n\n## 🌍 碳儲量意義\n\n這棵 樟樹 目前儲存了 **330.4 kg** 的碳。相當於 47 個人一個月的呼吸排碳量。\n\n每多一棵這樣的樹，就是給大氣的一次小小還債。\n\n---\n\n## ✨ 這棵樹的故事\n\n南台灣的山野間，五月暖陽將天際洗滌得清透無雲，東南來的微風輕拂，捎來雨季前濕潤的氣息。這棵古老的樟樹，胸徑達三十五公分，如一位慈祥的巨人，默默矗立海岸防風林帶，海拔七十米處。此時正值花期尾聲，新綠的嫩葉在枝頭悄然抽長，散發獨特的樟腦清香，宣告生命新的循環。\n\n樹冠上，一對台灣藍鵲正忙碌築巢，牠們鮮豔的身影在陽光下格外亮眼，為即將孵化的雛鳥準備溫暖的家。牠們不是唯一的訪客，台灣黃斑蛺蝶翩然起舞，樟蠶蛾也在此尋覓棲身之所。樟樹深根牢牢穩固著坡面，龐大的根系與微生物共生，不僅提供庇護，落葉腐植質亦富含有機氮，滋養一方沃土。它揮發的樟腦氣味，更像一道無形屏障，默默抑制著周遭病原菌蔓延，維護著生態平衡。\n\n這棵樟樹，不只是一棵樹，它是生命匯聚的舞台，也是大自然精密的運轉核心。它靜靜地鎖存三百三十點四公斤的碳，相當於四十七人一個月的呼吸排碳量，為這片土地與未來世代積累珍貴的綠色資產。每一次的呼吸吐納，每一次的春華秋實，都是它寫給這片土地、寫給所有生靈的一封情書，充滿著生機與希望，邀請我們一同感受自然的豐饒與奇蹟。\n\n---\n\n## 📊 拍攝當下環境快照\n\n- **天氣**：晴朗無雲、氣溫 30.2°C、濕度 72%、氣壓 1003.5 hPa、雲量 8%\n- **風況**：東南風，1.2 m/s\n- **光環境**：UV 指數 5.1、日照 1 小時、短波輻射 639 W/m²\n- **太陽位置**：日出 下午09:13、日落 上午10:34、日長 13.34 小時、太陽仰角 14.51°、方位 286.72°\n- **棲地座標**：海拔 70 m、海岸防風林帶、雨季\n- **當下物候**：鳥類繁殖初期、昆蟲羽化期、甲蟲樹液取食期、白蟻分飛、低海拔花期高峰、菌類子實體爆發窗口、飛鼠育幼期\n\n---\n\n_資料由 Forest Carbon Measurement 系統自動生成，Gemini 2.5 Flash 驅動，2026/5/25 更新_",
-    "storySummary": "樟樹，35 cm，330.4 kg C，台灣南端山野"
-  },
-  {
-    "treeNo": "T015",
+    "treeNo": "T008",
     "id": "4351f203-c97b-4de1-a081-4ac6e4a8dfe0",
     "species": "Fraxinus griffithii",
     "speciesSource": "gemini",
@@ -918,9 +495,9 @@
         "computed": true
       },
       "pathA": {
-        "dbhCm": 37.5,
-        "volumeM3": 1.0588,
-        "carbonKg": 419.3,
+        "dbhCm": 30,
+        "volumeM3": 0.6192,
+        "carbonKg": 245.2,
         "computed": true
       },
       "pathB": {
@@ -942,7 +519,7 @@
     "storySummary": "光臘樹，37.5 cm，419.3 kg C，台灣南端山野"
   },
   {
-    "treeNo": "T016",
+    "treeNo": "T009",
     "id": "9df54055-bf0d-4136-b332-75afc01e3a4a",
     "species": "Fraxinus griffithii",
     "speciesSource": "gemini",
@@ -984,9 +561,9 @@
         "computed": true
       },
       "pathA": {
-        "dbhCm": 44.5,
-        "volumeM3": 1.5976,
-        "carbonKg": 632.7,
+        "dbhCm": 32.5,
+        "volumeM3": 0.7506,
+        "carbonKg": 297.2,
         "computed": true
       },
       "pathB": {
@@ -1008,7 +585,7 @@
     "storySummary": "光臘樹，41.1 cm，522.6 kg C，台灣南端山野"
   },
   {
-    "treeNo": "T017",
+    "treeNo": "T010",
     "id": "1517033e-ea12-424c-b471-e12442c8afdb",
     "species": "Fraxinus griffithii",
     "speciesSource": "gemini",
@@ -1047,9 +624,9 @@
         "computed": true
       },
       "pathA": {
-        "dbhCm": 21.4,
-        "volumeM3": 0.2749,
-        "carbonKg": 108.9,
+        "dbhCm": 32.5,
+        "volumeM3": 0.7506,
+        "carbonKg": 297.2,
         "computed": true
       },
       "pathB": {
@@ -1071,7 +648,7 @@
     "storySummary": "光臘樹，130 cm，8326 kg C，台灣南端山野"
   },
   {
-    "treeNo": "T018",
+    "treeNo": "T011",
     "id": "c30557df-e021-4c7c-85ff-8f294f50d4c9",
     "species": "Swietenia macrophylla",
     "speciesSource": "plantnet",
@@ -1113,7 +690,10 @@
         "computed": true
       },
       "pathA": {
-        "computed": false
+        "dbhCm": 30,
+        "volumeM3": 0.6673,
+        "carbonKg": 239.2,
+        "computed": true
       },
       "pathB": {
         "dbhCm": 100,
@@ -1134,7 +714,7 @@
     "storySummary": "未知樹種，44.1 cm，491.1 kg C，台灣南端山野"
   },
   {
-    "treeNo": "T019",
+    "treeNo": "T012",
     "id": "760643aa-e9bd-4160-b5eb-c352141e14cd",
     "species": "Fraxinus griffithii",
     "speciesSource": "gemini",
@@ -1176,7 +756,10 @@
         "computed": true
       },
       "pathA": {
-        "computed": false
+        "dbhCm": 30,
+        "volumeM3": 0.6192,
+        "carbonKg": 245.2,
+        "computed": true
       },
       "pathB": {
         "dbhCm": 50,
@@ -1197,70 +780,7 @@
     "storySummary": "光臘樹，14.2 cm，40.6 kg C，台灣南端山野"
   },
   {
-    "treeNo": "T020",
-    "id": "c0de2c86-593f-4208-b993-f2054f8f01a0",
-    "species": "Liquidambar styraciflua",
-    "speciesSource": "plantnet",
-    "dbhCm": 24.5,
-    "originalDbhCm": null,
-    "appliedCorrectionFactor": null,
-    "volumeM3": 0.3786,
-    "carbonKg": 128,
-    "confidence": "high",
-    "gps": "22.735,121.0655",
-    "focalLengthMm": 5.7,
-    "sensorWidthMm": 7.6,
-    "deviceModel": "iPhone 13 Pro Max",
-    "frameQuality": "low",
-    "referenceUsed": false,
-    "referenceType": null,
-    "createdAt": 1779680802,
-    "altitude": 77.261,
-    "resolution": "1920 × 1080",
-    "fps": 29.996,
-    "blockchain": {
-      "txHash": "0xc92ef24c4564f27a1c993c265121d196a38c8beabc788b6be32b5cb40ee55976",
-      "txStatus": "confirmed",
-      "createdAt": 1779680802
-    },
-    "calibration": {
-      "dbhCm": 22.3,
-      "source": "direct_measurement"
-    },
-    "videoFilename": null,
-    "videoOriginalName": "IMG_5817.mov",
-    "videoDriveUrl": "https://drive.google.com/file/d/1MYhIVJI2SBkbpAZFBoq7OdJgA4N5pog6/preview",
-    "winnerPath": "path0",
-    "paths": {
-      "path0": {
-        "dbhCm": 24.5,
-        "volumeM3": 0.3786,
-        "carbonKg": 128,
-        "computed": true
-      },
-      "pathA": {
-        "computed": false
-      },
-      "pathB": {
-        "dbhCm": 25.9,
-        "dbhCmCorrected": null,
-        "volumeM3": 0.4316,
-        "carbonKg": 145.9,
-        "computed": true
-      }
-    },
-    "manualTape": {
-      "circCm": 77,
-      "dbhCm": 24.5,
-      "frameTsSec": 12,
-      "annotator": "yuchi"
-    },
-    "hasStory": true,
-    "storyMarkdown": "# 🌳 楓香 的故事\n\n> **台灣南端山野** ｜ 2026年5月24日\n\n---\n\n## 🌿 生態多樣性貢獻\n\n| 項目 | 內容 |\n|------|------|\n| **中文名** | 楓香 |\n| **起源** | 🟢 台灣原生 |\n| **林相層次** | 林冠層 |\n| **棲地類型** | 低海拔闊葉林 |\n| **生態多樣性貢獻評分** | ★★★★☆（4/5） |\n| **關鍵物種** | 否 |\n| **吸引鳥類** | 台灣藍鵲、冠羽畫眉、台灣山鷓鴣、白耳畫眉 |\n| **吸引昆蟲** | 大紫蛺蝶、枯葉蛺蝶、楓天牛、多種造癭蜂 |\n| **哺乳動物** | 台灣獼猴、赤腹松鼠 |\n| **土壤功能** | 秋季落葉量大，腐植質豐富，提升表土有機碳含量，落葉層是多種無脊椎動物的庇護所 |\n| **花期** | 3–4 月 |\n| **提供蜜源** | 否 |\n| **提供果實** | ✅ 是（鳥類/哺乳類食源） |\n\n### 生態角色\n\n台灣低中海拔重要的季節性樹種，秋冬變紅色葉片是低海拔闊葉林景觀指標。帶刺蒴果提供台灣獼猴及松鼠的食源，大型樹冠成為猛禽的瞭望棲位，多種天牛幼蟲以樹幹為食，間接維繫啄木鳥族群\n\n> **保育備註：** 台灣原生，闊葉林重要伴生樹種，秋冬變色景觀樹\n\n---\n\n## 🍃 此刻的 楓香（5 月）\n\n葉片轉為深綠，造癭蜂於嫩葉產卵\n\n---\n\n## 🌍 碳儲量意義\n\n這棵 楓香 目前儲存了 **102.5 kg** 的碳。相當於 15 個人一個月的呼吸排碳量。\n\n每多一棵這樣的樹，就是給大氣的一次小小還債。\n\n---\n\n## ✨ 這棵樹的故事\n\n台灣南端的山野間，一棵青年楓香正值盛年。五月，熱帶雨季的氣息瀰漫空氣，近三十一度的暖意與六成八的濕潤交織，東風輕拂，攜來一絲海的鹹味。陽光慷慨灑落，即便只有短短一小時的日照，也足以讓這片海岸防風林帶充滿生機。\n\n這棵楓香，台灣原生，胸高直徑已達二十二點三公分。它強健的枝幹與深綠葉片，正默默儲存超過一百公斤的碳，足以抵銷十五個人一個月的呼吸排碳量。此刻，造癭蜂忙碌穿梭，將卵輕巧產於嫩葉之上，為新生命譜寫序曲。樹冠上，台灣藍鵲或許正忙著築巢育雛，牠們的鳴叫，宣示著這片山林蓬勃的生命力。\n\n此刻，昆蟲羽化期的舞動與甲蟲樹液取食的忙碌，皆圍繞著這棵生命之樹。飛鼠寶寶在夜幕低垂時，或許正依偎母懷，靜待天光。未來，當秋風輕送，它豐厚的落葉將化為大地最珍貴的腐植質，不僅提升表土有機碳含量，也為無數無脊椎動物提供庇護所，成就更豐富的生態循環。\n\n站在這棵樹下，感受微風拂面，不禁思索。它不只是一棵樹，更是大自然贈予我們的無聲禮物，一封寫給未來的綠色情書。我們今日的守護與珍視，無疑是為明日地球，種下最深情的希望。\n\n---\n\n## 📊 拍攝當下環境快照\n\n- **天氣**：大致晴朗、氣溫 30.8°C、濕度 68%、氣壓 1003.3 hPa、雲量 24%\n- **風況**：東風，1.5 m/s\n- **光環境**：UV 指數 6.9、日照 1 小時、短波輻射 812 W/m²\n- **太陽位置**：日出 下午09:13、日落 上午10:34、日長 13.34 小時、太陽仰角 7.75°、方位 289.28°\n- **棲地座標**：海拔 77 m、海岸防風林帶、雨季\n- **當下物候**：鳥類繁殖初期、昆蟲羽化期、甲蟲樹液取食期、白蟻分飛、低海拔花期高峰、菌類子實體爆發窗口、飛鼠育幼期\n\n---\n\n_資料由 Forest Carbon Measurement 系統自動生成，Gemini 2.5 Flash 驅動，2026/5/25 更新_",
-    "storySummary": "楓香，22.3 cm，102.5 kg C，台灣南端山野"
-  },
-  {
-    "treeNo": "T021",
+    "treeNo": "T013",
     "id": "7cf542e6-fce8-4dbb-a7bb-d17cec3d9195",
     "species": "Cinnamomum camphora",
     "speciesSource": "plantnet",
@@ -1302,7 +822,10 @@
         "computed": true
       },
       "pathA": {
-        "computed": false
+        "dbhCm": 19.3,
+        "volumeM3": 0.2182,
+        "carbonKg": 79.4,
+        "computed": true
       },
       "pathB": {
         "dbhCm": 56,
@@ -1323,202 +846,7 @@
     "storySummary": "樟樹，15.8 cm，49.2 kg C，台灣南端山野"
   },
   {
-    "treeNo": "T022",
-    "id": "3eaea6f9-02a9-4dae-95a0-dba4fbcd3d50",
-    "species": "Liquidambar formosana",
-    "speciesSource": "plantnet",
-    "dbhCm": 21.6,
-    "originalDbhCm": null,
-    "appliedCorrectionFactor": null,
-    "volumeM3": 0.2813,
-    "carbonKg": 95.1,
-    "confidence": "high",
-    "gps": "22.7351,121.0657",
-    "focalLengthMm": 5.7,
-    "sensorWidthMm": 7.6,
-    "deviceModel": "iPhone 13 Pro Max",
-    "frameQuality": "low",
-    "referenceUsed": false,
-    "referenceType": null,
-    "createdAt": 1779681005,
-    "altitude": 47.982,
-    "resolution": "1920 × 1080",
-    "fps": 29.995,
-    "blockchain": {
-      "txHash": "0x557bb87b32a25fdb665df5c7bd3d12288567c0fd7d3e6d59aa75f2199b7d7852",
-      "txStatus": "confirmed",
-      "createdAt": 1779681005
-    },
-    "calibration": {
-      "dbhCm": 46.7,
-      "source": "reference"
-    },
-    "videoFilename": null,
-    "videoOriginalName": "IMG_5819.mov",
-    "videoDriveUrl": "https://drive.google.com/file/d/1dFF4DF0JVlZqgxCQeOSxMSvnlybOCOfn/preview",
-    "winnerPath": "path0",
-    "paths": {
-      "path0": {
-        "dbhCm": 21.6,
-        "volumeM3": 0.2813,
-        "carbonKg": 95.1,
-        "computed": true
-      },
-      "pathA": {
-        "dbhCm": 46.7,
-        "volumeM3": 1.7317,
-        "carbonKg": 585.3,
-        "computed": true
-      },
-      "pathB": {
-        "dbhCm": 46.7,
-        "dbhCmCorrected": null,
-        "volumeM3": 1.7317,
-        "carbonKg": 585.3,
-        "computed": true
-      }
-    },
-    "manualTape": {
-      "circCm": 68,
-      "dbhCm": 21.6,
-      "frameTsSec": 16,
-      "annotator": "yuchi"
-    },
-    "hasStory": true,
-    "storyMarkdown": "# 🌳 楓香 的故事\n\n> **台灣南端山野** ｜ 2026年5月24日\n\n---\n\n## 🌿 生態多樣性貢獻\n\n| 項目 | 內容 |\n|------|------|\n| **中文名** | 楓香 |\n| **起源** | 🟢 台灣原生 |\n| **林相層次** | 林冠層 |\n| **棲地類型** | 低海拔闊葉林 |\n| **生態多樣性貢獻評分** | ★★★★☆（4/5） |\n| **關鍵物種** | 否 |\n| **吸引鳥類** | 台灣藍鵲、冠羽畫眉、台灣山鷓鴣、白耳畫眉 |\n| **吸引昆蟲** | 大紫蛺蝶、枯葉蛺蝶、楓天牛、多種造癭蜂 |\n| **哺乳動物** | 台灣獼猴、赤腹松鼠 |\n| **土壤功能** | 秋季落葉量大，腐植質豐富，提升表土有機碳含量，落葉層是多種無脊椎動物的庇護所 |\n| **花期** | 3–4 月 |\n| **提供蜜源** | 否 |\n| **提供果實** | ✅ 是（鳥類/哺乳類食源） |\n\n### 生態角色\n\n台灣低中海拔重要的季節性樹種，秋冬變紅色葉片是低海拔闊葉林景觀指標。帶刺蒴果提供台灣獼猴及松鼠的食源，大型樹冠成為猛禽的瞭望棲位，多種天牛幼蟲以樹幹為食，間接維繫啄木鳥族群\n\n> **保育備註：** 台灣原生，闊葉林重要伴生樹種，秋冬變色景觀樹\n\n---\n\n## 🍃 此刻的 楓香（5 月）\n\n葉片轉為深綠，造癭蜂於嫩葉產卵\n\n---\n\n## 🌍 碳儲量意義\n\n這棵 楓香 目前儲存了 **585.3 kg** 的碳。相當於一輛汽車行駛約 2787 公里所排放的碳。\n\n每多一棵這樣的樹，就是給大氣的一次小小還債。\n\n---\n\n## ✨ 這棵樹的故事\n\n台灣南端山野，海岸防風林帶深處，一棵楓香老樹巍然屹立，它飽經風霜，見證歲月流轉。五月雨季，南國山野瀰漫濕潤氣息，近三十一度暖意，在東風輕拂下，顯得宜人。儘管天空雲量僅兩成，陽光穿透樹冠，紫外線指數仍高，訴說著南島特有熱情。\n\n此刻，它深綠葉片飽滿欲滴，嫩芽間，造癭蜂正忙著產卵，為幼蟲築起微型家園。清亮的鳴聲劃破天際，台灣藍鵲穿梭枝枒，正為新生雛鳥奔忙。大紫蛺蝶與枯葉蛺蝶翩然起舞，牠們羽化後，生命週期與楓香緊密相依。林間亦可見甲蟲忙碌取食樹液，白蟻分飛，菌類子實體也悄然爆發。\n\n這棵胸徑近半米原生巨木，默默固存五百八十五點三公斤碳，抵銷一輛汽車奔馳約二千七百八十七公里碳排。它為地球深深呼吸，也為周遭生命提供庇護。年復一年，楓香豐厚落葉化作沃土，滋養腳下生態，成為無數無脊椎動物避風港，緩慢提升表土有機碳含量，為林地注入無限生機。\n\n它不僅是森林地標，更是生命永續證明。靜默守護這片土地，訴說我們與自然共生共榮無限可能。每一棵樹，都是寫給未來，一封綠色邀請函，等待時間開啟。\n\n---\n\n## 📊 拍攝當下環境快照\n\n- **天氣**：大致晴朗、氣溫 30.8°C、濕度 68%、氣壓 1003.3 hPa、雲量 24%\n- **風況**：東風，1.5 m/s\n- **光環境**：UV 指數 6.9、日照 1 小時、短波輻射 812 W/m²\n- **太陽位置**：日出 下午09:13、日落 上午10:34、日長 13.34 小時、太陽仰角 6.28°、方位 289.87°\n- **棲地座標**：海拔 48 m、海岸防風林帶、雨季\n- **當下物候**：鳥類繁殖初期、昆蟲羽化期、甲蟲樹液取食期、白蟻分飛、低海拔花期高峰、菌類子實體爆發窗口、飛鼠育幼期\n\n---\n\n_資料由 Forest Carbon Measurement 系統自動生成，Gemini 2.5 Flash 驅動，2026/5/25 更新_",
-    "storySummary": "楓香，46.7 cm，585.3 kg C，台灣南端山野"
-  },
-  {
-    "treeNo": "T023",
-    "id": "0534de10-cade-4b94-825b-63a35294b8c5",
-    "species": "Calophyllum inophyllum",
-    "speciesSource": "plantnet",
-    "dbhCm": 26.3,
-    "originalDbhCm": null,
-    "appliedCorrectionFactor": null,
-    "volumeM3": 0.5454,
-    "carbonKg": 212.7,
-    "confidence": "high",
-    "gps": "22.7348,121.0693",
-    "focalLengthMm": 5.7,
-    "sensorWidthMm": 7.6,
-    "deviceModel": "iPhone 13 Pro Max",
-    "frameQuality": "low",
-    "referenceUsed": false,
-    "referenceType": null,
-    "createdAt": 1779687457,
-    "altitude": 69.607,
-    "resolution": "1920 × 1080",
-    "fps": 29.995,
-    "blockchain": {
-      "txHash": "0x6a32677dc976f5231a2b0f81085e015fbb7aa24461fa1bfbfaa870fecc6227a8",
-      "txStatus": "confirmed",
-      "createdAt": 1779687457
-    },
-    "calibration": {
-      "dbhCm": 17.8,
-      "source": "direct_measurement"
-    },
-    "videoFilename": null,
-    "videoOriginalName": "IMG_5789.mov",
-    "videoDriveUrl": "https://drive.google.com/file/d/1LLyAp4BjgjwX5cPHdP42rmasGPcZSycH/preview",
-    "winnerPath": "path0",
-    "paths": {
-      "path0": {
-        "dbhCm": 26.3,
-        "volumeM3": 0.5454,
-        "carbonKg": 212.7,
-        "computed": true
-      },
-      "pathA": {
-        "dbhCm": 17.1,
-        "volumeM3": 0.1911,
-        "carbonKg": 74.5,
-        "computed": true
-      },
-      "pathB": {
-        "dbhCm": 42.6,
-        "dbhCmCorrected": null,
-        "volumeM3": 1.3908,
-        "carbonKg": 452,
-        "computed": true
-      }
-    },
-    "manualTape": {
-      "circCm": 82.5,
-      "dbhCm": 26.3,
-      "frameTsSec": 4,
-      "annotator": "yuchi"
-    },
-    "hasStory": true,
-    "storyMarkdown": "# 🌳 未知樹種 的故事\n\n> **台灣南端山野** ｜ 2026年5月23日\n\n---\n\n## 🌿 生態多樣性貢獻\n\n| 項目 | 內容 |\n|------|------|\n| **中文名** | 未知樹種 |\n| **起源** | ❓ 未知 |\n| **林相層次** | 林冠層 |\n| **棲地類型** | 低海拔闊葉林 |\n| **生態多樣性貢獻評分** | ★★☆☆☆（2/5） |\n| **關鍵物種** | 否 |\n| **吸引鳥類** | 各類留鳥 |\n| **吸引昆蟲** | 多種昆蟲 |\n| **哺乳動物** | — |\n| **土壤功能** | 提供遮蔭與有機質，基礎生態服務功能 |\n| **花期** | 視樹種而定 |\n| **提供蜜源** | 否 |\n| **提供果實** | 否 |\n\n### 生態角色\n\n樹木為周遭生態系提供遮蔭、固碳、防風等基礎服務，是陸域生態系的核心組成\n\n\n\n---\n\n## 🍃 此刻的 未知樹種（5 月）\n\n春末花期延續，動物育雛達高峰\n\n---\n\n## 🌍 碳儲量意義\n\n這棵 未知樹種 目前儲存了 **55.9 kg** 的碳。等同於 112 度電的碳排放量。\n\n每多一棵這樣的樹，就是給大氣的一次小小還債。\n\n---\n\n## ✨ 這棵樹的故事\n\n南台灣的山野，五月時分，雷雨季鳴隆隆而來。空氣中飽含水氣，29.3°C的暖意與東風輕柔相伴，陣雨剛歇，潮濕的氣息瀰漫林間。雲層半掩，雖僅得一個小時的短暫日照，卻掩不住生命蓬勃湧動。\n\n這株青年瓊崖海棠，胸徑雖僅17.8公分，已然挺拔，默默扎根於海拔70公尺的海岸防風林帶，守護著這方土地。它春末花期綿延，米白花朵散發幽微清香，引來多樣昆蟲嗡嗡盤旋，許多甲蟲正貪婪吸食樹液，白蟻亦趁此濕潤時刻分飛而出，開啟新巢穴。樹冠深處，巢中雛鳥嗷嗷待哺，各類留鳥穿梭枝枒，忙碌身影，為育雛高峰時節奏響生命樂章。\n\n樹下土壤，因落葉化為沃土，供給大地豐富有機質；樹幹遮蔽一方，為林間生物提供遮蔭與庇護。它靜靜地鎖住55.9公斤的碳，這份無聲的貢獻，等同112度電排碳量，是大地最溫柔而堅韌的承諾。當夜幕低垂，或許還有飛鼠，將在樹梢間尋覓育幼之地，開啟牠們的夜行詩篇。\n\n這棵青年樹，它蓬勃的生命力，書寫著一封給未來的信，字字句句，都是對永續生機的殷切盼望。\n\n---\n\n## 📊 拍攝當下環境快照\n\n- **天氣**：雷雨、氣溫 29.3°C、濕度 81%、氣壓 1003.5 hPa、雲量 50%\n- **風況**：東風，1.4 m/s\n- **光環境**：UV 指數 4.7、日照 1 小時、短波輻射 592 W/m²\n- **太陽位置**：日出 下午09:13、日落 上午10:33、日長 13.33 小時、太陽仰角 18.79°、方位 285.01°\n- **棲地座標**：海拔 70 m、海岸防風林帶、雨季\n- **當下物候**：鳥類繁殖初期、昆蟲羽化期、甲蟲樹液取食期、白蟻分飛、低海拔花期高峰、菌類子實體爆發窗口、飛鼠育幼期\n\n---\n\n_資料由 Forest Carbon Measurement 系統自動生成，Gemini 2.5 Flash 驅動，2026/5/25 更新_",
-    "storySummary": "未知樹種，17.8 cm，55.9 kg C，台灣南端山野"
-  },
-  {
-    "treeNo": "T024",
-    "id": "86482354-2593-4696-bba3-623ee7840025",
-    "species": "Calophyllum inophyllum",
-    "speciesSource": "plantnet",
-    "dbhCm": 19.4,
-    "originalDbhCm": null,
-    "appliedCorrectionFactor": null,
-    "volumeM3": 0.2599,
-    "carbonKg": 101.4,
-    "confidence": "low",
-    "gps": "22.7346,121.0688",
-    "focalLengthMm": 5.7,
-    "sensorWidthMm": 7.6,
-    "deviceModel": "iPhone 13 Pro Max",
-    "frameQuality": "low",
-    "referenceUsed": false,
-    "referenceType": null,
-    "createdAt": 1779687516,
-    "altitude": 33.288,
-    "resolution": "1920 × 1080",
-    "fps": 29.996,
-    "blockchain": {
-      "txHash": "0x38b6f1fb50332d9069e2e594ee0d34375facd60e9dfcbc5320e6d9621a621ec2",
-      "txStatus": "confirmed",
-      "createdAt": 1779687516
-    },
-    "calibration": null,
-    "videoFilename": null,
-    "videoOriginalName": "IMG_5790.mov",
-    "videoDriveUrl": "https://drive.google.com/file/d/1HrK9Iz2h2PqyeyC1b1rLvFipP6jpwD-P/preview",
-    "winnerPath": "path0",
-    "paths": {
-      "path0": {
-        "dbhCm": 19.4,
-        "volumeM3": 0.2599,
-        "carbonKg": 101.4,
-        "computed": true
-      },
-      "pathA": {
-        "dbhCm": 22.9,
-        "volumeM3": 0.3893,
-        "carbonKg": 151.8,
-        "computed": true
-      },
-      "pathB": {
-        "dbhCm": 24.2,
-        "dbhCmCorrected": null,
-        "volumeM3": 0.359,
-        "carbonKg": 116.7,
-        "computed": true
-      }
-    },
-    "manualTape": {
-      "circCm": 61,
-      "dbhCm": 19.4,
-      "frameTsSec": 3,
-      "annotator": "yuchi"
-    },
-    "hasStory": true,
-    "storyMarkdown": "# 🌳 未知樹種 的故事\n\n> **台灣南端山野** ｜ 2026年5月23日\n\n---\n\n## 🌿 生態多樣性貢獻\n\n| 項目 | 內容 |\n|------|------|\n| **中文名** | 未知樹種 |\n| **起源** | ❓ 未知 |\n| **林相層次** | 林冠層 |\n| **棲地類型** | 低海拔闊葉林 |\n| **生態多樣性貢獻評分** | ★★☆☆☆（2/5） |\n| **關鍵物種** | 否 |\n| **吸引鳥類** | 各類留鳥 |\n| **吸引昆蟲** | 多種昆蟲 |\n| **哺乳動物** | — |\n| **土壤功能** | 提供遮蔭與有機質，基礎生態服務功能 |\n| **花期** | 視樹種而定 |\n| **提供蜜源** | 否 |\n| **提供果實** | 否 |\n\n### 生態角色\n\n樹木為周遭生態系提供遮蔭、固碳、防風等基礎服務，是陸域生態系的核心組成\n\n\n\n---\n\n## 🍃 此刻的 未知樹種（5 月）\n\n春末花期延續，動物育雛達高峰\n\n---\n\n## 🌍 碳儲量意義\n\n這棵 未知樹種 目前儲存了 **116.7 kg** 的碳。相當於 17 個人一個月的呼吸排碳量。\n\n每多一棵這樣的樹，就是給大氣的一次小小還債。\n\n---\n\n## ✨ 這棵樹的故事\n\n南台灣山野，一株瓊崖海棠正值青春，胸徑穩健拓寬，彷彿一個堅實的承諾。雷雨欲來，空氣中瀰漫著濃郁濕熱的氣息，將近三十度的暖意與八成多的濕度，讓一切都顯得飽滿欲滴。微弱的東風輕輕拂過葉梢，卻無法完全驅散那股黏膩。\n\n這株生命盎然的瓊崖海棠，此刻宛如一座綠色燈塔。它深吸著雷雨前濕潤的空氣，將約一百一十七公斤的碳素牢牢鎖進樹身，那份份量等同於十七個成人一個月的吐息，日夜不輟地為這方土地淨化著。午後短暫的陽光在烏雲縫隙中閃爍一小時，很快又被厚重雲層遮蔽，光線變得柔和而神秘。\n\n磅礴雨滴即將落下，卻絲毫不減樹下生命的騷動。瓊崖海棠的枝葉豐茂，為準備育雛的紅嘴黑鵯提供了隱密的巢址，親鳥正忙碌穿梭。樹幹周圍，濕潤的泥土中，低海拔花期持續盛放，吸引著各種昆蟲。金龜子貪婪地吸食著樹液，白蟻在悶熱中開始分飛，尋覓新的築巢地。雨水將喚醒地底沉睡的菌絲，子實體在潮濕的林地間蓄勢待發。這棵樹，以其堅實的根系，牢牢抓住土壤，為周遭生態提供遮蔭與豐沛有機質的循環，是無數生命賴以維生的基石。\n\n它不只是一棵樹，更是一封寫給未來的信。在南國的風雨中，它默默成長，見證著物候輪轉，承載著希望，為後世的我們，書寫著一片永不枯竭的綠意篇章。\n\n---\n\n## 📊 拍攝當下環境快照\n\n- **天氣**：雷雨、氣溫 29.3°C、濕度 81%、氣壓 1003.6 hPa、雲量 50%\n- **風況**：東風，1.4 m/s\n- **光環境**：UV 指數 4.7、日照 1 小時、短波輻射 592 W/m²\n- **太陽位置**：日出 下午09:13、日落 上午10:33、日長 13.33 小時、太陽仰角 18.09°、方位 285.25°\n- **棲地座標**：海拔 33 m、海岸防風林帶、雨季\n- **當下物候**：鳥類繁殖初期、昆蟲羽化期、甲蟲樹液取食期、白蟻分飛、低海拔花期高峰、菌類子實體爆發窗口、飛鼠育幼期\n\n---\n\n_資料由 Forest Carbon Measurement 系統自動生成，Gemini 2.5 Flash 驅動，2026/5/25 更新_",
-    "storySummary": "未知樹種，24.2 cm，116.7 kg C，台灣南端山野"
-  },
-  {
-    "treeNo": "T025",
+    "treeNo": "T014",
     "id": "3e82c4bb-bd67-4353-95c1-54fbc4393c1d",
     "species": "Cinnamomum camphora",
     "speciesSource": "gemini",
@@ -1560,9 +888,9 @@
         "computed": true
       },
       "pathA": {
-        "dbhCm": 17.3,
-        "volumeM3": 0.1679,
-        "carbonKg": 61.1,
+        "dbhCm": 31.7,
+        "volumeM3": 0.716,
+        "carbonKg": 260.6,
         "computed": true
       },
       "pathB": {
@@ -1584,7 +912,7 @@
     "storySummary": "樟樹，17.3 cm，61.1 kg C，台灣南端山野"
   },
   {
-    "treeNo": "T026",
+    "treeNo": "T015",
     "id": "a50469c3-6fd3-41c3-9702-2eceab799ebb",
     "species": "Liquidambar formosana",
     "speciesSource": "gemini",
@@ -1647,193 +975,7 @@
     "storySummary": "楓香，110.4 cm，4447.2 kg C，台灣南端山野"
   },
   {
-    "treeNo": "T027",
-    "id": "31765a01-8f88-4800-a1a5-2263aeb9160b",
-    "species": "Swietenia macrophylla",
-    "speciesSource": "plantnet",
-    "dbhCm": 43,
-    "originalDbhCm": null,
-    "appliedCorrectionFactor": null,
-    "volumeM3": 1.5971,
-    "carbonKg": 572.4,
-    "confidence": "low",
-    "gps": "22.7354,121.0668",
-    "focalLengthMm": 5.7,
-    "sensorWidthMm": 7.6,
-    "deviceModel": "iPhone 13 Pro Max",
-    "frameQuality": "low",
-    "referenceUsed": false,
-    "referenceType": null,
-    "createdAt": 1779687897,
-    "altitude": 68.119,
-    "resolution": "1920 × 1080",
-    "fps": 29.995,
-    "blockchain": {
-      "txHash": "0x79cb6a08fc04a7dead1351c98252fc86d6f766c8d46bf40550e32742b6f82e2d",
-      "txStatus": "confirmed",
-      "createdAt": 1779687897
-    },
-    "calibration": null,
-    "videoFilename": null,
-    "videoOriginalName": "IMG_5803.mov",
-    "videoDriveUrl": "https://drive.google.com/file/d/1U3Mi5Gtu_BqsYV2CjAyVQB4wy6J2ZbAu/preview",
-    "winnerPath": "path0",
-    "paths": {
-      "path0": {
-        "dbhCm": 43,
-        "volumeM3": 1.5971,
-        "carbonKg": 572.4,
-        "computed": true
-      },
-      "pathA": {
-        "computed": false
-      },
-      "pathB": {
-        "dbhCm": 40,
-        "dbhCmCorrected": null,
-        "volumeM3": 1.1961,
-        "carbonKg": 388.7,
-        "computed": true
-      }
-    },
-    "manualTape": {
-      "circCm": 135,
-      "dbhCm": 43,
-      "frameTsSec": 5,
-      "annotator": "yuchi"
-    },
-    "hasStory": true,
-    "storyMarkdown": "# 🌳 未知樹種 的故事\n\n> **台灣南端山野** ｜ 2026年5月24日\n\n---\n\n## 🌿 生態多樣性貢獻\n\n| 項目 | 內容 |\n|------|------|\n| **中文名** | 未知樹種 |\n| **起源** | ❓ 未知 |\n| **林相層次** | 林冠層 |\n| **棲地類型** | 低海拔闊葉林 |\n| **生態多樣性貢獻評分** | ★★☆☆☆（2/5） |\n| **關鍵物種** | 否 |\n| **吸引鳥類** | 各類留鳥 |\n| **吸引昆蟲** | 多種昆蟲 |\n| **哺乳動物** | — |\n| **土壤功能** | 提供遮蔭與有機質，基礎生態服務功能 |\n| **花期** | 視樹種而定 |\n| **提供蜜源** | 否 |\n| **提供果實** | 否 |\n\n### 生態角色\n\n樹木為周遭生態系提供遮蔭、固碳、防風等基礎服務，是陸域生態系的核心組成\n\n\n\n---\n\n## 🍃 此刻的 未知樹種（5 月）\n\n春末花期延續，動物育雛達高峰\n\n---\n\n## 🌍 碳儲量意義\n\n這棵 未知樹種 目前儲存了 **388.7 kg** 的碳。相當於 56 個人一個月的呼吸排碳量。\n\n每多一棵這樣的樹，就是給大氣的一次小小還債。\n\n---\n\n## ✨ 這棵樹的故事\n\n南台灣山野，北緯 22.7354 度、東經 121.0668 度，海岸防風林帶間，一棵大樹靜默矗立。二零二六年五月二十四日，日正當中，氣溫 30.2 度，空氣瀰漫著雨季特有的濕潤氣息，濕度高達 72%。天邊無雲，艷陽如炙，紫外線指數 5.1，幸有老樹廣袤樹冠張開臂膀，為來往生靈遮蔽熾熱日光。\n\n東南風輕拂，風速僅 1.2 公尺每秒，樹葉沙沙作響，彷彿低語。這棵屹立多年的大樹，胸高直徑達 40 公分，它不只是一抹綠意，更是地球的無聲守護者，默默吸納 388.7 公斤碳量，這等同五十六人一個月的呼吸吐息。五月正是其花期延續之際，嬌嫩花朵悄然綻放，為昆蟲們鋪設甜蜜盛宴。此時，許多留鳥正忙著築巢育雛，林間不時傳來幼鳥嗷嗷待哺鳴叫，親鳥們來回穿梭，將樹冠當作安心家園。\n\n樹幹上，甲蟲吸食樹液，飽餐一頓，準備迎接夜晚白蟻分飛壯觀。低海拔野花盛開，菌類子實體爆發，整個林地生機盎然。夜幕低垂後，或許還有飛鼠滑翔而來，探望樹洞裡的小生命。這棵樹不僅提供蔽蔭，其落葉化為有機質，豐厚土壤，成為眾多生物的食物來源與棲息地，它就是這片生態系中，生命循環的基石。\n\n每一次呼吸，每一個棲息，這棵大樹都慷慨給予。它訴說著一個關於時間與貢獻的故事，一種無盡的希望。栽種一棵樹，我們便書寫一封給未來的情書，播撒永續生機，讓萬物擁有豐盛家園。\n\n---\n\n## 📊 拍攝當下環境快照\n\n- **天氣**：晴朗無雲、氣溫 30.2°C、濕度 72%、氣壓 1003.4 hPa、雲量 8%\n- **風況**：東南風，1.2 m/s\n- **光環境**：UV 指數 5.1、日照 1 小時、短波輻射 639 W/m²\n- **太陽位置**：日出 下午09:13、日落 上午10:34、日長 13.34 小時、太陽仰角 17.63°、方位 285.62°\n- **棲地座標**：海拔 68 m、海岸防風林帶、雨季\n- **當下物候**：鳥類繁殖初期、昆蟲羽化期、甲蟲樹液取食期、白蟻分飛、低海拔花期高峰、菌類子實體爆發窗口、飛鼠育幼期\n\n---\n\n_資料由 Forest Carbon Measurement 系統自動生成，Gemini 2.5 Flash 驅動，2026/5/25 更新_",
-    "storySummary": "未知樹種，40 cm，388.7 kg C，台灣南端山野"
-  },
-  {
-    "treeNo": "T028",
-    "id": "79c5f1a7-06b9-4a54-badd-113adbcf7b27",
-    "species": "Cinnamomum camphora",
-    "speciesSource": "gemini",
-    "dbhCm": 35.7,
-    "originalDbhCm": null,
-    "appliedCorrectionFactor": null,
-    "volumeM3": 0.9518,
-    "carbonKg": 346.4,
-    "confidence": "high",
-    "gps": "22.7354,121.0667",
-    "focalLengthMm": 5.7,
-    "sensorWidthMm": 7.6,
-    "deviceModel": "iPhone 13 Pro Max",
-    "frameQuality": "low",
-    "referenceUsed": false,
-    "referenceType": null,
-    "createdAt": 1779688059,
-    "altitude": 69.736,
-    "resolution": "1920 × 1080",
-    "fps": 29.996,
-    "blockchain": {
-      "txHash": "0x4d09f3267b793cff2fa87dc5a2d55f7223e6c5a589c640641109031b91415f7e",
-      "txStatus": "confirmed",
-      "createdAt": 1779688059
-    },
-    "calibration": {
-      "dbhCm": 9.1,
-      "source": "direct_measurement"
-    },
-    "videoFilename": null,
-    "videoOriginalName": "IMG_5805.mov",
-    "videoDriveUrl": "https://drive.google.com/file/d/1z1kzhPx4kUOj6opGt4ZILyawIQjcSvyp/preview",
-    "winnerPath": "path0",
-    "paths": {
-      "path0": {
-        "dbhCm": 35.7,
-        "volumeM3": 0.9518,
-        "carbonKg": 346.4,
-        "computed": true
-      },
-      "pathA": {
-        "dbhCm": 25.7,
-        "volumeM3": 0.4332,
-        "carbonKg": 157.7,
-        "computed": true
-      },
-      "pathB": {
-        "dbhCm": 132,
-        "dbhCmCorrected": null,
-        "volumeM3": 21.8107,
-        "carbonKg": 7939.1,
-        "computed": true
-      }
-    },
-    "manualTape": {
-      "circCm": 112,
-      "dbhCm": 35.7,
-      "frameTsSec": 126,
-      "annotator": "yuchi"
-    },
-    "hasStory": true,
-    "storyMarkdown": "# 🌳 樟樹 的故事\n\n> **台灣南端山野** ｜ 2026年5月24日\n\n---\n\n## 🌿 生態多樣性貢獻\n\n| 項目 | 內容 |\n|------|------|\n| **中文名** | 樟樹 |\n| **起源** | 🟢 台灣原生 |\n| **林相層次** | 林冠層 |\n| **棲地類型** | 低海拔闊葉林 |\n| **生態多樣性貢獻評分** | ★★★★★（5/5） |\n| **關鍵物種** | ⭐ 是（關鍵物種） |\n| **吸引鳥類** | 紅嘴黑鵯、台灣藍鵲、白頭翁、大冠鷲、灰頭椋鳥、樹鵲 |\n| **吸引昆蟲** | 台灣黃斑蛺蝶、樟蠶蛾、獨角仙、台灣大鍬形蟲、台灣長臂金龜 |\n| **哺乳動物** | 台灣獼猴、白鼻心 |\n| **土壤功能** | 深根系穩固坡面，樟腦揮發物抑制病原菌，落葉腐植質富含有機氮 |\n| **花期** | 3–5 月 |\n| **提供蜜源** | ✅ 是 |\n| **提供果實** | ✅ 是（鳥類/哺乳類食源） |\n\n### 生態角色\n\n台灣低海拔闊葉林的優勢樹種，樟腦化合物為多種昆蟲提供化學信號，成熟黑色核果是紅嘴黑鵯、台灣藍鵲的主要食源，粗獷樹皮與老樹洞提供猛禽及夜棲動物巢位，被列為台灣「國樹候選」之一\n\n> **保育備註：** 台灣本島原生，低海拔次生林重要先鋒樹種\n\n---\n\n## 🍃 此刻的 樟樹（5 月）\n\n花期尾聲，新葉抽長，台灣藍鵲常於樹冠築巢\n\n---\n\n## 🌍 碳儲量意義\n\n這棵 樟樹 目前儲存了 **13.1 kg** 的碳。等同於 26 度電的碳排放量。\n\n每多一棵這樣的樹，就是給大氣的一次小小還債。\n\n---\n\n## ✨ 這棵樹的故事\n\n南台灣的五月天，烈日輕撫著海岸山野，空氣中滿是雨季來臨前那股濕潤而溫暖的氣息。輕柔的東南風，拂過這株年輕樟樹，它枝頭新葉初抽，翠綠欲滴，而花期將盡，幾許殘花仍點綴其間。這般晴朗無雲的午後，30.2°C的暖意與72%的濕度，促使萬物生機勃勃。\n\n胸高直徑僅九點一公分的它，此刻卻已靜默地為地球固存了十三點一公斤的碳，這份看不見的貢獻，宛如大地母親深情的回贈，鎖住等同二十六度電的碳排放量。身為台灣原生種，更是這片防風林帶的生態核心，它深植的根系，緊緊抓牢土壤，默默守護著坡面。\n\n台灣藍鵲正忙碌地在茂盛的樹冠深處築巢，歡快的育雛聲迴盪林間。樹幹上，獨角仙與台灣大鍬形蟲循著樹液的香甜氣味而來，上演著一場場大自然的熱鬧盛宴。除了甲蟲，林間還有白蟻分飛，菌類子實體也趁著雨季將近，紛紛冒出頭來，連低海拔花期都達到高峰。樟樹揮發出的獨特香氣，不僅吸引著台灣黃斑蛺蝶翩飛，也同時是無形的屏障，默默抑制病原菌的蔓延。它每年掉落的葉片，腐化後豐富土壤的有機氮，滋養底層無數生命。\n\n這株生長中的樟樹，在南端山野靜靜矗立，儘管年輕，卻承載著無盡的生命力與希望。它無聲的存在，正是一則關於永續的寓言，為此刻呼吸的我們，以及未來世代，書寫著綠色的承諾。它，就是一封寄往未來的信，充滿著堅韌與期盼。\n\n---\n\n## 📊 拍攝當下環境快照\n\n- **天氣**：晴朗無雲、氣溫 30.2°C、濕度 72%、氣壓 1003.4 hPa、雲量 8%\n- **風況**：東南風，1.2 m/s\n- **光環境**：UV 指數 5.1、日照 1 小時、短波輻射 639 W/m²\n- **太陽位置**：日出 下午09:13、日落 上午10:34、日長 13.34 小時、太陽仰角 16.12°、方位 286.15°\n- **棲地座標**：海拔 70 m、海岸防風林帶、雨季\n- **當下物候**：鳥類繁殖初期、昆蟲羽化期、甲蟲樹液取食期、白蟻分飛、低海拔花期高峰、菌類子實體爆發窗口、飛鼠育幼期\n\n---\n\n_資料由 Forest Carbon Measurement 系統自動生成，Gemini 2.5 Flash 驅動，2026/5/25 更新_",
-    "storySummary": "樟樹，9.1 cm，13.1 kg C，台灣南端山野"
-  },
-  {
-    "treeNo": "T029",
-    "id": "fb485240-642b-4b7d-844e-0bdd54f57465",
-    "species": "Fraxinus griffithii",
-    "speciesSource": "gemini",
-    "dbhCm": 30.6,
-    "originalDbhCm": null,
-    "appliedCorrectionFactor": null,
-    "volumeM3": 0.6494,
-    "carbonKg": 257.2,
-    "confidence": "low",
-    "gps": "22.7353,121.0665",
-    "focalLengthMm": 5.7,
-    "sensorWidthMm": 7.6,
-    "deviceModel": "iPhone 13 Pro Max",
-    "frameQuality": "low",
-    "referenceUsed": false,
-    "referenceType": null,
-    "createdAt": 1779688177,
-    "altitude": 70.767,
-    "resolution": "1920 × 1080",
-    "fps": 29.996,
-    "blockchain": {
-      "txHash": "0x82793358b0473ced7243af549fd01b16d402c58090aa535b11fc92aef7bae423",
-      "txStatus": "confirmed",
-      "createdAt": 1779688177
-    },
-    "calibration": null,
-    "videoFilename": null,
-    "videoOriginalName": "IMG_5811.mov",
-    "videoDriveUrl": "https://drive.google.com/file/d/1CgeLGT-k2NiW54MXdInjuI5OAlYsTlf5/preview",
-    "winnerPath": "path0",
-    "paths": {
-      "path0": {
-        "dbhCm": 30.6,
-        "volumeM3": 0.6494,
-        "carbonKg": 257.2,
-        "computed": true
-      },
-      "pathA": {
-        "computed": false
-      },
-      "pathB": {
-        "dbhCm": 150,
-        "dbhCmCorrected": null,
-        "volumeM3": 29.6584,
-        "carbonKg": 11744.7,
-        "computed": true
-      }
-    },
-    "manualTape": {
-      "circCm": 96,
-      "dbhCm": 30.6,
-      "frameTsSec": 70,
-      "annotator": "yuchi"
-    },
-    "hasStory": true,
-    "storyMarkdown": "# 🌳 光臘樹 的故事\n\n> **台灣南端山野** ｜ 2026年5月24日\n\n---\n\n## 🌿 生態多樣性貢獻\n\n| 項目 | 內容 |\n|------|------|\n| **中文名** | 光臘樹 |\n| **起源** | 🟢 台灣原生 |\n| **林相層次** | 林冠層 |\n| **棲地類型** | 低海拔闊葉林 |\n| **生態多樣性貢獻評分** | ★★★★★（5/5） |\n| **關鍵物種** | ⭐ 是（關鍵物種） |\n| **吸引鳥類** | 台灣藍鵲、白頭翁、五色鳥、紅頭山雀 |\n| **吸引昆蟲** | 台灣長臂金龜（二級保育類）、獨角仙、台灣大鍬形蟲、深山锹形蟲 |\n| **哺乳動物** | 台灣獼猴、台灣野豬 |\n| **土壤功能** | 樹液分解吸引真菌，促進腐植質循環，林下有機質積累顯著 |\n| **花期** | 4–6 月 |\n| **提供蜜源** | ✅ 是 |\n| **提供果實** | ✅ 是（鳥類/哺乳類食源） |\n\n### 生態角色\n\n台灣低海拔的「生態熱點」樹種，樹幹傷口滲出的樹液是台灣長臂金龜（保育二級）、獨角仙、鍬形蟲等甲蟲夏季最重要的食物來源。單株光臘樹在夏夜可吸引超過百隻甲蟲聚集，是台灣最具代表性的甲蟲寄主植物\n\n> **保育備註：** 台灣原生，台灣長臂金龜指標棲地植物，具高生態保育優先性\n\n---\n\n## 🍃 此刻的 光臘樹（5 月）\n\n盛花期延續，地表幼蟲化蛹\n\n---\n\n## 🌍 碳儲量意義\n\n這棵 光臘樹 目前儲存了 **11744.7 kg** 的碳。相當於一輛汽車行駛約 55927 公里所排放的碳。\n\n每多一棵這樣的樹，就是給大氣的一次小小還債。\n\n---\n\n## ✨ 這棵樹的故事\n\n台灣南端山野，仲夏將近，空氣中瀰漫濕熱的氣息，東風輕輕拂過，帶著遠方海潮的低語。陽光偶爾從稀疏雲層後探出頭，灑下短暫而炙熱的光線。這是一棵屹立在海岸防風林帶的光臘樹，胸高直徑達一百五十公分，它歷經風雨，見證無數晨昏，如同一位沉默的智者，向大地深根。\n\n五月下旬，它正值盛花期，花序點點，如雪片般輕舞。樹幹飽含汁液，甜美的氣息誘引著整個林帶。一隻台灣藍鵲停在枝頭，警惕地觀察著下方，巢中雛鳥的啁啾聲隱約可聞，繁殖期的忙碌由此展開。樹幹粗糙的紋理間，幾隻碩大的台灣長臂金龜正奮力吸食樹液，這些二級保育類的甲蟲，在牠的庇護下繁衍生息；獨角仙與鍬形蟲幼蟲則在腐木下羽化成蟲，加入這場生命盛宴。\n\n這棵光臘樹不僅是萬物居所，它更是一座巨大的碳匯，默默吸納著空氣中高達 11744.7 公斤的碳量，為地球撐起一片清新的呼吸。它龐大的根系固守著土壤，凋零的枯葉與樹皮成為真菌的溫床，分解後的有機質滋養著林下，土壤因此富饒而生機勃勃。它是一塊生態磁石，是生命循環的關鍵節點，從微生物到飛鼠育幼，都在此找到安身立命之所。\n\n當夕陽餘暉灑落，微風輕拂，這棵光臘樹仍舊巍然挺立。它的存在，不只連結著當下的豐盛，更像一封寫給未來的信，承載著對永續與希望的無盡承諾。\n\n---\n\n## 📊 拍攝當下環境快照\n\n- **天氣**：大致晴朗、氣溫 30.8°C、濕度 68%、氣壓 1003.6 hPa、雲量 24%\n- **風況**：東風，1.5 m/s\n- **光環境**：UV 指數 6.9、日照 1 小時、短波輻射 812 W/m²\n- **太陽位置**：日出 下午09:13、日落 上午10:34、日長 13.34 小時、太陽仰角 11.77°、方位 287.73°\n- **棲地座標**：海拔 71 m、海岸防風林帶、雨季\n- **當下物候**：鳥類繁殖初期、昆蟲羽化期、甲蟲樹液取食期、白蟻分飛、低海拔花期高峰、菌類子實體爆發窗口、飛鼠育幼期\n\n---\n\n_資料由 Forest Carbon Measurement 系統自動生成，Gemini 2.5 Flash 驅動，2026/5/25 更新_",
-    "storySummary": "光臘樹，150 cm，11744.7 kg C，台灣南端山野"
-  },
-  {
-    "treeNo": "T030",
+    "treeNo": "T016",
     "id": "b07b4d32-3f84-4e43-86f9-617dd0349fd7",
     "species": "Swietenia macrophylla",
     "speciesSource": "plantnet",
@@ -1872,7 +1014,10 @@
         "computed": true
       },
       "pathA": {
-        "computed": false
+        "dbhCm": 42.8,
+        "volumeM3": 1.5791,
+        "carbonKg": 566,
+        "computed": true
       },
       "pathB": {
         "dbhCm": 56,
@@ -1893,7 +1038,7 @@
     "storySummary": "未知樹種，56 cm，870.2 kg C，台灣南端山野"
   },
   {
-    "treeNo": "T031",
+    "treeNo": "T017",
     "id": "f64e6422-7404-498e-8008-46009afca024",
     "species": "Acacia confusa",
     "speciesSource": "gemini",
@@ -1957,5 +1102,63 @@
     "hasStory": true,
     "storyMarkdown": "# 🌳 相思樹 的故事\n\n> **台灣南端山野** ｜ 2026年5月24日\n\n---\n\n## 🌿 生態多樣性貢獻\n\n| 項目 | 內容 |\n|------|------|\n| **中文名** | 相思樹 |\n| **起源** | 🟢 台灣原生 |\n| **林相層次** | 林冠層 |\n| **棲地類型** | 低海拔闊葉林 |\n| **生態多樣性貢獻評分** | ★★★☆☆（3/5） |\n| **關鍵物種** | 否 |\n| **吸引鳥類** | 白頭翁、斑鳩、五色鳥、紅嘴黑鵯 |\n| **吸引昆蟲** | 小黃斑蛺蝶、台灣白紋鳳蝶、蜜蜂科（多種）、木棉蚜蟲天敵群 |\n| **哺乳動物** | 台灣獼猴 |\n| **土壤功能** | 根瘤菌固氮（每年每公頃可固氮 30–60 kg），改善貧瘠土壤，是台灣低海拔崩塌地最重要的先鋒樹種 |\n| **花期** | 3–5 月 |\n| **提供蜜源** | ✅ 是 |\n| **提供果實** | ✅ 是（鳥類/哺乳類食源） |\n\n### 生態角色\n\n台灣低海拔最常見的先鋒闊葉樹，固氮能力是裸地生態復育的關鍵。金黃色球狀花序盛開期是蜜蜂的重要蜜源，漿果吸引五色鳥等中型鳥類，深根系有效穩定坡地\n\n> **保育備註：** 台灣原生，崩塌地與貧瘠地復育首選，固氮先鋒樹種\n\n---\n\n## 🍃 此刻的 相思樹（5 月）\n\n花期尾聲，台灣白紋鳳蝶於樹冠交尾\n\n---\n\n## 🌍 碳儲量意義\n\n這棵 相思樹 目前儲存了 **356.4 kg** 的碳。相當於 51 個人一個月的呼吸排碳量。\n\n每多一棵這樣的樹，就是給大氣的一次小小還債。\n\n---\n\n## ✨ 這棵樹的故事\n\n南國五月，陽光穿透薄雲，薄薄雲量僅約兩成。這棵相思老樹，海拔七十公尺，屹立在台灣南端山野，海岸防風林帶一角。胸高直徑三十二點五公分，歷經風霜，身形沉穩。此時暑氣正濃，氣溫已達三十點八度，東風輕拂過樹梢，僅一米半每秒，為樹冠捎來一絲涼意。\n\n它默默吸納著三百多公斤的碳，那彷彿是五十餘人一個月的呼吸，深沉又無私。原生於這片土地，它不爭不搶，卻是生態不可或缺一份子。花期已近尾聲，細碎金黃花穗仍餘香。樹冠層上，一對台灣白紋鳳蝶翩然起舞，纏綿交尾，為生命傳承寫下詩篇。白頭翁和五色鳥穿梭枝葉間，為即將到來繁殖季忙碌。\n\n雨季揭開序幕，萬物生機勃發。它的根系深扎，與根瘤菌共生，悄悄為這片貧瘠土地注入氮素，每年固氮數十公斤。它是低海拔崩塌地最勇敢的先鋒，為後繼生命鋪路，改善著土壤肥力。昆蟲羽化，白蟻分飛，菌類子實體冒出頭。這棵相思樹，不僅撐起一片天光，也支撐著無數生命。它以靜默身姿，為這片山林獻上最真摯祝福，也為未來譜寫一封綠色邀請函，許下永續承諾。\n\n---\n\n## 📊 拍攝當下環境快照\n\n- **天氣**：大致晴朗、氣溫 30.8°C、濕度 68%、氣壓 1003.3 hPa、雲量 24%\n- **風況**：東風，1.5 m/s\n- **光環境**：UV 指數 6.9、日照 1 小時、短波輻射 812 W/m²\n- **太陽位置**：日出 下午09:13、日落 上午10:34、日長 13.34 小時、太陽仰角 8.98°、方位 288.79°\n- **棲地座標**：海拔 70 m、海岸防風林帶、雨季\n- **當下物候**：鳥類繁殖初期、昆蟲羽化期、甲蟲樹液取食期、白蟻分飛、低海拔花期高峰、菌類子實體爆發窗口、飛鼠育幼期\n\n---\n\n_資料由 Forest Carbon Measurement 系統自動生成，Gemini 2.5 Flash 驅動，2026/5/25 更新_",
     "storySummary": "相思樹，32.5 cm，356.4 kg C，台灣南端山野"
+  },
+  {
+    "treeNo": "T018",
+    "id": "c2917ba2-d774-4d06-8848-398f3b811d0c",
+    "species": "Calophyllum inophyllum",
+    "speciesSource": "plantnet",
+    "dbhCm": 24.8,
+    "originalDbhCm": null,
+    "appliedCorrectionFactor": null,
+    "volumeM3": 0.4727,
+    "carbonKg": 184.3,
+    "confidence": "high",
+    "gps": "22.7346,121.0688",
+    "focalLengthMm": 5.7,
+    "sensorWidthMm": 7.6,
+    "deviceModel": "iPhone 13 Pro Max",
+    "frameQuality": "good",
+    "referenceUsed": false,
+    "referenceType": null,
+    "createdAt": 1780136671,
+    "altitude": 33.288,
+    "resolution": "1920 × 1080",
+    "fps": 29.996,
+    "blockchain": {
+      "txHash": "0xb70af27762d8151653295601597b795e3b8500caf892caad6b681bfbcb5c5b6a",
+      "txStatus": "confirmed",
+      "createdAt": 1780136671
+    },
+    "calibration": {
+      "dbhCm": 24.8,
+      "source": "reference"
+    },
+    "videoFilename": null,
+    "videoOriginalName": "IMG_5790.mov",
+    "videoDriveUrl": null,
+    "winnerPath": "pathA",
+    "paths": {
+      "path0": {
+        "computed": false
+      },
+      "pathA": {
+        "dbhCm": 24.8,
+        "volumeM3": 0.4727,
+        "carbonKg": 184.3,
+        "computed": true
+      },
+      "pathB": {
+        "dbhCm": 39.7,
+        "dbhCmCorrected": null,
+        "volumeM3": 1.4871,
+        "carbonKg": 580,
+        "computed": true
+      }
+    },
+    "manualTape": null,
+    "hasStory": true,
+    "storyMarkdown": "# 🌳 未知樹種 的故事\n\n> **台灣南端山野** ｜ 2026年5月23日\n\n---\n\n## 🌿 生態多樣性貢獻\n\n| 項目 | 內容 |\n|------|------|\n| **中文名** | 未知樹種 |\n| **起源** | ❓ 未知 |\n| **林相層次** | 林冠層 |\n| **棲地類型** | 低海拔闊葉林 |\n| **生態多樣性貢獻評分** | ★★☆☆☆（2/5） |\n| **關鍵物種** | 否 |\n| **吸引鳥類** | 各類留鳥 |\n| **吸引昆蟲** | 多種昆蟲 |\n| **哺乳動物** | — |\n| **土壤功能** | 提供遮蔭與有機質，基礎生態服務功能 |\n| **花期** | 視樹種而定 |\n| **提供蜜源** | 否 |\n| **提供果實** | 否 |\n\n### 生態角色\n\n樹木為周遭生態系提供遮蔭、固碳、防風等基礎服務，是陸域生態系的核心組成\n\n\n\n---\n\n## 🍃 此刻的 未知樹種（5 月）\n\n春末花期延續，動物育雛達高峰\n\n---\n\n## 🌍 碳儲量意義\n\n這棵 未知樹種 目前儲存了 **184.3 kg** 的碳。相當於 26 個人一個月的呼吸排碳量。\n\n每多一棵這樣的樹，就是給大氣的一次小小還債。\n\n---\n\n## ✨ 這棵樹的故事\n\n在台灣南端海岸防風林帶，一棵茁壯的瓊崖海棠正迎接著一場雷雨洗禮。空氣濕黏而溫熱，約莫二十九度，雷聲隆隆自遠方滾來，預示著這雨季的盛大序幕。東風輕拂過它濃密的枝葉，雨水還未至，天空已顯得陰鬱，白日短暫的陽光吝嗇地灑落過。\n\n這棵年輕的瓊崖海棠，胸徑二十四公分有餘，如一位沉靜的綠色巨人，在海風中紮實生長。它無聲地吸納著塵世的喧囂，將大氣中一百八十四公斤的碳封存，那是二十六個人一個月呼吸所釋放的氣息，轉化為自身勃發的生命能量。此刻，樹梢的花朵依舊綻放，鵝黃與純白交織，散發幽微清香，吸引著蜂蝶飛舞。\n\n雨滴初落，林間瞬間響起沙沙聲。多種昆蟲在葉下尋找庇護，甲蟲們或許正攀附樹幹，貪婪啜飲著樹液，享受一場來自大地的甜美饗宴。不遠處的巢中，留鳥的雛鳥嗷嗷待哺，雨水帶來豐沛的昆蟲，正是牠們育雛的最佳時機。濕潤的泥土間，菌類的子實體悄然萌發，白蟻的婚飛或許也正悄悄進行，為延續族群而奔忙。就連飛鼠的幼兒，此刻也依偎在巢穴深處，感受著母親的溫暖。\n\n它伸展的枝幹為土地帶來蔭涼，落葉化作沃土滋養萬物，為這片海岸線築起一道生命防線。這棵瓊崖海棠，在這五月雷雨交加的午後，不只是一棵樹，它是生命循環的見證者，是生態平衡的守護者。它無言地訴說著，每一棵樹，都是我們寫給未來的一封信，承載著無盡的希望與綠意。\n\n---\n\n## 📊 拍攝當下環境快照\n\n- **天氣**：雷雨、氣溫 29.3°C、濕度 81%、氣壓 1003.6 hPa、雲量 50%\n- **風況**：東風，1.4 m/s\n- **光環境**：UV 指數 4.7、日照 1 小時、短波輻射 592 W/m²\n- **太陽位置**：日出 下午09:13、日落 上午10:33、日長 13.33 小時、太陽仰角 18.09°、方位 285.25°\n- **棲地座標**：海拔 33 m、海岸防風林帶、雨季\n- **當下物候**：鳥類繁殖初期、昆蟲羽化期、甲蟲樹液取食期、白蟻分飛、低海拔花期高峰、菌類子實體爆發窗口、飛鼠育幼期\n\n---\n\n_資料由 Forest Carbon Measurement 系統自動生成，Gemini 2.5 Flash 驅動，2026/5/30 更新_",
+    "storySummary": "未知樹種，24.8 cm，184.3 kg C，台灣南端山野"
   }
 ]
