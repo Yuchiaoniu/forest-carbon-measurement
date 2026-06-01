@@ -567,7 +567,7 @@ function buildCard(r) {
       <span class="badge badge-${conf}">${confLabel}</span>
       ${bcBadge}
       ${r.hasStory ? `<a class="badge badge-story" href="./story.html?id=${r.id}" onclick="event.stopPropagation()">🌿 永續故事</a>` : ''}
-      ${r.hasEnvironment ? `<a class="badge badge-env" href="${API_BASE}/api/trees/${r.id}/environment" target="_blank" onclick="event.stopPropagation()" title="此樹已記錄環境快照（天氣 / 太陽位置 / 物候）">📊 環境快照</a>` : ''}
+      ${r.videoDriveUrl ? `<a class="badge badge-env" href="${r.videoDriveUrl}" target="_blank" onclick="event.stopPropagation()" title="原始影片（Google Drive）">🎬 影片連結</a>` : ''}
     </div>
     <span class="chevron">▼</span>
   </div>
