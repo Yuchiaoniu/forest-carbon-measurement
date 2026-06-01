@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>量測記錄 Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --green-900: #14532d;
+  --green-800: #166534;
+  --green-700: #15803d;
+  --green-600: #16a34a;
+  --green-500: #22c55e;
+  --green-100: #dcfce7;
+  --green-50:  #f0fdf4;
+  --bg:        #f1f5f1;
+  --text:      #1a2e1a;
+  --muted:     #6b7280;
+  --border:    #e5e7eb;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.10);
+}
+
+body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+
+/* Header */
+.header {
+  background: linear-gradient(135deg, var(--green-900) 0%, var(--green-700) 60%, #2d6a4f 100%);
+  padding: 24px 24px 28px;
+  position: relative; overflow: hidden;
+}
+.header::before {
+  content:''; position:absolute; inset:0;
+  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 5 L20 25 H40 Z M18 22 L8 42 H28 Z M42 22 L32 42 H52 Z' fill='white' fill-opacity='0.04'/%3E%3C/svg%3E") repeat;
+  pointer-events: none;
+}
+.header-inner { max-width: 860px; margin: 0 auto; position: relative; }
+.header-nav { display: flex; gap: 16px; margin-bottom: 18px; }
+.header-nav a {
+  font-size: 0.8rem; color: rgba(255,255,255,0.75); text-decoration: none;
+  padding: 4px 10px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.2);
+  transition: all 0.2s;
+}
+.header-nav a:hover { background: rgba(255,255,255,0.15); color: white; }
+.header h1 { font-size: 1.5rem; font-weight: 700; color: white; margin-bottom: 4px; }
+.header p  { font-size: 0.88rem; color: rgba(255,255,255,0.7); }
+
+/* Container */
+.container { max-width: 860px; margin: -16px auto 0; padding: 0 16px 48px; }
+
+/* Stats */
+.stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 20px; }
+@media (max-width: 600px) { .stats { grid-template-columns: repeat(2, 1fr); } }
+.stat {
+  background: white; border-radius: 14px; padding: 18px 16px;
+  text-align: center; box-shadow: var(--shadow-md);
+  transition: transform 0.2s;
+  position: relative; overflow: hidden;
+}
+.stat:hover { transform: translateY(-2px); }
+.stat::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  border-radius: 14px 14px 0 0;
+}
+.stat:nth-child(1)::before { background: linear-gradient(90deg, var(--green-600), var(--green-500)); }
+.stat:nth-child(2)::before { background: linear-gradient(90deg, #2563eb, #60a5fa); }
+.stat:nth-child(3)::before { background: linear-gradient(90deg, #9333ea, #c084fc); }
+.stat:nth-child(4)::before { background: linear-gradient(90deg, #d97706, #fbbf24); }
+.stat-icon { font-size: 1.4rem; margin-bottom: 6px; }
+.stat-num  { font-size: 1.9rem; font-weight: 700; color: var(--green-800); line-height: 1; margin-bottom: 4px; }
+.stat-label { font-size: 0.75rem; color: var(--muted); }
+
+/* Toolbar */
+.toolbar {
+  display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; align-items: center;
+  background: white; border-radius: 12px; padding: 12px 16px; box-shadow: var(--shadow-sm);
+}
+.toolbar input, .toolbar select {
+  padding: 8px 12px; border: 1.5px solid var(--border); border-radius: 8px;
+  background: var(--bg); font-size: 0.85rem; color: var(--text); font-family: inherit;
+  transition: border-color 0.2s;
+}
+.toolbar input:focus, .toolbar select:focus { outline: none; border-color: var(--green-600); }
+.toolbar-actions { margin-left: auto; display: flex; gap: 8px; }
+.btn {
+  padding: 8px 14px; border-radius: 8px; border: none; cursor: pointer;
+  font-size: 0.83rem; font-weight: 600; font-family: inherit; transition: all 0.2s; white-space: nowrap;
+}
+.btn-primary { background: linear-gradient(135deg, var(--green-700), var(--green-600)); color: white; }
+.btn-primary:hover { opacity: 0.9; transform: translateY(-1px); }
+.btn-outline { background: white; color: var(--green-800); border: 1.5px solid var(--green-600); }
+.btn-outline:hover { background: var(--green-50); }
+
+/* Cards */
+.card {
+  background: white; border-radius: 14px; box-shadow: var(--shadow-sm);
+  margin-bottom: 10px; overflow: hidden;
+  transition: box-shadow 0.2s, transform 0.2s;
+  border: 1px solid transparent;
+}
+.card:hover { box-shadow: var(--shadow-md); }
+.card.open  { border-color: #d1fae5; box-shadow: var(--shadow-md); }
+
+.card-header {
+  display: flex; align-items: center; gap: 12px;
+  padding: 16px 18px; cursor: pointer; user-select: none;
+}
+.card-header:hover { background: var(--green-50); }
+.card.open .card-header { background: var(--green-50); }
+
+.conf-bar {
+  width: 4px; height: 44px; border-radius: 2px; flex-shrink: 0;
+}
+.conf-bar-high   { background: linear-gradient(180deg, var(--green-500), var(--green-600)); }
+.conf-bar-medium { background: linear-gradient(180deg, #fbbf24, #d97706); }
+.conf-bar-low    { background: linear-gradient(180deg, #f87171, #dc2626); }
+
+.tree-no {
+  font-size: 0.75rem; font-weight: 700; color: var(--green-700);
+  background: var(--green-100); padding: 3px 8px; border-radius: 6px;
+  white-space: nowrap;
+}
+.species-name  { font-weight: 600; font-size: 0.95rem; flex: 1; }
+.species-src   { font-size: 0.73rem; color: var(--muted); font-style: italic; font-weight: 400; }
+
+.badges { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
+.badge {
+  display: inline-flex; align-items: center; gap: 3px;
+  padding: 3px 9px; border-radius: 12px; font-size: 0.72rem; font-weight: 600; white-space: nowrap;
+}
+.badge-high    { background: var(--green-100); color: var(--green-800); }
+.badge-medium  { background: #fef9c3; color: #854d0e; }
+.badge-low     { background: #fee2e2; color: #991b1b; }
+.badge-chain   { background: #dbeafe; color: #1e40af; }
+.badge-pending { background: #f1f5f9; color: #64748b; }
+.badge-failed  { background: #fee2e2; color: #991b1b; }
+.badge-story   { background: #f0fdf4; color: #15803d; text-decoration: none; }
+.badge-story:hover { background: #dcfce7; }
+.badge-env     { background: #eff6ff; color: #1e40af; text-decoration: none; }
+.badge-env:hover { background: #dbeafe; }
+
+.chevron { font-size: 0.75rem; color: var(--muted); transition: transform 0.25s; }
+.card.open .chevron { transform: rotate(180deg); }
+
+/* Card body */
+.card-body { display: none; padding: 0 18px 18px; }
+.card.open .card-body { display: block; }
+
+.divider { border: none; border-top: 1px solid #f3f4f6; margin: 4px 0 16px; }
+
+.sections { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
+.section-title {
+  font-size: 0.72rem; font-weight: 700; color: var(--green-700);
+  text-transform: uppercase; letter-spacing: 0.06em;
+  margin-bottom: 10px; display: flex; align-items: center; gap: 6px;
+}
+.kv-table { width: 100%; font-size: 0.82rem; border-collapse: collapse; }
+.kv-table td { padding: 5px 0; vertical-align: top; }
+.kv-table td:first-child { color: var(--muted); width: 44%; padding-right: 8px; white-space: nowrap; }
+.kv-table td:last-child  { font-weight: 500; word-break: break-all; }
+.paths-table { width: 100%; font-size: 0.78rem; border-collapse: collapse; }
+.paths-table th, .paths-table td { padding: 6px 8px; border-bottom: 1px solid #e8efe8; text-align: center; }
+.paths-table th { color: var(--muted); font-weight: 600; background: #f7faf7; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.04em; }
+.paths-table td:first-child, .paths-table th:first-child { text-align: left; color: var(--muted); font-weight: 500; }
+.paths-table .winner { background: #e8f5e9; font-weight: 700; color: var(--green-800); position: relative; }
+.paths-table .winner::after { content: '★'; position: absolute; top: 2px; right: 4px; font-size: 0.65rem; color: var(--green-700); }
+.paths-table .na { color: var(--muted); font-style: italic; }
+/* Path-frames evidence tiles */
+.path-frames-block { font-size: 0.78rem; }
+.pf-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 6px; }
+.pf-tile { border: 1px solid #e8efe8; border-radius: 6px; padding: 6px; background: #fcfdfc; }
+.pf-tile.pf-na { background: #f7f7f7; color: var(--muted); text-align: center; padding: 18px 6px; }
+.pf-tile img { width: 100%; max-height: 220px; object-fit: contain; background: #000; border-radius: 4px; cursor: zoom-in; display: block; }
+.pf-label { font-weight: 700; color: var(--green-800); margin-bottom: 4px; font-size: 0.78rem; }
+.pf-meta  { color: var(--muted); margin-top: 4px; font-size: 0.72rem; }
+.pf-missing { padding: 30px 6px; text-align: center; color: var(--muted); background: #f7f7f7; border-radius: 4px; font-size: 0.72rem; }
+.pf-grid-small { display: grid; grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); gap: 6px; }
+.pf-grid-small img { width: 100%; height: 70px; object-fit: cover; background: #000; border-radius: 4px; cursor: zoom-in; }
+.hash-val  { font-family: 'Courier New', monospace; font-size: 0.78rem; }
+.copy-btn  { background: none; border: none; cursor: pointer; color: var(--green-700); font-size: 0.73rem; padding: 0 4px; }
+.copy-btn:hover { text-decoration: underline; }
+.ok   { color: var(--green-800); }
+.warn { color: #854d0e; }
+.err  { color: #991b1b; }
+.gps-link { color: var(--green-700); text-decoration: none; font-size: 0.82rem; }
+.gps-link:hover { text-decoration: underline; }
+
+/* Empty */
+.empty { text-align: center; padding: 80px 20px; color: var(--muted); }
+.empty-icon { font-size: 3rem; margin-bottom: 12px; }
+
+/* Toast */
+.toast {
+  position: fixed; bottom: 24px; right: 24px;
+  background: var(--green-900); color: white;
+  padding: 10px 18px; border-radius: 10px; font-size: 0.85rem;
+  opacity: 0; transition: opacity 0.3s; pointer-events: none; z-index: 999;
+  box-shadow: var(--shadow-md);
+}
+.toast.show { opacity: 1; }
+
+/* Skeleton loader */
+.skeleton {
+  background: linear-gradient(90deg, #f3f4f6 25%, #e5e7eb 50%, #f3f4f6 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 8px; height: 72px; margin-bottom: 10px;
+}
+@keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-inner">
+    <div class="header-nav">
+      <a href="/">← 測量系統</a>
+      <a href="/correction-factors.html">🧠 修正因子</a>
+    </div>
+    <h1>📊 量測記錄 Dashboard</h1>
+    <p>所有上傳影片的量測結果、區塊鏈存證與拍攝元數據</p>
+  </div>
+</div>
+
+<div class="container">
+
+  <div class="stats" style="margin-top:16px">
+    <div class="stat">
+      <div class="stat-icon">🌳</div>
+      <div class="stat-num" id="s-total">—</div>
+      <div class="stat-label">總量測筆數</div>
+    </div>
+    <div class="stat">
+      <div class="stat-icon">⛓</div>
+      <div class="stat-num" id="s-chain">—</div>
+      <div class="stat-label">已上鏈確認</div>
+    </div>
+    <div class="stat">
+      <div class="stat-icon">🌿</div>
+      <div class="stat-num" id="s-species">—</div>
+      <div class="stat-label">樹種數</div>
+    </div>
+    <div class="stat">
+      <div class="stat-icon">♻️</div>
+      <div class="stat-num" id="s-carbon">—</div>
+      <div class="stat-label">總碳儲量 (kg)</div>
+    </div>
+  </div>
+
+  <div class="toolbar">
+    <input id="search" type="text" placeholder="🔍 搜尋樹種…" style="width:160px">
+    <select id="filter-confidence">
+      <option value="">所有精度等級</option>
+      <option value="high">HIGH — 高精度</option>
+      <option value="medium">MEDIUM — 中精度</option>
+      <option value="low">LOW — 低精度</option>
+    </select>
+    <select id="filter-chain">
+      <option value="">所有上鏈狀態</option>
+      <option value="confirmed">✅ 已確認</option>
+      <option value="pending">⏳ 待確認</option>
+      <option value="failed">❌ 失敗</option>
+    </select>
+    <div class="toolbar-actions">
+      <button class="btn btn-outline" onclick="expandAll()">全部展開</button>
+      <button class="btn btn-outline" onclick="collapseAll()">全部收合</button>
+      <a id="csv-btn" href="/api/evaluation/export.csv" class="btn btn-primary">⬇ 匯出 CSV</a>
+    </div>
+  </div>
+
+  <div id="skeleton" style="display:none">
+    <div class="skeleton"></div>
+    <div class="skeleton"></div>
+    <div class="skeleton"></div>
+  </div>
+  <div id="records"></div>
+  <div id="empty" class="empty" style="display:none">
+    <div class="empty-icon">🌱</div>
+    <div>尚無量測記錄</div>
+    <div style="font-size:0.85rem;margin-top:8px">
+      請到 <a href="/" style="color:var(--green-700)">測量系統</a> 上傳第一支影片
+    </div>
+  </div>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+let allRecords = []
+
+const IS_GH_PAGES = location.hostname.endsWith('github.io')
+const API_BASE = IS_GH_PAGES ? 'https://forest-carbon.duckdns.org' : ''
+
+async function load() {
+  if (IS_GH_PAGES) {
+    document.getElementById('csv-btn').style.display = 'none'
+  }
+  showSkeleton(true)
+  try {
+    const url = IS_GH_PAGES ? './data/trees.json' : `${API_BASE}/api/trees`
+    const res = await fetch(url)
+    allRecords = await res.json()
+    renderStats(allRecords)
+    renderRecords(allRecords)
+  } catch (e) {
+    document.getElementById('records').innerHTML =
+      `<div class="empty"><div class="empty-icon">⚠️</div>載入失敗：${e.message}</div>`
+  } finally {
+    showSkeleton(false)
+  }
+}
+
+function showSkeleton(on) {
+  document.getElementById('skeleton').style.display = on ? 'block' : 'none'
+}
+
+function animateNumber(el, target, suffix='') {
+  const duration = 800, fps = 60, steps = duration / (1000/fps)
+  let current = 0, step = 0
+  const timer = setInterval(() => {
+    step++
+    current = Math.round(target * (step / steps))
+    el.textContent = current + suffix
+    if (step >= steps) { el.textContent = target + suffix; clearInterval(timer) }
+  }, 1000/fps)
+}
+
+function renderStats(records) {
+  const totalChain   = records.filter(r => r.blockchain?.txStatus === 'confirmed').length
+  const speciesCount = new Set(records.map(r => r.species).filter(Boolean)).size
+  const totalCarbon  = records.reduce((s, r) => s + (r.carbonKg || 0), 0)
+
+  animateNumber(document.getElementById('s-total'),   records.length)
+  animateNumber(document.getElementById('s-chain'),   totalChain)
+  animateNumber(document.getElementById('s-species'), speciesCount)
+  animateNumber(document.getElementById('s-carbon'),  parseFloat(totalCarbon.toFixed(1)))
+}
+
+function renderRecords(records) {
+  const container = document.getElementById('records')
+  const empty     = document.getElementById('empty')
+  if (!records.length) {
+    container.innerHTML = ''
+    empty.style.display = ''
+    return
+  }
+  empty.style.display = 'none'
+  container.innerHTML = [...records].reverse().map(r => buildCard(r)).join('')
+}
+
+function buildCard(r) {
+  const conf     = (r.confidence || 'low').toLowerCase()
+  const confLabel = conf === 'high' ? 'HIGH 精度' : conf === 'medium' ? 'MEDIUM 精度' : 'LOW 精度'
+  const bcStatus  = r.blockchain?.txStatus || 'none'
+  const bcBadge   = bcStatus === 'confirmed'
+    ? `<span class="badge badge-chain">✅ 鏈上確認</span>`
+    : bcStatus === 'pending'
+    ? `<span class="badge badge-pending">⏳ 待上鏈</span>`
+    : bcStatus === 'failed'
+    ? `<span class="badge badge-failed">❌ 上鏈失敗</span>`
+    : `<span class="badge badge-pending">— 未上鏈</span>`
+
+  const path = r.referenceUsed
+    ? `路徑 A（${refLabel(r.referenceType)}）`
+    : r.directMeasurementCm > 0 ? '路徑 0（直接讀數）' : '路徑 B（薄透鏡）'
+
+  // §27 三路徑並列表格
+  const renderPathCell = (p, pathKey, winnerKey, fmt) => {
+    if (!p?.computed) return '<td class="na">—</td>'
+    const cls = pathKey === winnerKey ? 'winner' : ''
+    return `<td class="${cls}">${fmt(p)}</td>`
+  }
+  const w = r.winnerPath
+  const pp = r.paths || {}
+  const fmtDbh    = (p) => p.dbhCm != null ? `${p.dbhCm.toFixed(1)} cm` : '—'
+  const fmtVolume = (p) => p.volumeM3 != null ? `${(p.volumeM3 * 1e6).toFixed(0)} cm³` : '—'
+  const fmtCarbon = (p) => p.carbonKg != null ? `${(p.carbonKg * 1000).toFixed(0)} g` : '—'
+  // §30 v2：移除 Path B 修正後一列，使用者已用人工皮尺判讀做 RQ1 比較，三路徑原始值即可
+  const pathsSection = `
+    <div>
+      <div class="section-title">🔀 三路徑並列估算</div>
+      <table class="paths-table">
+        <thead>
+          <tr><th></th><th>Path 0<br><span style="font-weight:400;font-size:0.65rem;">直接讀數</span></th>
+              <th>Path A<br><span style="font-weight:400;font-size:0.65rem;">參照物</span></th>
+              <th>Path B<br><span style="font-weight:400;font-size:0.65rem;">薄透鏡</span></th></tr>
+        </thead>
+        <tbody>
+          <tr><td>DBH</td>
+            ${renderPathCell(pp.path0, 'path0', w, fmtDbh)}
+            ${renderPathCell(pp.pathA, 'pathA', w, fmtDbh)}
+            ${renderPathCell(pp.pathB, 'pathB', w, fmtDbh)}</tr>
+          <tr><td>材積</td>
+            ${renderPathCell(pp.path0, 'path0', w, fmtVolume)}
+            ${renderPathCell(pp.pathA, 'pathA', w, fmtVolume)}
+            ${renderPathCell(pp.pathB, 'pathB', w, fmtVolume)}</tr>
+          <tr><td>碳儲量</td>
+            ${renderPathCell(pp.path0, 'path0', w, fmtCarbon)}
+            ${renderPathCell(pp.pathA, 'pathA', w, fmtCarbon)}
+            ${renderPathCell(pp.pathB, 'pathB', w, fmtCarbon)}</tr>
+        </tbody>
+      </table>
+      ${w ? `<div style="margin-top:6px;font-size:0.72rem;color:var(--muted);">★ winner = ${w}（依優先級 0 &gt; A &gt; B）</div>` : ''}
+      <div id="path-frames-${r.id}" class="path-frames-block" style="margin-top:10px;font-size:0.78rem;color:var(--muted);">點開卡片載入三路徑依據幀…</div>
+    </div>`
+
+  // §31 人工皮尺批次標註（ground truth）：直接 inline 顯示
+  const fmtTs = (sec) => {
+    if (sec == null) return '—'
+    const s = Math.round(sec)
+    const hh = String(Math.floor(s / 3600)).padStart(2, '0')
+    const mm = String(Math.floor((s % 3600) / 60)).padStart(2, '0')
+    const ss = String(s % 60).padStart(2, '0')
+    return `${hh}:${mm}:${ss}`
+  }
+  const pathErrCell = (pathDbh, gtDbh) => {
+    if (pathDbh == null || gtDbh == null) return '<td>—</td>'
+    const err = ((pathDbh - gtDbh) / gtDbh * 100)
+    const cls = Math.abs(err) <= 10 ? 'ok' : Math.abs(err) <= 25 ? 'warn' : 'err'
+    const sign = err >= 0 ? '+' : ''
+    return `<td>${pathDbh.toFixed(1)}<br><span class="${cls}" style="font-size:0.7rem;">${sign}${err.toFixed(1)}%</span></td>`
+  }
+  let manualSection
+  if (r.manualTape) {
+    const mt = r.manualTape
+    const gt = mt.dbhCm
+    manualSection = `
+      <div>
+        <div class="section-title">📏 人工皮尺實量（Ground Truth）
+          <span style="font-weight:400;color:var(--muted);font-size:0.75rem;margin-left:6px;">${mt.annotator || '—'} 於關鍵幀人工判讀</span>
+        </div>
+        <table class="kv" style="font-size:0.82rem;">
+          <tr><td>樹幹周長</td><td><strong>${mt.circCm} cm</strong></td></tr>
+          <tr><td>DBH = 周長 ÷ π</td><td><strong style="color:var(--accent);">${gt.toFixed(1)} cm</strong></td></tr>
+          <tr><td>關鍵幀時間</td><td>${fmtTs(mt.frameTsSec)}（${mt.frameTsSec} s）</td></tr>
+        </table>
+        <table class="path-table" style="margin-top:8px;width:100%;text-align:center;font-size:0.78rem;">
+          <thead>
+            <tr><th></th><th>Path 0<br><span style="font-weight:400;font-size:0.65rem;">原 AI 皮尺</span></th>
+                <th>Path A<br><span style="font-weight:400;font-size:0.65rem;">參照物</span></th>
+                <th>Path B<br><span style="font-weight:400;font-size:0.65rem;">薄透鏡</span></th></tr>
+          </thead>
+          <tbody>
+            <tr><td>vs 人工皮尺</td>
+              ${pathErrCell(pp.path0?.dbhCm, gt)}
+              ${pathErrCell(pp.pathA?.dbhCm, gt)}
+              ${pathErrCell(pp.pathB?.dbhCm, gt)}
+            </tr>
+          </tbody>
+        </table>
+      </div>`
+  } else {
+    manualSection = `
+      <div>
+        <div class="section-title">📏 人工皮尺實量
+          <span style="font-weight:400;color:var(--muted);font-size:0.75rem;margin-left:6px;">尚未標註</span>
+        </div>
+        <div style="font-size:0.85rem;color:var(--muted);">這棵樹還沒有人工皮尺基準值。</div>
+      </div>`
+  }
+
+  let errorRow = ''
+  if (r.calibration && !r.referenceUsed) {
+    const err = ((r.dbhCm - r.calibration.dbhCm) / r.calibration.dbhCm * 100)
+    const cls  = Math.abs(err) <= 10 ? 'ok' : Math.abs(err) <= 25 ? 'warn' : 'err'
+    errorRow = `<tr><td>誤差</td><td class="${cls}">${err >= 0 ? '+' : ''}${err.toFixed(1)}%</td></tr>`
+  }
+
+  const refRow = r.calibration
+    ? `<tr><td>路徑A校準值</td><td>${r.calibration.dbhCm.toFixed(1)} cm（${refLabel(r.calibration.source)}）</td></tr>`
+    : ''
+
+  const txHash = r.blockchain?.txHash
+  const txRow  = txHash
+    ? `<tr><td>Tx Hash</td><td><span class="hash-val">${txHash.slice(0,10)}…${txHash.slice(-6)}</span>
+        <button class="copy-btn" onclick="event.stopPropagation();copy('${txHash}')">複製</button></td></tr>`
+    : `<tr><td>Tx Hash</td><td class="warn">—</td></tr>`
+
+  const vhash    = r.videoHash || ''
+  const vhashRow = vhash
+    ? `<tr><td>影片 SHA-256</td><td><span class="hash-val">${vhash.slice(0,10)}…${vhash.slice(-6)}</span>
+        <button class="copy-btn" onclick="event.stopPropagation();copy('${vhash}')">複製</button></td></tr>`
+    : `<tr><td>影片 SHA-256</td><td>—</td></tr>`
+
+  const bcTime   = r.blockchain?.createdAt
+    ? new Date(r.blockchain.createdAt * 1000).toLocaleString('zh-TW') : '—'
+  const verifyRow = bcStatus === 'confirmed'
+    ? `<tr><td>驗證狀態</td><td class="ok">✅ 鏈上與本地一致</td></tr>`
+    : `<tr><td>驗證狀態</td><td class="warn">—</td></tr>`
+
+  let gpsRow = `<tr><td>GPS</td><td>—</td></tr>`
+  if (r.gps) {
+    const parts = r.gps.split(',')
+    if (parts.length >= 2) {
+      const lat = parseFloat(parts[0]).toFixed(4)
+      const lng = parseFloat(parts[1]).toFixed(4)
+      const alt = r.altitude != null ? `<br><span style="color:var(--muted)">海拔 ${r.altitude} m</span>` : ''
+      gpsRow = `<tr><td>GPS</td><td>
+        <a class="gps-link" href="https://maps.google.com/?q=${lat},${lng}" target="_blank">${lat}, ${lng}</a>${alt}
+      </td></tr>`
+    }
+  }
+
+  const createdTime = r.createdAt
+    ? new Date(r.createdAt * 1000).toLocaleString('zh-TW') : '—'
+
+  const mTypeLabel = r.measurementType === 'circumference' ? '周長（皮尺繞圈）'
+                   : r.measurementType === 'diameter'      ? '直徑（直尺橫量）'
+                   : ''
+  const directRow = (r.directMeasurementCm > 0)
+    ? `<tr><td>皮尺讀數</td><td>${r.directMeasurementCm.toFixed(1)} cm（${mTypeLabel}）${
+        r.directMeasurementConfidence != null ? `<span style="color:var(--muted);margin-left:6px;">信心 ${(r.directMeasurementConfidence*100).toFixed(0)}%</span>` : ''
+      }</td></tr>`
+    : `<tr><td>皮尺讀數</td><td><span style="color:var(--muted)">未偵測</span></td></tr>`
+
+  // 影片來源：優先用 Google Drive iframe（節省 VM 磁碟、跨頁穩定），否則 fallback 至 VM 串流
+  const videoSection = r.videoDriveUrl
+    ? `<div>
+        <div class="section-title">🎬 原始影片
+          <span style="font-weight:400;color:var(--muted);font-size:0.85rem;margin-left:6px;">${r.videoOriginalName || r.videoFilename || ''}（Google Drive）</span>
+        </div>
+        <div style="position:relative;width:100%;padding-top:56.25%;background:#000;border-radius:6px;overflow:hidden;" onclick="event.stopPropagation()">
+          <iframe src="${r.videoDriveUrl}" allow="autoplay" allowfullscreen
+                  style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;"></iframe>
+        </div>
+       </div>`
+    : r.videoFilename
+    ? `<div>
+        <div class="section-title">🎬 原始影片
+          <span style="font-weight:400;color:var(--muted);font-size:0.85rem;margin-left:6px;">${r.videoOriginalName || r.videoFilename}</span>
+        </div>
+        <video controls preload="metadata" style="width:100%;max-height:360px;background:#000;border-radius:6px;" onclick="event.stopPropagation()">
+          <source src="${API_BASE}/api/trees/${r.id}/video" type="video/quicktime">
+          <source src="${API_BASE}/api/trees/${r.id}/video" type="video/mp4">
+          您的瀏覽器不支援 video 標籤。
+        </video>
+       </div>`
+    : ''
+
+  const evidenceSection = r.hasEvidenceFrame
+    ? `<div>
+        <div class="section-title">📷 測量依據
+          <span style="font-weight:400;color:var(--muted);font-size:0.85rem;margin-left:6px;">Gemini 判讀採用的關鍵幀</span>
+        </div>
+        <a href="${API_BASE}/api/trees/${r.id}/evidence-frame" target="_blank" onclick="event.stopPropagation()">
+          <img src="${API_BASE}/api/trees/${r.id}/evidence-frame" alt="測量依據幀"
+               style="width:100%;max-height:360px;object-fit:contain;background:#000;border-radius:6px;cursor:zoom-in;">
+        </a>
+       </div>`
+    : ''
+
+  return `
+<div class="card" id="card-${r.id}">
+  <div class="card-header" onclick="toggle('${r.id}')">
+    <div class="conf-bar conf-bar-${conf}"></div>
+    <span class="tree-no">${r.treeNo}</span>
+    <span class="species-name">
+      ${r.species}
+      <span class="species-src">${r.speciesSource ? '(' + r.speciesSource + ')' : ''}</span>
+    </span>
+    <div class="badges">
+      <span class="badge badge-${conf}">${confLabel}</span>
+      ${bcBadge}
+      ${r.hasStory ? `<a class="badge badge-story" href="./story.html?id=${r.id}" onclick="event.stopPropagation()">🌿 永續故事</a>` : ''}
+      ${r.videoDriveUrl ? `<a class="badge badge-env" href="${r.videoDriveUrl}" target="_blank" onclick="event.stopPropagation()" title="原始影片（Google Drive）">🎬 影片連結</a>` : ''}
+    </div>
+    <span class="chevron">▼</span>
+  </div>
+  <div class="card-body">
+    <hr class="divider">
+    <div class="sections">
+      <div>
+        <div class="section-title">📐 量測結果</div>
+        <table class="kv-table">
+          <tr><td>DBH 系統估算</td><td>${r.dbhCm != null ? r.dbhCm.toFixed(1) + ' cm' : '—'}</td></tr>
+          ${directRow}
+          ${refRow}
+          ${errorRow}
+          <tr><td>碳儲量</td><td>${r.carbonKg != null ? (r.carbonKg * 1000).toFixed(0) + ' g' : '—'}</td></tr>
+          <tr><td>材積</td><td>${r.volumeM3 != null ? (r.volumeM3 * 1e6).toFixed(0) + ' cm³' : '—'}</td></tr>
+          <tr><td>估算路徑</td><td>${path}</td></tr>
+          ${r.appliedCorrectionFactor ? `<tr><td>修正因子</td><td>${r.appliedCorrectionFactor.toFixed(3)}</td></tr>` : ''}
+          <tr><td>永續故事</td><td>${r.hasStory
+            ? `<a href="./story.html?id=${r.id}" style="color:var(--green-700);font-weight:600;text-decoration:none;" onclick="event.stopPropagation()">🌿 查看故事 →</a>`
+            : '<span style="color:var(--muted)">—</span>'
+          }</td></tr>
+        </table>
+      </div>
+      ${pathsSection}
+      ${manualSection}
+      <div>
+        <div class="section-title">⛓ 區塊鏈存證</div>
+        <table class="kv-table">
+          ${txRow}
+          ${vhashRow}
+          <tr><td>上鏈時間</td><td>${bcTime}</td></tr>
+          ${verifyRow}
+        </table>
+      </div>
+      <div>
+        <div class="section-title">📷 EXIF 元數據</div>
+        <table class="kv-table">
+          <tr><td>手機型號</td><td>${r.deviceModel || '—'}</td></tr>
+          <tr><td>焦距</td><td>${r.focalLengthMm != null ? r.focalLengthMm + ' mm' : '—'}</td></tr>
+          <tr><td>感光元件寬</td><td>${r.sensorWidthMm != null ? r.sensorWidthMm.toFixed(2) + ' mm' : '—'}</td></tr>
+          ${gpsRow}
+          ${r.resolution ? `<tr><td>解析度</td><td>${r.resolution}</td></tr>` : ''}
+          ${r.fps ? `<tr><td>fps</td><td>${r.fps}</td></tr>` : ''}
+          <tr><td>拍攝時間</td><td>${createdTime}</td></tr>
+        </table>
+      </div>
+      ${evidenceSection}
+      ${videoSection}
+    </div>
+  </div>
+</div>`
+}
+
+function refLabel(src) {
+  if (!src) return '—'
+  if (src === 'credit_card' || src === 'creditcard') return '信用卡'
+  if (src === 'a4') return 'A4 紙'
+  return src
+}
+
+function toggle(id) {
+  const card = document.getElementById('card-' + id)
+  card.classList.toggle('open')
+  if (card.classList.contains('open')) loadPathFrames(id)
+}
+
+const _pathFramesCache = {}
+async function loadPathFrames(treeId) {
+  const box = document.getElementById('path-frames-' + treeId)
+  const tapeBox = document.getElementById('tape-compare-' + treeId)
+  if (!box || box.dataset.loaded === '1' || box.dataset.loading === '1') return
+  box.dataset.loading = '1'
+  try {
+    const data = _pathFramesCache[treeId] || await fetch(`${API_BASE}/api/trees/${treeId}/path-frames`).then(r => r.json())
+    _pathFramesCache[treeId] = data
+    box.innerHTML = renderPathFrames(treeId, data)
+    if (tapeBox) tapeBox.innerHTML = renderTapeCompare(treeId, data)
+    box.dataset.loaded = '1'
+  } catch (e) {
+    box.innerHTML = `<span style="color:var(--err)">依據幀載入失敗：${e.message}</span>`
+    if (tapeBox) tapeBox.innerHTML = `<span style="color:var(--err)">皮尺對照載入失敗：${e.message}</span>`
+  } finally {
+    box.dataset.loading = '0'
+  }
+}
+
+// §30 v2：皮尺視覺判讀對照（從 Gemini path-frames 讀皮尺數字當基準）
+function renderTapeCompare(treeId, data) {
+  const p0 = data.paths?.path0
+  if (!p0 || !p0.evidence || p0.evidence.value == null) {
+    return `<div style="color:var(--muted);font-size:0.85rem;">此筆未偵測到皮尺數字（path 0 evidence 缺失）。本筆樹無法做皮尺基準對照，請改用其他樹木的卡片驗證。</div>`
+  }
+  const r = (typeof allRecords !== 'undefined' ? allRecords : []).find(x => x.id === treeId)
+  if (!r) return `<div style="color:var(--muted);font-size:0.85rem;">本機紀錄查無此樹，無法計算誤差。</div>`
+
+  const reading = p0.evidence.value
+  const mtype = p0.evidence.measurementType
+  const isCirc = mtype === 'circumference'
+  const baselineDbh = isCirc ? reading / Math.PI : reading
+  const conf = p0.evidence.confidence != null ? p0.evidence.confidence : null
+  const frameIdx = p0.evidence.frameIdx
+  const imgUrl = frameIdx != null ? `${API_BASE}/api/trees/${treeId}/frames/${frameIdx}` : null
+
+  const paths = r.paths || {}
+  const pathRow = (label, p, isSelfRef) => {
+    if (!p?.computed || p.dbhCm == null) {
+      return `<tr><td>${label}</td><td><span style="color:var(--muted)">—</span></td><td><span style="color:var(--muted)">—</span></td></tr>`
+    }
+    let errCell
+    if (isSelfRef) {
+      errCell = `<span style="color:var(--muted)">自身基準 (0%)</span>`
+    } else {
+      const err = (p.dbhCm - baselineDbh) / baselineDbh * 100
+      const a = Math.abs(err)
+      const cls = a <= 10 ? 'ok' : a <= 25 ? 'warn' : 'err'
+      errCell = `<span class="${cls}">${err >= 0 ? '+' : ''}${err.toFixed(1)}%</span>`
+    }
+    return `<tr><td>${label}</td><td>${p.dbhCm.toFixed(1)} cm</td><td>${errCell}</td></tr>`
+  }
+
+  const imgBlock = imgUrl
+    ? `<a href="${imgUrl}" target="_blank" onclick="event.stopPropagation()">
+         <img src="${imgUrl}" style="width:100%;border-radius:6px;background:#000;cursor:zoom-in;" onerror="this.style.opacity=0.2" />
+       </a>
+       <div style="font-size:0.72rem;color:var(--muted);margin-top:4px;line-height:1.4;">
+         Gemini 從 frame_${frameIdx}.jpg 判讀：<b>${reading.toFixed(1)} cm</b>${isCirc ? '（周長）' : mtype === 'diameter' ? '（直徑）' : ''}${conf != null ? `<br>判讀信心 ${(conf * 100).toFixed(0)}%` : ''}
+       </div>`
+    : `<div style="color:var(--muted);font-size:0.78rem;">無依據幀圖片。</div>`
+
+  return `
+    <div style="display:grid;grid-template-columns:minmax(160px, 260px) 1fr;gap:12px;align-items:start;">
+      <div>${imgBlock}</div>
+      <div>
+        <div style="font-size:0.78rem;color:var(--ink);margin-bottom:6px;">
+          皮尺基準 DBH = ${isCirc ? `${reading.toFixed(1)} cm ÷ π` : `${reading.toFixed(1)} cm`} = <b style="color:var(--green-700);">${baselineDbh.toFixed(1)} cm</b>
+        </div>
+        <table class="kv-table" style="width:100%;">
+          <thead>
+            <tr style="background:#f5f7f5;">
+              <th style="text-align:left;padding:4px 6px;">路徑</th>
+              <th style="text-align:left;padding:4px 6px;">系統估算 DBH</th>
+              <th style="text-align:left;padding:4px 6px;">vs 皮尺誤差</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${pathRow('Path 0（直接讀數）', paths.path0, true)}
+            ${pathRow('Path A（參照物）', paths.pathA, false)}
+            ${pathRow('Path B（薄透鏡）', paths.pathB, false)}
+          </tbody>
+        </table>
+        <div style="font-size:0.72rem;color:var(--muted);margin-top:6px;line-height:1.5;">
+          ⚠️ Path 0 = 系統讀同條皮尺，必為 0% 誤差（自身基準，僅供確認 Gemini 判讀是否正確）。<br>
+          👁 請直接肉眼比對左側影像中的皮尺數字，確認 Gemini 讀到 <b>${reading.toFixed(1)} cm</b> 是否正確；若正確，Path A / Path B 該欄誤差即為 RQ1 系統精度。
+        </div>
+      </div>
+    </div>
+  `
+}
+
+function renderPathFrames(treeId, data) {
+  const tile = (label, frameIdx, meta) => {
+    if (frameIdx == null) return `<div class="pf-tile pf-na"><div class="pf-label">${label}</div><div class="pf-meta">無依據幀</div></div>`
+    const img = `${API_BASE}/api/trees/${treeId}/frames/${frameIdx}`
+    return `<div class="pf-tile">
+      <div class="pf-label">${label}</div>
+      <a href="${img}" target="_blank" onclick="event.stopPropagation()">
+        <img src="${img}" onerror="this.parentNode.replaceWith(Object.assign(document.createElement('div'),{className:'pf-missing',textContent:'frame_'+${frameIdx}+'.jpg 不存在'}))" />
+      </a>
+      <div class="pf-meta">frame_${frameIdx}.jpg${meta ? ' · ' + meta : ''}</div>
+    </div>`
+  }
+  const p = data.paths || {}
+  const p0Meta = p.path0?.evidence
+    ? `${p.path0.evidence.value?.toFixed(1) || '?'} cm（${p.path0.evidence.measurementType || ''}）信心 ${(p.path0.evidence.confidence * 100).toFixed(0)}%`
+    : null
+  const pAMeta = p.pathA?.evidence
+    ? `${p.pathA.evidence.referenceType || ''} · 信心 ${(p.pathA.evidence.confidence * 100).toFixed(0)}%`
+    : null
+
+  const pathBFramesGrid = p.pathB ? `
+    <div style="margin-top:8px;">
+      <div style="font-weight:600;color:var(--green-800);margin-bottom:4px;">Path B 取全部 ${data.frames.length} 幀中位數</div>
+      <div class="pf-grid-small">
+        ${data.frames.map(f => `
+          <a href="${API_BASE}/api/trees/${treeId}/frames/${f.frameIdx}" target="_blank" onclick="event.stopPropagation()" title="frame_${f.frameIdx}.jpg · trunkWidth=${(f.trunkWidthFraction || 0).toFixed(3)}">
+            <img src="${API_BASE}/api/trees/${treeId}/frames/${f.frameIdx}" onerror="this.style.opacity=0.15" />
+          </a>
+        `).join('')}
+      </div>
+    </div>` : ''
+
+  return `
+    <div class="pf-row">
+      ${p.path0 ? tile(`Path 0（${p.path0.dbhCm.toFixed(1)} cm）`, p.path0.evidence?.frameIdx, p0Meta) : ''}
+      ${p.pathA ? tile(`Path A（${p.pathA.dbhCm.toFixed(1)} cm）`, p.pathA.evidence?.frameIdx, pAMeta) : ''}
+    </div>
+    ${pathBFramesGrid}
+  `
+}
+function expandAll()  {
+  document.querySelectorAll('.card').forEach(c => {
+    c.classList.add('open')
+    const id = c.id.replace(/^card-/, '')
+    if (id) loadPathFrames(id)
+  })
+}
+function collapseAll(){ document.querySelectorAll('.card').forEach(c => c.classList.remove('open')) }
+
+function copy(text) {
+  navigator.clipboard.writeText(text).then(() => showToast('✅ 已複製到剪貼簿'))
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast')
+  t.textContent = msg
+  t.classList.add('show')
+  setTimeout(() => t.classList.remove('show'), 2200)
+}
+
+function applyFilters() {
+  const search = document.getElementById('search').value.toLowerCase()
+  const conf   = document.getElementById('filter-confidence').value
+  const chain  = document.getElementById('filter-chain').value
+  const filtered = allRecords.filter(r => {
+    if (search && !r.species?.toLowerCase().includes(search)) return false
+    if (conf  && (r.confidence || '').toLowerCase() !== conf)  return false
+    if (chain && r.blockchain?.txStatus !== chain)              return false
+    return true
+  })
+  renderRecords(filtered)
+  renderStats(filtered)
+}
+document.getElementById('search').addEventListener('input', applyFilters)
+document.getElementById('filter-confidence').addEventListener('change', applyFilters)
+document.getElementById('filter-chain').addEventListener('change', applyFilters)
+
+load()
+</script>
+</body>
+</html>
