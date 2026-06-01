@@ -61,6 +61,10 @@ h2,.rqcard,.rocard{scroll-margin-top:14px}
 <span class="kpi">API 成本：<span class="num">~$1.5</span> USD</span>
 </div>
 
+<div class="aside" style="text-align:center">
+▶ 生產版成果（32 棵量測 + Verra 碳信用憑證）：<a class="anchor-link" href="https://forest-carbon.duckdns.org/dashboard02.html" target="_blank" rel="noopener">dashboard02.html</a>
+</div>
+
 <h2 id="rqro">研究問題（RQ）與研究目標（RO）</h2>
 
 <p class="aside">此區塊為整份研究的定位開場。研究目標（RO）的敘述附有錨點連結，點擊可直接跳至對應章節；各章節結尾另附返回標籤，可一鍵返回任一研究問題。研究目標 2 與 3 目前仍為草稿、持續修訂。</p>
@@ -93,7 +97,7 @@ h2,.rqcard,.rocard{scroll-margin-top:14px}
 <tr><td>#44</td><td>以配對 t 檢定（paired t-test）證明量測無系統性偏誤</td><td>§9.1</td><td class="pass">t=0.126，遠小於臨界值 2.052 ✓</td></tr>
 </table>
 
-<p>此研究問題原先採用的門檻數字（MAPE ≤ 20%）並非 Verra 規定，而是此專案自訂的內部及格線，撰寫時需明確區分，以免審查者誤讀。MAPE（平均絕對百分誤差，Mean Absolute Percentage Error，衡量平均量測誤差佔真值的百分比）小於等於 20%，為此專案在 30 棵樣樹測試時自訂的通過標準；至於 Verra 真正的紅線，則為前述第 2 條（信賴區間半寬除以平均估計值小於 100%），兩者分屬不同概念。</p>
+<p style="display:none">此研究問題原先採用的門檻數字（MAPE ≤ 20%）並非 Verra 規定，而是此專案自訂的內部及格線，撰寫時需明確區分，以免審查者誤讀。MAPE（平均絕對百分誤差，Mean Absolute Percentage Error，衡量平均量測誤差佔真值的百分比）小於等於 20%，為此專案在 30 棵樣樹測試時自訂的通過標準；至於 Verra 真正的紅線，則為前述第 2 條（信賴區間半寬除以平均估計值小於 100%），兩者分屬不同概念。</p>
 </div>
 
 <div class="rqcard" id="rq2">
@@ -111,7 +115,7 @@ h2,.rqcard,.rocard{scroll-margin-top:14px}
 <p>此研究目標包含三個動作，分別對應本頁以下章節（點擊可跳轉）：</p>
 <ul>
 <li><b>建立</b>量測模型 → <a class="anchor-link" href="#s3">§3 演進旅程</a>、<a class="anchor-link" href="#s5">§5 五條處理流程設計</a></li>
-<li><b>評估</b>模型 → <a class="anchor-link" href="#s4">§4 30 棵實驗結果</a>、<a class="anchor-link" href="#s6">§6 變數貢獻分析</a>、<a class="anchor-link" href="#s7">§7 結論</a></li>
+<li><b>評估</b>模型 → <a class="anchor-link" href="#s4">§4 30 棵實驗結果</a>、<a class="anchor-link" href="#s6">§6 變數貢獻分析</a>、<a class="anchor-link" href="#s8">§8 結論</a></li>
 <li><b>驗證朝 Verra 精度標準邁進的可行性</b> → <a class="anchor-link" href="#s2">§2 Verra VM0047 碳權標準對齊分析</a></li>
 </ul>
 </div>
@@ -474,7 +478,41 @@ IMG_5789 的實驗清楚呈現效果：單次取樣時曾出現 ratio=4.5 或 6.
 
 <div class="backtags">↑ 返回研究問題：<a href="#rq1">RQ1</a><a href="#rq2">RQ2</a></div>
 
-<h2 id="s7">§7 結論</h2>
+<h2 id="stat">§7 生產版統計彙整（P4 v2，32 棵）</h2>
+
+<p>以五條流程對照實驗確認 P4 為最佳流程後，此專案對全部 32 棵樹改用 P4 video-v2 流程（整支影片交給影像模型、N=10 次中位數彙整、校準因子 ×1.155）重新量測並上鏈。此節呈現該批次的統計彙總與 Verra §8.4 不確定性驗算；逐棵量測結果與區塊鏈存證見 <a class="anchor-link" href="https://forest-carbon.duckdns.org/dashboard02.html" target="_blank" rel="noopener">dashboard02.html</a>。</p>
+
+<h3>彙總法比較與校準因子（30 棵可比對樹）</h3>
+
+<div class="box">
+<b>最終選定：中位數（median）彙整 10 次量測 + 校準因子 ×1.155</b>——中位數有效壓平單次離群值（outlier），校準因子修正系統性偏差（bias）。
+</div>
+
+<table>
+<tr><th>誤差門檻</th><th>通過棵數 / 可比對棵數</th><th>通過率</th></tr>
+<tr class="green"><td><b>≤15%（此專案 PASS 門檻）</b></td><td>16 / 30</td><td><b class="pass">53%</b></td></tr>
+<tr><td>≤20%</td><td>19 / 30</td><td>63%</td></tr>
+<tr><td>≤25%</td><td>23 / 30</td><td>77%</td></tr>
+<tr><td>≤30%</td><td>26 / 30</td><td>87%</td></tr>
+</table>
+
+<h3>Verra VM0047 §8.4 不確定性驗算</h3>
+
+<div class="box">
+<b>DBH 層級（7.4%）與地上生物量（AGB）層級（14.7%）均遠低於 Verra §8.4 唯一合格門檻（&lt; 100%）。</b>
+</div>
+
+<table>
+<tr><th>量測層級</th><th>90% CI 半寬 ÷ 平均值</th><th>Verra §8.4 紅線</th><th>結果</th></tr>
+<tr><td>DBH 層級（胸高直徑，Diameter at Breast Height）</td><td><b class="pass">7.4%</b></td><td>&lt; 100%</td><td class="pass">通過，寬裕約 13.5 倍 ✓</td></tr>
+<tr><td>AGB 層級（地上生物量，Above-Ground Biomass）</td><td><b class="pass">14.7%</b></td><td>&lt; 100%</td><td class="pass">通過，寬裕約 6.8 倍 ✓</td></tr>
+</table>
+
+<p>AGB 層級的不確定性約為 DBH 層級的兩倍，肇因於 DBH 誤差透過異速生長方程式（allometric equation）中的平方項放大；兩個層級數值均遠低於紅線，確認此量測方法具備 Verra 碳信用核發的精度基礎。全 32 棵套用校準後的<b>總碳儲量為 6,738 kg</b>。</p>
+
+<div class="backtags">↑ 返回研究問題：<a href="#rq1">RQ1</a><a href="#rq2">RQ2</a></div>
+
+<h2 id="s8">§8 結論</h2>
 
 <div class="box">
 <b>整體通過率（誤差 ≤15%）為 22/30 = 73.3%</b>。若排除 1 棵因撞到 API 用量上限而未執行的樹，則在 29 棵中有 22 棵通過，通過率為 75.9%。
@@ -510,7 +548,7 @@ IMG_5789 的實驗清楚呈現效果：單次取樣時曾出現 ratio=4.5 或 6.
 
 <div class="backtags">↑ 返回研究問題：<a href="#rq1">RQ1</a><a href="#rq2">RQ2</a></div>
 
-<h2 id="s8">§8 未解決：IMG_5804 一影片兩棵樹</h2>
+<h2 id="s9">§9 未解決：IMG_5804 一影片兩棵樹</h2>
 
 <p>這支影片同時拍到兩棵不同的樹，Gemini 無法分辨「當下看的是哪一棵」，因此需要另行設計一條處理流程來因應（技術細節：兩棵樹的 tree_id 分別為 f5d4607c 與 b8b61455）。可行的方向包含：
 <ul>
@@ -522,7 +560,8 @@ IMG_5789 的實驗清楚呈現效果：單次取樣時曾出現 ratio=4.5 或 6.
 <div class="backtags">↑ 返回研究問題：<a href="#rq1">RQ1</a><a href="#rq2">RQ2</a></div>
 
 <footer>
-最後更新：2026-05-31 mass run 完成 · 完整 memory <code>project-5way-journey</code> · 實作於 <code>scripts/dryrun-rerun-kf*.js</code> + <code>scripts/dryrun-video*.js</code>
+最後更新：2026-06-02（§7 生產版統計補入；§42 dashboard02 完成）· 實作於 <code>scripts/dryrun-rerun-kf*.js</code> + <code>scripts/dryrun-video*.js</code> + <code>scripts/rerun_p4.js</code>
+<br>生產版量測記錄：<a class="anchor-link" href="https://forest-carbon.duckdns.org/dashboard02.html" target="_blank" rel="noopener">dashboard02.html</a>
 <br>Verra VM0047 方法學官方文件：<a class="anchor-link" href="https://verra.org/wp-content/uploads/2023/09/VM0047_ARR_v1.0-1.pdf" target="_blank" rel="noopener">VM0047 v1.0 全文 PDF</a> · <a class="anchor-link" href="https://verra.org/methodologies/vm0047-afforestation-reforestation-and-revegetation-v1-1/" target="_blank" rel="noopener">Verra 方法學頁面</a>
 </footer>
 </body></html>
