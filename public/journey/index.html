@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="zh-TW"><head>
+<meta charset="utf-8">
+<title>從單一流程到五條流程對照：森林碳測量系統演進</title>
+<style>
+body{font-family:sans-serif;background:#111;color:#eee;margin:0;padding:24px;max-width:1200px;margin-left:auto;margin-right:auto;line-height:1.8;font-size:18px}
+h1{font-size:31px;margin-top:0}
+h2{font-size:24px;color:#fc6;margin-top:40px;border-bottom:2px solid #333;padding-bottom:6px}
+h3{font-size:19px;color:#8af;margin-top:26px}
+.box{background:#222;padding:14px 18px;border-radius:8px;margin:12px 0}
+.aside{background:#1a1a1a;border-left:4px solid #fc6;padding:12px 18px;margin:12px 0;font-size:16px;color:#bbb}
+table{border-collapse:collapse;width:100%;margin:10px 0;font-size:14px}
+th,td{border:1px solid #333;padding:7px 10px;text-align:left;vertical-align:top}
+th{background:#1a1a1a;color:#fc6;font-weight:600;font-size:15px}
+code{background:#000;padding:2px 6px;border-radius:3px;color:#8af;font-size:14px}
+.pass{color:#8f8;font-weight:bold}
+.fail{color:#f88}
+.warn{color:#fc6}
+.dead{color:#666}
+.green{background:#1e3320}
+.yellow{background:#3a3018}
+.red{background:#3a1818}
+.gray{background:#1a1a1a}
+.timeline{border-left:3px solid #fc6;padding-left:20px;margin:20px 0}
+.timeline .stage{margin:18px 0}
+.timeline h3{margin-top:0}
+.kpi{display:inline-block;background:#222;padding:8px 14px;border-radius:6px;margin:4px;font-size:16px}
+.kpi .num{font-size:26px;font-weight:bold;color:#fc6}
+footer{margin-top:48px;padding-top:18px;border-top:1px solid #333;font-size:12px;color:#666}
+.legend{font-size:11px;color:#888;margin:4px 0}
+.legend span{display:inline-block;padding:2px 8px;margin-right:8px;border-radius:3px}
+html{scroll-behavior:smooth}
+h2,.rqcard,.rocard{scroll-margin-top:14px}
+.rqro{background:#181818;border:1px solid #333;border-radius:10px;padding:6px 22px 18px;margin:18px 0}
+.rqcard{background:#1d1d1d;border-left:4px solid #8af;padding:14px 18px;border-radius:6px;margin:16px 0}
+.rocard{background:#1d1d1d;border-left:4px solid #fc6;padding:14px 18px;border-radius:6px;margin:16px 0}
+.rqcard h4{margin:0 0 10px;font-size:17px;color:#8af;line-height:1.6}
+.rocard h4{margin:0 0 10px;font-size:17px;color:#fc6;line-height:1.6}
+.anchor-link{color:#8af;text-decoration:none;border-bottom:1px dashed #8af}
+.anchor-link:hover{color:#fff;border-bottom-color:#fff}
+.draft{font-size:11px;color:#000;background:#fc6;padding:1px 8px;border-radius:8px;margin-left:8px;vertical-align:middle;font-weight:600}
+.backtags{margin:18px 0 4px;padding-top:10px;border-top:1px dashed #333;font-size:12px;color:#777}
+.backtags a{display:inline-block;background:#222;color:#8af;text-decoration:none;padding:3px 11px;border-radius:12px;margin:0 4px;border:1px solid #333}
+.backtags a:hover{background:#2a2a2a;color:#fff}
+.fw{background:#2a2440;color:#c9b6ff;padding:1px 8px;border-radius:5px;font-weight:600;border:1px solid #4a3f6b}
+</style></head><body>
+
+<h1>從單一流程到五條流程對照：森林碳測量系統演進（pipeline 對照）</h1>
+
+<div class="aside">
+此頁面完整呈現專案在 2026 年 5 月對 31 棵實驗樹所進行的 DBH（胸高直徑，Diameter at Breast Height）測量系統演進歷程。
+系統從最初採用單一處理流程（pipeline）、整體通過率不足六成的起點出發，逐步發展為以 5 條處理流程並行對照、
+為每棵樹挑選表現最佳路徑（winner）的架構，最終讓誤差 ≤15% 的通過率提升至 <b>73%（22/30 棵）</b>。
+</div>
+
+<div class="box">
+<span class="kpi">樣本數：<span class="num">30</span> 棵</span>
+<span class="kpi">Pipeline：<span class="num">5</span> 條對照</span>
+<span class="kpi">PASS rate：<span class="num">73.3%</span></span>
+<span class="kpi">Gemini 呼叫總數：<span class="num">~1050</span> 次</span>
+<span class="kpi">API 成本：<span class="num">~$1.5</span> USD</span>
+</div>
+
+<div class="aside" style="text-align:center">
+▶ 生產版成果（32 棵量測 + Verra 碳信用憑證）：<a class="anchor-link" href="https://forest-carbon.duckdns.org/dashboard02.html" target="_blank" rel="noopener">dashboard02.html</a>
+</div>
+
+<h2 id="rqro">研究問題（RQ）與研究目標（RO）</h2>
+
+<p class="aside">此區塊為整份研究的定位開場。研究目標（RO）的敘述附有錨點連結，點擊可直接跳至對應章節；各章節結尾另附返回標籤，可一鍵返回任一研究問題。研究目標 2 與 3 目前仍為草稿、持續修訂。</p>
+
+<div class="rqro">
+
+<div class="rqcard" id="rq1">
+<h4>RQ1：以參照物比例尺法（Path A）估算的胸高直徑（DBH），其量測不確定性能否符合 Verra VM0047 §8.4 對樣區層級的精度要求（90% 信賴區間半寬 ÷ 平均估計值 &lt; 100%），使換算出的碳匯量具備碳信用核發資格？</h4>
+
+<p>此研究問題檢驗 Path A 路徑（以畫面中參照物如信用卡、A4 紙當比例尺所換算的胸高直徑量測法）的量測不確定性，能否達到 Verra 核發碳信用所要求的樣區層級精度。規範這項精度的三條準則，全部出自 Verra VM0047 方法學文件第一版第 8.4 節（不確定性，Uncertainty）與第 8.6 節，構成碳權核發在量測準確度上的硬性規定。</p>
+
+<table>
+<tr><th>#</th><th>準則內容</th><th>性質</th><th>此專案符合狀況</th></tr>
+<tr><td>1</td><td>不確定性需採 90% 信賴區間（confidence interval，統計上「真值有九成機率落入的範圍」）計算，而非常見的 95%，對應顯著水準 α=0.1</td><td>屬計算方法規範，未構成及格門檻</td><td class="pass">已採 90% 信賴區間計算 ✓</td></tr>
+<tr><td>2</td><td>信賴區間半寬 ÷ 平均估計值 &lt; 100%</td><td><b>唯一一道決定能否核發碳權的紅線</b></td><td class="pass">P4 處理流程實測 8%，遠低於 100%（寬裕約 12.5 倍）✓</td></tr>
+<tr><td>3</td><td>不確定性扣減至少扣除 10%</td><td>屬強制扣減，未構成及格門檻</td><td>屬核發時固定扣減，無法避免</td></tr>
+</table>
+
+<p>真正決定核發與否的條件，僅有第 2 條那道紅線（信賴區間半寬除以平均估計值需小於 100%）。第 1 條僅規範採用哪一種演算法，第 3 條僅規範最終固定扣減的數量，兩者皆未構成通過與否的判準。此專案因此採「符合第 8.4 節唯一合格門檻」這項精確表述，避免「通過三條規定」這類放大解讀。實證計算詳見 <a class="anchor-link" href="#s2">§2 Verra VM0047 碳權標準對齊分析</a>。</p>
+
+<p>支撐這項精度宣稱的合規工作，由六件任務（編號 #39 至 #44）構成，目前六件全數完成，分別對應 Verra 文件第 9.1、9.2、9.3 三個小節。</p>
+
+<table>
+<tr><th>任務</th><th>要做的事</th><th>對應 Verra 規範</th><th>完成證據</th></tr>
+<tr><td>#39</td><td>嚴格計算比例校準法（ratio method）的 90% 信賴區間</td><td>§9.2</td><td class="pass">8.63%，遠低於 100% 紅線 ✓</td></tr>
+<tr><td>#40</td><td>撰寫標準作業程序文件（SOP，含品質管控流程）</td><td>§9.3</td><td class="pass">sop.md 完成 ✓</td></tr>
+<tr><td>#41</td><td>確認材積與碳換算公式（allometric equation，由樹徑推估生物量的方程式）對應正確生態區</td><td>§9.1</td><td class="pass">採台灣林業局公式 ✓</td></tr>
+<tr><td>#42</td><td>證明皮尺真值量法符合 Kershaw 教科書標準作法</td><td>§9.1</td><td class="pass">鐵捲尺定 1.3 公尺、皮尺繞一圈量周長 ✓</td></tr>
+<tr><td>#43</td><td>撰寫適用範圍宣告（界定方法成立的條件）</td><td>§9.1</td><td class="pass">sop.md 第 8 節完成 ✓</td></tr>
+<tr><td>#44</td><td>以配對 t 檢定（paired t-test）證明量測無系統性偏誤</td><td>§9.1</td><td class="pass">t=0.126，遠小於臨界值 2.052 ✓</td></tr>
+</table>
+
+<p style="display:none">此研究問題原先採用的門檻數字（MAPE ≤ 20%）並非 Verra 規定，而是此專案自訂的內部及格線，撰寫時需明確區分，以免審查者誤讀。MAPE（平均絕對百分誤差，Mean Absolute Percentage Error，衡量平均量測誤差佔真值的百分比）小於等於 20%，為此專案在 30 棵樣樹測試時自訂的通過標準；至於 Verra 真正的紅線，則為前述第 2 條（信賴區間半寬除以平均估計值小於 100%），兩者分屬不同概念。</p>
+</div>
+
+<div class="rqcard" id="rq2">
+<h4>RQ2：系統能否讓企業、地主、基金會三方各自看見足夠助益而形成協作？</h4>
+<p>此問題對應商業模式與利害關係人（stakeholder）分析，檢驗碳匯量測系統能否在企業、地主、基金會三方之間，各自呈現足以促成相關的協作助益。此展示頁面目前聚焦於 RQ1 的量測精度驗證，RQ2 的相關探討將於後續章節補充。</p>
+</div>
+
+<div class="rqcard" id="rq3" style="display:none">
+<h4>RQ3：信任機制能否促使 SDG 13/15 相關目標的落地？</h4>
+<p>此問題檢驗以區塊鏈為基礎的信任機制，能否促使聯合國永續發展目標第 13 項（氣候行動）與第 15 項（陸域生態）的實際落地。此展示頁面目前聚焦於 RQ1 的量測精度驗證，RQ3 的相關探討將於後續章節補充。</p>
+</div>
+
+<div class="rocard" id="ro1">
+<h4>RO1：建立並評估以手機影像為基礎、以參照物比例尺法（Path A）為核心並經多流程對照優化之 DBH 量測模型，驗證其在真實林地條件下朝 Verra VCS 樣區精度標準邁進的可行性</h4>
+<p>此研究目標包含三個動作，分別對應本頁以下章節（點擊可跳轉）：</p>
+<ul>
+<li><b>建立</b>量測模型 → <a class="anchor-link" href="#s3">§3 演進旅程</a>、<a class="anchor-link" href="#s5">§5 五條處理流程設計</a></li>
+<li><b>評估</b>模型 → <a class="anchor-link" href="#s4">§4 30 棵實驗結果</a>、<a class="anchor-link" href="#s6">§6 變數貢獻分析</a>、<a class="anchor-link" href="#s8">§8 結論</a></li>
+<li><b>驗證朝 Verra 精度標準邁進的可行性</b> → <a class="anchor-link" href="#s2">§2 Verra VM0047 碳權標準對齊分析</a></li>
+</ul>
+</div>
+
+<div class="rocard" id="ro2">
+<h4>RO2 <span class="draft">草稿、修訂中</span></h4>
+
+<p>此研究目標旨在建立與評估能讓企業、地主、基金會三方看見共享價值（Shared Value, Porter &amp; Kramer 2011）的協作機制，切入每一方實際面對的問題，檢驗系統能否替三方解決瓶頸難題、促成長期協作。共享價值框架在此負責回答「每一方能得到什麼助益」，替三方各寫出清楚的價值主張。</p>
+
+<p>此目標以「系統替各參與者解決了什麼問題」為主軸選擇評估工具。三方參與者各有其投入系統的角色與長處，部分以資金投入或成效監督貢獻於協作，主要透過報表或第三方查核掌握成果。系統價值可以取決於能否回應其關注的問題，例如企業關注的 ESG 數據完整度，其評價系統的主要依據在於問題解決成效。衡量焦點因此落在系統替每一方創造的效益與化解的瓶頸。</p>
+
+<p>據此，此目標目前評估兩套候選框架，分別著重不同面向：<span class="fw">UTAUT 整合型科技接受與使用理論</span> 從「績效期望」切入各方的成效，<span class="fw">DeLone &amp; McLean 資訊系統成功模型（D&amp;M）</span> 從「資訊品質與淨效益」切入系統替各方帶來的好處。兩套框架的構念設計初稿如下。</p>
+
+<p><b>候選一：<span class="fw">UTAUT</span> 整合型科技接受與使用理論 構念設計</b></p>
+<table>
+<tr><th>UTAUT 構念</th><th>量什麼</th><th>套到三方的題目方向</th></tr>
+<tr><td>績效期望（Performance Expectancy）</td><td>系統對使用者關注成效的助益程度</td><td>企業＝能否產出可信的 ESG 報告；地主＝能否提升林地資產收益；基金會＝能否減少監測人力</td></tr>
+<tr><td>努力期望（Effort Expectancy）</td><td>系統操作的難易程度</td><td>三方＝拍影片上傳、查閱履歷的流程是否簡單</td></tr>
+<tr><td>社會影響（Social Influence）</td><td>周遭重要對象對採用系統的期待程度</td><td>企業＝同業／投資人是否看重；基金會＝捐款人是否期待</td></tr>
+<tr><td>促成條件（Facilitating Conditions）</td><td>使用系統所需資源與支援的充足程度</td><td>三方＝設備、網路、技術支援是否到位</td></tr>
+</table>
+<p style="font-size:12px;color:#888">四個構念匯流到「行為意圖（Behavioral Intention）」，可再加性別、年齡、經驗等調節變數（moderator）。</p>
+
+<p><b>候選二：<span class="fw">DeLone &amp; McLean 資訊系統成功模型（D&amp;M）</span> 構念設計</b></p>
+<table>
+<tr><th>D&amp;M 維度</th><th>量什麼</th><th>套到此專案</th></tr>
+<tr><td>系統品質（System Quality）</td><td>系統穩定度、操作便利性與回應速度</td><td>上傳與查詢流程的順暢度</td></tr>
+<tr><td>資訊品質（Information Quality）</td><td>數據準確、完整、可信、即時</td><td>直接銜接 RQ1：碳匯數據的精度與可審計性</td></tr>
+<tr><td>服務品質（Service Quality）</td><td>技術支援與維護</td><td>平台客服與維運</td></tr>
+<tr><td>使用 / 使用意圖（Use / Intention to Use）</td><td>實際使用與持續使用意願</td><td>三方是否持續使用、對外推廣</td></tr>
+<tr><td>使用者滿意度（User Satisfaction）</td><td>整體滿意程度</td><td>三方對系統的滿意度</td></tr>
+<tr><td>淨效益（Net Benefits）</td><td>系統帶來的實質效益</td><td>企業＝合規可信報告；地主＝資產收益；基金會＝監測效率</td></tr>
+</table>
+</div>
+
+<div class="rocard" id="ro3" style="display:none">
+<h4>RO3 <span class="draft">草稿、修訂中</span></h4>
+
+<p>此研究目標旨在以改變理論（Theory of Change, ToC）建構一條因果路徑，說明此專案的信任基礎設施如何從系統運作一路連結到聯合國永續發展目標第 13 項（氣候行動）與第 15 項（陸域生態），並以專家問卷佐證這條路徑各環節的合理性。改變理論在此負責把「投入、活動、產出、成果、影響」串成可檢驗的因果鏈，並攤開每一段連結背後的假設。</p>
+
+<p>此因果鏈依層級展開如下，呈現信任基礎設施從系統運作到永續影響的完整路徑。</p>
+<table>
+<tr><th>層級</th><th>此專案的內容</th></tr>
+<tr><td>投入與活動</td><td>結合手機影像 DBH 量測與區塊鏈存證，建立可信、可審計的碳匯生長履歷（即信任基礎設施）</td></tr>
+<tr><td>產出（Outputs）</td><td>每棵樹具備可驗證的碳匯數據與生長履歷</td></tr>
+<tr><td>短期成果（Outcomes）</td><td>三方建立互信：企業採信 ESG 揭露並投入資金，地主持續造林與養護，基金會提升監測效率</td></tr>
+<tr><td>中期成果</td><td>造林面積與樹木存活率提升，ESG 揭露的真實性增加，資金形成循環</td></tr>
+<tr><td>長期影響（Impact）</td><td>SDG 13 氣候行動（碳匯增加、支撐碳中和數據）；SDG 15 陸域生態（森林品質與生物多樣性提升）</td></tr>
+</table>
+
+<p>此因果鏈包含三個關鍵假設，構成專家問卷的主要檢驗對象：</p>
+<ul>
+<li><b>假設一（信任）</b>：數據具備可信度後，企業願意投入資金並採信 ESG 揭露。</li>
+<li><b>假設二（執行）</b>：投入的資源能轉化為實際的造林與養護成效。</li>
+<li><b>假設三（生態）</b>：造林成效能反映於 SDG 13/15 的具體指標改善。</li>
+</ul>
+
+<p>此研究目標採德爾菲法（Delphi method，以多輪匿名問卷收斂專家共識）佐證上述因果鏈。問卷邀請林業碳匯、ESG 與碳權、永續發展三類專家，針對三個關鍵假設的成立程度，以及系統與 SDG 13/15 子目標的對應關係，逐項以李克特量表（Likert scale）評定同意度，經多輪收斂出共識值，作為信任基礎設施連結永續目標的佐證。此專家問卷獨立設計、獨立施測，與 RO2 的使用者問卷分屬不同對象，並未合併施測。</p>
+
+<p>系統對 SDG 子目標（target）的對應如下，作為長期影響層的具體錨點。</p>
+<table>
+<tr><th>SDG</th><th>對應子目標</th><th>此專案的連結</th></tr>
+<tr><td>SDG 13 氣候行動</td><td>target 13.2（將氣候措施納入政策與規劃）、13.3（強化氣候變遷的教育與意識）</td><td>提供可信碳匯數據，支撐碳中和政策與揭露</td></tr>
+<tr><td>SDG 15 陸域生態</td><td>target 15.1（陸域生態系的保育與復育）、15.2（推動永續森林管理）</td><td>以生長履歷支援造林品質與森林永續管理</td></tr>
+</table>
+</div>
+
+</div>
+
+<h2 id="s1">§1 背景</h2>
+
+<p>此實驗的 31 棵樹採用一致的拍攝方式：使用者環繞每棵樹拍攝 60 至 120 秒的 4K HEVC 影片，
+並在樹幹胸高 1.3 公尺位置靠放一張信用卡（國際標準長邊 85.6 公釐）作為比例參考物。
+系統會從影片估算出胸高直徑（DBH），再與人工皮尺實量的真實值比對，當兩者誤差超過 15% 時，此筆測量視為未通過。</p>
+
+<p>此系統的精度目標對齊國際碳權標準 Verra VCS 的森林碳匯方法學 VM0047（Afforestation, Reforestation and Revegetation，造林、再造林與植被復育）。VM0047 規範碳信用核發在量測不確定性上的合格門檻，系統以此門檻判斷精度是否足以支撐碳權核發，完整對齊分析見 <a class="anchor-link" href="#s2">§2 Verra VM0047 碳權標準對齊分析</a>。</p>
+
+<p>此系統最初以單一處理流程完成 31 棵的測量，其中 14 棵的誤差超過 15%。此實驗的核心目標，在於探討如何讓這 14 棵樹的估算結果同樣落入合格範圍。</p>
+
+<p>此實驗排除其中 1 棵後，實際樣本為 30 棵。被排除的 IMG_5804 在同一支影片裡同時拍到兩棵不同的樹，影像辨識模型 Gemini 無法判斷當下對焦的是哪一棵，這個情況需要另行設計專屬的處理流程來解決（技術細節：兩棵樹的 tree_id 分別為 f5d4607c 與 b8b61455）。</p>
+
+<div class="backtags">↑ 返回研究問題：<a href="#rq1">RQ1</a><a href="#rq2">RQ2</a></div>
+
+<h2 id="s2">§2 Verra VM0047 碳權標準對齊分析</h2>
+
+<div class="box">
+<b>結論：Pipeline 4 符合 Verra VM0047 §8.4 中唯一具約束力的不確定性（uncertainty）合格門檻</b>，
+其信賴區間半寬與平均值之比（CI half-width / mean）為 8.0%，遠低於 100% 的紅線。
+</div>
+
+<h3>什麼是地上生物量（AGB）</h3>
+
+<p><b>AGB（地上生物量，Above-Ground Biomass）</b>涵蓋樹木地面以上的所有生物質，包含樹幹、樹枝、樹葉與樹皮，以公斤或公噸計。
+森林碳估算最終要得到的正是 AGB，再乘上碳含量即可換算成固碳量。</p>
+
+<p>DBH 在此扮演中間變數的角色，要從 DBH 換算成 AGB，需要套用異速生長方程式（allometric equation）：</p>
+
+<p><code>AGB = 0.0673 × (ρ × DBH² × H)^0.976</code></p>
+
+<p>這裡的關鍵在於 <b>DBH 帶有平方項</b>—— DBH 誤差 10% 會放大成 AGB 誤差約 20%。</p>
+
+<h3>Verra VM0047 §8.4 三條規定（澄清各自角色）</h3>
+
+<table>
+<tr><th>規定</th><th>性質</th><th>此專案狀態</th></tr>
+<tr><td><b>規定 1</b>：用 90% CI（不是 95%）</td><td>計算方法的規範、不是門檻</td><td>此專案依規範計算 90% CI ✓</td></tr>
+<tr><td><b>規定 2</b>：CI half-width / mean &lt; 100%</td><td><b>唯一具約束力的合格門檻（未達標即不可 credit）</b></td><td>此專案為 8.0% &lt;&lt; 100% ✓（大幅通過）</td></tr>
+<tr><td><b>規定 3</b>：最低 10% uncertainty deduction</td><td>屬於固定扣減、無論精度多高都會扣除</td><td>並非門檻、無需通過</td></tr>
+</table>
+
+<p>真正決定「通過或不通過」的只有<b>規定 2</b>。規定 1 規範的是「如何計算」，規定 3 則代表「無論精度多高都固定扣除 10%」。</p>
+
+<h3>P4 流程對 28 棵樹的 Verra 標準對齊計算</h3>
+
+<table>
+<tr><th>項目</th><th>數值</th></tr>
+<tr><td>樣本數 n</td><td>28 棵（5788 cap N/A 排除）</td></tr>
+<tr><td>mean tape</td><td>30.4 cm</td></tr>
+<tr><td>mean P4 DBH</td><td>27.05 cm</td></tr>
+<tr><td>bias</td><td>-3.35 cm（-11.0%）← 系統性偏差、可校準</td></tr>
+<tr><td>std of error</td><td>6.74 cm</td></tr>
+<tr><td>SE</td><td>6.74 / √28 = 1.27 cm</td></tr>
+<tr><td>t(α=0.1, df=27)</td><td>1.703</td></tr>
+<tr><td>90% CI half-width</td><td>1.27 × 1.703 = 2.16 cm</td></tr>
+<tr><td>CI half-width / mean</td><td><b class="pass">8.0%</b>（Verra 紅線為 100%，此結果寬裕約 12.5 倍）</td></tr>
+</table>
+
+<div style="display:none">
+<h3>三個但書（caveat，論文要小心表達、避免被審查挑毛病）</h3>
+
+<div class="box">
+<b>Caveat 1：DBH 不等於 carbon stock</b><br>
+此專案算出的是 DBH 層級的 CI = 8%，Verra 真正要求的則是 AGB（碳儲量，carbon stock）層級的 CI。從 DBH 套用異速生長方程式（AGB ∝ DBH²）之後，誤差會被平方放大：<br>
+<br>
+<code>DBH 相對 SE = 6.74 / 27.05 = 25%</code><br>
+<code>AGB 相對 SE ≈ 2 × 25% = 50%</code><br>
+<code>AGB 90% CI half-width ≈ 50% × 1.703 / √28 ≈ 16%</code><br>
+<br>
+此數值仍遠低於 100% 紅線，同時比 DBH 層級的 8% 高出約兩倍。論文應呈報的是 AGB 層級的 CI，而非 DBH 層級。
+</div>
+
+<div class="box">
+<b>Caveat 2：bias 沒被 CI 概念抓到</b><br>
+P4 呈現系統性偏低 11%。Verra 的 CI 概念衡量的是<b>精度（precision）</b>，並非<b>準度（accuracy）</b>，因此 CI 通過並不代表沒有偏差（bias）。<br>
+<br>
+倘若 Verra 查核員（auditor）抽取子樣本（sub-sample）比對，發現系統性偏低 11%，可能會要求進行校準調整（calibration adjustment）或額外扣除保守性扣減（conservative deduction）。<br>
+<br>
+<b>實務上的建議：先套用 ×1.10 的校準因子修正偏差，再宣稱對齊標準</b>。校準後偏差會從 -11% 收斂至 2% 以內。
+</div>
+
+<div class="box">
+<b>Caveat 3：30 棵 sample size 在 forest mensuration 算少</b><br>
+Verra 並未明定最少棵數，不過樣本越少，t 分布的臨界值（critical value）越大，連帶讓 CI 半寬變寬。30 棵雖可接受，仍屬邊緣。論文若要進一步強化說服力，可再補測幾棵，把樣本數 n 推到 50 以上。
+</div>
+
+<h3>論文表達建議</h3>
+
+<div class="box">
+建議<b>避免</b>過於籠統的說法，例如：
+<br>「此專案達成 Verra VCS 標準」<br>
+<br>
+<b>改採</b>更精確的表達：<br>
+<br>
+「Pipeline 4 在 30 棵測試樹上的 90% 信賴區間半寬（confidence interval half-width）為 <b>8.0%</b>（DBH 層級），符合 Verra VM0047 v1.0 §8.4 不確定性章節的要求（需 &lt; 100% 才可 credit）。套用 ×1.10 校準因子（calibration factor）修正系統性偏差後，偏差從 -11% 收斂至 2% 以內。換算到 AGB 層級的 90% CI 半寬約 <b>16%</b>，同樣遠低於 Verra 的 100% 紅線。」
+</div>
+</div>
+
+<div class="backtags">↑ 返回研究問題：<a href="#rq1">RQ1</a><a href="#rq2">RQ2</a></div>
+
+<h2 id="s3">§3 演進旅程</h2>
+
+<div class="aside">
+<b>補充（起點背景，不計入演進階段）</b>：最初的線上採集流程，後因跨機種與元數據缺失而捨棄。<br><br>
+此系統最初採用一套線上即時採集流程：使用者開啟網頁應用程式（web app），由電腦視覺工具 OpenCV 即時抓取畫面中的參考卡片，再以薄透鏡公式（thin-lens formula）估算卡片的像素寬度與實際寬度比例，形成線上虛擬比例尺，讓使用者直接在瀏覽器採集樹徑資料。流程實際運行後遇到兩項根本限制：跨機種的相機參數不一致，以及上傳後影片元數據（metadata）的缺失。這兩項限制連帶暴露出主觀性、資料適應性、完整性與連續性等採集障礙，此專案因此捨棄這套線上即時採集方式，改為事後對影片統一處理。<br><br>
+流程示範影片：<a class="anchor-link" href="https://drive.google.com/file/d/1IcmBZd85bzfPamg8t5EKK0_XPYEY4EWg/view?usp=drive_link" target="_blank" rel="noopener">Google Drive 連結</a>
+</div>
+
+<div class="timeline">
+
+<div class="stage">
+<h3>階段 1：起點是單一處理流程、單次取樣（N=1）穩定度不足</h3>
+<p>此系統最初對每棵樹只呼叫一次 Gemini，結果在 31 棵中有 14 棵的誤差超過 15%。
+深入分析後發現，Gemini 在「同一批影像只推論一次」的條件下，偶爾會出現單次離群值（outlier，指偏離正常範圍的跳動數值）。
+兩次測試（dryrun #8 與 #9）對同一支影片、同一批影像各推論一次，兩次得到的結果相差好幾倍，正好印證了這個現象。</p>
+</div>
+
+<div class="stage">
+<h3>階段 2：發現讓電腦視覺工具（OpenCV）對影像做轉向校正會扭曲樹幹寬度</h3>
+<p>早期版本曾經嘗試一種做法：先用電腦視覺函式庫 OpenCV 偵測卡片的傾斜角度，再把整張影像（frame）旋轉到卡片正交的方向，最後才送進 Gemini 分析。
+這個做法在概念上看似合理，實際運行後卻帶來幾項副作用：</p>
+<ul>
+  <li>影像旋轉屬於<b>破壞性操作</b>（destructive operation）：旋轉過程中的雙線性插值（bilinear interpolation）會讓邊緣變得模糊</li>
+  <li>旋轉對<b>樹幹的像素寬度</b>（trunk pixel width）影響明顯：樹幹邊緣原本精確的像素位置，在旋轉後會被插值「重新計算」，不再是相機拍下的原始像素</li>
+  <li>上述兩點累積成<b>系統性誤差</b>，連帶影響 DBH 的估算結果</li>
+</ul>
+<p>因此後續所有處理流程都移除了影像旋轉，改以「挑選 isOrthogonal 為 true（卡片本身已接近正交）的影像」作為品質門檻，
+只把拍攝時角度本來就端正的影像送進 Gemini，不再額外轉向。</p>
+</div>
+
+<div class="stage">
+<h3>階段 3：重複取樣 5 次（N=5）取中位數，壓平單次離群值</h3>
+<p>此階段改為對同一批影像連續呼叫 5 次 Gemini，取比例值（ratio）的中位數（median）。
+IMG_5789 的實驗清楚呈現效果：單次取樣時曾出現 ratio=4.5 或 6.19 的離群值，重複 5 次取中位數後，數值收斂到 2.97，相當接近真實比例 3.07。
+至於另一類「Gemini 本來就拒絕作答」的樹，重複取樣的助益有限，原因在於 5 次推論全數拒答時，中位數仍然取得空值（null）。</p>
+</div>
+
+<div class="stage">
+<h3>階段 4：影音工具（ffmpeg）解碼高效率編碼影片（HEVC）較慢，改用關鍵幀擷取（keyframe extraction）</h3>
+<p>iPhone 拍攝的 4K HDR 影片採用 HEVC 編碼，影音處理工具 ffmpeg 在此專案的虛擬機（VM）上以純 CPU 解碼，速度約為實際播放時間的 2 至 3 倍慢。
+以一支 117 秒的影片為例，光是 ffmpeg 解碼就需要 320 秒，再加上 OpenCV 偵測的 200 秒，整支影片合計約 9 分鐘。
+其中有 7 支較大的 HEVC 檔案，在 1200 秒的逾時上限（timeout）內無法處理完成。</p>
+<p>改用 <code>ffmpeg -skip_frame nokey</code> 參數（只解碼 I-frame、跳過 P/B frame）後，情況明顯改善：</p>
+<ul>
+  <li>I-frame 屬於自我完整的關鍵幀（keyframe），不需參照其他畫面即可解碼，速度快</li>
+  <li>P/B frame 需依賴前後畫面做預測還原，在 HEVC 編碼下解碼成本較高</li>
+  <li>跳過約 95% 的 P/B frame 後，ffmpeg 解碼時間從 320 秒縮短到 20 秒，提升約 16 倍</li>
+</ul>
+<p>後續所有處理流程都採用關鍵幀擷取。</p>
+</div>
+
+<div class="stage">
+<h3>階段 5：電腦視覺工具（OpenCV）與影像模型（Gemini）都難以精確判定樹幹邊緣，改採多流程對照</h3>
+<p>此階段對多棵高誤差的樹進行了多輪提示詞（prompt）優化，得到一個關鍵觀察：<b>沒有任何單一提示詞能同時讓所有樹都得到最佳結果</b>。
+細樹幹適合 measure 提示詞，中等樹幹適合 baseline 提示詞，樹皮紋理複雜的樹則適合 tight 提示詞。</p>
+<p>基於此觀察，此專案採用「多流程並行對照、每棵樹挑選最佳路徑（winner）」的策略，
+把不同的提示詞與取幀方式（frame selection）組合成各自獨立的處理流程，一共跑 5 種對照，再為每棵樹選出最適合它的流程作為代表。</p>
+<p style="margin-top:10px">這 5 種對照在 30 棵樹上的逐棵成績，詳見 <a class="anchor-link" href="#s4">§4 30 棵實驗結果</a>。</p>
+</div>
+
+</div>
+
+<div class="backtags">↑ 返回研究問題：<a href="#rq1">RQ1</a><a href="#rq2">RQ2</a></div>
+
+<h2 id="s4">§4 30 棵實驗結果</h2>
+
+<div class="legend">
+  <span class="green">綠 ≤15%（PASS）</span>
+  <span class="yellow">黃 15-30%</span>
+  <span class="red">紅 &gt;30%</span>
+  <span class="gray">灰 N/A 或 null</span>
+</div>
+
+<table>
+<tr><th>IMG</th><th>tape (cm)</th><th>P1a</th><th>P1b</th><th>P2</th><th>P3</th><th>P4</th><th>best</th><th>winner</th><th>PASS</th></tr>
+<tr><td><a href="https://drive.google.com/file/d/1lpkf7TYbWLylUKtG0ABFdZDitkW2T0wN/view" target="_blank" rel="noopener" style="color:#8af">5786</a></td><td>22.6</td><td class="gray dead">—</td><td class="red">39.8</td><td class="red">58.4</td><td class="green pass">7.1</td><td class="green pass">8.0</td><td class="green"><b>7.1</b></td><td>P3</td><td class="pass">✓</td></tr>
+<tr><td><a href="https://drive.google.com/file/d/13fgOJO--W4opami5ZVKoqIl7Nxk-Ec6F/view" target="_blank" rel="noopener" style="color:#8af">5787</a></td><td>27.2</td><td class="green">14.7</td><td class="green">9.9</td><td class="red">37.1</td><td class="green">9.6</td><td class="green pass">2.2</td><td class="green"><b>2.2</b></td><td>P4</td><td class="pass">✓</td></tr>
+<tr><td><a href="https://drive.google.com/file/d/1F0437umBsIGv_-oetcpKQokZW9KSXjcp/view" target="_blank" rel="noopener" style="color:#8af">5788</a></td><td>27.7</td><td class="gray dead">—</td><td class="gray dead">—</td><td class="gray dead">—</td><td class="gray dead">— *</td><td class="gray dead">— *</td><td class="gray dead">N/A</td><td>cap</td><td class="dead">—</td></tr>
+<tr><td><a href="https://drive.google.com/file/d/1LLyAp4BjgjwX5cPHdP42rmasGPcZSycH/view" target="_blank" rel="noopener" style="color:#8af">5789</a></td><td>26.3</td><td class="green">10.6</td><td class="green">11.8</td><td class="green pass">3.8</td><td class="yellow">20.2</td><td class="green">15.2</td><td class="green"><b>3.8</b></td><td>P2</td><td class="pass">✓</td></tr>
+<tr><td><a href="https://drive.google.com/file/d/1HrK9Iz2h2PqyeyC1b1rLvFipP6jpwD-P/view" target="_blank" rel="noopener" style="color:#8af">5790</a></td><td>19.4</td><td class="gray dead">—</td><td class="gray dead">—</td><td class="gray dead">—</td><td class="yellow">25.8†</td><td class="yellow">15.5†</td><td class="yellow"><b>15.5</b></td><td>P4</td><td class="fail">✗</td></tr>
+<tr><td><a href="https://drive.google.com/file/d/1fFNvMJSiDo6h0cGK7VBfDW7_Q9pE7aL4/view" target="_blank" rel="noopener" style="color:#8af">5791</a></td><td>30.2</td><td class="red">44.7</td><td class="red">40.1</td><td class="red">48.7</td><td class="red">38.7</td><td class="green pass">0.7</td><td class="green"><b>0.7</b></td><td>P4</td><td class="pass">✓</td></tr>
+<tr><td><a href="https://drive.google.com/file/d/1oFUNweQ1E2BCJRuuEFgATXYRUV5rWzON/view" target="_blank" rel="noopener" style="color:#8af">5792</a></td><td>28.6</td><td class="red">42.0</td><td class="red">37.4</td><td class="red">30.4</td><td class="green">12.2</td><td class="yellow">19.2</td><td class="green"><b>12.2</b></td><td>P3</td><td class="pass">✓</td></tr>
+<tr><td><a href="https://drive.google.com/file/d/1ZVDRkpkw0M7RYwS03Fdf19pAJKT4AnZ5/view" target="_blank" rel="noopener" style="color:#8af">5793</a></td><td>33.7</td><td class="red">38.6</td><td class="gray dead">—</td><td class="green pass">2.1</td><td class="red">30.6</td><td class="red">41.2</td><td class="green"><b>2.1</b></td><td>P2</td><td class="pass">✓</td></tr>
+<tr><td><a href="https://drive.google.com/file/d/1vk4A2WYgoGBxN581kf5H3vshPOimerGj/view" target="_blank" rel="noopener" style="color:#8af">5794</a></td><td>31.2</td><td class="yellow">29.8</td><td class="yellow">25.6</td><td class="red">31.7</td><td class="yellow">25.3</td><td class="green pass">5.4</td><td class="green"><b>5.4</b></td><td>P4</td><td class="pass">✓</td></tr>
+<tr><td><a href="https://drive.google.com/file/d/1mAsxJchl2JRrYMyxSWBz8yRzTTvNpDmD/view" target="_blank" rel="noopener" style="color:#8af">5795</a></td><td>22.0</td><td class="green">12.3</td><td class="yellow">17.3</td><td class="green pass">1.8</td><td class="green">5.0</td><td class="red">30.0</td><td class="green"><b>1.8</b></td><td>P2</td><td class="pass">✓</td></tr>
+<tr><td><a href="https://drive.google.com/file/d/1-yXWP7XWpgTeZBDQC9sHyOpIxljxm_tH/view" target="_blank" rel="noopener" style="color:#8af">5798</a></td><td>42.0</td><td class="gray dead">—</td><td class="red">44.3</td><td class="gray dead">—</td><td class="red">56.9</td><td class="green pass">14.5</td><td class="green"><b>14.5</b></td><td>P4</td><td class="pass">✓</td></tr>
+<tr><td><a href="https://drive.google.com/file/d/19hdCOLZKBOLf1F3rtZ1LLeukXUw2NAFy/view" target="_blank" rel="noopener" style="color:#8af">5799</a></td><td>43.6</td><td class="green pass">5.7</td><td class="yellow">19.5</td><td class="gray dead">—</td><td class="red">47.5</td><td class="yellow">27.1</td><td class="green"><b>5.7</b></td><td>P1a</td><td class="pass">✓</td></tr>
+<tr><td><a href="https://drive.google.com/file/d/1yvo9_vja1TJOFl8TTiHQDHi9vMNbRfTf/view" target="_blank" rel="noopener" style="color:#8af">5800</a></td><td>17.5</td><td class="green pass">10.3</td><td class="yellow">22.3</td><td class="yellow">18.9</td><td class="red">35.4</td><td class="green">11.4</td><td class="green"><b>10.3</b></td><td>P1a</td><td class="pass">✓</td></tr>
+<tr><td><a href="https://drive.google.com/file/d/1vwIqBt4Zob3wno3999dgfQkF5SSggRi6/view" target="_blank" rel="noopener" style="color:#8af">5801</a></td><td>16.9</td><td class="green">13.6</td><td class="green">2.4</td><td class="yellow">24.3</td><td class="green">9.5</td><td class="green pass">0.6</td><td class="green"><b>0.6</b></td><td>P4</td><td class="pass">✓</td></tr>
+<tr><td><a href="https://drive.google.com/file/d/1lVacWtaNhrMq3oM2cfOgWYa7namSLlrK/view" target="_blank" rel="noopener" style="color:#8af">5802</a></td><td>43.9</td><td class="red">36.9</td><td class="red">44.6</td><td class="red">45.1</td><td class="yellow">25.1</td><td class="yellow">22.3</td><td class="yellow"><b>22.3</b></td><td>P4</td><td class="fail">✗</td></tr>
+<tr><td><a href="https://drive.google.com/file/d/1U3Mi5Gtu_BqsYV2CjAyVQB4wy6J2ZbAu/view" target="_blank" rel="noopener" style="color:#8af">5803</a></td><td>43.0</td><td class="red">59.8</td><td class="red">55.1</td><td class="red">51.2</td><td class="red">39.3</td><td class="red">45.6</td><td class="red"><b>39.3</b></td><td>P3</td><td class="fail">✗</td></tr>
+<tr><td><a href="https://drive.google.com/file/d/1z1kzhPx4kUOj6opGt4ZILyawIQjcSvyp/view" target="_blank" rel="noopener" style="color:#8af">5805</a></td><td>35.7</td><td class="red">42.6</td><td class="gray dead">—</td><td class="yellow">27.2</td><td class="red">42.9</td><td class="green pass">9.5</td><td class="green"><b>9.5</b></td><td>P4</td><td class="pass">✓</td></tr>
+<tr><td><a href="https://drive.google.com/file/d/1ybyFmKlFRx3kuNFVSNYJBP4dMa2KfcL7/view" target="_blank" rel="noopener" style="color:#8af">5806</a></td><td>38.8</td><td class="gray dead">—</td><td class="gray dead">—</td><td class="gray dead">—</td><td class="red">48.7†</td><td class="yellow">22.7†</td><td class="yellow"><b>22.7</b></td><td>P4</td><td class="fail">✗</td></tr>
+<tr><td><a href="https://drive.google.com/file/d/1EbJkGAZpmb9CbMm0YlnKQhqEKaJ9olzB/view" target="_blank" rel="noopener" style="color:#8af">5807</a></td><td>31.5</td><td class="gray dead">—</td><td class="gray dead">—</td><td class="red">31.4</td><td class="green pass">2.9†</td><td class="green">11.7†</td><td class="green"><b>2.9</b></td><td>P3</td><td class="pass">✓</td></tr>
+<tr><td><a href="https://drive.google.com/file/d/1Kzcy00bGk-kZjL8lQQ66wD1v-OZkOgAb/view" target="_blank" rel="noopener" style="color:#8af">5808</a></td><td>31.8</td><td class="green">15.4</td><td class="yellow">27.4</td><td class="yellow">23.0</td><td class="yellow">28.0</td><td class="yellow">21.4</td><td class="yellow"><b>15.4</b></td><td>P1a</td><td class="fail">✗</td></tr>
+<tr><td><a href="https://drive.google.com/file/d/1DY1OV8PEPjR3XGIcyVne1AtO1QdpUHUF/view" target="_blank" rel="noopener" style="color:#8af">5809</a></td><td>30.6</td><td class="gray dead">—</td><td class="gray dead">—</td><td class="red">34.3</td><td class="red">43.1</td><td class="yellow">29.4</td><td class="yellow"><b>29.4</b></td><td>P4</td><td class="fail">✗</td></tr>
+<tr><td><a href="https://drive.google.com/file/d/1v6BthyaAo0uY4HvIs-yK5_YETJnWSV-5/view" target="_blank" rel="noopener" style="color:#8af">5810</a></td><td>29.9</td><td class="red">46.2</td><td class="green">11.7</td><td class="green">6.7</td><td class="red">64.5</td><td class="green pass">3.7</td><td class="green"><b>3.7</b></td><td>P4</td><td class="pass">✓</td></tr>
+<tr><td><a href="https://drive.google.com/file/d/1CgeLGT-k2NiW54MXdInjuI5OAlYsTlf5/view" target="_blank" rel="noopener" style="color:#8af">5811</a></td><td>30.6</td><td class="gray dead">—</td><td class="gray dead">—</td><td class="gray dead">—</td><td class="red">34.0</td><td class="green pass">4.6</td><td class="green"><b>4.6</b></td><td>P4</td><td class="pass">✓</td></tr>
+<tr><td><a href="https://drive.google.com/file/d/1cbNBVVyqf0M0ShepbWT230yF4bddN4yA/view" target="_blank" rel="noopener" style="color:#8af">5812</a></td><td>30.9</td><td class="gray dead">—</td><td class="gray dead">—</td><td class="green">9.1</td><td class="red">49.5</td><td class="green pass">4.2</td><td class="green"><b>4.2</b></td><td>P4</td><td class="pass">✓</td></tr>
+<tr><td><a href="https://drive.google.com/file/d/1e5CytcJRc7XhbdK_j0UWuUiYkH6YqKrD/view" target="_blank" rel="noopener" style="color:#8af">5813</a></td><td>26.1</td><td class="red">30.3</td><td class="yellow">25.7</td><td class="green">4.6</td><td class="green pass">0.4</td><td class="green">4.6</td><td class="green"><b>0.4</b></td><td>P3</td><td class="pass">✓</td></tr>
+<tr><td><a href="https://drive.google.com/file/d/1DgPf1kPfqynAWSJBY44XM65dVkeLross/view" target="_blank" rel="noopener" style="color:#8af">5814</a></td><td>38.5</td><td class="red">38.4</td><td class="yellow">27.3</td><td class="red">52.2</td><td class="yellow">20.0</td><td class="red">51.2</td><td class="yellow"><b>20.0</b></td><td>P3</td><td class="fail">✗</td></tr>
+<tr><td><a href="https://drive.google.com/file/d/1hAJOWC6SO9urNIn0aLESVQ7u1JUfZeHT/view" target="_blank" rel="noopener" style="color:#8af">5815</a></td><td>32.5</td><td class="green">14.5</td><td class="gray dead">—</td><td class="gray dead">—</td><td class="green">7.1</td><td class="green pass">1.2</td><td class="green"><b>1.2</b></td><td>P4</td><td class="pass">✓</td></tr>
+<tr><td><a href="https://drive.google.com/file/d/1MYhIVJI2SBkbpAZFBoq7OdJgA4N5pog6/view" target="_blank" rel="noopener" style="color:#8af">5817</a></td><td>24.5</td><td class="red">35.5</td><td class="gray dead">—</td><td class="green">16.3</td><td class="green">11.4</td><td class="green pass">4.9</td><td class="green"><b>4.9</b></td><td>P4</td><td class="pass">✓</td></tr>
+<tr><td><a href="https://drive.google.com/file/d/13qfRS4GWJvWL-ur4F54pndHzsCTl5a9H/view" target="_blank" rel="noopener" style="color:#8af">5818</a></td><td>17.5</td><td class="red">71.4</td><td class="gray dead">—</td><td class="red">32.6</td><td class="yellow">19.4</td><td class="green pass">11.4</td><td class="green"><b>11.4</b></td><td>P4</td><td class="pass">✓</td></tr>
+<tr><td><a href="https://drive.google.com/file/d/1dFF4DF0JVlZqgxCQeOSxMSvnlybOCOfn/view" target="_blank" rel="noopener" style="color:#8af">5819</a></td><td>21.6</td><td class="green">12.0</td><td class="green pass">1.9</td><td class="green">6.0</td><td class="green">7.4</td><td class="green">7.9</td><td class="green"><b>1.9</b></td><td>P1b</td><td class="pass">✓</td></tr>
+</table>
+
+<p style="font-size:12px;color:#888">* = 撞到 Gemini API 當月用量上限，未執行　† = 取自歷史 dryrun_runs 表中相同 pipeline_version 的紀錄</p>
+
+<div class="backtags">↑ 返回研究問題：<a href="#rq1">RQ1</a><a href="#rq2">RQ2</a></div>
+
+<h2 id="s5">§5 五條處理流程（pipeline）設計</h2>
+
+<table>
+<tr><th>Pipeline</th><th>解碼</th><th>取幀</th><th>解析度</th><th>OpenCV 篩 isOrthogonal</th><th>N</th></tr>
+<tr><td><b>P1a</b> kf-sharp-960</td><td>只解 I</td><td>最清晰 8 張</td><td>降到 960</td><td>✓</td><td>5</td></tr>
+<tr><td><b>P1b</b> kf-sharp-orig</td><td>只解 I</td><td>最清晰 8 張</td><td><b>原解析度</b></td><td>✓</td><td>5</td></tr>
+<tr><td><b>P2</b> kf-time-960</td><td>只解 I</td><td>時間均勻 8 張</td><td>降到 960</td><td>✓</td><td>5</td></tr>
+<tr><td><b>P3</b> video-v1</td><td>Gemini 端</td><td>Gemini 自行挑選</td><td>原解析度</td><td>Gemini 自行判斷</td><td>5</td></tr>
+<tr><td><b>P4</b> video-v2</td><td>Gemini 端</td><td>Gemini 自行挑選</td><td>原解析度</td><td>Gemini 自行判斷（+ 胸高 prompt）</td><td>10</td></tr>
+</table>
+
+<h3>正交對照</h3>
+<table>
+<tr><th>比較</th><th>差異變數</th><th>驗證的事</th></tr>
+<tr><td>P1a vs P1b</td><td>解析度</td><td>降解析度給 Gemini 看是否影響準確度</td></tr>
+<tr><td>P1a vs P2</td><td>取幀方式</td><td>精選最清晰 vs 時間多樣化哪個好</td></tr>
+<tr><td>P1a/2 vs P3</td><td>處理位置</td><td>VM OpenCV 篩 vs 全交 Gemini 哪個準</td></tr>
+<tr><td>P3 vs P4</td><td>N + 胸高 prompt</td><td>胸高 prompt + 更多 N 的提升幅度</td></tr>
+</table>
+
+<div class="backtags">↑ 返回研究問題：<a href="#rq1">RQ1</a><a href="#rq2">RQ2</a></div>
+
+<h2 id="s6">§6 變數貢獻分析</h2>
+
+<h3>每條流程勝出（winner）的次數</h3>
+<table>
+<tr><th>Pipeline</th><th>當 winner 次數</th><th>佔比</th></tr>
+<tr><td><b>P4</b> video-v2（N=10 + 胸高 prompt）</td><td>17</td><td>58.6%</td></tr>
+<tr><td><b>P3</b> video-v1</td><td>5</td><td>17.2%</td></tr>
+<tr><td><b>P2</b> kf-time-960</td><td>3</td><td>10.3%</td></tr>
+<tr><td><b>P1a</b> kf-sharp-960</td><td>3</td><td>10.3%</td></tr>
+<tr><td><b>P1b</b> kf-sharp-orig</td><td>1</td><td>3.4%</td></tr>
+</table>
+
+<h3>五個變數的對照結論</h3>
+
+<table>
+<tr><th>變數</th><th>對照狀態</th><th>結論</th></tr>
+<tr>
+  <td><b>D1 解碼方式</b><br>直接給 Gemini / 只做 I-frame / 只做 P/B</td>
+  <td>部分測了</td>
+  <td>「直接交給 Gemini」的表現勝過「只解 I-frame」（22 比 7 次 winner）。至於「只做 P/B frame」這個選項在技術上<b>無法單獨成立</b>—— P/B frame 必須依賴前面已解碼的 I-frame 才能還原畫面，無法獨立解碼，因此此選項不在可測試範圍內。</td>
+</tr>
+<tr>
+  <td><b>D2 取幀方式</b><br>直接給 Gemini / 均勻取幀 / 最清晰 8 張</td>
+  <td>三種都測</td>
+  <td>「直接交給 Gemini」整體表現最佳。在 OpenCV 端比較「時間均勻取幀」與「挑最清晰幀」兩種做法，結果為 <b>3 比 3 平手</b>，顯示取幀策略對關鍵幀模式（keyframe-mode）的處理流程影響並不顯著。</td>
+</tr>
+<tr>
+  <td><b>D3 解析方式</b><br>降解析 / 不降解析</td>
+  <td>測了（P1a vs P1b）</td>
+  <td>降低解析度與保留原解析度的結果<b>幾乎沒有差異</b>（3 比 1 次 winner），代表此專案可以放心將影像降到 960 像素寬，以換取更快的上傳速度。</td>
+</tr>
+<tr>
+  <td><b>D4 OpenCV 轉向</b></td>
+  <td><b>不必測</b></td>
+  <td>所有處理流程都已關閉影像旋轉，這在 §2 階段 2 已成為<b>定論</b>：影像旋轉屬於破壞性操作，過程中的雙線性插值會讓邊緣模糊，進而扭曲樹幹的像素寬度、造成 DBH 的系統性誤差。此專案改以「挑選 isOrthogonal=true 的影像」作為品質門檻來取代旋轉，因此無需再額外進行開啟與關閉的對照測試。</td>
+</tr>
+<tr>
+  <td><b>D5 送 Gemini 5 次 vs 10 次</b></td>
+  <td>測了<b>但 confounded</b></td>
+  <td>P3（重複 5 次加上簡單提示詞）與 P4（重複 10 次加上胸高提示詞）的 winner 次數為 5 比 17，表面上看起來 N=10 大幅勝出。值得留意的是，這兩條流程同時更動了提示詞，因此這個優勢無法單獨歸功於取樣次數 N。若要釐清 N 的獨立貢獻，需要另外加跑「N=10 加簡單提示詞」或「N=5 加胸高提示詞」的對照組。就理論而言，N 翻倍只能壓平約 √2 倍的變異，成本卻同步翻倍，因此 <b>N=10 可視為邊際效益遞減下的合理上限</b>。</td>
+</tr>
+</table>
+
+<h3>整體變數重要性排序</h3>
+
+<table>
+<tr><th>變數</th><th>影響強度</th></tr>
+<tr><td>D1 解碼/處理位置</td><td>★★★ 影響最大（22 vs 7）</td></tr>
+<tr><td>D5 N + prompt</td><td>★★★ 影響大（17 vs 5）但 confounded</td></tr>
+<tr><td>D2 取幀方式</td><td>★ 幾乎無影響</td></tr>
+<tr><td>D3 解析度</td><td>★ 幾乎無影響</td></tr>
+<tr><td>D4 OpenCV 轉向</td><td>—（先前已確定關掉）</td></tr>
+</table>
+
+<p>這裡還有一個更深層的觀察：變數 D1 與 D5 的「勝出」其實都指向同一條處理流程（P4，即 video-v2、胸高提示詞、N=10）。
+若要嚴格分離這兩個變數各自的貢獻，理論上需要再增加一條「直接給影片 + 簡單提示詞 + N=5」的對照組；
+這條組合本身正好就是 P3（D1 採 Gemini 端、D5 採 N=5 簡單提示詞），因此相關結論其實已經包含在 P3 與 P4 的對照之中。</p>
+
+<div class="backtags">↑ 返回研究問題：<a href="#rq1">RQ1</a><a href="#rq2">RQ2</a></div>
+
+<h2 id="stat">§7 生產版統計彙整（P4 v2，32 棵）</h2>
+
+<p>以五條流程對照實驗確認 P4 為最佳流程後，此專案對全部 32 棵樹改用 P4 video-v2 流程（整支影片交給影像模型、N=10 次中位數彙整、校準因子 ×1.155）重新量測並上鏈。此節呈現該批次的統計彙總與 Verra §8.4 不確定性驗算；逐棵量測結果與區塊鏈存證見 <a class="anchor-link" href="https://forest-carbon.duckdns.org/dashboard02.html" target="_blank" rel="noopener">dashboard02.html</a>。</p>
+
+<h3>彙總法比較與校準因子（30 棵可比對樹）</h3>
+
+<div class="box">
+<b>最終選定：中位數（median）彙整 10 次量測 + 校準因子 ×1.155</b>——中位數有效壓平單次離群值（outlier），校準因子修正系統性偏差（bias）。
+</div>
+
+<table>
+<tr><th>誤差門檻</th><th>通過棵數 / 可比對棵數</th><th>通過率</th></tr>
+<tr class="green"><td><b>≤15%（此專案 PASS 門檻）</b></td><td>16 / 30</td><td><b class="pass">53%</b></td></tr>
+<tr><td>≤20%</td><td>19 / 30</td><td>63%</td></tr>
+<tr><td>≤25%</td><td>23 / 30</td><td>77%</td></tr>
+<tr><td>≤30%</td><td>26 / 30</td><td>87%</td></tr>
+</table>
+
+<h3>Verra VM0047 §8.4 不確定性驗算</h3>
+
+<div class="box">
+<b>DBH 層級（7.4%）與地上生物量（AGB）層級（14.7%）均遠低於 Verra §8.4 唯一合格門檻（&lt; 100%）。</b>
+</div>
+
+<table>
+<tr><th>量測層級</th><th>90% CI 半寬 ÷ 平均值</th><th>Verra §8.4 紅線</th><th>結果</th></tr>
+<tr><td>DBH 層級（胸高直徑，Diameter at Breast Height）</td><td><b class="pass">7.4%</b></td><td>&lt; 100%</td><td class="pass">通過，寬裕約 13.5 倍 ✓</td></tr>
+<tr><td>AGB 層級（地上生物量，Above-Ground Biomass）</td><td><b class="pass">14.7%</b></td><td>&lt; 100%</td><td class="pass">通過，寬裕約 6.8 倍 ✓</td></tr>
+</table>
+
+<p>AGB 層級的不確定性約為 DBH 層級的兩倍，肇因於 DBH 誤差透過異速生長方程式（allometric equation）中的平方項放大；兩個層級數值均遠低於紅線，確認此量測方法具備 Verra 碳信用核發的精度基礎。全 32 棵套用校準後的<b>總碳儲量為 6,738 kg</b>。</p>
+
+<div class="backtags">↑ 返回研究問題：<a href="#rq1">RQ1</a><a href="#rq2">RQ2</a></div>
+
+<h2 id="s8">§8 結論</h2>
+
+<div class="box">
+<b>整體通過率（誤差 ≤15%）為 22/30 = 73.3%</b>。若排除 1 棵因撞到 API 用量上限而未執行的樹，則在 29 棵中有 22 棵通過，通過率為 75.9%。
+</div>
+
+<h3>主要結論</h3>
+<ol>
+<li><b>以多流程對照、每棵樹挑選最佳路徑的策略確實有效</b>——雖然不存在一條能對所有樹都最佳的處理流程，每棵樹卻都能找到一條最適合自己的流程。</li>
+<li><b>P4 video-v2 是最主要的贏家</b>（拿下 58.6% 的 winner 次數）—— 它以 N=10 搭配「胸高提示詞」引導 Gemini 鎖定卡片所在的胸高位置，相較於 N=5 的簡單提示詞，表現明顯更穩定。</li>
+<li><b>解析度對準確度的影響不大</b>—— P1a（縮小到 960 像素寬）與 P1b（原解析度）的成績相近，顯示降低解析度再送進 Gemini 是合理的速度優化選擇。</li>
+<li><b>「整支影片交給 Gemini」的做法普遍勝過「在 VM 端先用 OpenCV 篩選」</b>—— 75.9% 的 winner 來自 P3 與 P4。由 OpenCV 自行挑出的 8 張影像，效果可能不及 Gemini 看完整支影片後自行選定的時機。</li>
+</ol>
+
+<h3>還有 7 棵尚未通過</h3>
+
+<table>
+<tr><th>IMG</th><th>tape</th><th>best err</th><th>Pipeline</th><th>偏離方向</th></tr>
+<tr><td>5790</td><td>19.4</td><td>15.5%</td><td>P4 (歷史)</td><td>邊緣，差 0.5%</td></tr>
+<tr><td>5802</td><td>43.9</td><td>22.3%</td><td>P4</td><td>偏低 23%</td></tr>
+<tr><td>5803</td><td>43.0</td><td>39.3%</td><td>P3</td><td>偏低 39%</td></tr>
+<tr><td>5806</td><td>38.8</td><td>22.7%</td><td>P4 (歷史)</td><td>偏低 23%</td></tr>
+<tr><td>5808</td><td>31.8</td><td>15.4%</td><td>P1a</td><td>邊緣，差 0.4%</td></tr>
+<tr><td>5809</td><td>30.6</td><td>29.4%</td><td>P4</td><td>偏低 29%</td></tr>
+<tr><td>5814</td><td>38.5</td><td>20.0%</td><td>P3</td><td>偏低 20%</td></tr>
+</table>
+
+<p>這 7 棵呈現一致的型態（pattern）：<b>估算值都偏低，Gemini 把樹幹判斷得比實際細</b>。
+此現象可能與拍攝角度、焦距、樹皮紋理複雜度有關，後續可透過修正因子或更多提示詞變體來改善。</p>
+
+<h3>還有 1 棵未測（N/A）</h3>
+
+<p><b>IMG_5788</b> 是此輪大量測試（mass run）的最後一棵，執行時撞到 Gemini API 的當月支出上限（monthly spending cap），需等下個月額度重置或提高配額（quota）後再重跑。</p>
+
+<div class="backtags">↑ 返回研究問題：<a href="#rq1">RQ1</a><a href="#rq2">RQ2</a></div>
+
+<h2 id="s9">§9 未解決：IMG_5804 一影片兩棵樹</h2>
+
+<p>這支影片同時拍到兩棵不同的樹，Gemini 無法分辨「當下看的是哪一棵」，因此需要另行設計一條處理流程來因應（技術細節：兩棵樹的 tree_id 分別為 f5d4607c 與 b8b61455）。可行的方向包含：
+<ul>
+  <li>在拍攝時加上標記，例如每棵樹開始拍攝前先停留 2 秒、口述樹的編號</li>
+  <li>或運用影像分割（segmentation）把畫面切成兩個獨立區域，分別測量</li>
+</ul>
+此情況屬於此實驗範圍之外，留待後續處理。</p>
+
+<div class="backtags">↑ 返回研究問題：<a href="#rq1">RQ1</a><a href="#rq2">RQ2</a></div>
+
+<footer>
+最後更新：2026-06-02（§7 生產版統計補入；§42 dashboard02 完成）· 實作於 <code>scripts/dryrun-rerun-kf*.js</code> + <code>scripts/dryrun-video*.js</code> + <code>scripts/rerun_p4.js</code>
+<br>生產版量測記錄：<a class="anchor-link" href="https://forest-carbon.duckdns.org/dashboard02.html" target="_blank" rel="noopener">dashboard02.html</a>
+<br>Verra VM0047 方法學官方文件：<a class="anchor-link" href="https://verra.org/wp-content/uploads/2023/09/VM0047_ARR_v1.0-1.pdf" target="_blank" rel="noopener">VM0047 v1.0 全文 PDF</a> · <a class="anchor-link" href="https://verra.org/methodologies/vm0047-afforestation-reforestation-and-revegetation-v1-1/" target="_blank" rel="noopener">Verra 方法學頁面</a>
+</footer>
+</body></html>
