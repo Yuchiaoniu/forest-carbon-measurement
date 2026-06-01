@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>區塊鏈交易查詢 — Forest Carbon</title>
+<style>
+:root{--bg:#0f1117;--card:#1a1d27;--border:#2a2d3a;--accent:#4ade80;--blue:#60a5fa;--muted:#6b7280;--text:#e5e7eb;--red:#f87171}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:system-ui,sans-serif;padding:24px;font-size:14px}
+h1{font-size:1.2rem;color:var(--accent);margin-bottom:4px}
+.subtitle{color:var(--muted);font-size:0.82rem;margin-bottom:20px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;max-width:700px}
+.status-success{color:var(--accent);font-weight:700}
+.status-failed{color:var(--red);font-weight:700}
+.status-pending{color:#fbbf24;font-weight:700}
+table{width:100%;border-collapse:collapse}
+td{padding:8px 0;border-bottom:1px solid var(--border);font-size:0.85rem;word-break:break-all}
+td:first-child{color:var(--muted);width:38%;word-break:normal}
+.hash{font-family:monospace;font-size:0.78rem;color:var(--blue)}
+.loading{color:var(--muted);text-align:center;padding:40px}
+.err{color:var(--red);padding:16px}
+a{color:var(--blue)}
+.back{margin-bottom:16px}
+.back a{color:var(--muted);font-size:0.85rem;text-decoration:none}
+.back a:hover{color:var(--text)}
+</style>
+</head>
+<body>
+<div class="back"><a href="javascript:history.back()">← 返回</a></div>
+<h1>🔗 區塊鏈交易查詢</h1>
+<p class="subtitle">Hyperledger Besu QBFT 私鏈 — Forest Carbon</p>
+<div id="content" class="loading">查詢中…</div>
+<script>
+const API_BASE = location.hostname.includes("github.io") ? "https://forest-carbon.duckdns.org" : ""
+const hash = new URLSearchParams(location.search).get("hash") || ""
+if (!hash) { document.getElementById("content").innerHTML = "<div class=err>缺少 hash 參數</div>" }
+else {
+  fetch(API_BASE + "/api/tx/" + hash).then(r=>r.json()).then(tx => {
+    const statusClass = "status-" + (tx.status || "pending")
+    document.getElementById("content").innerHTML = \`<div class="card">
+<table>
+<tr><td>交易雜湊</td><td class="hash">\${tx.hash || hash}</td></tr>
+<tr><td>狀態</td><td class="\${statusClass}">\${tx.status === "success" ? "✓ 成功" : tx.status === "failed" ? "✗ 失敗" : "⏳ 待確認"}</td></tr>
+<tr><td>區塊號</td><td>\${tx.blockNumber != null ? tx.blockNumber.toLocaleString() : "—"}</td></tr>
+<tr><td>區塊雜湊</td><td class="hash">\${tx.blockHash || "—"}</td></tr>
+<tr><td>發送地址 (From)</td><td class="hash">\${tx.from || "—"}</td></tr>
+<tr><td>合約地址 (To)</td><td class="hash">\${tx.to || "—"}</td></tr>
+<tr><td>Gas 消耗</td><td>\${tx.gasUsed != null ? tx.gasUsed.toLocaleString() : "—"}</td></tr>
+</table>
+</div>\`
+  }).catch(e => {
+    document.getElementById("content").innerHTML = \`<div class="err">查詢失敗：\${e.message}</div>\`
+  })
+}
+</script>
+</body>
+</html>
