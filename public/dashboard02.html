@@ -357,7 +357,7 @@ function renderBody(body, r, p4, sp, gemini, plantnet, bc, geminiZh) {
   bcHtml.innerHTML = "<div class="sec-title">區塊鏈</div>" +
     "<div class="bc-row">" +
     "<span class="badge " + (bc.txStatus === "confirmed" ? "badge-pass" : "badge-na") + "">" + (bc.txStatus || "—") + "</span>" +
-    "<span class="bc-hash">" + (bc.txHash || "尚未上鏈") + "</span>" +
+(bc.txHash ? '<a class="bc-hash" href="' + API_BASE + '/tx.html?hash=' + bc.txHash + '" target="_blank">' + bc.txHash.slice(0,18) + '…</a>' : '<span class="bc-hash">尚未上鏈</span>') +
     "</div>";
   body.appendChild(bcHtml);
 
