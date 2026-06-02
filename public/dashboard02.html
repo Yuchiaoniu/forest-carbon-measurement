@@ -231,7 +231,6 @@ body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color
     <div class="header-nav">
       <a href="/">← 測量系統</a>
       <a href="./showcase.html">📈 評估與演進旅程</a>
-      <a href="./dashboard.html">📊 完整 Dashboard</a>
     </div>
     <h1>🌿 Pipeline 4 v2 量測結果</h1>
     <p>Gemini 影片直接模式，N=10 中位數，校準因子 ×1.155，Verra VM0047 §8.4</p>
@@ -554,7 +553,7 @@ function buildCard(r) {
   const txRow  = txHash
     ? `<tr><td>Tx Hash</td><td><span class="hash-val">${txHash.slice(0,10)}…${txHash.slice(-6)}</span>
         <button class="copy-btn" onclick="event.stopPropagation();copy('${txHash}')">複製</button>
-        <a href="${API_BASE}/tx.html?hash=${txHash}" onclick="event.stopPropagation();window.open(this.href,'_blank');return false;" style="font-size:0.72rem;color:var(--green-700);margin-left:4px;">查看 →</a>
+        <a href="https://forest-carbon.duckdns.org/explorer/tx/${txHash}?rpcUrl=https://forest-carbon.duckdns.org/rpc" onclick="event.stopPropagation();window.open(this.href,'_blank');return false;" style="font-size:0.72rem;color:var(--green-700);margin-left:4px;">查看區塊鏈存證 →</a>
         </td></tr>`
     : `<tr><td>Tx Hash</td><td class="warn">—</td></tr>`
 
