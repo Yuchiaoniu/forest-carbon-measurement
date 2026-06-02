@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>量測記錄 Dashboard</title>
+<title>量測儀錶板 — 森林碳匯</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -27,7 +27,6 @@
 
 body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
 
-/* Header */
 .header {
   background: linear-gradient(135deg, var(--green-900) 0%, var(--green-700) 60%, #2d6a4f 100%);
   padding: 24px 24px 28px;
@@ -49,10 +48,8 @@ body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color
 .header h1 { font-size: 1.5rem; font-weight: 700; color: white; margin-bottom: 4px; }
 .header p  { font-size: 0.88rem; color: rgba(255,255,255,0.7); }
 
-/* Container */
 .container { max-width: 860px; margin: -16px auto 0; padding: 0 16px 48px; }
 
-/* Stats */
 .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 20px; }
 @media (max-width: 600px) { .stats { grid-template-columns: repeat(2, 1fr); } }
 .stat {
@@ -74,7 +71,6 @@ body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color
 .stat-num  { font-size: 1.9rem; font-weight: 700; color: var(--green-800); line-height: 1; margin-bottom: 4px; }
 .stat-label { font-size: 0.75rem; color: var(--muted); }
 
-/* Toolbar */
 .toolbar {
   display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; align-items: center;
   background: white; border-radius: 12px; padding: 12px 16px; box-shadow: var(--shadow-sm);
@@ -90,12 +86,9 @@ body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color
   padding: 8px 14px; border-radius: 8px; border: none; cursor: pointer;
   font-size: 0.83rem; font-weight: 600; font-family: inherit; transition: all 0.2s; white-space: nowrap;
 }
-.btn-primary { background: linear-gradient(135deg, var(--green-700), var(--green-600)); color: white; }
-.btn-primary:hover { opacity: 0.9; transform: translateY(-1px); }
 .btn-outline { background: white; color: var(--green-800); border: 1.5px solid var(--green-600); }
 .btn-outline:hover { background: var(--green-50); }
 
-/* Cards */
 .card {
   background: white; border-radius: 14px; box-shadow: var(--shadow-sm);
   margin-bottom: 10px; overflow: hidden;
@@ -112,17 +105,14 @@ body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color
 .card-header:hover { background: var(--green-50); }
 .card.open .card-header { background: var(--green-50); }
 
-.conf-bar {
-  width: 4px; height: 44px; border-radius: 2px; flex-shrink: 0;
-}
+.conf-bar { width: 4px; height: 44px; border-radius: 2px; flex-shrink: 0; }
 .conf-bar-high   { background: linear-gradient(180deg, var(--green-500), var(--green-600)); }
 .conf-bar-medium { background: linear-gradient(180deg, #fbbf24, #d97706); }
 .conf-bar-low    { background: linear-gradient(180deg, #f87171, #dc2626); }
 
 .tree-no {
   font-size: 0.75rem; font-weight: 700; color: var(--green-700);
-  background: var(--green-100); padding: 3px 8px; border-radius: 6px;
-  white-space: nowrap;
+  background: var(--green-100); padding: 3px 8px; border-radius: 6px; white-space: nowrap;
 }
 .species-name  { font-weight: 600; font-size: 0.95rem; flex: 1; }
 .species-src   { font-size: 0.73rem; color: var(--muted); font-style: italic; font-weight: 400; }
@@ -138,15 +128,11 @@ body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color
 .badge-chain   { background: #dbeafe; color: #1e40af; }
 .badge-pending { background: #f1f5f9; color: #64748b; }
 .badge-failed  { background: #fee2e2; color: #991b1b; }
-.badge-story   { background: #f0fdf4; color: #15803d; text-decoration: none; }
-.badge-story:hover { background: #dcfce7; }
-.badge-env     { background: #eff6ff; color: #1e40af; text-decoration: none; }
-.badge-env:hover { background: #dbeafe; }
+.badge-p4v2    { background: #ede9fe; color: #5b21b6; }
 
 .chevron { font-size: 0.75rem; color: var(--muted); transition: transform 0.25s; }
 .card.open .chevron { transform: rotate(180deg); }
 
-/* Card body */
 .card-body { display: none; padding: 0 18px 18px; }
 .card.open .card-body { display: block; }
 
@@ -162,27 +148,45 @@ body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color
 .kv-table td { padding: 5px 0; vertical-align: top; }
 .kv-table td:first-child { color: var(--muted); width: 44%; padding-right: 8px; white-space: nowrap; }
 .kv-table td:last-child  { font-weight: 500; word-break: break-all; }
-.paths-table { width: 100%; font-size: 0.78rem; border-collapse: collapse; }
-.paths-table th, .paths-table td { padding: 6px 8px; border-bottom: 1px solid #e8efe8; text-align: center; }
-.paths-table th { color: var(--muted); font-weight: 600; background: #f7faf7; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.04em; }
-.paths-table td:first-child, .paths-table th:first-child { text-align: left; color: var(--muted); font-weight: 500; }
-.paths-table .winner { background: #e8f5e9; font-weight: 700; color: var(--green-800); position: relative; }
-.paths-table .winner::after { content: '★'; position: absolute; top: 2px; right: 4px; font-size: 0.65rem; color: var(--green-700); }
-.paths-table .na { color: var(--muted); font-style: italic; }
-<<<<<<< Updated upstream
-/* Path-frames evidence tiles */
-.path-frames-block { font-size: 0.78rem; }
-.pf-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 6px; }
-.pf-tile { border: 1px solid #e8efe8; border-radius: 6px; padding: 6px; background: #fcfdfc; }
-.pf-tile.pf-na { background: #f7f7f7; color: var(--muted); text-align: center; padding: 18px 6px; }
-.pf-tile img { width: 100%; max-height: 220px; object-fit: contain; background: #000; border-radius: 4px; cursor: zoom-in; display: block; }
-.pf-label { font-weight: 700; color: var(--green-800); margin-bottom: 4px; font-size: 0.78rem; }
-.pf-meta  { color: var(--muted); margin-top: 4px; font-size: 0.72rem; }
-.pf-missing { padding: 30px 6px; text-align: center; color: var(--muted); background: #f7f7f7; border-radius: 4px; font-size: 0.72rem; }
-.pf-grid-small { display: grid; grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); gap: 6px; }
-.pf-grid-small img { width: 100%; height: 70px; object-fit: cover; background: #000; border-radius: 4px; cursor: zoom-in; }
-=======
->>>>>>> Stashed changes
+
+/* Verra chain */
+.verra-chain {
+  display: flex; align-items: center; flex-wrap: wrap; gap: 6px;
+  background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 10px;
+  padding: 12px 14px; margin-bottom: 10px;
+}
+.chain-box {
+  background: white; border: 1px solid #d1fae5; border-radius: 8px;
+  padding: 8px 12px; text-align: center; min-width: 90px;
+}
+.chain-label { font-size: 0.68rem; color: var(--muted); margin-bottom: 2px; }
+.chain-val   { font-size: 0.9rem; font-weight: 700; color: var(--green-800); }
+.chain-arrow { color: var(--green-600); font-size: 1rem; font-weight: 700; }
+
+/* Species compare */
+.species-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 8px;
+}
+.species-card {
+  background: #f8fafc; border: 1px solid var(--border); border-radius: 8px; padding: 8px 10px;
+}
+.species-card .sp-engine { font-size: 0.68rem; font-weight: 700; color: var(--muted); margin-bottom: 4px; text-transform: uppercase; }
+.species-card .sp-name   { font-size: 0.82rem; font-weight: 600; color: var(--text); }
+.species-card .sp-zh     { font-size: 0.8rem; color: var(--green-700); }
+.species-card .sp-conf   { font-size: 0.72rem; color: var(--muted); margin-top: 2px; }
+.species-card .sp-carbon { font-size: 0.72rem; color: #2563eb; margin-top: 4px; }
+
+/* Key frames grid */
+.frames-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); gap: 6px;
+  margin-top: 6px;
+}
+.frames-grid img {
+  width: 100%; height: 70px; object-fit: cover; background: #000;
+  border-radius: 4px; cursor: zoom-in;
+}
+.frame-ts { font-size: 0.65rem; color: var(--muted); text-align: center; margin-top: 2px; }
+
 .hash-val  { font-family: 'Courier New', monospace; font-size: 0.78rem; }
 .copy-btn  { background: none; border: none; cursor: pointer; color: var(--green-700); font-size: 0.73rem; padding: 0 4px; }
 .copy-btn:hover { text-decoration: underline; }
@@ -192,11 +196,9 @@ body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color
 .gps-link { color: var(--green-700); text-decoration: none; font-size: 0.82rem; }
 .gps-link:hover { text-decoration: underline; }
 
-/* Empty */
 .empty { text-align: center; padding: 80px 20px; color: var(--muted); }
 .empty-icon { font-size: 3rem; margin-bottom: 12px; }
 
-/* Toast */
 .toast {
   position: fixed; bottom: 24px; right: 24px;
   background: var(--green-900); color: white;
@@ -206,7 +208,6 @@ body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color
 }
 .toast.show { opacity: 1; }
 
-/* Skeleton loader */
 .skeleton {
   background: linear-gradient(90deg, #f3f4f6 25%, #e5e7eb 50%, #f3f4f6 75%);
   background-size: 200% 100%;
@@ -214,6 +215,13 @@ body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color
   border-radius: 8px; height: 72px; margin-bottom: 10px;
 }
 @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+
+.phenology-pill {
+  display:inline-block; background:#d1fae5; color:#065f46;
+  border-radius:12px; padding:2px 10px; font-size:0.75rem; margin:2px 2px;
+}
+.env-grid { display:grid; grid-template-columns:1fr 1fr; gap:4px 16px; margin-top:6px; font-size:0.82rem; }
+.env-grid td:first-child { color:var(--muted); }
 </style>
 </head>
 <body>
@@ -222,11 +230,10 @@ body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color
   <div class="header-inner">
     <div class="header-nav">
       <a href="/">← 測量系統</a>
-      <a href="/correction-factors.html">🧠 修正因子</a>
-      <a href="/showcase.html">📈 評估與演進旅程</a>
+      <a href="./showcase.html">📈 評估與演進旅程</a>
     </div>
-    <h1>📊 量測記錄 Dashboard</h1>
-    <p>所有上傳影片的量測結果、區塊鏈存證與拍攝元數據</p>
+    <h1>🌿 Pipeline 4 v2 量測結果</h1>
+    <p>Gemini 影片直接模式，N=10 中位數，校準因子 ×1.155，Verra VM0047 §8.4</p>
   </div>
 </div>
 
@@ -236,7 +243,7 @@ body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color
     <div class="stat">
       <div class="stat-icon">🌳</div>
       <div class="stat-num" id="s-total">—</div>
-      <div class="stat-label">總量測筆數</div>
+      <div class="stat-label">量測筆數</div>
     </div>
     <div class="stat">
       <div class="stat-icon">⛓</div>
@@ -251,18 +258,12 @@ body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color
     <div class="stat">
       <div class="stat-icon">♻️</div>
       <div class="stat-num" id="s-carbon">—</div>
-      <div class="stat-label">總碳儲量 (kg)</div>
+      <div class="stat-label">總碳儲量 (kg C)</div>
     </div>
   </div>
 
   <div class="toolbar">
     <input id="search" type="text" placeholder="🔍 搜尋樹種…" style="width:160px">
-    <select id="filter-confidence">
-      <option value="">所有精度等級</option>
-      <option value="high">HIGH — 高精度</option>
-      <option value="medium">MEDIUM — 中精度</option>
-      <option value="low">LOW — 低精度</option>
-    </select>
     <select id="filter-chain">
       <option value="">所有上鏈狀態</option>
       <option value="confirmed">✅ 已確認</option>
@@ -272,7 +273,6 @@ body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color
     <div class="toolbar-actions">
       <button class="btn btn-outline" onclick="expandAll()">全部展開</button>
       <button class="btn btn-outline" onclick="collapseAll()">全部收合</button>
-      <a id="csv-btn" href="/api/evaluation/export.csv" class="btn btn-primary">⬇ 匯出 CSV</a>
     </div>
   </div>
 
@@ -285,9 +285,6 @@ body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color
   <div id="empty" class="empty" style="display:none">
     <div class="empty-icon">🌱</div>
     <div>尚無量測記錄</div>
-    <div style="font-size:0.85rem;margin-top:8px">
-      請到 <a href="/" style="color:var(--green-700)">測量系統</a> 上傳第一支影片
-    </div>
   </div>
 
 </div>
@@ -297,18 +294,15 @@ body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color
 <script>
 let allRecords = []
 
-const IS_GH_PAGES = location.hostname.endsWith('github.io')
+const IS_GH_PAGES = location.hostname.endsWith('github.io') || location.hostname.endsWith('duckdns.org')
 const API_BASE = IS_GH_PAGES ? 'https://forest-carbon.duckdns.org' : ''
 
 async function load() {
-  if (IS_GH_PAGES) {
-    document.getElementById('csv-btn').style.display = 'none'
-  }
   showSkeleton(true)
   try {
-    const url = IS_GH_PAGES ? './data/trees.json' : `${API_BASE}/api/trees`
-    const res = await fetch(url)
-    allRecords = await res.json()
+    const res = await fetch(`${API_BASE}/api/trees`)
+    const data = await res.json()
+    allRecords = data.filter(r => r.winnerPath === 'p4v2' && r.p4v2)
     renderStats(allRecords)
     renderRecords(allRecords)
   } catch (e) {
@@ -336,13 +330,13 @@ function animateNumber(el, target, suffix='') {
 
 function renderStats(records) {
   const totalChain   = records.filter(r => r.blockchain?.txStatus === 'confirmed').length
-  const speciesCount = new Set(records.map(r => r.species).filter(Boolean)).size
-  const totalCarbon  = records.reduce((s, r) => s + (r.carbonKg || 0), 0)
+  const speciesCount = new Set(records.map(r => r.p4v2?.species?.primary).filter(Boolean)).size
+  const totalCarbon  = records.reduce((s, r) => s + (r.p4v2?.carbon?.primaryKg || 0), 0)
 
   animateNumber(document.getElementById('s-total'),   records.length)
   animateNumber(document.getElementById('s-chain'),   totalChain)
   animateNumber(document.getElementById('s-species'), speciesCount)
-  animateNumber(document.getElementById('s-carbon'),  parseFloat(totalCarbon.toFixed(1)))
+  animateNumber(document.getElementById('s-carbon'),  Math.round(totalCarbon))
 }
 
 function renderRecords(records) {
@@ -354,14 +348,84 @@ function renderRecords(records) {
     return
   }
   empty.style.display = 'none'
-  container.innerHTML = [...records].reverse().map(r => buildCard(r)).join('')
+  container.innerHTML = records.map(r => buildCard(r)).join('')
+}
+
+const ZH_MAP = {
+  'Liquidambar formosana': '楓香',
+  'Casuarina equisetifolia': '木麻黃',
+  'Cinnamomum camphora': '樟樹',
+  'Acacia confusa': '相思樹',
+  'Swietenia macrophylla': '大葉桃花心木',
+  'Bischofia javanica': '茄苳',
+  'Melia azedarach': '苦楝',
+  'Juglans nigra': '黑胡桃',
+  'Zelkova serrata': '櫸木',
+  'Pongamia pinnata': '水黃皮',
+  'Albizia julibrissin': '合歡',
+  'Delonix regia': '鳳凰木',
+  'Ficus microcarpa': '榕樹',
+  'Platanus orientalis': '懸鈴木',
+  'Hibiscus tiliaceus': '黃槿',
+  'Averrhoa carambola': '楊桃',
+  'Leucaena leucocephala': '銀合歡',
+  'Mangifera indica': '芒果',
+  'Artocarpus heterophyllus': '波羅蜜',
+  'Cocos nucifera': '椰子',
+  'Salix babylonica': '垂柳',
+  'Populus alba': '白楊',
+  'Eucalyptus grandis': '大葉桉',
+  'Tectona grandis': '柚木',
+  'Ceiba pentandra': '木棉',
+  'Terminalia catappa': '欖仁',
+  'Erythrina variegata': '刺桐',
+  'Tabebuia rosea': '洋紅風鈴木',
+  'Pterocarpus indicus': '印度紫檀',
+  'Unknown': '未辨識',
+}
+
+function zhName(sp) {
+  if (!sp) return ''
+  for (const [k, v] of Object.entries(ZH_MAP)) {
+    if (sp.toLowerCase().includes(k.toLowerCase())) return v
+  }
+  return ''
+}
+
+function fmt(v, dec=1) {
+  if (v == null) return '—'
+  return Number(v).toFixed(dec)
+}
+
+function fmtSec(sec) {
+  if (sec == null) return '—'
+  const s = Math.round(sec)
+  const mm = String(Math.floor(s / 60)).padStart(2, '0')
+  const ss = String(s % 60).padStart(2, '0')
+  return `${mm}:${ss}`
 }
 
 function buildCard(r) {
-  const conf     = (r.confidence || 'low').toLowerCase()
+  const p4   = r.p4v2
+  const sp   = p4.species
+  const carb = p4.carbon
+
+  // Confidence based on CV
+  const cv = p4.cv || 0
+  const conf = cv <= 10 ? 'high' : cv <= 25 ? 'medium' : 'low'
   const confLabel = conf === 'high' ? 'HIGH 精度' : conf === 'medium' ? 'MEDIUM 精度' : 'LOW 精度'
-  const bcStatus  = r.blockchain?.txStatus || 'none'
-  const bcBadge   = bcStatus === 'confirmed'
+
+  // Error vs manual tape
+  let errBadge = ''
+  if (r.manualTape?.dbhCm && p4.calibratedDbhCm) {
+    const err = (p4.calibratedDbhCm - r.manualTape.dbhCm) / r.manualTape.dbhCm * 100
+    const cls = Math.abs(err) <= 15 ? 'ok' : Math.abs(err) <= 30 ? 'warn' : 'err'
+    const sign = err >= 0 ? '+' : ''
+    errBadge = `<span class="badge badge-${Math.abs(err)<=15?'high':Math.abs(err)<=30?'medium':'low'}" title="校準DBH vs 皮尺誤差">${sign}${err.toFixed(1)}%</span>`
+  }
+
+  const bcStatus = r.blockchain?.txStatus || 'none'
+  const bcBadge  = bcStatus === 'confirmed'
     ? `<span class="badge badge-chain">✅ 鏈上確認</span>`
     : bcStatus === 'pending'
     ? `<span class="badge badge-pending">⏳ 待上鏈</span>`
@@ -369,134 +433,128 @@ function buildCard(r) {
     ? `<span class="badge badge-failed">❌ 上鏈失敗</span>`
     : `<span class="badge badge-pending">— 未上鏈</span>`
 
-  const path = r.referenceUsed
-    ? `路徑 A（${refLabel(r.referenceType)}）`
-    : r.directMeasurementCm > 0 ? '路徑 0（直接讀數）' : '路徑 B（薄透鏡）'
-
-  // §27 三路徑並列表格
-  const renderPathCell = (p, pathKey, winnerKey, fmt) => {
-    if (!p?.computed) return '<td class="na">—</td>'
-    const cls = pathKey === winnerKey ? 'winner' : ''
-    return `<td class="${cls}">${fmt(p)}</td>`
-  }
-  const w = r.winnerPath
-  const pp = r.paths || {}
-  const fmtDbh    = (p) => p.dbhCm != null ? `${p.dbhCm.toFixed(1)} cm` : '—'
-  const fmtVolume = (p) => p.volumeM3 != null ? `${(p.volumeM3 * 1e6).toFixed(0)} cm³` : '—'
-  const fmtCarbon = (p) => p.carbonKg != null ? `${(p.carbonKg * 1000).toFixed(0)} g` : '—'
-<<<<<<< Updated upstream
-  // §30 v2：移除 Path B 修正後一列，使用者已用人工皮尺判讀做 RQ1 比較，三路徑原始值即可
-=======
-  const pathBCorrectedRow = pp.pathB?.computed && pp.pathB.dbhCmCorrected != null
-    ? `<tr><td>Path B 修正後 DBH</td><td colspan="3" style="text-align:center;color:var(--green-700);">${pp.pathB.dbhCmCorrected.toFixed(1)} cm</td></tr>`
-    : ''
->>>>>>> Stashed changes
-  const pathsSection = `
-    <div>
-      <div class="section-title">🔀 三路徑並列估算</div>
-      <table class="paths-table">
-        <thead>
-          <tr><th></th><th>Path 0<br><span style="font-weight:400;font-size:0.65rem;">直接讀數</span></th>
-              <th>Path A<br><span style="font-weight:400;font-size:0.65rem;">參照物</span></th>
-              <th>Path B<br><span style="font-weight:400;font-size:0.65rem;">薄透鏡</span></th></tr>
-        </thead>
-        <tbody>
-          <tr><td>DBH</td>
-            ${renderPathCell(pp.path0, 'path0', w, fmtDbh)}
-            ${renderPathCell(pp.pathA, 'pathA', w, fmtDbh)}
-            ${renderPathCell(pp.pathB, 'pathB', w, fmtDbh)}</tr>
-          <tr><td>材積</td>
-            ${renderPathCell(pp.path0, 'path0', w, fmtVolume)}
-            ${renderPathCell(pp.pathA, 'pathA', w, fmtVolume)}
-            ${renderPathCell(pp.pathB, 'pathB', w, fmtVolume)}</tr>
-          <tr><td>碳儲量</td>
-            ${renderPathCell(pp.path0, 'path0', w, fmtCarbon)}
-            ${renderPathCell(pp.pathA, 'pathA', w, fmtCarbon)}
-            ${renderPathCell(pp.pathB, 'pathB', w, fmtCarbon)}</tr>
-<<<<<<< Updated upstream
-        </tbody>
-      </table>
-      ${w ? `<div style="margin-top:6px;font-size:0.72rem;color:var(--muted);">★ winner = ${w}（依優先級 0 &gt; A &gt; B）</div>` : ''}
-      <div id="path-frames-${r.id}" class="path-frames-block" style="margin-top:10px;font-size:0.78rem;color:var(--muted);">點開卡片載入三路徑依據幀…</div>
-    </div>`
-
-  // §31 人工皮尺批次標註（ground truth）：直接 inline 顯示
-  const fmtTs = (sec) => {
-    if (sec == null) return '—'
-    const s = Math.round(sec)
-    const hh = String(Math.floor(s / 3600)).padStart(2, '0')
-    const mm = String(Math.floor((s % 3600) / 60)).padStart(2, '0')
-    const ss = String(s % 60).padStart(2, '0')
-    return `${hh}:${mm}:${ss}`
-  }
-  const pathErrCell = (pathDbh, gtDbh) => {
-    if (pathDbh == null || gtDbh == null) return '<td>—</td>'
-    const err = ((pathDbh - gtDbh) / gtDbh * 100)
-    const cls = Math.abs(err) <= 10 ? 'ok' : Math.abs(err) <= 25 ? 'warn' : 'err'
-    const sign = err >= 0 ? '+' : ''
-    return `<td>${pathDbh.toFixed(1)}<br><span class="${cls}" style="font-size:0.7rem;">${sign}${err.toFixed(1)}%</span></td>`
-  }
-  let manualSection
-  if (r.manualTape) {
-    const mt = r.manualTape
-    const gt = mt.dbhCm
-    manualSection = `
-      <div>
-        <div class="section-title">📏 人工皮尺實量（Ground Truth）
-          <span style="font-weight:400;color:var(--muted);font-size:0.75rem;margin-left:6px;">${mt.annotator || '—'} 於關鍵幀人工判讀</span>
-        </div>
-        <table class="kv" style="font-size:0.82rem;">
-          <tr><td>樹幹周長</td><td><strong>${mt.circCm} cm</strong></td></tr>
-          <tr><td>DBH = 周長 ÷ π</td><td><strong style="color:var(--accent);">${gt.toFixed(1)} cm</strong></td></tr>
-          <tr><td>關鍵幀時間</td><td>${fmtTs(mt.frameTsSec)}（${mt.frameTsSec} s）</td></tr>
-        </table>
-        <table class="path-table" style="margin-top:8px;width:100%;text-align:center;font-size:0.78rem;">
-          <thead>
-            <tr><th></th><th>Path 0<br><span style="font-weight:400;font-size:0.65rem;">原 AI 皮尺</span></th>
-                <th>Path A<br><span style="font-weight:400;font-size:0.65rem;">參照物</span></th>
-                <th>Path B<br><span style="font-weight:400;font-size:0.65rem;">薄透鏡</span></th></tr>
-          </thead>
-          <tbody>
-            <tr><td>vs 人工皮尺</td>
-              ${pathErrCell(pp.path0?.dbhCm, gt)}
-              ${pathErrCell(pp.pathA?.dbhCm, gt)}
-              ${pathErrCell(pp.pathB?.dbhCm, gt)}
-            </tr>
-          </tbody>
-        </table>
-      </div>`
-  } else {
-    manualSection = `
-      <div>
-        <div class="section-title">📏 人工皮尺實量
-          <span style="font-weight:400;color:var(--muted);font-size:0.75rem;margin-left:6px;">尚未標註</span>
-        </div>
-        <div style="font-size:0.85rem;color:var(--muted);">這棵樹還沒有人工皮尺基準值。</div>
-      </div>`
-  }
-=======
-          ${pathBCorrectedRow}
-        </tbody>
-      </table>
-      ${w ? `<div style="margin-top:6px;font-size:0.72rem;color:var(--muted);">★ winner = ${w}（依優先級 0 &gt; A &gt; B）</div>` : ''}
-    </div>`
->>>>>>> Stashed changes
-
-  let errorRow = ''
-  if (r.calibration && !r.referenceUsed) {
-    const err = ((r.dbhCm - r.calibration.dbhCm) / r.calibration.dbhCm * 100)
-    const cls  = Math.abs(err) <= 10 ? 'ok' : Math.abs(err) <= 25 ? 'warn' : 'err'
-    errorRow = `<tr><td>誤差</td><td class="${cls}">${err >= 0 ? '+' : ''}${err.toFixed(1)}%</td></tr>`
-  }
-
-  const refRow = r.calibration
-    ? `<tr><td>路徑A校準值</td><td>${r.calibration.dbhCm.toFixed(1)} cm（${refLabel(r.calibration.source)}）</td></tr>`
-    : ''
-
+  const primarySpecies = sp?.primary || r.species || '—'
+  const zhStr = zhName(primarySpecies)
   const txHash = r.blockchain?.txHash
+
+  // ── Section 1: P4v2 量測結果
+  const manualRow = r.manualTape?.dbhCm
+    ? (() => {
+        const gt  = r.manualTape.dbhCm
+        const err = (p4.calibratedDbhCm - gt) / gt * 100
+        const sign = err >= 0 ? '+' : ''
+        const cls = Math.abs(err) <= 15 ? 'ok' : Math.abs(err) <= 30 ? 'warn' : 'err'
+        return `<tr><td>人工皮尺</td><td>${fmt(gt)} cm</td></tr>
+                <tr><td>vs 皮尺誤差</td><td class="${cls}">${sign}${err.toFixed(1)}%</td></tr>`
+      })()
+    : ''
+
+  const measureSection = `
+    <div>
+      <div class="section-title">📐 量測結果</div>
+      <table class="kv-table">
+        <tr><td>校準 DBH</td><td><strong>${fmt(p4.calibratedDbhCm)} cm</strong></td></tr>
+        <tr><td>原始 DBH</td><td>${fmt(p4.rawDbhCm)} cm</td></tr>
+        <tr><td>校準因子</td><td>×${fmt(p4.calibFactor, 3)}</td></tr>
+        <tr><td>量測次數</td><td>${p4.repeat || 10} 次（${p4.aggMethodFinal || 'median'}）</td></tr>
+        <tr><td>變異係數 CV</td><td>${p4.cv != null ? p4.cv.toFixed(1) + '%' : '—'}</td></tr>
+        ${manualRow}
+      </table>
+    </div>`
+
+  // ── Section 2: Verra 換算鏈
+  const verraSection = carb ? `
+    <div style="grid-column: 1 / -1">
+      <div class="section-title">📋 Verra VM0047 換算鏈</div>
+      <div class="verra-chain">
+        <div class="chain-box">
+          <div class="chain-label">校準 DBH</div>
+          <div class="chain-val">${fmt(p4.calibratedDbhCm)} cm</div>
+        </div>
+        <span class="chain-arrow">→</span>
+        <div class="chain-box">
+          <div class="chain-label">AGB (kg)</div>
+          <div class="chain-val">${fmt(carb.agbKg, 0)}</div>
+        </div>
+        <span class="chain-arrow">→</span>
+        <div class="chain-box">
+          <div class="chain-label">Carbon (kg C)</div>
+          <div class="chain-val">${fmt(carb.primaryKg, 0)}</div>
+        </div>
+        <span class="chain-arrow">→</span>
+        <div class="chain-box">
+          <div class="chain-label">CO₂e (kg)</div>
+          <div class="chain-val">${fmt(carb.co2eKg, 0)}</div>
+        </div>
+        ${carb.heightM ? `<div style="font-size:0.72rem;color:var(--muted);margin-left:4px;">推算樹高 ${fmt(carb.heightM, 1)} m</div>` : ''}
+      </div>
+    </div>` : ''
+
+  // ── Section 3: 物種辨識
+  const geminiCard = sp?.gemini ? `
+    <div class="species-card">
+      <div class="sp-engine">Gemini</div>
+      <div class="sp-name">${sp.gemini.species || '—'}</div>
+      <div class="sp-zh">${zhName(sp.gemini.species)}</div>
+      <div class="sp-conf">可靠評分 ${sp.gemini.confidence != null ? (sp.gemini.confidence * 100).toFixed(0) + '%' : '—'}</div>
+      ${sp.gemini.carbonKg != null ? `<div class="sp-carbon">Carbon ${fmt(sp.gemini.carbonKg, 0)} kg · CO₂e ${fmt(sp.gemini.co2eKg, 0)} kg</div>` : ''}
+    </div>` : '<div class="species-card"><div class="sp-engine">Gemini</div><div class="sp-conf">—</div></div>'
+
+  const plantnetCard = sp?.plantnet ? `
+    <div class="species-card">
+      <div class="sp-engine">Pl@ntNet</div>
+      <div class="sp-name">${sp.plantnet.species || '—'}</div>
+      <div class="sp-zh">${zhName(sp.plantnet.species)}</div>
+      <div class="sp-conf">可靠評分 ${sp.plantnet.confidence != null ? (sp.plantnet.confidence * 100).toFixed(0) + '%' : '—'}</div>
+      ${sp.plantnet.carbonKg != null ? `<div class="sp-carbon">Carbon ${fmt(sp.plantnet.carbonKg, 0)} kg · CO₂e ${fmt(sp.plantnet.co2eKg, 0)} kg</div>` : ''}
+    </div>` : '<div class="species-card"><div class="sp-engine">Pl@ntNet</div><div class="sp-conf">—</div></div>'
+
+  const agreeRow = sp?.agree != null
+    ? `<div style="font-size:0.78rem;margin-top:6px;color:${sp.agree ? 'var(--green-700)' : '#854d0e'};">
+        ${sp.agree ? '✅ 兩方同意 → ' : '⚠️ 兩方不同意，採用 → '}<strong>${primarySpecies}</strong>
+        ${zhStr ? `（${zhStr}）` : ''}
+       </div>`
+    : ''
+
+  const speciesSection = `
+    <div>
+      <div class="section-title">🔬 物種辨識</div>
+      <div class="species-grid">
+        ${geminiCard}
+        ${plantnetCard}
+      </div>
+      ${agreeRow}
+    </div>`
+
+  // ── Section 4: 量測關鍵幀
+  const framesSection = `
+    <div style="grid-column: 1 / -1">
+      <div class="section-title">📷 量測關鍵幀（N=10）
+        <span style="font-weight:400;color:var(--muted);font-size:0.85rem;margin-left:6px;">點開後自動載入</span>
+      </div>
+      <div id="p4frames-${r.id}" data-tss='${JSON.stringify((p4.measureTimestamps||[]).slice(0,10))}' data-treeid="${r.id}">
+        <div style="font-size:0.82rem;color:var(--muted);">展開卡片後自動載入 ${(p4.measureTimestamps||[]).length} 張幀…</div>
+      </div>
+    </div>`
+
+  // ── Section 5: 物種辨識幀（若有 leafTimestamps）
+  const leafTs = sp?.leafTimestamps || []
+  const leafSection = leafTs.length ? `
+    <div style="grid-column: 1 / -1">
+      <div class="section-title">🍃 物種辨識幀（Pl@ntNet 依據）</div>
+      <div id="leafframes-${r.id}" data-tss='${JSON.stringify(leafTs.slice(0,6))}' data-treeid="${r.id}">
+        <div style="font-size:0.82rem;color:var(--muted);">展開後自動載入 ${leafTs.length} 張幀…</div>
+      </div>
+    </div>` : ''
+
+  // ── Section 6: 區塊鏈
+  const bcTime   = r.blockchain?.createdAt
+    ? new Date(r.blockchain.createdAt * 1000).toLocaleString('zh-TW') : '—'
   const txRow  = txHash
     ? `<tr><td>Tx Hash</td><td><span class="hash-val">${txHash.slice(0,10)}…${txHash.slice(-6)}</span>
-        <button class="copy-btn" onclick="event.stopPropagation();copy('${txHash}')">複製</button></td></tr>`
+        <button class="copy-btn" onclick="event.stopPropagation();copy('${txHash}')">複製</button>
+        <a href="https://forest-carbon.duckdns.org/explorer/tx/${txHash}?rpcUrl=https://forest-carbon.duckdns.org/rpc" onclick="event.stopPropagation();window.open(this.href,'_blank');return false;" style="font-size:0.72rem;color:var(--green-700);margin-left:4px;">查看區塊鏈存證 →</a>
+        </td></tr>`
     : `<tr><td>Tx Hash</td><td class="warn">—</td></tr>`
 
   const vhash    = r.videoHash || ''
@@ -505,12 +563,18 @@ function buildCard(r) {
         <button class="copy-btn" onclick="event.stopPropagation();copy('${vhash}')">複製</button></td></tr>`
     : `<tr><td>影片 SHA-256</td><td>—</td></tr>`
 
-  const bcTime   = r.blockchain?.createdAt
-    ? new Date(r.blockchain.createdAt * 1000).toLocaleString('zh-TW') : '—'
-  const verifyRow = bcStatus === 'confirmed'
-    ? `<tr><td>驗證狀態</td><td class="ok">✅ 鏈上與本地一致</td></tr>`
-    : `<tr><td>驗證狀態</td><td class="warn">—</td></tr>`
+  const blockchainSection = `
+    <div>
+      <div class="section-title">⛓ 區塊鏈存證</div>
+      <table class="kv-table">
+        ${txRow}
+        ${vhashRow}
+        <tr><td>上鏈時間</td><td>${bcTime}</td></tr>
+        <tr><td>驗證狀態</td><td class="${bcStatus === 'confirmed' ? 'ok' : 'warn'}">${bcStatus === 'confirmed' ? '✅ 鏈上與本地一致' : '—'}</td></tr>
+      </table>
+    </div>`
 
+  // ── Section 7: EXIF
   let gpsRow = `<tr><td>GPS</td><td>—</td></tr>`
   if (r.gps) {
     const parts = r.gps.split(',')
@@ -523,32 +587,42 @@ function buildCard(r) {
       </td></tr>`
     }
   }
+  const createdTime = r.createdAt ? new Date(r.createdAt * 1000).toLocaleString('zh-TW') : '—'
+  const exifSection = `
+    <div>
 
-  const createdTime = r.createdAt
-    ? new Date(r.createdAt * 1000).toLocaleString('zh-TW') : '—'
+  ${r.hasEnvironment ? `
+    <div>
+      <div class="section-title">🌿 拍攝當下環境快照（CBD 生物多樣性）</div>
+      <div id="env-${r.id}" data-treeid="${r.id}">
+        <div style="font-size:0.82rem;color:var(--muted);">展開後自動載入…</div>
+      </div>
+    </div>` : ''}
+      <div class="section-title">📷 EXIF 元數據</div>
+      <table class="kv-table">
+        <tr><td>手機型號</td><td>${r.deviceModel || '—'}</td></tr>
+        <tr><td>焦距</td><td>${r.focalLengthMm != null ? r.focalLengthMm + ' mm' : '—'}</td></tr>
+        <tr><td>感光元件寬</td><td>${r.sensorWidthMm != null ? Number(r.sensorWidthMm).toFixed(2) + ' mm' : '—'}</td></tr>
+        ${gpsRow}
+        ${r.resolution ? `<tr><td>解析度</td><td>${r.resolution}</td></tr>` : ''}
+        ${r.fps ? `<tr><td>fps</td><td>${r.fps}</td></tr>` : ''}
+        <tr><td>拍攝時間</td><td>${createdTime}</td></tr>
+      </table>
+    </div>`
 
-  const mTypeLabel = r.measurementType === 'circumference' ? '周長（皮尺繞圈）'
-                   : r.measurementType === 'diameter'      ? '直徑（直尺橫量）'
-                   : ''
-  const directRow = (r.directMeasurementCm > 0)
-    ? `<tr><td>皮尺讀數</td><td>${r.directMeasurementCm.toFixed(1)} cm（${mTypeLabel}）${
-        r.directMeasurementConfidence != null ? `<span style="color:var(--muted);margin-left:6px;">信心 ${(r.directMeasurementConfidence*100).toFixed(0)}%</span>` : ''
-      }</td></tr>`
-    : `<tr><td>皮尺讀數</td><td><span style="color:var(--muted)">未偵測</span></td></tr>`
-
-  // 影片來源：優先用 Google Drive iframe（節省 VM 磁碟、跨頁穩定），否則 fallback 至 VM 串流
+  // ── Section 8: 影片
   const videoSection = r.videoDriveUrl
-    ? `<div>
+    ? `<div style="grid-column: 1 / -1">
         <div class="section-title">🎬 原始影片
           <span style="font-weight:400;color:var(--muted);font-size:0.85rem;margin-left:6px;">${r.videoOriginalName || r.videoFilename || ''}（Google Drive）</span>
         </div>
         <div style="position:relative;width:100%;padding-top:56.25%;background:#000;border-radius:6px;overflow:hidden;" onclick="event.stopPropagation()">
-          <iframe src="${r.videoDriveUrl}" allow="autoplay" allowfullscreen
+          <iframe src="${r.videoDriveUrl.replace('/view', '/preview')}" allow="autoplay" allowfullscreen
                   style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;"></iframe>
         </div>
        </div>`
     : r.videoFilename
-    ? `<div>
+    ? `<div style="grid-column: 1 / -1">
         <div class="section-title">🎬 原始影片
           <span style="font-weight:400;color:var(--muted);font-size:0.85rem;margin-left:6px;">${r.videoOriginalName || r.videoFilename}</span>
         </div>
@@ -560,279 +634,149 @@ function buildCard(r) {
        </div>`
     : ''
 
-  const evidenceSection = r.hasEvidenceFrame
-    ? `<div>
-        <div class="section-title">📷 測量依據
-          <span style="font-weight:400;color:var(--muted);font-size:0.85rem;margin-left:6px;">Gemini 判讀採用的關鍵幀</span>
-        </div>
-<<<<<<< Updated upstream
-        <a href="${API_BASE}/api/trees/${r.id}/evidence-frame" target="_blank" onclick="event.stopPropagation()">
-          <img src="${API_BASE}/api/trees/${r.id}/evidence-frame" alt="測量依據幀"
-=======
-        <a href="/api/trees/${r.id}/evidence-frame" target="_blank" onclick="event.stopPropagation()">
-          <img src="/api/trees/${r.id}/evidence-frame" alt="測量依據幀"
->>>>>>> Stashed changes
-               style="width:100%;max-height:360px;object-fit:contain;background:#000;border-radius:6px;cursor:zoom-in;">
-        </a>
-       </div>`
-    : ''
-
   return `
 <div class="card" id="card-${r.id}">
   <div class="card-header" onclick="toggle('${r.id}')">
     <div class="conf-bar conf-bar-${conf}"></div>
     <span class="tree-no">${r.treeNo}</span>
     <span class="species-name">
-      ${r.species}
-      <span class="species-src">${r.speciesSource ? '(' + r.speciesSource + ')' : ''}</span>
+      ${primarySpecies}${zhStr ? ` <span class="species-src">（${zhStr}）</span>` : ''}
     </span>
     <div class="badges">
-      <span class="badge badge-${conf}">${confLabel}</span>
+
+      ${errBadge}
       ${bcBadge}
-<<<<<<< Updated upstream
-      ${r.hasStory ? `<a class="badge badge-story" href="./story.html?id=${r.id}" onclick="event.stopPropagation()">🌿 永續故事</a>` : ''}
-      ${r.videoDriveUrl ? `<a class="badge badge-env" href="${r.videoDriveUrl}" target="_blank" onclick="event.stopPropagation()" title="原始影片（Google Drive）">🎬 影片連結</a>` : ''}
-=======
-      ${r.hasStory ? `<a class="badge badge-story" href="/story.html?id=${r.id}" onclick="event.stopPropagation()">🌿 永續故事</a>` : ''}
-      ${r.hasEnvironment ? `<a class="badge badge-env" href="/api/trees/${r.id}/environment" target="_blank" onclick="event.stopPropagation()" title="此樹已記錄環境快照（天氣 / 太陽位置 / 物候）">📊 環境快照</a>` : ''}
->>>>>>> Stashed changes
+      ${r.videoDriveUrl ? `<a class="badge badge-pending" href="${r.videoDriveUrl}" target="_blank" onclick="event.stopPropagation()" title="原始影片">🎬 影片</a>` : ''}
     </div>
     <span class="chevron">▼</span>
   </div>
   <div class="card-body">
     <hr class="divider">
     <div class="sections">
-      <div>
-        <div class="section-title">📐 量測結果</div>
-        <table class="kv-table">
-          <tr><td>DBH 系統估算</td><td>${r.dbhCm != null ? r.dbhCm.toFixed(1) + ' cm' : '—'}</td></tr>
-          ${directRow}
-          ${refRow}
-          ${errorRow}
-          <tr><td>碳儲量</td><td>${r.carbonKg != null ? (r.carbonKg * 1000).toFixed(0) + ' g' : '—'}</td></tr>
-          <tr><td>材積</td><td>${r.volumeM3 != null ? (r.volumeM3 * 1e6).toFixed(0) + ' cm³' : '—'}</td></tr>
-          <tr><td>估算路徑</td><td>${path}</td></tr>
-          ${r.appliedCorrectionFactor ? `<tr><td>修正因子</td><td>${r.appliedCorrectionFactor.toFixed(3)}</td></tr>` : ''}
-          <tr><td>永續故事</td><td>${r.hasStory
-            ? `<a href="./story.html?id=${r.id}" style="color:var(--green-700);font-weight:600;text-decoration:none;" onclick="event.stopPropagation()">🌿 查看故事 →</a>`
-            : '<span style="color:var(--muted)">—</span>'
-          }</td></tr>
-        </table>
-      </div>
-      ${pathsSection}
-<<<<<<< Updated upstream
-      ${manualSection}
-=======
->>>>>>> Stashed changes
-      <div>
-        <div class="section-title">⛓ 區塊鏈存證</div>
-        <table class="kv-table">
-          ${txRow}
-          ${vhashRow}
-          <tr><td>上鏈時間</td><td>${bcTime}</td></tr>
-          ${verifyRow}
-        </table>
-      </div>
-      <div>
-        <div class="section-title">📷 EXIF 元數據</div>
-        <table class="kv-table">
-          <tr><td>手機型號</td><td>${r.deviceModel || '—'}</td></tr>
-          <tr><td>焦距</td><td>${r.focalLengthMm != null ? r.focalLengthMm + ' mm' : '—'}</td></tr>
-          <tr><td>感光元件寬</td><td>${r.sensorWidthMm != null ? r.sensorWidthMm.toFixed(2) + ' mm' : '—'}</td></tr>
-          ${gpsRow}
-          ${r.resolution ? `<tr><td>解析度</td><td>${r.resolution}</td></tr>` : ''}
-          ${r.fps ? `<tr><td>fps</td><td>${r.fps}</td></tr>` : ''}
-          <tr><td>拍攝時間</td><td>${createdTime}</td></tr>
-        </table>
-      </div>
-      ${evidenceSection}
+      ${verraSection}
+      ${measureSection}
+      ${speciesSection}
+      ${framesSection}
+      ${leafSection}
+      ${blockchainSection}
+      ${exifSection}
       ${videoSection}
     </div>
   </div>
 </div>`
 }
 
-function refLabel(src) {
-  if (!src) return '—'
-  if (src === 'credit_card' || src === 'creditcard') return '信用卡'
-  if (src === 'a4') return 'A4 紙'
-  return src
-}
-
 function toggle(id) {
   const card = document.getElementById('card-' + id)
   card.classList.toggle('open')
-  if (card.classList.contains('open')) loadPathFrames(id)
+  if (card.classList.contains('open')) {
+    loadFrames('p4frames-' + id)
+    loadFrames('leafframes-' + id)
+    loadEnv(id)
+  }
 }
 
-const _pathFramesCache = {}
-async function loadPathFrames(treeId) {
-  const box = document.getElementById('path-frames-' + treeId)
-  const tapeBox = document.getElementById('tape-compare-' + treeId)
-  if (!box || box.dataset.loaded === '1' || box.dataset.loading === '1') return
-  box.dataset.loading = '1'
+
+const SEASON_ZH = {
+  dry_winter:'乾冷冬季', wet_summer:'濕熱夏季',
+  spring_transition:'春季轉換', autumn_transition:'秋季轉換'
+}
+const ZONE_ZH = {
+  coastal:'海岸帶', lowland_broadleaf:'低海拔闊葉林',
+  montane_mixed:'中海拔混交林', subalpine_conifer:'高海拔針葉林'
+}
+const PHENOLOGY_ZH = {
+  bird_breeding_early:'鳥類繁殖初期', bird_breeding_late:'鳥類繁殖末期',
+  insect_emergence:'昆蟲羽化', beetle_sap_feeding:'甲蟲樹液期',
+  termite_alates_flight:'白蟻婚飛', flower_peak_lowland:'低地花期高峰',
+  fungal_fruiting_window:'菌類結實期', flying_squirrel_pups:'鼯鼠幼仔期',
+  leaf_flush:'新葉萌發', fruit_ripening:'果實成熟', dormancy:'休眠期'
+}
+const _envCache = {}
+async function loadEnv(treeId) {
+  const box = document.getElementById('env-' + treeId)
+  if (!box || box.dataset.loaded === '1') return
+  box.dataset.loaded = '1'
+  box.innerHTML = '<div style="font-size:0.82rem;color:var(--muted);">載入中…</div>'
   try {
-    const data = _pathFramesCache[treeId] || await fetch(`${API_BASE}/api/trees/${treeId}/path-frames`).then(r => r.json())
-    _pathFramesCache[treeId] = data
-    box.innerHTML = renderPathFrames(treeId, data)
-    if (tapeBox) tapeBox.innerHTML = renderTapeCompare(treeId, data)
-    box.dataset.loaded = '1'
-  } catch (e) {
-    box.innerHTML = `<span style="color:var(--err)">依據幀載入失敗：${e.message}</span>`
-    if (tapeBox) tapeBox.innerHTML = `<span style="color:var(--err)">皮尺對照載入失敗：${e.message}</span>`
-  } finally {
-    box.dataset.loading = '0'
+    const resp = await fetch(`${API_BASE}/api/trees/${treeId}/environment`)
+    if (!resp.ok) throw new Error('no env')
+    const d = await resp.json()
+    const tags = (d.phenology_tags || [])
+      .map(t => `<span class="phenology-pill">${PHENOLOGY_ZH[t] || t}</span>`).join('')
+    box.innerHTML = `
+      <table class="env-grid">
+        <tr><td>季節</td><td>${SEASON_ZH[d.season] || d.season || '—'}</td></tr>
+        <tr><td>林帶</td><td>${ZONE_ZH[d.forest_zone] || d.forest_zone || '—'}</td></tr>
+        <tr><td>氣溫</td><td>${d.temp_c != null ? d.temp_c.toFixed(1) + ' °C' : '—'}</td></tr>
+        <tr><td>濕度</td><td>${d.humidity_pct != null ? d.humidity_pct + '%' : '—'}</td></tr>
+        <tr><td>UV 指數</td><td>${d.uv_index != null ? d.uv_index.toFixed(1) : '—'}</td></tr>
+        <tr><td>日照時數</td><td>${d.sunshine_duration_h != null ? d.sunshine_duration_h.toFixed(1) + ' h' : '—'}</td></tr>
+      </table>
+      ${tags ? '<div style="margin-top:8px;">' + tags + '</div>' : ''}
+    `
+  } catch(e) {
+    box.innerHTML = '<div style="font-size:0.82rem;color:var(--muted);">環境資料不可用</div>'
   }
 }
+const _frameCache = {}
+async function loadFrames(boxId) {
+  const box = document.getElementById(boxId)
+  if (!box || box.dataset.loaded === '1') return
+  box.dataset.loaded = '1'
+  const treeId = box.dataset.treeid
+  let tss
+  try { tss = JSON.parse(box.dataset.tss || '[]') } catch(e) { tss = [] }
+  if (!tss.length) { box.innerHTML = '<div style="font-size:0.82rem;color:var(--muted);">無幀資料</div>'; return }
 
-// §30 v2：皮尺視覺判讀對照（從 Gemini path-frames 讀皮尺數字當基準）
-function renderTapeCompare(treeId, data) {
-  const p0 = data.paths?.path0
-  if (!p0 || !p0.evidence || p0.evidence.value == null) {
-    return `<div style="color:var(--muted);font-size:0.85rem;">此筆未偵測到皮尺數字（path 0 evidence 缺失）。本筆樹無法做皮尺基準對照，請改用其他樹木的卡片驗證。</div>`
-  }
-  const r = (typeof allRecords !== 'undefined' ? allRecords : []).find(x => x.id === treeId)
-  if (!r) return `<div style="color:var(--muted);font-size:0.85rem;">本機紀錄查無此樹，無法計算誤差。</div>`
-
-  const reading = p0.evidence.value
-  const mtype = p0.evidence.measurementType
-  const isCirc = mtype === 'circumference'
-  const baselineDbh = isCirc ? reading / Math.PI : reading
-  const conf = p0.evidence.confidence != null ? p0.evidence.confidence : null
-  const frameIdx = p0.evidence.frameIdx
-  const imgUrl = frameIdx != null ? `${API_BASE}/api/trees/${treeId}/frames/${frameIdx}` : null
-
-  const paths = r.paths || {}
-  const pathRow = (label, p, isSelfRef) => {
-    if (!p?.computed || p.dbhCm == null) {
-      return `<tr><td>${label}</td><td><span style="color:var(--muted)">—</span></td><td><span style="color:var(--muted)">—</span></td></tr>`
-    }
-    let errCell
-    if (isSelfRef) {
-      errCell = `<span style="color:var(--muted)">自身基準 (0%)</span>`
-    } else {
-      const err = (p.dbhCm - baselineDbh) / baselineDbh * 100
-      const a = Math.abs(err)
-      const cls = a <= 10 ? 'ok' : a <= 25 ? 'warn' : 'err'
-      errCell = `<span class="${cls}">${err >= 0 ? '+' : ''}${err.toFixed(1)}%</span>`
-    }
-    return `<tr><td>${label}</td><td>${p.dbhCm.toFixed(1)} cm</td><td>${errCell}</td></tr>`
-  }
-
-  const imgBlock = imgUrl
-    ? `<a href="${imgUrl}" target="_blank" onclick="event.stopPropagation()">
-         <img src="${imgUrl}" style="width:100%;border-radius:6px;background:#000;cursor:zoom-in;" onerror="this.style.opacity=0.2" />
-       </a>
-       <div style="font-size:0.72rem;color:var(--muted);margin-top:4px;line-height:1.4;">
-         Gemini 從 frame_${frameIdx}.jpg 判讀：<b>${reading.toFixed(1)} cm</b>${isCirc ? '（周長）' : mtype === 'diameter' ? '（直徑）' : ''}${conf != null ? `<br>判讀信心 ${(conf * 100).toFixed(0)}%` : ''}
-       </div>`
-    : `<div style="color:var(--muted);font-size:0.78rem;">無依據幀圖片。</div>`
-
-  return `
-    <div style="display:grid;grid-template-columns:minmax(160px, 260px) 1fr;gap:12px;align-items:start;">
-      <div>${imgBlock}</div>
-      <div>
-        <div style="font-size:0.78rem;color:var(--ink);margin-bottom:6px;">
-          皮尺基準 DBH = ${isCirc ? `${reading.toFixed(1)} cm ÷ π` : `${reading.toFixed(1)} cm`} = <b style="color:var(--green-700);">${baselineDbh.toFixed(1)} cm</b>
-        </div>
-        <table class="kv-table" style="width:100%;">
-          <thead>
-            <tr style="background:#f5f7f5;">
-              <th style="text-align:left;padding:4px 6px;">路徑</th>
-              <th style="text-align:left;padding:4px 6px;">系統估算 DBH</th>
-              <th style="text-align:left;padding:4px 6px;">vs 皮尺誤差</th>
-            </tr>
-          </thead>
-          <tbody>
-            ${pathRow('Path 0（直接讀數）', paths.path0, true)}
-            ${pathRow('Path A（參照物）', paths.pathA, false)}
-            ${pathRow('Path B（薄透鏡）', paths.pathB, false)}
-          </tbody>
-        </table>
-        <div style="font-size:0.72rem;color:var(--muted);margin-top:6px;line-height:1.5;">
-          ⚠️ Path 0 = 系統讀同條皮尺，必為 0% 誤差（自身基準，僅供確認 Gemini 判讀是否正確）。<br>
-          👁 請直接肉眼比對左側影像中的皮尺數字，確認 Gemini 讀到 <b>${reading.toFixed(1)} cm</b> 是否正確；若正確，Path A / Path B 該欄誤差即為 RQ1 系統精度。
-        </div>
-      </div>
-    </div>
-  `
-}
-
-function renderPathFrames(treeId, data) {
-  const tile = (label, frameIdx, meta) => {
-    if (frameIdx == null) return `<div class="pf-tile pf-na"><div class="pf-label">${label}</div><div class="pf-meta">無依據幀</div></div>`
-    const img = `${API_BASE}/api/trees/${treeId}/frames/${frameIdx}`
-    return `<div class="pf-tile">
-      <div class="pf-label">${label}</div>
-      <a href="${img}" target="_blank" onclick="event.stopPropagation()">
-        <img src="${img}" onerror="this.parentNode.replaceWith(Object.assign(document.createElement('div'),{className:'pf-missing',textContent:'frame_'+${frameIdx}+'.jpg 不存在'}))" />
+  box.innerHTML = '<div style="font-size:0.82rem;color:var(--muted);">載入中…</div>'
+  const imgs = tss.map((sec, i) => {
+    const url = `${API_BASE}/api/trees/${treeId}/frame-at?sec=${sec}`
+    return `<div>
+      <a href="${url}" target="_blank" onclick="event.stopPropagation()">
+        <img src="${url}" loading="lazy" onerror="this.style.opacity=0.15;this.title='幀不存在'" />
       </a>
-      <div class="pf-meta">frame_${frameIdx}.jpg${meta ? ' · ' + meta : ''}</div>
+      <div class="frame-ts">${fmtSec(sec)}</div>
     </div>`
-  }
-  const p = data.paths || {}
-  const p0Meta = p.path0?.evidence
-    ? `${p.path0.evidence.value?.toFixed(1) || '?'} cm（${p.path0.evidence.measurementType || ''}）信心 ${(p.path0.evidence.confidence * 100).toFixed(0)}%`
-    : null
-  const pAMeta = p.pathA?.evidence
-    ? `${p.pathA.evidence.referenceType || ''} · 信心 ${(p.pathA.evidence.confidence * 100).toFixed(0)}%`
-    : null
-
-  const pathBFramesGrid = p.pathB ? `
-    <div style="margin-top:8px;">
-      <div style="font-weight:600;color:var(--green-800);margin-bottom:4px;">Path B 取全部 ${data.frames.length} 幀中位數</div>
-      <div class="pf-grid-small">
-        ${data.frames.map(f => `
-          <a href="${API_BASE}/api/trees/${treeId}/frames/${f.frameIdx}" target="_blank" onclick="event.stopPropagation()" title="frame_${f.frameIdx}.jpg · trunkWidth=${(f.trunkWidthFraction || 0).toFixed(3)}">
-            <img src="${API_BASE}/api/trees/${treeId}/frames/${f.frameIdx}" onerror="this.style.opacity=0.15" />
-          </a>
-        `).join('')}
-      </div>
-    </div>` : ''
-
-  return `
-    <div class="pf-row">
-      ${p.path0 ? tile(`Path 0（${p.path0.dbhCm.toFixed(1)} cm）`, p.path0.evidence?.frameIdx, p0Meta) : ''}
-      ${p.pathA ? tile(`Path A（${p.pathA.dbhCm.toFixed(1)} cm）`, p.pathA.evidence?.frameIdx, pAMeta) : ''}
-    </div>
-    ${pathBFramesGrid}
-  `
+  }).join('')
+  box.innerHTML = `<div class="frames-grid">${imgs}</div>`
 }
-function expandAll()  {
+
+function expandAll() {
   document.querySelectorAll('.card').forEach(c => {
     c.classList.add('open')
     const id = c.id.replace(/^card-/, '')
-    if (id) loadPathFrames(id)
+    if (id) {
+      loadFrames('p4frames-' + id)
+      loadFrames('leafframes-' + id)
+      loadEnv(id)
+    }
   })
 }
-function collapseAll(){ document.querySelectorAll('.card').forEach(c => c.classList.remove('open')) }
+function collapseAll() { document.querySelectorAll('.card').forEach(c => c.classList.remove('open')) }
 
 function copy(text) {
   navigator.clipboard.writeText(text).then(() => showToast('✅ 已複製到剪貼簿'))
 }
-
 function showToast(msg) {
   const t = document.getElementById('toast')
-  t.textContent = msg
-  t.classList.add('show')
+  t.textContent = msg; t.classList.add('show')
   setTimeout(() => t.classList.remove('show'), 2200)
 }
 
 function applyFilters() {
   const search = document.getElementById('search').value.toLowerCase()
-  const conf   = document.getElementById('filter-confidence').value
   const chain  = document.getElementById('filter-chain').value
   const filtered = allRecords.filter(r => {
-    if (search && !r.species?.toLowerCase().includes(search)) return false
-    if (conf  && (r.confidence || '').toLowerCase() !== conf)  return false
-    if (chain && r.blockchain?.txStatus !== chain)              return false
+    const sp = r.p4v2?.species?.primary || r.species || ''
+    if (search && !sp.toLowerCase().includes(search)) return false
+    if (chain && r.blockchain?.txStatus !== chain)    return false
     return true
   })
   renderRecords(filtered)
   renderStats(filtered)
 }
 document.getElementById('search').addEventListener('input', applyFilters)
-document.getElementById('filter-confidence').addEventListener('change', applyFilters)
 document.getElementById('filter-chain').addEventListener('change', applyFilters)
 
 load()
