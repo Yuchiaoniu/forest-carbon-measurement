@@ -169,6 +169,7 @@ body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color
 .paths-table .winner { background: #e8f5e9; font-weight: 700; color: var(--green-800); position: relative; }
 .paths-table .winner::after { content: '★'; position: absolute; top: 2px; right: 4px; font-size: 0.65rem; color: var(--green-700); }
 .paths-table .na { color: var(--muted); font-style: italic; }
+<<<<<<< Updated upstream
 /* Path-frames evidence tiles */
 .path-frames-block { font-size: 0.78rem; }
 .pf-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 6px; }
@@ -180,6 +181,8 @@ body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color
 .pf-missing { padding: 30px 6px; text-align: center; color: var(--muted); background: #f7f7f7; border-radius: 4px; font-size: 0.72rem; }
 .pf-grid-small { display: grid; grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); gap: 6px; }
 .pf-grid-small img { width: 100%; height: 70px; object-fit: cover; background: #000; border-radius: 4px; cursor: zoom-in; }
+=======
+>>>>>>> Stashed changes
 .hash-val  { font-family: 'Courier New', monospace; font-size: 0.78rem; }
 .copy-btn  { background: none; border: none; cursor: pointer; color: var(--green-700); font-size: 0.73rem; padding: 0 4px; }
 .copy-btn:hover { text-decoration: underline; }
@@ -220,6 +223,7 @@ body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color
     <div class="header-nav">
       <a href="/">← 測量系統</a>
       <a href="/correction-factors.html">🧠 修正因子</a>
+      <a href="/showcase.html">📈 評估與演進旅程</a>
     </div>
     <h1>📊 量測記錄 Dashboard</h1>
     <p>所有上傳影片的量測結果、區塊鏈存證與拍攝元數據</p>
@@ -380,7 +384,13 @@ function buildCard(r) {
   const fmtDbh    = (p) => p.dbhCm != null ? `${p.dbhCm.toFixed(1)} cm` : '—'
   const fmtVolume = (p) => p.volumeM3 != null ? `${(p.volumeM3 * 1e6).toFixed(0)} cm³` : '—'
   const fmtCarbon = (p) => p.carbonKg != null ? `${(p.carbonKg * 1000).toFixed(0)} g` : '—'
+<<<<<<< Updated upstream
   // §30 v2：移除 Path B 修正後一列，使用者已用人工皮尺判讀做 RQ1 比較，三路徑原始值即可
+=======
+  const pathBCorrectedRow = pp.pathB?.computed && pp.pathB.dbhCmCorrected != null
+    ? `<tr><td>Path B 修正後 DBH</td><td colspan="3" style="text-align:center;color:var(--green-700);">${pp.pathB.dbhCmCorrected.toFixed(1)} cm</td></tr>`
+    : ''
+>>>>>>> Stashed changes
   const pathsSection = `
     <div>
       <div class="section-title">🔀 三路徑並列估算</div>
@@ -403,6 +413,7 @@ function buildCard(r) {
             ${renderPathCell(pp.path0, 'path0', w, fmtCarbon)}
             ${renderPathCell(pp.pathA, 'pathA', w, fmtCarbon)}
             ${renderPathCell(pp.pathB, 'pathB', w, fmtCarbon)}</tr>
+<<<<<<< Updated upstream
         </tbody>
       </table>
       ${w ? `<div style="margin-top:6px;font-size:0.72rem;color:var(--muted);">★ winner = ${w}（依優先級 0 &gt; A &gt; B）</div>` : ''}
@@ -463,6 +474,13 @@ function buildCard(r) {
         <div style="font-size:0.85rem;color:var(--muted);">這棵樹還沒有人工皮尺基準值。</div>
       </div>`
   }
+=======
+          ${pathBCorrectedRow}
+        </tbody>
+      </table>
+      ${w ? `<div style="margin-top:6px;font-size:0.72rem;color:var(--muted);">★ winner = ${w}（依優先級 0 &gt; A &gt; B）</div>` : ''}
+    </div>`
+>>>>>>> Stashed changes
 
   let errorRow = ''
   if (r.calibration && !r.referenceUsed) {
@@ -547,8 +565,13 @@ function buildCard(r) {
         <div class="section-title">📷 測量依據
           <span style="font-weight:400;color:var(--muted);font-size:0.85rem;margin-left:6px;">Gemini 判讀採用的關鍵幀</span>
         </div>
+<<<<<<< Updated upstream
         <a href="${API_BASE}/api/trees/${r.id}/evidence-frame" target="_blank" onclick="event.stopPropagation()">
           <img src="${API_BASE}/api/trees/${r.id}/evidence-frame" alt="測量依據幀"
+=======
+        <a href="/api/trees/${r.id}/evidence-frame" target="_blank" onclick="event.stopPropagation()">
+          <img src="/api/trees/${r.id}/evidence-frame" alt="測量依據幀"
+>>>>>>> Stashed changes
                style="width:100%;max-height:360px;object-fit:contain;background:#000;border-radius:6px;cursor:zoom-in;">
         </a>
        </div>`
@@ -566,8 +589,13 @@ function buildCard(r) {
     <div class="badges">
       <span class="badge badge-${conf}">${confLabel}</span>
       ${bcBadge}
+<<<<<<< Updated upstream
       ${r.hasStory ? `<a class="badge badge-story" href="./story.html?id=${r.id}" onclick="event.stopPropagation()">🌿 永續故事</a>` : ''}
       ${r.videoDriveUrl ? `<a class="badge badge-env" href="${r.videoDriveUrl}" target="_blank" onclick="event.stopPropagation()" title="原始影片（Google Drive）">🎬 影片連結</a>` : ''}
+=======
+      ${r.hasStory ? `<a class="badge badge-story" href="/story.html?id=${r.id}" onclick="event.stopPropagation()">🌿 永續故事</a>` : ''}
+      ${r.hasEnvironment ? `<a class="badge badge-env" href="/api/trees/${r.id}/environment" target="_blank" onclick="event.stopPropagation()" title="此樹已記錄環境快照（天氣 / 太陽位置 / 物候）">📊 環境快照</a>` : ''}
+>>>>>>> Stashed changes
     </div>
     <span class="chevron">▼</span>
   </div>
@@ -592,7 +620,10 @@ function buildCard(r) {
         </table>
       </div>
       ${pathsSection}
+<<<<<<< Updated upstream
       ${manualSection}
+=======
+>>>>>>> Stashed changes
       <div>
         <div class="section-title">⛓ 區塊鏈存證</div>
         <table class="kv-table">

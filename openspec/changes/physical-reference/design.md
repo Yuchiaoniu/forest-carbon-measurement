@@ -52,8 +52,8 @@ DBH(cm) = trunkToReferenceRatio × refWidthMm / 10
 | b5notebook | 182 |
 | ruler30 | 300 |
 | ruler100 | 1000 |
-| banknote100 | 130 |
-| banknote500 | 154 |
+| banknote100 | 145 |
+| banknote500 | 155 |
 | banknote1000 | 160 |
 | unknown | referenceEstimatedWidthMm（Gemini 估算） |
 

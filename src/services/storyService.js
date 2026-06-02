@@ -1,6 +1,12 @@
 const { GoogleGenerativeAI } = require('@google/generative-ai')
-const { getEcologyBySpecies, getBiodiversityMarkdown } = require('../data/ecologyDb')
-const { getWeatherAt, formatWeatherLine } = require('./weatherService')
+const { getEcologyBySpecies, getBiodiversityMarkdown, getSeasonalBehavior } = require('../data/ecologyDb')
+const { getWeatherAt, formatWeatherLine, bearingToText } = require('./weatherService')
+const { getByTreeId: getEnvCtxByTreeId } = require('../db/environmentalContext')
+const {
+  FOREST_ZONE_LABEL_ZH,
+  SEASON_LABEL_ZH,
+  describePhenology,
+} = require('./phenologyService')
 const { getDb } = require('../db/init')
 
 let _client = null
@@ -35,11 +41,73 @@ function carbonToMeaning(carbonKg) {
   return `等同於 ${Math.round(carbonKg * 2)} 頓廢紙回收的減碳效益`
 }
 
-// ── 方案 A：GPS × 生態層 × 氣象 × 動機推斷 → 環境詩學故事
+// 將拍攝時間 unix 轉為當月編號
+function getMonthFromUnix(unixTs) {
+  if (!unixTs) return null
+  return new Date(unixTs * 1000).getMonth() + 1
+}
+
+// 將 environmental_context 一列轉成可讀的環境快照 markdown 區塊
+function buildEnvSnapshotMarkdown(env) {
+  if (!env) return null
+  const lines = []
+  // 天氣
+  const weatherBits = []
+  if (env.weather_text) weatherBits.push(env.weather_text)
+  if (env.temp_c != null) weatherBits.push(`氣溫 ${env.temp_c}°C`)
+  if (env.humidity_pct != null) weatherBits.push(`濕度 ${env.humidity_pct}%`)
+  if (env.pressure_hpa != null) weatherBits.push(`氣壓 ${env.pressure_hpa} hPa`)
+  if (env.precip_mm != null && env.precip_mm > 0) weatherBits.push(`降水 ${env.precip_mm} mm`)
+  if (env.cloud_cover_pct != null) weatherBits.push(`雲量 ${env.cloud_cover_pct}%`)
+  if (weatherBits.length) lines.push(`- **天氣**：${weatherBits.join('、')}`)
+
+  // 風
+  if (env.wind_speed_ms != null || env.wind_dir_deg != null) {
+    const dirText = bearingToText(env.wind_dir_deg)
+    const windBits = []
+    if (dirText) windBits.push(`${dirText}風`)
+    if (env.wind_speed_ms != null) windBits.push(`${env.wind_speed_ms} m/s`)
+    if (windBits.length) lines.push(`- **風況**：${windBits.join('，')}`)
+  }
+
+  // 輻射 / UV / 日照
+  const lightBits = []
+  if (env.uv_index != null) lightBits.push(`UV 指數 ${env.uv_index}`)
+  if (env.sunshine_duration_h != null) lightBits.push(`日照 ${env.sunshine_duration_h} 小時`)
+  if (env.shortwave_radiation_wm2 != null) lightBits.push(`短波輻射 ${env.shortwave_radiation_wm2} W/m²`)
+  if (lightBits.length) lines.push(`- **光環境**：${lightBits.join('、')}`)
+
+  // 太陽位置
+  const sunBits = []
+  if (env.sunrise) sunBits.push(`日出 ${new Date(env.sunrise * 1000).toLocaleTimeString('zh-TW', { hour: '2-digit', minute: '2-digit' })}`)
+  if (env.sunset) sunBits.push(`日落 ${new Date(env.sunset * 1000).toLocaleTimeString('zh-TW', { hour: '2-digit', minute: '2-digit' })}`)
+  if (env.day_length_h != null) sunBits.push(`日長 ${env.day_length_h} 小時`)
+  if (env.solar_elevation_deg != null) sunBits.push(`太陽仰角 ${env.solar_elevation_deg}°`)
+  if (env.solar_azimuth_deg != null) sunBits.push(`方位 ${env.solar_azimuth_deg}°`)
+  if (sunBits.length) lines.push(`- **太陽位置**：${sunBits.join('、')}`)
+
+  // 海拔 / 林帶 / 季節
+  const placeBits = []
+  if (env.altitude_m != null) placeBits.push(`海拔 ${Math.round(env.altitude_m)} m`)
+  if (env.forest_zone) placeBits.push(FOREST_ZONE_LABEL_ZH[env.forest_zone] || env.forest_zone)
+  if (env.season) placeBits.push(SEASON_LABEL_ZH[env.season] || env.season)
+  if (placeBits.length) lines.push(`- **棲地座標**：${placeBits.join('、')}`)
+
+  // 物候標籤
+  const tags = Array.isArray(env.phenology_tags) ? env.phenology_tags : []
+  if (tags.length) {
+    const phen = describePhenology(tags)
+    if (phen) lines.push(`- **當下物候**：${phen}`)
+  }
+
+  return lines.length ? lines.join('\n') : null
+}
+
+// ── 方案 A：GPS × 生態層 × 環境快照 × 物候 × 樹種雙軸敘事
 async function generateStoryA(treeId) {
   const tree = getDb().prepare(`
     SELECT id, species, dbh_cm, carbon_kg, gps, created_at, confidence,
-           reference_used, device_model
+           reference_used, device_model, altitude_m, create_date
     FROM trees WHERE id = ?
   `).get(treeId)
   if (!tree || !process.env.GEMINI_API_KEY) return null
@@ -48,37 +116,74 @@ async function generateStoryA(treeId) {
   const gps = parseGps(tree.gps)
   const region = guessRegion(gps?.lat, gps?.lng)
 
-  // 氣象（非同步，無金鑰則 null）
-  const weather = gps
-    ? await getWeatherAt(gps.lat, gps.lng, tree.created_at).catch(() => null)
-    : null
-  const weatherLine = formatWeatherLine(weather)
+  // 環境快照：優先讀 environmental_context（包含天氣、UV、日照、太陽位置、物候）
+  const env = getEnvCtxByTreeId(treeId)
+
+  // 物候 × 樹種雙軸：拍攝當月的物種敘述
+  const captureUnix = tree.create_date || env?.measured_at || tree.created_at
+  const month = getMonthFromUnix(captureUnix)
+  const speciesSeasonalNote = getSeasonalBehavior(tree.species, month)
+
+  // 向下相容：若 environmental_context 不存在，仍可呼叫舊 weatherService 取得簡易天氣
+  let legacyWeather = null
+  let legacyWeatherLine = null
+  if (!env && gps) {
+    legacyWeather = await getWeatherAt(gps.lat, gps.lng, captureUnix).catch(() => null)
+    legacyWeatherLine = formatWeatherLine(legacyWeather)
+  }
 
   // 判斷 DBH 暗示的樹齡階段
   const dbh = tree.dbh_cm
   const sizeLabel = dbh < 5 ? '剛種下的幼苗' : dbh < 15 ? '成長中的小樹' : dbh < 30 ? '茁壯的青年樹' : '屹立多年的大樹'
 
-  const prompt = `你是一位台灣生態詩人兼環境記者，請根據以下資料，為這棵樹寫一段**感性且有科學根基的繁體中文故事**（約 200–300 字）。
+  // 環境細節（餵 Gemini 的隱藏資料層）
+  const envPromptLines = []
+  if (env) {
+    if (env.weather_text) envPromptLines.push(`- 天氣：${env.weather_text}`)
+    if (env.temp_c != null) envPromptLines.push(`- 氣溫：${env.temp_c}°C`)
+    if (env.humidity_pct != null) envPromptLines.push(`- 濕度：${env.humidity_pct}%`)
+    if (env.pressure_hpa != null) envPromptLines.push(`- 氣壓：${env.pressure_hpa} hPa`)
+    if (env.wind_speed_ms != null) {
+      const dir = bearingToText(env.wind_dir_deg)
+      envPromptLines.push(`- 風：${dir ? `${dir}風 ` : ''}${env.wind_speed_ms} m/s`)
+    }
+    if (env.uv_index != null) envPromptLines.push(`- UV 指數：${env.uv_index}`)
+    if (env.sunshine_duration_h != null) envPromptLines.push(`- 當日日照：${env.sunshine_duration_h} 小時`)
+    if (env.cloud_cover_pct != null) envPromptLines.push(`- 雲量：${env.cloud_cover_pct}%`)
+    if (env.altitude_m != null) envPromptLines.push(`- 海拔：${Math.round(env.altitude_m)} 公尺`)
+    if (env.forest_zone) envPromptLines.push(`- 林帶：${FOREST_ZONE_LABEL_ZH[env.forest_zone] || env.forest_zone}`)
+    if (env.season) envPromptLines.push(`- 季節：${SEASON_LABEL_ZH[env.season] || env.season}`)
+    const tags = Array.isArray(env.phenology_tags) ? env.phenology_tags : []
+    if (tags.length) envPromptLines.push(`- 當下物候現象：${describePhenology(tags)}`)
+  } else if (legacyWeatherLine) {
+    envPromptLines.push(`- 當日氣象：${legacyWeatherLine}`)
+  }
+
+  const prompt = `你是一位台灣生態詩人兼環境記者，請根據以下資料，為這棵樹寫一段**感性且有科學根基的繁體中文故事**（約 250–350 字）。
 
 ## 樹木資訊
 - 樹種：${eco.zhName}（${tree.species}）
 - 生長階段：${sizeLabel}（胸高直徑 ${tree.dbh_cm} cm）
 - 碳儲量：${tree.carbon_kg} kg（${carbonToMeaning(tree.carbon_kg)}）
 - 地點：${region}${gps ? `（${gps.lat.toFixed(4)}°N, ${gps.lng.toFixed(4)}°E）` : ''}
-- 量測時間：${new Date(tree.created_at * 1000).toLocaleDateString('zh-TW')}
+- 量測時間：${new Date(captureUnix * 1000).toLocaleDateString('zh-TW')}
 - 是否為原生樹種：${eco.origin === 'native' ? '是，台灣原生' : eco.origin === 'introduced' ? '否，引進種' : '未知'}
 - 生態關鍵物種：${eco.keystone ? '是' : '否'}
-- 吸引鳥類：${eco.birds.slice(0, 4).join('、')}
-- 吸引昆蟲：${eco.insects.slice(0, 3).join('、')}
-${weatherLine ? `- 當日氣象：${weatherLine}` : ''}
+- 吸引鳥類：${eco.birds.slice(0, 5).join('、')}
+- 吸引昆蟲：${eco.insects.slice(0, 4).join('、')}
+
+${speciesSeasonalNote ? `## 拍攝當月此樹種的物候活動\n${speciesSeasonalNote}` : ''}
+
+${envPromptLines.length ? `## 拍攝當下環境快照（拍攝瞬間真實環境，請自然融入敘事）\n${envPromptLines.join('\n')}` : ''}
 
 ## 寫作要求
-1. 以這棵樹的視角或旁觀者的視角，交織生態事實與情感
-2. 至少提到一種吸引的鳥類或昆蟲，描述它們與這棵樹的關係
-3. 提到這棵樹對土壤或周遭生態的貢獻（${eco.soilRole.slice(0, 50)}…）
-4. 末段隱含「種樹是寫給未來的信」的主題
-5. **不要**使用「的」字結尾的句子
-6. 語氣溫暖，避免說教，讓讀者感到驚奇與希望
+1. **雙軸敘事**：將樹種特性 × 拍攝當下的季節物候交織描寫，讓讀者感受到「這一刻，這棵樹周遭正在發生什麼」
+2. 自然融入 1-2 項環境細節（如氣溫、UV、雲量、風向、日照時長），用詩意語言而非數字堆砌
+3. 至少提到一種此樹當月會吸引的鳥類、昆蟲或哺乳類，描寫它們在此刻的具體行為
+4. 提到這棵樹對土壤或周遭生態的貢獻（${eco.soilRole.slice(0, 60)}）
+5. 末段隱含「種樹是寫給未來的信」的主題
+6. **不要**使用「的」字結尾的句子，改用完整謂語結構
+7. 語氣溫暖，避免說教，讓讀者感到驚奇與希望
 
 僅輸出故事正文，不加標題或前言。`
 
@@ -87,9 +192,20 @@ ${weatherLine ? `- 當日氣象：${weatherLine}` : ''}
   const narrative = result.response.text().trim()
 
   // 建立完整 Markdown 故事頁
-  const recordDate = new Date(tree.created_at * 1000).toLocaleDateString('zh-TW', {
+  const recordDate = new Date(captureUnix * 1000).toLocaleDateString('zh-TW', {
     year: 'numeric', month: 'long', day: 'numeric',
   })
+
+  const envSnapshotMd = buildEnvSnapshotMarkdown(env)
+  const envSection = envSnapshotMd
+    ? `## 📊 拍攝當下環境快照\n\n${envSnapshotMd}\n\n---\n\n`
+    : legacyWeatherLine
+      ? `## 🌤 量測當日環境\n\n${legacyWeatherLine}\n\n---\n\n`
+      : ''
+
+  const seasonalSection = speciesSeasonalNote
+    ? `## 🍃 此刻的 ${eco.zhName}（${month} 月）\n\n${speciesSeasonalNote}\n\n---\n\n`
+    : ''
 
   const markdown = `# 🌳 ${eco.zhName} 的故事
 
@@ -101,7 +217,7 @@ ${getBiodiversityMarkdown(tree.species)}
 
 ---
 
-## 🌍 碳儲量意義
+${seasonalSection}## 🌍 碳儲量意義
 
 這棵 ${eco.zhName} 目前儲存了 **${tree.carbon_kg} kg** 的碳。${carbonToMeaning(tree.carbon_kg)}。
 
@@ -115,9 +231,13 @@ ${narrative}
 
 ---
 
-${weatherLine ? `## 🌤 量測當日環境\n\n${weatherLine}\n\n---\n\n` : ''}_資料由 Forest Carbon Measurement 系統自動生成，Gemini 2.5 Flash 驅動，${new Date().toLocaleDateString('zh-TW')} 更新_`
+${envSection}_資料由 Forest Carbon Measurement 系統自動生成，Gemini 2.5 Flash 驅動，${new Date().toLocaleDateString('zh-TW')} 更新_`
 
-  return { markdown, summary: `${eco.zhName}，${tree.dbh_cm} cm，${tree.carbon_kg} kg C，${region}`, weather }
+  return {
+    markdown,
+    summary: `${eco.zhName}，${tree.dbh_cm} cm，${tree.carbon_kg} kg C，${region}`,
+    weather: env || legacyWeather,
+  }
 }
 
 // ── 方案 C：Event 形成 → 集體影響力故事
