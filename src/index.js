@@ -350,8 +350,80 @@ app.get('/api/trees', (req, res) => {
         } : { computed: false },
       },
       winnerPath: r.winner_path || null,
+      // §42 P4v2 fields
+      p4v2: raw && raw.aggMethodFinal ? {
+        engine: raw.engine,
+        repeat: raw.repeat,
+        medianRatio: raw.medianRatio,
+        rawDbhCm: raw.rawDbhCm,
+        calibratedDbhCm: raw.calibratedDbhCm,
+        calibFactor: raw.calibFactor,
+        aggMethodFinal: raw.aggMethodFinal,
+        cv: raw.cv,
+        measureTimestamps: raw.measureTimestamps || [],
+        runs: (raw.runs || []).map(run => ({ videoTimestampSec: run.videoTimestampSec, ratio: run.ratio, confidence: run.confidence })),
+        species: raw.species ? {
+          agree: raw.species.agree,
+          primary: raw.species.primary,
+          source: raw.species.source,
+          gemini: raw.species.gemini ? {
+            species: raw.species.gemini.species,
+            zhName: raw.species.gemini.zhName,
+            confidence: raw.species.gemini.confidence,
+            isDefaultFormula: raw.species.gemini.isDefaultFormula,
+            carbonKg: raw.species.gemini.carbonKg,
+            agbKg: raw.species.gemini.agbKg,
+            co2eKg: raw.species.gemini.co2eKg,
+          } : null,
+          plantnet: raw.species.plantnet ? {
+            species: raw.species.plantnet.species,
+            zhName: raw.species.plantnet.zhName,
+            confidence: raw.species.plantnet.confidence,
+            isDefaultFormula: raw.species.plantnet.isDefaultFormula,
+            carbonKg: raw.species.plantnet.carbonKg,
+            agbKg: raw.species.plantnet.agbKg,
+            co2eKg: raw.species.plantnet.co2eKg,
+          } : null,
+          leafTimestamps: raw.species.leafTimestamps || [],
+        } : null,
+        carbon: raw.carbon ? {
+          primaryKg: raw.carbon.primaryKg,
+          agbKg: raw.carbon.agbKg,
+          co2eKg: raw.carbon.co2eKg,
+          heightM: raw.carbon.heightM,
+        } : null,
+      } : null,
     }
   }))
+})
+
+// GET /api/trees/:id/frame-at?sec= (§42.F1: extract frame from video_cache at given timestamp)
+app.get('/api/trees/:id/frame-at', (req, res) => {
+  const { id } = req.params
+  const sec = parseFloat(req.query.sec)
+  if (isNaN(sec) || sec < 0 || sec > 3600) return res.status(400).json({ error: 'invalid sec' })
+  const tree = getDb().prepare('SELECT video_original_name FROM trees WHERE id = ?').get(id)
+  if (!tree) return res.status(404).json({ error: 'tree not found' })
+  const vidName = tree.video_original_name
+  if (!vidName) return res.status(404).json({ error: 'no video for this tree' })
+  const vidPath = path.join(__dirname, 'video_cache', vidName)
+  if (!fs.existsSync(vidPath)) return res.status(404).json({ error: 'video_cache miss: ' + vidName })
+  const cacheDir = path.join(__dirname, 'tmp_frames', 'frame_at_cache')
+  fs.mkdirSync(cacheDir, { recursive: true })
+  const cacheFile = path.join(cacheDir, id + '_' + sec + '.jpg')
+  if (fs.existsSync(cacheFile)) {
+    res.setHeader('Content-Type', 'image/jpeg')
+    res.setHeader('Cache-Control', 'public, max-age=86400')
+    return fs.createReadStream(cacheFile).pipe(res)
+  }
+  const { spawnSync } = require('child_process')
+  const r = spawnSync('ffmpeg', ['-ss', String(sec), '-i', vidPath, '-vframes', '1', '-q:v', '2', '-y', cacheFile], { timeout: 30000 })
+  if (r.status !== 0 || !fs.existsSync(cacheFile)) {
+    return res.status(500).json({ error: 'ffmpeg failed', stderr: r.stderr?.toString() })
+  }
+  res.setHeader('Content-Type', 'image/jpeg')
+  res.setHeader('Cache-Control', 'public, max-age=86400')
+  fs.createReadStream(cacheFile).pipe(res)
 })
 
 // 主要處理流程

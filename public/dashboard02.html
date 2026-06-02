@@ -226,10 +226,10 @@ const ZH_MAP = {
   "Acacia confusa": "相思樹",
   "Liquidambar formosana": "楓香",
   "Swietenia macrophylla": "大葉桃花心木",
-  "Bischofia javanica": "茄冬",
-  "Melia azedarach": "苦漆",
+  "Bischofia javanica": "茄苳",
+  "Melia azedarach": "苦榙",
   "Juglans nigra": "黑胡桃",
-  "Zelkova serrata": "欹木",
+  "Zelkova serrata": "櫸木",
   "Pongamia pinnata": "水黃皮",
   "Unknown": "未辨識",
 };
@@ -300,31 +300,31 @@ function renderBody(body, r, p4, sp, gemini, plantnet, bc, geminiZh) {
   let html = "";
 
   /* a. Verra chain */
-  html += "<div class="sec-title">Verra 換算鎗</div>" +
-    "<div class="chain">" +
-    "<div class="chain-box"><div class="cl">校準 DBH</div><div class="cv">" + fmt(p4.calibratedDbhCm) + " cm</div></div>" +
-    "<span class="chain-arrow">→</span>" +
-    "<div class="chain-box"><div class="cl">AGB (kg)</div><div class="cv">" + fmt(carbon.agbKg, 1) + "</div></div>" +
-    "<span class="chain-arrow">→</span>" +
-    "<div class="chain-box"><div class="cl">Carbon (kg)</div><div class="cv">" + fmt(carbon.primaryKg, 1) + "</div></div>" +
-    "<span class="chain-arrow">→</span>" +
-    "<div class="chain-box"><div class="cl">CO₂e (kg)</div><div class="cv">" + fmt(carbon.co2eKg, 1) + "</div></div>" +
+  html += "<div class='sec-title'>Verra 換算鎗</div>" +
+    "<div class='chain'>" +
+    "<div class='chain-box'><div class='cl'>校準 DBH</div><div class='cv'>" + fmt(p4.calibratedDbhCm) + " cm</div></div>" +
+    "<span class='chain-arrow'>→</span>" +
+    "<div class='chain-box'><div class='cl'>AGB (kg)</div><div class='cv'>" + fmt(carbon.agbKg, 1) + "</div></div>" +
+    "<span class='chain-arrow'>→</span>" +
+    "<div class='chain-box'><div class='cl'>Carbon (kg)</div><div class='cv'>" + fmt(carbon.primaryKg, 1) + "</div></div>" +
+    "<span class='chain-arrow'>→</span>" +
+    "<div class='chain-box'><div class='cl'>CO₂e (kg)</div><div class='cv'>" + fmt(carbon.co2eKg, 1) + "</div></div>" +
     "</div>";
 
   /* b. Species compare */
   function spBox(src, obj) {
     const zh = zhName(obj.species, obj.zhName);
     const conf = obj.confidence != null ? (obj.confidence * 100).toFixed(1) + "%" : "—";
-    return "<div class="sp-box">" +
-      "<div class="sp-source">" + src + "</div>" +
-      "<div class="sp-name">" + (obj.species || "—") + "</div>" +
-      "<div class="sp-zh">" + zh + "</div>" +
-      "<div class="sp-conf">信心度 " + conf + "</div>" +
-      "<div class="sp-carbon">C: " + fmt(obj.carbonKg, 1) + " kg &nbsp;|&nbsp; CO₂e: " + fmt(obj.co2eKg, 1) + " kg</div>" +
+    return "<div class='sp-box'>" +
+      "<div class='sp-source'>" + src + "</div>" +
+      "<div class='sp-name'>" + (obj.species || "—") + "</div>" +
+      "<div class='sp-zh'>" + zh + "</div>" +
+      "<div class='sp-conf'>信心度 " + conf + "</div>" +
+      "<div class='sp-carbon'>C: " + fmt(obj.carbonKg, 1) + " kg &nbsp;|&nbsp; CO₂e: " + fmt(obj.co2eKg, 1) + " kg</div>" +
       "</div>";
   }
-  html += "<div class="sec-title">物種辨識比對</div>" +
-    "<div class="species-grid">" + spBox("Gemini", gemini) + spBox("Pl@ntNet", plantnet) + "</div>";
+  html += "<div class='sec-title'>物種辨識比對</div>" +
+    "<div class='species-grid'>" + spBox("Gemini", gemini) + spBox("Pl@ntNet", plantnet) + "</div>";
 
   body.innerHTML = html;
 
@@ -332,7 +332,7 @@ function renderBody(body, r, p4, sp, gemini, plantnet, bc, geminiZh) {
   const measTs = p4.measureTimestamps || [];
   if (measTs.length > 0) {
     const sec = document.createElement("div");
-    sec.innerHTML = "<div class="sec-title">量測 Keyframes</div>";
+    sec.innerHTML = "<div class='sec-title'>量測 Keyframes</div>";
     const row = document.createElement("div");
     row.className = "frames-row";
     measTs.forEach(function(t) { row.appendChild(makeThumb(r._id, t, "量測 " + t + "s")); });
@@ -344,7 +344,7 @@ function renderBody(body, r, p4, sp, gemini, plantnet, bc, geminiZh) {
   const leafTs = sp.leafTimestamps || [];
   if (leafTs.length > 0) {
     const sec = document.createElement("div");
-    sec.innerHTML = "<div class="sec-title">物種辨識 Frames</div>";
+    sec.innerHTML = "<div class='sec-title'>物種辨識 Frames</div>";
     const row = document.createElement("div");
     row.className = "frames-row";
     leafTs.forEach(function(t) { row.appendChild(makeThumb(r._id, t, "物種 " + t + "s")); });
@@ -354,9 +354,9 @@ function renderBody(body, r, p4, sp, gemini, plantnet, bc, geminiZh) {
 
   /* e. Blockchain */
   const bcHtml = document.createElement("div");
-  bcHtml.innerHTML = "<div class="sec-title">區塊鏈</div>" +
-    "<div class="bc-row">" +
-    "<span class="badge " + (bc.txStatus === "confirmed" ? "badge-pass" : "badge-na") + "">" + (bc.txStatus || "—") + "</span>" +
+  bcHtml.innerHTML = "<div class='sec-title'>區塊鏈</div>" +
+    "<div class='bc-row'>" +
+    "<span class='badge " + (bc.txStatus === "confirmed" ? "badge-pass" : "badge-na") + "'>" + (bc.txStatus || "—") + "</span>" +
 (bc.txHash ? '<a class="bc-hash" href="' + API_BASE + '/tx.html?hash=' + bc.txHash + '" target="_blank">' + bc.txHash.slice(0,18) + '…</a>' : '<span class="bc-hash">尚未上鏈</span>') +
     "</div>";
   body.appendChild(bcHtml);
@@ -364,8 +364,8 @@ function renderBody(body, r, p4, sp, gemini, plantnet, bc, geminiZh) {
   /* f. Metadata */
   const meta = document.createElement("div");
   const gpsStr = r.gps ? (r.gps.lat && r.gps.lat.toFixed ? r.gps.lat.toFixed(6) : r.gps.lat) + ", " + (r.gps.lng && r.gps.lng.toFixed ? r.gps.lng.toFixed(6) : r.gps.lng) : "—";
-  meta.innerHTML = "<div class="sec-title">詮釋資料</div>" +
-    "<table class="meta-table">" +
+  meta.innerHTML = "<div class='sec-title'>詮釋資料</div>" +
+    "<table class='meta-table'>" +
     "<tr><td>GPS</td><td>" + gpsStr + "</td></tr>" +
     "<tr><td>裝置</td><td>" + (r.deviceModel || "—") + "</td></tr>" +
     "<tr><td>Raw DBH (cm)</td><td>" + fmt(p4.rawDbhCm) + "</td></tr>" +
@@ -380,14 +380,14 @@ function renderBody(body, r, p4, sp, gemini, plantnet, bc, geminiZh) {
   /* g. Drive video */
   if (r.videoDriveUrl) {
     const lnk = document.createElement("div");
-    lnk.innerHTML = "<a class="ext-link" href="" + r.videoDriveUrl + "" target="_blank" rel="noopener">🎥 Drive 影片</a>";
+    lnk.innerHTML = "<a class='ext-link' href='" + r.videoDriveUrl + "' target='_blank' rel='noopener'>🎥 Drive 影片</a>";
     body.appendChild(lnk);
   }
 
   /* h. Story link */
   if (r.hasStory) {
     const sl = document.createElement("div");
-    sl.innerHTML = "<a class="ext-link" href="/story?id=" + r._id + "" target="_blank" rel="noopener">📖 Story</a>";
+    sl.innerHTML = "<a class='ext-link' href='/story?id=" + r._id + "' target='_blank' rel='noopener'>📖 Story</a>";
     body.appendChild(sl);
   }
 }
@@ -422,20 +422,20 @@ function renderCard(r, idx) {
   const dispSpecies = geminiZh + " / " + (gemini.species || "—");
 
   card.innerHTML =
-    "<div class="tree-header">" +
-    "<span class="tree-num">" + (r.treeNum || "T???") + "</span>" +
-    "<div class="tree-info">" +
-    "<div class="tree-dbh">P4v2 DBH: " + fmt(p4.calibratedDbhCm) + " cm" +
-    "<span style="color:var(--muted); font-weight:400; font-size:0.8rem;">" +
+    "<div class='tree-header'>" +
+    "<span class='tree-num'>" + (r.treeNum || "T???") + "</span>" +
+    "<div class='tree-info'>" +
+    "<div class='tree-dbh'>P4v2 DBH: " + fmt(p4.calibratedDbhCm) + " cm" +
+    "<span style='color:var(--muted); font-weight:400; font-size:0.8rem;'>" +
     (tape != null ? " | 皮尺: " + fmt(tape) + " cm" : "") +
     "</span></div>" +
-    "<div class="tree-species">" + dispSpecies + "</div>" +
+    "<div class='tree-species'>" + dispSpecies + "</div>" +
     "</div>" +
-    "<span class="tree-carbon">" + fmt(p4.carbon && p4.carbon.primaryKg, 1) + " kg C</span>" +
-    "<span class="badge " + badgeClass + "">" + badgeLabel + "</span>" +
-    "<span class="toggle-icon">▶</span>" +
+    "<span class='tree-carbon'>" + fmt(p4.carbon && p4.carbon.primaryKg, 1) + " kg C</span>" +
+    "<span class='badge " + badgeClass + "'>" + badgeLabel + "</span>" +
+    "<span class='toggle-icon'>▶</span>" +
     "</div>" +
-    "<div class="tree-body"></div>";
+    "<div class='tree-body'></div>";
 
   const header = card.querySelector(".tree-header");
   const body   = card.querySelector(".tree-body");
@@ -492,7 +492,7 @@ function renderVerraSummary(trees) {
     ["偏差（P4v2 − 皮尺）", (v.bias >= 0 ? "+" : "") + v.bias.toFixed(2) + " cm"],
     ["誤差標準差", v.std.toFixed(2) + " cm"],
     ["90% CI 半寬 ÷ 平均 DBH",
-      "<span style="color:" + (v.ciPct < 100 ? "var(--accent)" : "var(--red)") + "; font-weight:700">" +
+      "<span style='color:" + (v.ciPct < 100 ? "var(--accent)" : "var(--red)") + "; font-weight:700'>" +
       v.ciPct.toFixed(1) + "% " + (v.ciPct < 100 ? "✓ < 100%" : "✗ ≥ 100%") + "</span>"],
     ["PASS / FAIL 棵數（≤15%）", v.passCount + " PASS / " + (v.n - v.passCount) + " FAIL"],
   ];
