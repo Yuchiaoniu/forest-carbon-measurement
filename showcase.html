@@ -369,9 +369,48 @@ li { margin-bottom: 4px; }
       </div>
     </div>
 
-    <!-- RQ3 / RO3 hidden -->
-    <div id="rq3" style="display:none"></div>
-    <div id="ro3" style="display:none"></div>
+    <!-- RQ3 / RO3 hidden — 草稿，待確認研究方向後再公開 -->
+    <div class="rqro-group" style="display:none">
+      <div class="rqro-label">研究問題 3</div>
+      <div class="section-card blue" id="rq3" style="margin-bottom:0">
+        <div class="section-card-inner">
+          <div class="section-h2 blue" style="font-size:0.95rem;margin-bottom:10px">RQ3：以 Verra VM0047 標準量測、並經區塊鏈存證的碳匯數據，能否作為企業 ESG 報告中碳抵換（carbon offset）項目的可審計數據來源？</div>
+          <p>此問題聚焦 ESG 揭露層級，檢驗此系統在 RQ1 已驗證量測精度的前提下，所產出的碳匯數據是否同時滿足 GRI 305-3（Scope 3 間接排放）與 ISO 14064-2 對碳抵換項目的審計要件。研究範圍明確界定為量測技術面的合規性，不涵蓋額外性（additionality）與永久性（permanence）宣告——這兩項屬森林管理層級，由 Verra Registry 及法律契約另行處理。</p>
+          <table>
+            <tr><th>審計要件</th><th>GRI 305-3</th><th>ISO 14064-2</th><th>系統能提供什麼</th><th>狀態</th></tr>
+            <tr><td>量測方法論有公信力</td><td>✓</td><td>✓</td><td>Verra VM0047 v1.0</td><td class="pass">✅ 符合</td></tr>
+            <tr><td>不確定性量化</td><td>✓</td><td>✓</td><td>90% CI 半寬 7.4%（DBH）/ 14.7%（AGB）</td><td class="pass">✅ 符合</td></tr>
+            <tr><td>數據可追溯性（audit trail）</td><td>✓</td><td>✓</td><td>區塊鏈存證（tx_hash）、每筆附時間戳</td><td class="pass">✅ 符合</td></tr>
+            <tr><td>防止雙重計算</td><td>✓</td><td>✓</td><td>Verra Registry 管理</td><td class="warn">⚠️ 外部依賴</td></tr>
+            <tr><td>額外性（additionality）</td><td>✓</td><td>✓</td><td>屬森林管理宣告，超出量測系統範圍</td><td class="dead">— 邊界外</td></tr>
+            <tr><td>永久性（permanence）保障</td><td>✓</td><td>✓</td><td>屬法律契約，超出量測系統範圍</td><td class="dead">— 邊界外</td></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="rqro-group" style="display:none">
+      <div class="rqro-label">研究目標 3 <span class="draft">草稿、修訂中</span></div>
+      <div class="section-card orange" id="ro3" style="margin-bottom:0">
+        <div class="section-card-inner">
+          <div class="section-h2 orange" style="font-size:0.95rem;margin-bottom:10px">RO3：建立並驗證一套對標框架，系統性評估以 Verra VM0047 量測並區塊鏈存證的碳匯數據，在 GRI 305-3 及 ISO 14064-2 審計要件中的適用範圍與邊界條件</div>
+          <p>此研究目標包含三個動作：</p>
+          <ul>
+            <li><strong>建立</strong>對標框架 → 將系統實際輸出逐條對照 GRI 305-3 與 ISO 14064-2 審計要件，製成合規矩陣（compliance matrix）</li>
+            <li><strong>驗證</strong>框架 → 邀請 5–8 位 ESG 審計師或碳市場顧問，以李克特量表（Likert scale，1–5 分）評定矩陣分類是否合理，以及各項系統輸出在實務審計中是否足以採信</li>
+            <li><strong>評估適用範圍與邊界條件</strong> → 明確宣告量測系統能回應哪些審計要件，以及哪些要件需由外部機制（Verra Registry、法律契約）補足，避免過度宣稱</li>
+          </ul>
+          <div class="section-h3">驗證方法與研究分工</div>
+          <table>
+            <tr><th>層次</th><th>方法</th><th>對象</th><th>產出</th></tr>
+            <tr><td>技術合規層</td><td>文件對標分析</td><td>GRI 305-3、ISO 14064-2、Verra VCS 條文</td><td>合規矩陣（逐條對照）</td></tr>
+            <tr><td>實務接受層</td><td>專家問卷（單輪）</td><td>ESG 顧問、碳市場交易員、企業永續長 5–8 人</td><td>李克特量表評分 + 質性意見</td></tr>
+          </table>
+          <div class="section-h3">邊界條件宣告</div>
+          <p>額外性與永久性不在此研究目標的驗證範圍內，理由是兩者屬於森林管理聲明（需實地查核土地使用協議與林地管理計畫），而非量測技術問題。系統負責提供可信、可追溯的量測數據；森林管理宣告由 Verra Registry 及相關法律契約另行處理，兩套機制分工互補，各負其責。</p>
+        </div>
+      </div>
+    </div>
 
   </div>
 </div>
