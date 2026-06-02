@@ -1,553 +1,785 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Dashboard 02 — Verra 版面（Pipeline 4 v2）</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>量測儀錶板 — 森林碳匯</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  :root {
-    --bg: #0f1117;
-    --card: #1a1d27;
-    --accent: #4ade80;
-    --blue: #60a5fa;
-    --muted: #6b7280;
-    --text: #e5e7eb;
-    --border: #2d3148;
-    --red: #f87171;
-    --yellow: #fbbf24;
-  }
-  body { background: var(--bg); color: var(--text); font-family: "Segoe UI", system-ui, sans-serif; font-size: 14px; line-height: 1.5; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
 
-  /* Header */
-  header { padding: 24px 20px 16px; border-bottom: 1px solid var(--border); }
-  header h1 { font-size: 1.5rem; font-weight: 700; color: var(--accent); }
-  header p  { color: var(--muted); font-size: 0.85rem; margin-top: 4px; }
+:root {
+  --green-900: #14532d;
+  --green-800: #166534;
+  --green-700: #15803d;
+  --green-600: #16a34a;
+  --green-500: #22c55e;
+  --green-100: #dcfce7;
+  --green-50:  #f0fdf4;
+  --bg:        #f1f5f1;
+  --text:      #1a2e1a;
+  --muted:     #6b7280;
+  --border:    #e5e7eb;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.10);
+}
 
-  /* Verra Summary Box */
-  #verra-summary {
-    margin: 16px 20px;
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 16px;
-  }
-  #verra-summary h2 { color: var(--blue); font-size: 1rem; margin-bottom: 10px; }
-  #verra-summary table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
-  #verra-summary td { padding: 5px 8px; border-bottom: 1px solid var(--border); }
-  #verra-summary td:first-child { color: var(--muted); width: 55%; }
-  #verra-summary td:last-child { font-weight: 600; text-align: right; }
-  #verra-summary .note { color: var(--muted); font-size: 0.75rem; margin-top: 10px; line-height: 1.4; }
+body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
 
-  /* Stats bar */
-  #stats-bar {
-    display: flex; gap: 12px; flex-wrap: wrap;
-    margin: 16px 20px;
-  }
-  .stat-card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 12px 20px;
-    flex: 1; min-width: 130px;
-  }
-  .stat-card .label { color: var(--muted); font-size: 0.75rem; }
-  .stat-card .value { font-size: 1.25rem; font-weight: 700; color: var(--accent); }
+.header {
+  background: linear-gradient(135deg, var(--green-900) 0%, var(--green-700) 60%, #2d6a4f 100%);
+  padding: 24px 24px 28px;
+  position: relative; overflow: hidden;
+}
+.header::before {
+  content:''; position:absolute; inset:0;
+  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 5 L20 25 H40 Z M18 22 L8 42 H28 Z M42 22 L32 42 H52 Z' fill='white' fill-opacity='0.04'/%3E%3C/svg%3E") repeat;
+  pointer-events: none;
+}
+.header-inner { max-width: 860px; margin: 0 auto; position: relative; }
+.header-nav { display: flex; gap: 16px; margin-bottom: 18px; }
+.header-nav a {
+  font-size: 0.8rem; color: rgba(255,255,255,0.75); text-decoration: none;
+  padding: 4px 10px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.2);
+  transition: all 0.2s;
+}
+.header-nav a:hover { background: rgba(255,255,255,0.15); color: white; }
+.header h1 { font-size: 1.5rem; font-weight: 700; color: white; margin-bottom: 4px; }
+.header p  { font-size: 0.88rem; color: rgba(255,255,255,0.7); }
 
-  /* Records list */
-  #records { padding: 0 20px 40px; }
+.container { max-width: 860px; margin: -16px auto 0; padding: 0 16px 48px; }
 
-  /* Tree card */
-  .tree-card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    margin-bottom: 12px;
-    overflow: hidden;
-  }
-  .tree-header {
-    display: flex; align-items: center; gap: 12px;
-    padding: 14px 16px; cursor: pointer;
-    user-select: none;
-  }
-  .tree-header:hover { background: #1f2235; }
-  .tree-num  { font-weight: 700; color: var(--accent); min-width: 48px; }
-  .tree-info { flex: 1; }
-  .tree-species { font-size: 0.78rem; color: var(--muted); }
-  .tree-dbh   { font-weight: 600; }
-  .tree-carbon { color: var(--blue); font-weight: 600; }
-  .badge {
-    display: inline-block;
-    padding: 2px 8px; border-radius: 12px;
-    font-size: 0.72rem; font-weight: 600;
-  }
-  .badge-pass { background: #14532d; color: var(--accent); }
-  .badge-fail { background: #450a0a; color: var(--red); }
-  .badge-na   { background: #1f2937; color: var(--muted); }
-  .toggle-icon { color: var(--muted); font-size: 0.9rem; transition: transform .2s; }
-  .tree-card.open .toggle-icon { transform: rotate(90deg); }
+.stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 20px; }
+@media (max-width: 600px) { .stats { grid-template-columns: repeat(2, 1fr); } }
+.stat {
+  background: white; border-radius: 14px; padding: 18px 16px;
+  text-align: center; box-shadow: var(--shadow-md);
+  transition: transform 0.2s;
+  position: relative; overflow: hidden;
+}
+.stat:hover { transform: translateY(-2px); }
+.stat::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  border-radius: 14px 14px 0 0;
+}
+.stat:nth-child(1)::before { background: linear-gradient(90deg, var(--green-600), var(--green-500)); }
+.stat:nth-child(2)::before { background: linear-gradient(90deg, #2563eb, #60a5fa); }
+.stat:nth-child(3)::before { background: linear-gradient(90deg, #9333ea, #c084fc); }
+.stat:nth-child(4)::before { background: linear-gradient(90deg, #d97706, #fbbf24); }
+.stat-icon { font-size: 1.4rem; margin-bottom: 6px; }
+.stat-num  { font-size: 1.9rem; font-weight: 700; color: var(--green-800); line-height: 1; margin-bottom: 4px; }
+.stat-label { font-size: 0.75rem; color: var(--muted); }
 
-  /* Card body */
-  .tree-body { display: none; padding: 0 16px 16px; border-top: 1px solid var(--border); }
-  .tree-card.open .tree-body { display: block; }
+.toolbar {
+  display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; align-items: center;
+  background: white; border-radius: 12px; padding: 12px 16px; box-shadow: var(--shadow-sm);
+}
+.toolbar input, .toolbar select {
+  padding: 8px 12px; border: 1.5px solid var(--border); border-radius: 8px;
+  background: var(--bg); font-size: 0.85rem; color: var(--text); font-family: inherit;
+  transition: border-color 0.2s;
+}
+.toolbar input:focus, .toolbar select:focus { outline: none; border-color: var(--green-600); }
+.toolbar-actions { margin-left: auto; display: flex; gap: 8px; }
+.btn {
+  padding: 8px 14px; border-radius: 8px; border: none; cursor: pointer;
+  font-size: 0.83rem; font-weight: 600; font-family: inherit; transition: all 0.2s; white-space: nowrap;
+}
+.btn-outline { background: white; color: var(--green-800); border: 1.5px solid var(--green-600); }
+.btn-outline:hover { background: var(--green-50); }
 
-  /* Section heading */
-  .sec-title {
-    font-size: 0.72rem; font-weight: 700; letter-spacing: .06em;
-    text-transform: uppercase; color: var(--muted);
-    margin: 14px 0 8px;
-  }
+.card {
+  background: white; border-radius: 14px; box-shadow: var(--shadow-sm);
+  margin-bottom: 10px; overflow: hidden;
+  transition: box-shadow 0.2s, transform 0.2s;
+  border: 1px solid transparent;
+}
+.card:hover { box-shadow: var(--shadow-md); }
+.card.open  { border-color: #d1fae5; box-shadow: var(--shadow-md); }
 
-  /* Verra chain boxes */
-  .chain { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; margin-bottom: 8px; }
-  .chain-box {
-    background: var(--bg); border: 1px solid var(--border);
-    border-radius: 6px; padding: 6px 12px; text-align: center;
-  }
-  .chain-box .cl { font-size: 0.68rem; color: var(--muted); }
-  .chain-box .cv { font-size: 0.95rem; font-weight: 700; }
-  .chain-arrow { color: var(--muted); font-size: 1rem; }
+.card-header {
+  display: flex; align-items: center; gap: 12px;
+  padding: 16px 18px; cursor: pointer; user-select: none;
+}
+.card-header:hover { background: var(--green-50); }
+.card.open .card-header { background: var(--green-50); }
 
-  /* Species compare */
-  .species-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-  .sp-box {
-    background: var(--bg); border: 1px solid var(--border);
-    border-radius: 6px; padding: 10px;
-  }
-  .sp-box .sp-source { font-size: 0.7rem; font-weight: 700; color: var(--blue); margin-bottom: 4px; }
-  .sp-box .sp-name   { font-weight: 600; font-size: 0.85rem; }
-  .sp-box .sp-zh     { color: var(--muted); font-size: 0.78rem; }
-  .sp-box .sp-conf   { font-size: 0.75rem; color: var(--yellow); }
-  .sp-box .sp-carbon { font-size: 0.78rem; color: var(--accent); margin-top: 4px; }
+.conf-bar { width: 4px; height: 44px; border-radius: 2px; flex-shrink: 0; }
+.conf-bar-high   { background: linear-gradient(180deg, var(--green-500), var(--green-600)); }
+.conf-bar-medium { background: linear-gradient(180deg, #fbbf24, #d97706); }
+.conf-bar-low    { background: linear-gradient(180deg, #f87171, #dc2626); }
 
-  /* Frame thumbnails */
-  .frames-row { display: flex; flex-wrap: wrap; gap: 8px; }
-  .frame-thumb {
-    width: 80px; height: 56px;
-    background: var(--bg); border: 1px solid var(--border);
-    border-radius: 4px; cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 0.68rem; color: var(--muted);
-    overflow: hidden; flex-shrink: 0;
-  }
-  .frame-thumb img { width: 100%; height: 100%; object-fit: cover; border-radius: 4px; }
+.tree-no {
+  font-size: 0.75rem; font-weight: 700; color: var(--green-700);
+  background: var(--green-100); padding: 3px 8px; border-radius: 6px; white-space: nowrap;
+}
+.species-name  { font-weight: 600; font-size: 0.95rem; flex: 1; }
+.species-src   { font-size: 0.73rem; color: var(--muted); font-style: italic; font-weight: 400; }
 
-  /* Blockchain */
-  .bc-row { display: flex; gap: 8px; align-items: center; font-size: 0.8rem; flex-wrap: wrap; }
-  .bc-hash { font-family: monospace; color: var(--blue); font-size: 0.75rem; word-break: break-all; }
+.badges { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
+.badge {
+  display: inline-flex; align-items: center; gap: 3px;
+  padding: 3px 9px; border-radius: 12px; font-size: 0.72rem; font-weight: 600; white-space: nowrap;
+}
+.badge-high    { background: var(--green-100); color: var(--green-800); }
+.badge-medium  { background: #fef9c3; color: #854d0e; }
+.badge-low     { background: #fee2e2; color: #991b1b; }
+.badge-chain   { background: #dbeafe; color: #1e40af; }
+.badge-pending { background: #f1f5f9; color: #64748b; }
+.badge-failed  { background: #fee2e2; color: #991b1b; }
+.badge-p4v2    { background: #ede9fe; color: #5b21b6; }
 
-  /* Meta table */
-  .meta-table { width: 100%; border-collapse: collapse; font-size: 0.78rem; }
-  .meta-table td { padding: 4px 8px; border-bottom: 1px solid var(--border); }
-  .meta-table td:first-child { color: var(--muted); width: 45%; }
+.chevron { font-size: 0.75rem; color: var(--muted); transition: transform 0.25s; }
+.card.open .chevron { transform: rotate(180deg); }
 
-  /* Links */
-  .ext-link {
-    display: inline-flex; align-items: center; gap: 4px;
-    font-size: 0.78rem; color: var(--blue); text-decoration: none;
-    padding: 4px 10px; border: 1px solid var(--border);
-    border-radius: 6px; margin-top: 6px; margin-right: 6px;
-  }
-  .ext-link:hover { background: #1f2937; }
+.card-body { display: none; padding: 0 18px 18px; }
+.card.open .card-body { display: block; }
 
-  /* Lightbox */
-  #lightbox {
-    display: none; position: fixed; inset: 0;
-    background: rgba(0,0,0,.85); z-index: 1000;
-    align-items: center; justify-content: center;
-  }
-  #lightbox.active { display: flex; }
-  #lightbox img { max-width: 92vw; max-height: 88vh; border-radius: 8px; }
-  #lightbox-close {
-    position: absolute; top: 16px; right: 20px;
-    color: #fff; font-size: 2rem; cursor: pointer; line-height: 1;
-  }
-  #lightbox-caption {
-    position: absolute; bottom: 16px; left: 50%;
-    transform: translateX(-50%);
-    background: rgba(0,0,0,.7); color: #fff;
-    padding: 4px 14px; border-radius: 20px; font-size: 0.8rem;
-  }
+.divider { border: none; border-top: 1px solid #f3f4f6; margin: 4px 0 16px; }
 
-  /* Loading / Error */
-  #loading { padding: 40px 20px; text-align: center; color: var(--muted); }
-  #error-msg { margin: 16px 20px; padding: 12px 16px; background: #450a0a; border-radius: 8px; color: var(--red); }
+.sections { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
+.section-title {
+  font-size: 0.72rem; font-weight: 700; color: var(--green-700);
+  text-transform: uppercase; letter-spacing: 0.06em;
+  margin-bottom: 10px; display: flex; align-items: center; gap: 6px;
+}
+.kv-table { width: 100%; font-size: 0.82rem; border-collapse: collapse; }
+.kv-table td { padding: 5px 0; vertical-align: top; }
+.kv-table td:first-child { color: var(--muted); width: 44%; padding-right: 8px; white-space: nowrap; }
+.kv-table td:last-child  { font-weight: 500; word-break: break-all; }
+
+/* Verra chain */
+.verra-chain {
+  display: flex; align-items: center; flex-wrap: wrap; gap: 6px;
+  background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 10px;
+  padding: 12px 14px; margin-bottom: 10px;
+}
+.chain-box {
+  background: white; border: 1px solid #d1fae5; border-radius: 8px;
+  padding: 8px 12px; text-align: center; min-width: 90px;
+}
+.chain-label { font-size: 0.68rem; color: var(--muted); margin-bottom: 2px; }
+.chain-val   { font-size: 0.9rem; font-weight: 700; color: var(--green-800); }
+.chain-arrow { color: var(--green-600); font-size: 1rem; font-weight: 700; }
+
+/* Species compare */
+.species-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 8px;
+}
+.species-card {
+  background: #f8fafc; border: 1px solid var(--border); border-radius: 8px; padding: 8px 10px;
+}
+.species-card .sp-engine { font-size: 0.68rem; font-weight: 700; color: var(--muted); margin-bottom: 4px; text-transform: uppercase; }
+.species-card .sp-name   { font-size: 0.82rem; font-weight: 600; color: var(--text); }
+.species-card .sp-zh     { font-size: 0.8rem; color: var(--green-700); }
+.species-card .sp-conf   { font-size: 0.72rem; color: var(--muted); margin-top: 2px; }
+.species-card .sp-carbon { font-size: 0.72rem; color: #2563eb; margin-top: 4px; }
+
+/* Key frames grid */
+.frames-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); gap: 6px;
+  margin-top: 6px;
+}
+.frames-grid img {
+  width: 100%; height: 70px; object-fit: cover; background: #000;
+  border-radius: 4px; cursor: zoom-in;
+}
+.frame-ts { font-size: 0.65rem; color: var(--muted); text-align: center; margin-top: 2px; }
+
+.hash-val  { font-family: 'Courier New', monospace; font-size: 0.78rem; }
+.copy-btn  { background: none; border: none; cursor: pointer; color: var(--green-700); font-size: 0.73rem; padding: 0 4px; }
+.copy-btn:hover { text-decoration: underline; }
+.ok   { color: var(--green-800); }
+.warn { color: #854d0e; }
+.err  { color: #991b1b; }
+.gps-link { color: var(--green-700); text-decoration: none; font-size: 0.82rem; }
+.gps-link:hover { text-decoration: underline; }
+
+.empty { text-align: center; padding: 80px 20px; color: var(--muted); }
+.empty-icon { font-size: 3rem; margin-bottom: 12px; }
+
+.toast {
+  position: fixed; bottom: 24px; right: 24px;
+  background: var(--green-900); color: white;
+  padding: 10px 18px; border-radius: 10px; font-size: 0.85rem;
+  opacity: 0; transition: opacity 0.3s; pointer-events: none; z-index: 999;
+  box-shadow: var(--shadow-md);
+}
+.toast.show { opacity: 1; }
+
+.skeleton {
+  background: linear-gradient(90deg, #f3f4f6 25%, #e5e7eb 50%, #f3f4f6 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 8px; height: 72px; margin-bottom: 10px;
+}
+@keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+
+.phenology-pill {
+  display:inline-block; background:#d1fae5; color:#065f46;
+  border-radius:12px; padding:2px 10px; font-size:0.75rem; margin:2px 2px;
+}
+.env-grid { display:grid; grid-template-columns:1fr 1fr; gap:4px 16px; margin-top:6px; font-size:0.82rem; }
+.env-grid td:first-child { color:var(--muted); }
 </style>
 </head>
 <body>
 
-<!-- Header -->
-<header>
-  <h1>Dashboard 02 &#x2014; Verra &#x7248;&#x9762;&#xFF08;Pipeline 4 v2&#xFF09;</h1>
-  <p>Pipeline 4 v2 &middot; N=10 &#x4E2D;&#x4F4D;&#x6578;&#x805A;&#x5408; &middot; &#x6821;&#x6E96;&#x56E0;&#x5B50; &times;1.155&#xFF08;Lock&#xFF1A;Gemini 2.5 Flash 2026/5&#xFF09;</p>
-</header>
-
-<!-- Verra Summary Box -->
-<div id="verra-summary" style="display:none;">
-  <h2>Verra &#x7CBE;&#x5EA6;&#x6458;&#x8981;</h2>
-  <table>
-    <tbody id="verra-tbody"></tbody>
-  </table>
-  <p class="note">
-    &#x203B; DBH &#x63DB; AGB &#x8AA4;&#x5DEE;&#x88AB;&#x5E73;&#x65B9;&#x653E;&#x5927;&#xFF08;&#x7570;&#x901F;&#x751F;&#x9577;&#x65B9;&#x7A0B;&#x5F0F;&#x70BA;&#x6307;&#x6578;&#x95DC;&#x4FC2;&#xFF09;&#xFF0C;&#x6821;&#x6E96;&#x56E0;&#x5B50; Lock &#x65BC; Gemini 2.5 Flash 2026/5&#x3002;<br>
-    &#x203B; 90% CI &#x4F7F;&#x7528; t &#x5206;&#x4F48;&#xFF08;df = n&#x2212;1&#xFF09;&#xFF0C;&#x5224;&#x5B9A;&#x6A19;&#x6E96;&#xFF1A;CI &#x534A;&#x5BEC; &divide; &#x5E73;&#x5747; DBH &lt; 100%&#xFF08;&#x7D05;&#x7DDA;&#xFF09;&#x3002;
-  </p>
+<div class="header">
+  <div class="header-inner">
+    <div class="header-nav">
+      <a href="/">← 測量系統</a>
+      <a href="./showcase.html">📈 評估與演進旅程</a>
+    </div>
+    <h1>🌿 Pipeline 4 v2 量測結果</h1>
+    <p>Gemini 影片直接模式，N=10 中位數，校準因子 ×1.155，Verra VM0047 §8.4</p>
+  </div>
 </div>
 
-<!-- Stats bar -->
-<div id="stats-bar">
-  <div class="stat-card"><div class="label">&#x7E3D;&#x68F5;&#x6578;</div><div class="value" id="st-total">&#x2014;</div></div>
-  <div class="stat-card"><div class="label">&#x7E3D;&#x78B3;&#x5132;&#x91CF; (kg)</div><div class="value" id="st-carbon">&#x2014;</div></div>
-  <div class="stat-card"><div class="label">&#x7E3D; CO&#x2082;e (kg)</div><div class="value" id="st-co2e">&#x2014;</div></div>
-  <div class="stat-card"><div class="label">PASS &le;15%</div><div class="value" id="st-pass">&#x2014;</div></div>
+<div class="container">
+
+  <div class="stats" style="margin-top:16px">
+    <div class="stat">
+      <div class="stat-icon">🌳</div>
+      <div class="stat-num" id="s-total">—</div>
+      <div class="stat-label">量測筆數</div>
+    </div>
+    <div class="stat">
+      <div class="stat-icon">⛓</div>
+      <div class="stat-num" id="s-chain">—</div>
+      <div class="stat-label">已上鏈確認</div>
+    </div>
+    <div class="stat">
+      <div class="stat-icon">🌿</div>
+      <div class="stat-num" id="s-species">—</div>
+      <div class="stat-label">樹種數</div>
+    </div>
+    <div class="stat">
+      <div class="stat-icon">♻️</div>
+      <div class="stat-num" id="s-carbon">—</div>
+      <div class="stat-label">總碳儲量 (kg C)</div>
+    </div>
+  </div>
+
+  <div class="toolbar">
+    <input id="search" type="text" placeholder="🔍 搜尋樹種…" style="width:160px">
+    <select id="filter-chain">
+      <option value="">所有上鏈狀態</option>
+      <option value="confirmed">✅ 已確認</option>
+      <option value="pending">⏳ 待確認</option>
+      <option value="failed">❌ 失敗</option>
+    </select>
+    <div class="toolbar-actions">
+      <button class="btn btn-outline" onclick="expandAll()">全部展開</button>
+      <button class="btn btn-outline" onclick="collapseAll()">全部收合</button>
+    </div>
+  </div>
+
+  <div id="skeleton" style="display:none">
+    <div class="skeleton"></div>
+    <div class="skeleton"></div>
+    <div class="skeleton"></div>
+  </div>
+  <div id="records"></div>
+  <div id="empty" class="empty" style="display:none">
+    <div class="empty-icon">🌱</div>
+    <div>尚無量測記錄</div>
+  </div>
+
 </div>
 
-<!-- Records -->
-<div id="loading">&#x8F09;&#x5165;&#x4E2D;&#x2026;</div>
-<div id="error-msg" style="display:none;"></div>
-<div id="records"></div>
-
-<!-- Lightbox -->
-<div id="lightbox">
-  <span id="lightbox-close">&#x2715;</span>
-  <img id="lightbox-img" src="" alt="frame" />
-  <div id="lightbox-caption"></div>
-</div>
+<div class="toast" id="toast"></div>
 
 <script>
-/* Constants */
-const IS_GH_PAGES = location.hostname.endsWith("duckdns.org") || location.hostname.includes("github.io");
-const API_BASE = IS_GH_PAGES ? "https://forest-carbon.duckdns.org" : "";
+let allRecords = []
+
+const IS_GH_PAGES = location.hostname.endsWith('github.io') || location.hostname.endsWith('duckdns.org')
+const API_BASE = IS_GH_PAGES ? 'https://forest-carbon.duckdns.org' : ''
+
+async function load() {
+  showSkeleton(true)
+  try {
+    const res = await fetch(`${API_BASE}/api/trees`)
+    const data = await res.json()
+    allRecords = data.filter(r => r.winnerPath === 'p4v2' && r.p4v2)
+    renderStats(allRecords)
+    renderRecords(allRecords)
+  } catch (e) {
+    document.getElementById('records').innerHTML =
+      `<div class="empty"><div class="empty-icon">⚠️</div>載入失敗：${e.message}</div>`
+  } finally {
+    showSkeleton(false)
+  }
+}
+
+function showSkeleton(on) {
+  document.getElementById('skeleton').style.display = on ? 'block' : 'none'
+}
+
+function animateNumber(el, target, suffix='') {
+  const duration = 800, fps = 60, steps = duration / (1000/fps)
+  let current = 0, step = 0
+  const timer = setInterval(() => {
+    step++
+    current = Math.round(target * (step / steps))
+    el.textContent = current + suffix
+    if (step >= steps) { el.textContent = target + suffix; clearInterval(timer) }
+  }, 1000/fps)
+}
+
+function renderStats(records) {
+  const totalChain   = records.filter(r => r.blockchain?.txStatus === 'confirmed').length
+  const speciesCount = new Set(records.map(r => r.p4v2?.species?.primary).filter(Boolean)).size
+  const totalCarbon  = records.reduce((s, r) => s + (r.p4v2?.carbon?.primaryKg || 0), 0)
+
+  animateNumber(document.getElementById('s-total'),   records.length)
+  animateNumber(document.getElementById('s-chain'),   totalChain)
+  animateNumber(document.getElementById('s-species'), speciesCount)
+  animateNumber(document.getElementById('s-carbon'),  Math.round(totalCarbon))
+}
+
+function renderRecords(records) {
+  const container = document.getElementById('records')
+  const empty     = document.getElementById('empty')
+  if (!records.length) {
+    container.innerHTML = ''
+    empty.style.display = ''
+    return
+  }
+  empty.style.display = 'none'
+  container.innerHTML = records.map(r => buildCard(r)).join('')
+}
 
 const ZH_MAP = {
-  "Fraxinus griffithii": "光臘樹",
-  "Cinnamomum camphora": "樟樹",
-  "Camphora officinarum": "樟樹",
-  "Acacia confusa": "相思樹",
-  "Liquidambar formosana": "楓香",
-  "Swietenia macrophylla": "大葉桃花心木",
-  "Bischofia javanica": "茄苳",
-  "Melia azedarach": "苦榙",
-  "Juglans nigra": "黑胡桃",
-  "Zelkova serrata": "櫸木",
-  "Pongamia pinnata": "水黃皮",
-  "Unknown": "未辨識",
-};
+  'Liquidambar formosana': '楓香',
+  'Casuarina equisetifolia': '木麻黃',
+  'Cinnamomum camphora': '樟樹',
+  'Acacia confusa': '相思樹',
+  'Swietenia macrophylla': '大葉桃花心木',
+  'Bischofia javanica': '茄苳',
+  'Melia azedarach': '苦楝',
+  'Juglans nigra': '黑胡桃',
+  'Zelkova serrata': '櫸木',
+  'Pongamia pinnata': '水黃皮',
+  'Albizia julibrissin': '合歡',
+  'Delonix regia': '鳳凰木',
+  'Ficus microcarpa': '榕樹',
+  'Platanus orientalis': '懸鈴木',
+  'Hibiscus tiliaceus': '黃槿',
+  'Averrhoa carambola': '楊桃',
+  'Leucaena leucocephala': '銀合歡',
+  'Mangifera indica': '芒果',
+  'Artocarpus heterophyllus': '波羅蜜',
+  'Cocos nucifera': '椰子',
+  'Salix babylonica': '垂柳',
+  'Populus alba': '白楊',
+  'Eucalyptus grandis': '大葉桉',
+  'Tectona grandis': '柚木',
+  'Ceiba pentandra': '木棉',
+  'Terminalia catappa': '欖仁',
+  'Erythrina variegata': '刺桐',
+  'Tabebuia rosea': '洋紅風鈴木',
+  'Pterocarpus indicus': '印度紫檀',
+  'Unknown': '未辨識',
+}
 
-function zhName(latinName, apiZh) {
-  if (apiZh) return apiZh;
-  if (!latinName) return "未辨識";
+function zhName(sp) {
+  if (!sp) return ''
   for (const [k, v] of Object.entries(ZH_MAP)) {
-    if (latinName.toLowerCase().includes(k.toLowerCase())) return v;
+    if (sp.toLowerCase().includes(k.toLowerCase())) return v
   }
-  return latinName;
+  return ''
 }
 
-function fmt(n, d) {
-  d = (d === undefined) ? 1 : d;
-  if (n == null || isNaN(n)) return "—";
-  return Number(n).toFixed(d);
-}
-function fmtInt(n) {
-  if (n == null || isNaN(n)) return "—";
-  return Math.round(n).toLocaleString();
+function fmt(v, dec=1) {
+  if (v == null) return '—'
+  return Number(v).toFixed(dec)
 }
 
-/* Lightbox */
-const lb = document.getElementById("lightbox");
-const lbImg = document.getElementById("lightbox-img");
-const lbCap = document.getElementById("lightbox-caption");
-document.getElementById("lightbox-close").onclick = function() { lb.classList.remove("active"); };
-lb.addEventListener("click", function(e) { if (e.target === lb) lb.classList.remove("active"); });
-
-function openLightbox(url, caption) {
-  lbImg.src = url;
-  lbCap.textContent = caption || "";
-  lb.classList.add("active");
+function fmtSec(sec) {
+  if (sec == null) return '—'
+  const s = Math.round(sec)
+  const mm = String(Math.floor(s / 60)).padStart(2, '0')
+  const ss = String(s % 60).padStart(2, '0')
+  return `${mm}:${ss}`
 }
 
-/* Frame thumbnail */
-function makeThumb(treeId, sec, label) {
-  const d = document.createElement("div");
-  d.className = "frame-thumb";
-  d.title = label || ("t=" + sec + "s");
-  d.textContent = sec + "s";
-  d.addEventListener("click", function() {
-    const url = API_BASE + "/api/trees/" + treeId + "/frame-at?sec=" + sec;
-    const img = new Image();
-    img.onload = function() {
-      d.innerHTML = "";
-      const clone = document.createElement("img");
-      clone.src = url;
-      d.appendChild(clone);
-      openLightbox(url, label || ("Frame at " + sec + "s"));
-    };
-    img.onerror = function() {
-      d.textContent = "⚠";
-      openLightbox(url, (label || "") + " (load error)");
-    };
-    img.src = url;
-    d.textContent = "…";
-  });
-  return d;
-}
+function buildCard(r) {
+  const p4   = r.p4v2
+  const sp   = p4.species
+  const carb = p4.carbon
 
-/* Render body sections */
-function renderBody(body, r, p4, sp, gemini, plantnet, bc, geminiZh) {
-  const carbon = p4.carbon || {};
-  const tape = (r.manualTape || {}).dbhCm;
+  // Confidence based on CV
+  const cv = p4.cv || 0
+  const conf = cv <= 10 ? 'high' : cv <= 25 ? 'medium' : 'low'
+  const confLabel = conf === 'high' ? 'HIGH 精度' : conf === 'medium' ? 'MEDIUM 精度' : 'LOW 精度'
 
-  let html = "";
-
-  /* a. Verra chain */
-  html += "<div class='sec-title'>Verra 換算鎗</div>" +
-    "<div class='chain'>" +
-    "<div class='chain-box'><div class='cl'>校準 DBH</div><div class='cv'>" + fmt(p4.calibratedDbhCm) + " cm</div></div>" +
-    "<span class='chain-arrow'>→</span>" +
-    "<div class='chain-box'><div class='cl'>AGB (kg)</div><div class='cv'>" + fmt(carbon.agbKg, 1) + "</div></div>" +
-    "<span class='chain-arrow'>→</span>" +
-    "<div class='chain-box'><div class='cl'>Carbon (kg)</div><div class='cv'>" + fmt(carbon.primaryKg, 1) + "</div></div>" +
-    "<span class='chain-arrow'>→</span>" +
-    "<div class='chain-box'><div class='cl'>CO₂e (kg)</div><div class='cv'>" + fmt(carbon.co2eKg, 1) + "</div></div>" +
-    "</div>";
-
-  /* b. Species compare */
-  function spBox(src, obj) {
-    const zh = zhName(obj.species, obj.zhName);
-    const conf = obj.confidence != null ? (obj.confidence * 100).toFixed(1) + "%" : "—";
-    return "<div class='sp-box'>" +
-      "<div class='sp-source'>" + src + "</div>" +
-      "<div class='sp-name'>" + (obj.species || "—") + "</div>" +
-      "<div class='sp-zh'>" + zh + "</div>" +
-      "<div class='sp-conf'>信心度 " + conf + "</div>" +
-      "<div class='sp-carbon'>C: " + fmt(obj.carbonKg, 1) + " kg &nbsp;|&nbsp; CO₂e: " + fmt(obj.co2eKg, 1) + " kg</div>" +
-      "</div>";
-  }
-  html += "<div class='sec-title'>物種辨識比對</div>" +
-    "<div class='species-grid'>" + spBox("Gemini", gemini) + spBox("Pl@ntNet", plantnet) + "</div>";
-
-  body.innerHTML = html;
-
-  /* c. Measurement keyframes */
-  const measTs = p4.measureTimestamps || [];
-  if (measTs.length > 0) {
-    const sec = document.createElement("div");
-    sec.innerHTML = "<div class='sec-title'>量測 Keyframes</div>";
-    const row = document.createElement("div");
-    row.className = "frames-row";
-    measTs.forEach(function(t) { row.appendChild(makeThumb(r._id, t, "量測 " + t + "s")); });
-    sec.appendChild(row);
-    body.appendChild(sec);
+  // Error vs manual tape
+  let errBadge = ''
+  if (r.manualTape?.dbhCm && p4.calibratedDbhCm) {
+    const err = (p4.calibratedDbhCm - r.manualTape.dbhCm) / r.manualTape.dbhCm * 100
+    const cls = Math.abs(err) <= 15 ? 'ok' : Math.abs(err) <= 30 ? 'warn' : 'err'
+    const sign = err >= 0 ? '+' : ''
+    errBadge = `<span class="badge badge-${Math.abs(err)<=15?'high':Math.abs(err)<=30?'medium':'low'}" title="校準DBH vs 皮尺誤差">${sign}${err.toFixed(1)}%</span>`
   }
 
-  /* d. Species ID frames */
-  const leafTs = sp.leafTimestamps || [];
-  if (leafTs.length > 0) {
-    const sec = document.createElement("div");
-    sec.innerHTML = "<div class='sec-title'>物種辨識 Frames</div>";
-    const row = document.createElement("div");
-    row.className = "frames-row";
-    leafTs.forEach(function(t) { row.appendChild(makeThumb(r._id, t, "物種 " + t + "s")); });
-    sec.appendChild(row);
-    body.appendChild(sec);
-  }
+  const bcStatus = r.blockchain?.txStatus || 'none'
+  const bcBadge  = bcStatus === 'confirmed'
+    ? `<span class="badge badge-chain">✅ 鏈上確認</span>`
+    : bcStatus === 'pending'
+    ? `<span class="badge badge-pending">⏳ 待上鏈</span>`
+    : bcStatus === 'failed'
+    ? `<span class="badge badge-failed">❌ 上鏈失敗</span>`
+    : `<span class="badge badge-pending">— 未上鏈</span>`
 
-  /* e. Blockchain */
-  const bcHtml = document.createElement("div");
-  bcHtml.innerHTML = "<div class='sec-title'>區塊鏈</div>" +
-    "<div class='bc-row'>" +
-    "<span class='badge " + (bc.txStatus === "confirmed" ? "badge-pass" : "badge-na") + "'>" + (bc.txStatus || "—") + "</span>" +
-(bc.txHash ? '<a class="bc-hash" href="' + API_BASE + '/tx.html?hash=' + bc.txHash + '" target="_blank">' + bc.txHash.slice(0,18) + '…</a>' : '<span class="bc-hash">尚未上鏈</span>') +
-    "</div>";
-  body.appendChild(bcHtml);
+  const primarySpecies = sp?.primary || r.species || '—'
+  const zhStr = zhName(primarySpecies)
+  const txHash = r.blockchain?.txHash
 
-  /* f. Metadata */
-  const meta = document.createElement("div");
-  const gpsStr = r.gps ? (r.gps.lat && r.gps.lat.toFixed ? r.gps.lat.toFixed(6) : r.gps.lat) + ", " + (r.gps.lng && r.gps.lng.toFixed ? r.gps.lng.toFixed(6) : r.gps.lng) : "—";
-  meta.innerHTML = "<div class='sec-title'>詮釋資料</div>" +
-    "<table class='meta-table'>" +
-    "<tr><td>GPS</td><td>" + gpsStr + "</td></tr>" +
-    "<tr><td>裝置</td><td>" + (r.deviceModel || "—") + "</td></tr>" +
-    "<tr><td>Raw DBH (cm)</td><td>" + fmt(p4.rawDbhCm) + "</td></tr>" +
-    "<tr><td>校準因子</td><td>" + fmt(p4.calibFactor, 3) + "</td></tr>" +
-    "<tr><td>CV%</td><td>" + fmt(p4.cv, 1) + "%</td></tr>" +
-    "<tr><td>聚合方式</td><td>" + (p4.aggMethodFinal || "—") + "</td></tr>" +
-    "<tr><td>重複次數</td><td>" + (p4.repeat != null ? p4.repeat : "—") + "</td></tr>" +
-    "<tr><td>皮尺 DBH (cm)</td><td>" + (tape != null ? fmt(tape) : "—") + "</td></tr>" +
-    "</table>";
-  body.appendChild(meta);
+  // ── Section 1: P4v2 量測結果
+  const manualRow = r.manualTape?.dbhCm
+    ? (() => {
+        const gt  = r.manualTape.dbhCm
+        const err = (p4.calibratedDbhCm - gt) / gt * 100
+        const sign = err >= 0 ? '+' : ''
+        const cls = Math.abs(err) <= 15 ? 'ok' : Math.abs(err) <= 30 ? 'warn' : 'err'
+        return `<tr><td>人工皮尺</td><td>${fmt(gt)} cm</td></tr>
+                <tr><td>vs 皮尺誤差</td><td class="${cls}">${sign}${err.toFixed(1)}%</td></tr>`
+      })()
+    : ''
 
-  /* g. Drive video */
-  if (r.videoDriveUrl) {
-    const lnk = document.createElement("div");
-    lnk.innerHTML = "<a class='ext-link' href='" + r.videoDriveUrl + "' target='_blank' rel='noopener'>🎥 Drive 影片</a>";
-    body.appendChild(lnk);
-  }
+  const measureSection = `
+    <div>
+      <div class="section-title">📐 量測結果</div>
+      <table class="kv-table">
+        <tr><td>校準 DBH</td><td><strong>${fmt(p4.calibratedDbhCm)} cm</strong></td></tr>
+        <tr><td>原始 DBH</td><td>${fmt(p4.rawDbhCm)} cm</td></tr>
+        <tr><td>校準因子</td><td>×${fmt(p4.calibFactor, 3)}</td></tr>
+        <tr><td>量測次數</td><td>${p4.repeat || 10} 次（${p4.aggMethodFinal || 'median'}）</td></tr>
+        <tr><td>變異係數 CV</td><td>${p4.cv != null ? p4.cv.toFixed(1) + '%' : '—'}</td></tr>
+        ${manualRow}
+      </table>
+    </div>`
 
-  /* h. Story link */
-  if (r.hasStory) {
-    const sl = document.createElement("div");
-    sl.innerHTML = "<a class='ext-link' href='/story?id=" + r._id + "' target='_blank' rel='noopener'>📖 Story</a>";
-    body.appendChild(sl);
-  }
-}
+  // ── Section 2: Verra 換算鏈
+  const verraSection = carb ? `
+    <div style="grid-column: 1 / -1">
+      <div class="section-title">📋 Verra VM0047 換算鏈</div>
+      <div class="verra-chain">
+        <div class="chain-box">
+          <div class="chain-label">校準 DBH</div>
+          <div class="chain-val">${fmt(p4.calibratedDbhCm)} cm</div>
+        </div>
+        <span class="chain-arrow">→</span>
+        <div class="chain-box">
+          <div class="chain-label">AGB (kg)</div>
+          <div class="chain-val">${fmt(carb.agbKg, 0)}</div>
+        </div>
+        <span class="chain-arrow">→</span>
+        <div class="chain-box">
+          <div class="chain-label">Carbon (kg C)</div>
+          <div class="chain-val">${fmt(carb.primaryKg, 0)}</div>
+        </div>
+        <span class="chain-arrow">→</span>
+        <div class="chain-box">
+          <div class="chain-label">CO₂e (kg)</div>
+          <div class="chain-val">${fmt(carb.co2eKg, 0)}</div>
+        </div>
+        ${carb.heightM ? `<div style="font-size:0.72rem;color:var(--muted);margin-left:4px;">推算樹高 ${fmt(carb.heightM, 1)} m</div>` : ''}
+      </div>
+    </div>` : ''
 
-/* Render single card */
-function renderCard(r, idx) {
-  const p4 = r.p4v2 || {};
-  const sp = p4.species || {};
-  const gemini = sp.gemini || {};
-  const plantnet = sp.plantnet || {};
-  const bc = r.blockchain || {};
-  const tape = (r.manualTape || {}).dbhCm;
+  // ── Section 3: 物種辨識
+  const geminiCard = sp?.gemini ? `
+    <div class="species-card">
+      <div class="sp-engine">Gemini</div>
+      <div class="sp-name">${sp.gemini.species || '—'}</div>
+      <div class="sp-zh">${zhName(sp.gemini.species)}</div>
+      <div class="sp-conf">可靠評分 ${sp.gemini.confidence != null ? (sp.gemini.confidence * 100).toFixed(0) + '%' : '—'}</div>
+      ${sp.gemini.carbonKg != null ? `<div class="sp-carbon">Carbon ${fmt(sp.gemini.carbonKg, 0)} kg · CO₂e ${fmt(sp.gemini.co2eKg, 0)} kg</div>` : ''}
+    </div>` : '<div class="species-card"><div class="sp-engine">Gemini</div><div class="sp-conf">—</div></div>'
 
-  let errPct = null;
-  let badgeClass = "badge-na", badgeLabel = "N/A";
-  if (tape != null && p4.calibratedDbhCm != null) {
-    errPct = Math.abs((p4.calibratedDbhCm - tape) / tape) * 100;
-    if (errPct <= 15) {
-      badgeClass = "badge-pass";
-      badgeLabel = "±" + fmt(errPct) + "% PASS";
-    } else {
-      badgeClass = "badge-fail";
-      badgeLabel = "±" + fmt(errPct) + "% FAIL";
+  const plantnetCard = sp?.plantnet ? `
+    <div class="species-card">
+      <div class="sp-engine">Pl@ntNet</div>
+      <div class="sp-name">${sp.plantnet.species || '—'}</div>
+      <div class="sp-zh">${zhName(sp.plantnet.species)}</div>
+      <div class="sp-conf">可靠評分 ${sp.plantnet.confidence != null ? (sp.plantnet.confidence * 100).toFixed(0) + '%' : '—'}</div>
+      ${sp.plantnet.carbonKg != null ? `<div class="sp-carbon">Carbon ${fmt(sp.plantnet.carbonKg, 0)} kg · CO₂e ${fmt(sp.plantnet.co2eKg, 0)} kg</div>` : ''}
+    </div>` : '<div class="species-card"><div class="sp-engine">Pl@ntNet</div><div class="sp-conf">—</div></div>'
+
+  const agreeRow = sp?.agree != null
+    ? `<div style="font-size:0.78rem;margin-top:6px;color:${sp.agree ? 'var(--green-700)' : '#854d0e'};">
+        ${sp.agree ? '✅ 兩方同意 → ' : '⚠️ 兩方不同意，採用 → '}<strong>${primarySpecies}</strong>
+        ${zhStr ? `（${zhStr}）` : ''}
+       </div>`
+    : ''
+
+  const speciesSection = `
+    <div>
+      <div class="section-title">🔬 物種辨識</div>
+      <div class="species-grid">
+        ${geminiCard}
+        ${plantnetCard}
+      </div>
+      ${agreeRow}
+    </div>`
+
+  // ── Section 4: 量測關鍵幀
+  const framesSection = `
+    <div style="grid-column: 1 / -1">
+      <div class="section-title">📷 量測關鍵幀（N=10）
+        <span style="font-weight:400;color:var(--muted);font-size:0.85rem;margin-left:6px;">點開後自動載入</span>
+      </div>
+      <div id="p4frames-${r.id}" data-tss='${JSON.stringify((p4.measureTimestamps||[]).slice(0,10))}' data-treeid="${r.id}">
+        <div style="font-size:0.82rem;color:var(--muted);">展開卡片後自動載入 ${(p4.measureTimestamps||[]).length} 張幀…</div>
+      </div>
+    </div>`
+
+  // ── Section 5: 物種辨識幀（若有 leafTimestamps）
+  const leafTs = sp?.leafTimestamps || []
+  const leafSection = leafTs.length ? `
+    <div style="grid-column: 1 / -1">
+      <div class="section-title">🍃 物種辨識幀（Pl@ntNet 依據）</div>
+      <div id="leafframes-${r.id}" data-tss='${JSON.stringify(leafTs.slice(0,6))}' data-treeid="${r.id}">
+        <div style="font-size:0.82rem;color:var(--muted);">展開後自動載入 ${leafTs.length} 張幀…</div>
+      </div>
+    </div>` : ''
+
+  // ── Section 6: 區塊鏈
+  const bcTime   = r.blockchain?.createdAt
+    ? new Date(r.blockchain.createdAt * 1000).toLocaleString('zh-TW') : '—'
+  const txRow  = txHash
+    ? `<tr><td>Tx Hash</td><td><span class="hash-val">${txHash.slice(0,10)}…${txHash.slice(-6)}</span>
+        <button class="copy-btn" onclick="event.stopPropagation();copy('${txHash}')">複製</button>
+        <a href="https://forest-carbon.duckdns.org/explorer/tx/${txHash}?rpcUrl=https://forest-carbon.duckdns.org/rpc" onclick="event.stopPropagation();window.open(this.href,'_blank');return false;" style="font-size:0.72rem;color:var(--green-700);margin-left:4px;">查看區塊鏈存證 →</a>
+        </td></tr>`
+    : `<tr><td>Tx Hash</td><td class="warn">—</td></tr>`
+
+  const vhash    = r.videoHash || ''
+  const vhashRow = vhash
+    ? `<tr><td>影片 SHA-256</td><td><span class="hash-val">${vhash.slice(0,10)}…${vhash.slice(-6)}</span>
+        <button class="copy-btn" onclick="event.stopPropagation();copy('${vhash}')">複製</button></td></tr>`
+    : `<tr><td>影片 SHA-256</td><td>—</td></tr>`
+
+  const blockchainSection = `
+    <div>
+      <div class="section-title">⛓ 區塊鏈存證</div>
+      <table class="kv-table">
+        ${txRow}
+        ${vhashRow}
+        <tr><td>上鏈時間</td><td>${bcTime}</td></tr>
+        <tr><td>驗證狀態</td><td class="${bcStatus === 'confirmed' ? 'ok' : 'warn'}">${bcStatus === 'confirmed' ? '✅ 鏈上與本地一致' : '—'}</td></tr>
+      </table>
+    </div>`
+
+  // ── Section 7: EXIF
+  let gpsRow = `<tr><td>GPS</td><td>—</td></tr>`
+  if (r.gps) {
+    const parts = r.gps.split(',')
+    if (parts.length >= 2) {
+      const lat = parseFloat(parts[0]).toFixed(4)
+      const lng = parseFloat(parts[1]).toFixed(4)
+      const alt = r.altitude != null ? `<br><span style="color:var(--muted)">海拔 ${r.altitude} m</span>` : ''
+      gpsRow = `<tr><td>GPS</td><td>
+        <a class="gps-link" href="https://maps.google.com/?q=${lat},${lng}" target="_blank">${lat}, ${lng}</a>${alt}
+      </td></tr>`
     }
   }
+  const createdTime = r.createdAt ? new Date(r.createdAt * 1000).toLocaleString('zh-TW') : '—'
+  const exifSection = `
+    <div>
 
-  const card = document.createElement("div");
-  card.className = "tree-card";
-  card.id = "card-" + (r._id || idx);
+  ${r.hasEnvironment ? `
+    <div>
+      <div class="section-title">🌿 拍攝當下環境快照（CBD 生物多樣性）</div>
+      <div id="env-${r.id}" data-treeid="${r.id}">
+        <div style="font-size:0.82rem;color:var(--muted);">展開後自動載入…</div>
+      </div>
+    </div>` : ''}
+      <div class="section-title">📷 EXIF 元數據</div>
+      <table class="kv-table">
+        <tr><td>手機型號</td><td>${r.deviceModel || '—'}</td></tr>
+        <tr><td>焦距</td><td>${r.focalLengthMm != null ? r.focalLengthMm + ' mm' : '—'}</td></tr>
+        <tr><td>感光元件寬</td><td>${r.sensorWidthMm != null ? Number(r.sensorWidthMm).toFixed(2) + ' mm' : '—'}</td></tr>
+        ${gpsRow}
+        ${r.resolution ? `<tr><td>解析度</td><td>${r.resolution}</td></tr>` : ''}
+        ${r.fps ? `<tr><td>fps</td><td>${r.fps}</td></tr>` : ''}
+        <tr><td>拍攝時間</td><td>${createdTime}</td></tr>
+      </table>
+    </div>`
 
-  const geminiZh = zhName(gemini.species, gemini.zhName);
-  const dispSpecies = geminiZh + " / " + (gemini.species || "—");
+  // ── Section 8: 影片
+  const videoSection = r.videoDriveUrl
+    ? `<div style="grid-column: 1 / -1">
+        <div class="section-title">🎬 原始影片
+          <span style="font-weight:400;color:var(--muted);font-size:0.85rem;margin-left:6px;">${r.videoOriginalName || r.videoFilename || ''}（Google Drive）</span>
+        </div>
+        <div style="position:relative;width:100%;padding-top:56.25%;background:#000;border-radius:6px;overflow:hidden;" onclick="event.stopPropagation()">
+          <iframe src="${r.videoDriveUrl.replace('/view', '/preview')}" allow="autoplay" allowfullscreen
+                  style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;"></iframe>
+        </div>
+       </div>`
+    : r.videoFilename
+    ? `<div style="grid-column: 1 / -1">
+        <div class="section-title">🎬 原始影片
+          <span style="font-weight:400;color:var(--muted);font-size:0.85rem;margin-left:6px;">${r.videoOriginalName || r.videoFilename}</span>
+        </div>
+        <video controls preload="metadata" style="width:100%;max-height:360px;background:#000;border-radius:6px;" onclick="event.stopPropagation()">
+          <source src="${API_BASE}/api/trees/${r.id}/video" type="video/quicktime">
+          <source src="${API_BASE}/api/trees/${r.id}/video" type="video/mp4">
+          您的瀏覽器不支援 video 標籤。
+        </video>
+       </div>`
+    : ''
 
-  card.innerHTML =
-    "<div class='tree-header'>" +
-    "<span class='tree-num'>" + (r.treeNum || "T???") + "</span>" +
-    "<div class='tree-info'>" +
-    "<div class='tree-dbh'>P4v2 DBH: " + fmt(p4.calibratedDbhCm) + " cm" +
-    "<span style='color:var(--muted); font-weight:400; font-size:0.8rem;'>" +
-    (tape != null ? " | 皮尺: " + fmt(tape) + " cm" : "") +
-    "</span></div>" +
-    "<div class='tree-species'>" + dispSpecies + "</div>" +
-    "</div>" +
-    "<span class='tree-carbon'>" + fmt(p4.carbon && p4.carbon.primaryKg, 1) + " kg C</span>" +
-    "<span class='badge " + badgeClass + "'>" + badgeLabel + "</span>" +
-    "<span class='toggle-icon'>▶</span>" +
-    "</div>" +
-    "<div class='tree-body'></div>";
+  return `
+<div class="card" id="card-${r.id}">
+  <div class="card-header" onclick="toggle('${r.id}')">
+    <div class="conf-bar conf-bar-${conf}"></div>
+    <span class="tree-no">${r.treeNo}</span>
+    <span class="species-name">
+      ${primarySpecies}${zhStr ? ` <span class="species-src">（${zhStr}）</span>` : ''}
+    </span>
+    <div class="badges">
 
-  const header = card.querySelector(".tree-header");
-  const body   = card.querySelector(".tree-body");
-
-  header.addEventListener("click", function() {
-    const isOpen = card.classList.contains("open");
-    if (!isOpen && !body._rendered) {
-      body._rendered = true;
-      renderBody(body, r, p4, sp, gemini, plantnet, bc, geminiZh);
-    }
-    card.classList.toggle("open");
-  });
-
-  return card;
+      ${errBadge}
+      ${bcBadge}
+      ${r.videoDriveUrl ? `<a class="badge badge-pending" href="${r.videoDriveUrl}" target="_blank" onclick="event.stopPropagation()" title="原始影片">🎬 影片</a>` : ''}
+    </div>
+    <span class="chevron">▼</span>
+  </div>
+  <div class="card-body">
+    <hr class="divider">
+    <div class="sections">
+      ${verraSection}
+      ${measureSection}
+      ${speciesSection}
+      ${framesSection}
+      ${leafSection}
+      ${blockchainSection}
+      ${exifSection}
+      ${videoSection}
+    </div>
+  </div>
+</div>`
 }
 
-/* Verra computation */
-function computeVerra(trees) {
-  const valid = trees.filter(function(r) {
-    const tape = (r.manualTape || {}).dbhCm;
-    const dbh  = (r.p4v2 || {}).calibratedDbhCm;
-    const meth = (r.p4v2 || {}).aggMethodFinal;
-    return tape != null && dbh != null && meth !== "manual_tape";
-  });
-
-  const n = valid.length;
-  if (n < 2) return null;
-
-  const tapes = valid.map(function(r) { return r.manualTape.dbhCm; });
-  const dbhs  = valid.map(function(r) { return r.p4v2.calibratedDbhCm; });
-  const meanTape = tapes.reduce(function(a, b) { return a + b; }, 0) / n;
-  const meanDbh  = dbhs.reduce(function(a, b) { return a + b; }, 0) / n;
-  const errors   = valid.map(function(r, i) { return dbhs[i] - tapes[i]; });
-  const bias     = errors.reduce(function(a, b) { return a + b; }, 0) / n;
-  const variance = errors.map(function(e) { return (e - bias) * (e - bias); }).reduce(function(a, b) { return a + b; }, 0) / (n - 1);
-  const std      = Math.sqrt(variance);
-  const t90      = 1.703;
-  const ci90half = t90 * std / Math.sqrt(n);
-  const ciPct    = (ci90half / meanDbh) * 100;
-  const passCount = valid.filter(function(r, i) { return Math.abs((dbhs[i] - tapes[i]) / tapes[i]) * 100 <= 15; }).length;
-
-  return { n: n, meanTape: meanTape, meanDbh: meanDbh, bias: bias, std: std, ci90half: ci90half, ciPct: ciPct, passCount: passCount };
+function toggle(id) {
+  const card = document.getElementById('card-' + id)
+  card.classList.toggle('open')
+  if (card.classList.contains('open')) {
+    loadFrames('p4frames-' + id)
+    loadFrames('leafframes-' + id)
+    loadEnv(id)
+  }
 }
 
-function renderVerraSummary(trees) {
-  const v = computeVerra(trees);
-  const box = document.getElementById("verra-summary");
-  if (!v) { box.style.display = "none"; return; }
 
-  const rows = [
-    ["樣本數（含皮尺對照）", v.n + " 棵"],
-    ["平均皮尺 DBH", v.meanTape.toFixed(2) + " cm"],
-    ["平均 P4v2 DBH", v.meanDbh.toFixed(2) + " cm"],
-    ["偏差（P4v2 − 皮尺）", (v.bias >= 0 ? "+" : "") + v.bias.toFixed(2) + " cm"],
-    ["誤差標準差", v.std.toFixed(2) + " cm"],
-    ["90% CI 半寬 ÷ 平均 DBH",
-      "<span style='color:" + (v.ciPct < 100 ? "var(--accent)" : "var(--red)") + "; font-weight:700'>" +
-      v.ciPct.toFixed(1) + "% " + (v.ciPct < 100 ? "✓ < 100%" : "✗ ≥ 100%") + "</span>"],
-    ["PASS / FAIL 棵數（≤15%）", v.passCount + " PASS / " + (v.n - v.passCount) + " FAIL"],
-  ];
-
-  const tbody = document.getElementById("verra-tbody");
-  tbody.innerHTML = rows.map(function(row) {
-    return "<tr><td>" + row[0] + "</td><td>" + row[1] + "</td></tr>";
-  }).join("");
-  box.style.display = "block";
+const SEASON_ZH = {
+  dry_winter:'乾冷冬季', wet_summer:'濕熱夏季',
+  spring_transition:'春季轉換', autumn_transition:'秋季轉換'
 }
-
-/* Stats bar */
-function renderStats(trees) {
-  let totalCarbon = 0, totalCo2e = 0, passCount = 0;
-  trees.forEach(function(r) {
-    const carbon = (r.p4v2 || {}).carbon || {};
-    const tape = (r.manualTape || {}).dbhCm;
-    const dbh  = (r.p4v2 || {}).calibratedDbhCm;
-    totalCarbon += carbon.primaryKg || 0;
-    totalCo2e   += carbon.co2eKg || 0;
-    if (tape != null && dbh != null) {
-      if (Math.abs((dbh - tape) / tape) * 100 <= 15) passCount++;
-    }
-  });
-  document.getElementById("st-total").textContent  = trees.length;
-  document.getElementById("st-carbon").textContent = fmtInt(totalCarbon);
-  document.getElementById("st-co2e").textContent   = fmtInt(totalCo2e);
-  document.getElementById("st-pass").textContent   = passCount;
+const ZONE_ZH = {
+  coastal:'海岸帶', lowland_broadleaf:'低海拔闊葉林',
+  montane_mixed:'中海拔混交林', subalpine_conifer:'高海拔針葉林'
 }
-
-/* Main */
-async function main() {
-  const loading = document.getElementById("loading");
-  const errDiv  = document.getElementById("error-msg");
-  const records = document.getElementById("records");
-
+const PHENOLOGY_ZH = {
+  bird_breeding_early:'鳥類繁殖初期', bird_breeding_late:'鳥類繁殖末期',
+  insect_emergence:'昆蟲羽化', beetle_sap_feeding:'甲蟲樹液期',
+  termite_alates_flight:'白蟻婚飛', flower_peak_lowland:'低地花期高峰',
+  fungal_fruiting_window:'菌類結實期', flying_squirrel_pups:'鼯鼠幼仔期',
+  leaf_flush:'新葉萌發', fruit_ripening:'果實成熟', dormancy:'休眠期'
+}
+const _envCache = {}
+async function loadEnv(treeId) {
+  const box = document.getElementById('env-' + treeId)
+  if (!box || box.dataset.loaded === '1') return
+  box.dataset.loaded = '1'
+  box.innerHTML = '<div style="font-size:0.82rem;color:var(--muted);">載入中…</div>'
   try {
-    const res = await fetch(API_BASE + "/api/trees");
-    if (!res.ok) throw new Error("HTTP " + res.status);
-    const trees = await res.json();
-
-    loading.style.display = "none";
-    renderStats(trees);
-    renderVerraSummary(trees);
-    trees.forEach(function(r, i) { records.appendChild(renderCard(r, i)); });
-
-  } catch (err) {
-    loading.style.display = "none";
-    errDiv.style.display = "block";
-    errDiv.textContent = "載入失敗：" + err.message;
-    console.error(err);
+    const resp = await fetch(`${API_BASE}/api/trees/${treeId}/environment`)
+    if (!resp.ok) throw new Error('no env')
+    const d = await resp.json()
+    const tags = (d.phenology_tags || [])
+      .map(t => `<span class="phenology-pill">${PHENOLOGY_ZH[t] || t}</span>`).join('')
+    box.innerHTML = `
+      <table class="env-grid">
+        <tr><td>季節</td><td>${SEASON_ZH[d.season] || d.season || '—'}</td></tr>
+        <tr><td>林帶</td><td>${ZONE_ZH[d.forest_zone] || d.forest_zone || '—'}</td></tr>
+        <tr><td>氣溫</td><td>${d.temp_c != null ? d.temp_c.toFixed(1) + ' °C' : '—'}</td></tr>
+        <tr><td>濕度</td><td>${d.humidity_pct != null ? d.humidity_pct + '%' : '—'}</td></tr>
+        <tr><td>UV 指數</td><td>${d.uv_index != null ? d.uv_index.toFixed(1) : '—'}</td></tr>
+        <tr><td>日照時數</td><td>${d.sunshine_duration_h != null ? d.sunshine_duration_h.toFixed(1) + ' h' : '—'}</td></tr>
+      </table>
+      ${tags ? '<div style="margin-top:8px;">' + tags + '</div>' : ''}
+    `
+  } catch(e) {
+    box.innerHTML = '<div style="font-size:0.82rem;color:var(--muted);">環境資料不可用</div>'
   }
 }
+const _frameCache = {}
+async function loadFrames(boxId) {
+  const box = document.getElementById(boxId)
+  if (!box || box.dataset.loaded === '1') return
+  box.dataset.loaded = '1'
+  const treeId = box.dataset.treeid
+  let tss
+  try { tss = JSON.parse(box.dataset.tss || '[]') } catch(e) { tss = [] }
+  if (!tss.length) { box.innerHTML = '<div style="font-size:0.82rem;color:var(--muted);">無幀資料</div>'; return }
 
-main();
+  box.innerHTML = '<div style="font-size:0.82rem;color:var(--muted);">載入中…</div>'
+  const imgs = tss.map((sec, i) => {
+    const url = `${API_BASE}/api/trees/${treeId}/frame-at?sec=${sec}`
+    return `<div>
+      <a href="${url}" target="_blank" onclick="event.stopPropagation()">
+        <img src="${url}" loading="lazy" onerror="this.style.opacity=0.15;this.title='幀不存在'" />
+      </a>
+      <div class="frame-ts">${fmtSec(sec)}</div>
+    </div>`
+  }).join('')
+  box.innerHTML = `<div class="frames-grid">${imgs}</div>`
+}
+
+function expandAll() {
+  document.querySelectorAll('.card').forEach(c => {
+    c.classList.add('open')
+    const id = c.id.replace(/^card-/, '')
+    if (id) {
+      loadFrames('p4frames-' + id)
+      loadFrames('leafframes-' + id)
+      loadEnv(id)
+    }
+  })
+}
+function collapseAll() { document.querySelectorAll('.card').forEach(c => c.classList.remove('open')) }
+
+function copy(text) {
+  navigator.clipboard.writeText(text).then(() => showToast('✅ 已複製到剪貼簿'))
+}
+function showToast(msg) {
+  const t = document.getElementById('toast')
+  t.textContent = msg; t.classList.add('show')
+  setTimeout(() => t.classList.remove('show'), 2200)
+}
+
+function applyFilters() {
+  const search = document.getElementById('search').value.toLowerCase()
+  const chain  = document.getElementById('filter-chain').value
+  const filtered = allRecords.filter(r => {
+    const sp = r.p4v2?.species?.primary || r.species || ''
+    if (search && !sp.toLowerCase().includes(search)) return false
+    if (chain && r.blockchain?.txStatus !== chain)    return false
+    return true
+  })
+  renderRecords(filtered)
+  renderStats(filtered)
+}
+document.getElementById('search').addEventListener('input', applyFilters)
+document.getElementById('filter-chain').addEventListener('change', applyFilters)
+
+load()
 </script>
 </body>
 </html>

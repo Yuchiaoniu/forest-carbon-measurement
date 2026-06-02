@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SOP — 森林碳匯測量系統</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --green-900: #14532d; --green-800: #166534; --green-700: #15803d;
+  --green-600: #16a34a; --green-500: #22c55e; --green-100: #dcfce7;
+  --green-50: #f0fdf4; --bg: #f1f5f1; --text: #1a2e1a;
+  --muted: #6b7280; --border: #e5e7eb;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.08); --shadow-md: 0 4px 16px rgba(0,0,0,0.10);
+}
+body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+.header {
+  background: linear-gradient(135deg, var(--green-900) 0%, var(--green-700) 60%, #2d6a4f 100%);
+  padding: 24px 24px 28px; position: relative; overflow: hidden;
+}
+.header-inner { max-width: 860px; margin: 0 auto; position: relative; }
+.header-nav { display: flex; gap: 16px; margin-bottom: 18px; flex-wrap: wrap; }
+.header-nav a {
+  font-size: 0.8rem; color: rgba(255,255,255,0.75); text-decoration: none;
+  padding: 4px 10px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.2);
+  transition: all 0.2s;
+}
+.header-nav a:hover { background: rgba(255,255,255,0.15); color: white; }
+.header h1 { font-size: 1.5rem; font-weight: 700; color: white; margin-bottom: 4px; }
+.header p  { font-size: 0.88rem; color: rgba(255,255,255,0.7); }
+.container { max-width: 860px; margin: 24px auto 0; padding: 0 16px 64px; }
+.sop-body {
+  background: white; border-radius: 14px; padding: 2.4rem 2.8rem;
+  box-shadow: var(--shadow-md); line-height: 1.75;
+}
+.sop-body h1 { font-size: 1.5rem; font-weight: 700; color: var(--green-900); margin: 0 0 0.5rem; }
+.sop-body h2 { font-size: 1.15rem; font-weight: 700; color: var(--green-800); margin: 2rem 0 0.8rem; border-bottom: 2px solid var(--green-100); padding-bottom: 6px; }
+.sop-body h3 { font-size: 1rem; font-weight: 600; color: var(--green-700); margin: 1.4rem 0 0.6rem; }
+.sop-body p  { margin-bottom: 0.9rem; font-size: 0.92rem; }
+.sop-body ul, .sop-body ol { padding-left: 1.6rem; margin-bottom: 0.9rem; }
+.sop-body li { font-size: 0.92rem; margin-bottom: 0.3rem; }
+.sop-body code { background: #f3f4f6; padding: 2px 6px; border-radius: 4px; font-size: 0.83rem; font-family: 'Courier New', monospace; }
+.sop-body pre { background: #1e2d1e; color: #d4edda; padding: 1.2rem 1.4rem; border-radius: 10px; overflow-x: auto; margin-bottom: 1rem; }
+.sop-body pre code { background: none; padding: 0; color: inherit; font-size: 0.82rem; }
+.sop-body table { width: 100%; border-collapse: collapse; margin-bottom: 1rem; font-size: 0.88rem; }
+.sop-body th { background: var(--green-100); color: var(--green-900); padding: 8px 12px; text-align: left; font-weight: 600; }
+.sop-body td { padding: 7px 12px; border-bottom: 1px solid var(--border); }
+.sop-body tr:last-child td { border-bottom: none; }
+.sop-body hr { border: none; border-top: 2px solid var(--green-100); margin: 2rem 0; }
+.sop-body a { color: var(--green-700); }
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="header-inner">
+    <div class="header-nav">
+      <a href="/">← 測量系統</a>
+      <a href="./dashboard.html">📊 量測記錄</a>
+      <a href="./showcase.html">📈 評估與演進旅程</a>
+    </div>
+    <h1>📋 標準作業程序（SOP）</h1>
+    <p>Verra VCS VM0047 v1.0 §9.3 對齊 · 拍攝 Protocol · Calibration · Uncertainty</p>
+  </div>
+</div>
+<div class="container">
+  <div class="sop-body" id="sop-content"></div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/marked@9/marked.min.js"></script>
+<script>
+const md = "# Standard Operating Procedure\uff08\u6a19\u6e96\u4f5c\u696d\u7a0b\u5e8f\uff09\n\n\u672c\u6587\u4ef6\u70ba\u68ee\u6797\u78b3\u6e2c\u91cf\u7cfb\u7d71\u4e4b SOP\u3001\u5c0d\u9f4a Verra VCS VM0047 v1.0 \u00a79.3 Monitoring Plan \u8981\u6c42\u3002\n\u9069\u7528\u7bc4\u570d\u5ba3\u544a\u898b\u6587\u672b \u00a7 8\u3002\n\n---\n\n## 1. \u62cd\u651d Protocol\uff08\u5f71\u7247\u53d6\u5f97\uff09\n\n### 1.1 \u8a2d\u5099\n\n- iPhone\uff084K HEVC \u5f71\u7247\u683c\u5f0f\uff09\n- \u570b\u969b\u6a19\u6e96\u4fe1\u7528\u5361\uff08ISO/IEC 7810 ID-1\u3001\u9577\u908a 85.6 mm\uff09\u4f5c\u70ba\u53c3\u8003\u7269\n\n### 1.2 \u62cd\u651d\u6b65\u9a5f\n\n1. **\u76ae\u5c3a\u5b9a\u4f4d**\uff1a\u7528\u9435\u6372\u5c3a\u5f9e\u5e73\u5730\u5730\u9762\u5b9a 1.3 \u516c\u5c3a\u9ad8\u5ea6\n2. **\u5361\u7247\u8cbc\u5408**\uff1a\u5c07\u4fe1\u7528\u5361\u9577\u908a\u6c34\u5e73\u8cbc\u5728\u6a39\u5e79\u80f8\u9ad8 1.3 \u516c\u5c3a\u4f4d\u7f6e\u3001\u8207\u76ae\u5c3a\u540c\u9ad8\n3. **\u62cd\u651d\u8def\u5f91**\uff1a\u624b\u6301\u624b\u6a5f**\u7e5e\u6a39\u534a\u5708**\u3001\u805a\u7126\u5728\u5361\u7247\u9031\u570d\u8996\u89d2\n4. **\u6642\u9577**\uff1a60-120 \u79d2\u3001\u904e\u7a0b\u4e2d\u78ba\u8a8d\u76ae\u5c3a\u6c92\u9b06\u57ae\n5. **\u62cd\u651d\u9ad8\u5ea6**\uff1a\u624b\u6a5f\u4fdd\u6301\u8ddf\u5361\u7247\u540c\u9ad8\uff08\u907f\u514d\u5927\u89d2\u5ea6\u4fef\u4ef0\u9020\u6210\u5361\u7247\u900f\u8996\u7578\u8b8a\uff09\n\n### 1.3 \u70ba\u4ec0\u9ebc\u4e0d\u7e5e\u4e00\u5708\n\n- AI \u5f9e\u55ae\u4e00\u8996\u89d2\u770b\u5230\u7684\u300c\u6a39\u5e79\u5bec\u5ea6\u300d\u5df2\u5c0d\u61c9\u300c\u7b49\u6548\u76f4\u5f91\u300d\u6982\u5ff5\n- \u7e5e\u4e00\u5708\u5728\u300c\u5713\u5f62\u5047\u8a2d\u300d\u6846\u67b6\u4e0b\u4e0d\u63d0\u4f9b\u984d\u5916\u8cc7\u8a0a\n- \u7e5e\u534a\u5708\u62cd\u5361\u7247\u9031\u570d\u3001\u78ba\u8a8d\u76ae\u5c3a\u8cbc\u5408\u3001\u662f\u5408\u7406\u4e14\u8db3\u5920\u7684\u62cd\u651d\u8a2d\u8a08\n\n---\n\n## 2. Ground Truth Protocol\uff08\u4eba\u5de5\u76ae\u5c3a\u771f\u503c\uff09\n\n### 2.1 \u91cf\u6e2c\u6a19\u6e96\n\n\u4f9d Kershaw\uff082016\uff09Forest Mensuration \u8ddf Avery\uff082015\uff09Forest Measurements \u6559\u79d1\u66f8\uff1a\n\n1. **\u9ad8\u5ea6**\uff1a\u9435\u6372\u5c3a\u5f9e**\u5e73\u5730\u5730\u9762**\u5b9a 1.3 \u516c\u5c3a\n2. **\u76ae\u5c3a\u7e5e\u6cd5**\uff1a\u5728 1.3 m \u8655\u76ae\u5c3a**\u5782\u76f4\u6a39\u5e79\u8ef8\u7dda**\u7e5e\u4e00\u5708\u3001\u7dca\u8cbc\u6a39\u76ae\u4f46\u4e0d\u52d2\n3. **\u8a08\u7b97**\uff1a\u91cf\u6e2c\u5468\u9577 \u2192 \u5468\u9577 \u00f7 \u03c0 = \u6a39\u5f91\uff08DBH\u3001cm\uff09\n4. **\u7cbe\u5ea6**\uff1a\u00b10.5 cm\uff085 mm\uff09\n\n### 2.2 \u7279\u6b8a\u60c5\u6cc1\u8655\u7406\n\n| \u60c5\u6cc1 | \u672c\u7814\u7a76\u8655\u7406\u65b9\u5f0f |\n|---|---|\n| \u6a39\u5e79\u5728 1.3 m \u8655\u5206\u53c9\uff08\u5982 IMG_5804\uff09| **\u5206\u5225\u6e2c\u91cf\u3001\u8996\u70ba\u5169\u68f5\u7368\u7acb\u6a39** |\n| \u6a39\u5e79\u50be\u659c | \u6cbf\u6a39\u5e79\u8ef8\u7dda\u30011.3 m \u9ad8\u5ea6\u91cf\u6e2c |\n| 1.3 m \u8655\u6709\u7bc0\u7624\u3001\u50b7\u75a4 | \u91cf\u4e0a\u65b9\u6216\u4e0b\u65b9\u907f\u958b\u3001\u907f\u958b\u4e0d\u8b8a\u5f62\u8655 |\n| \u5c71\u5761\u5730 | **\u672c\u7814\u7a76\u7121\u5c71\u5761\u5730\u6a23\u672c**\u3001\u672a\u5236\u5b9a protocol |\n\n---\n\n## 3. \u6a39\u7a2e\u6750\u7a4d\u516c\u5f0f\u4fc2\u6578\n\n\u6750\u7a4d\u3001\u6a39\u9ad8\u8207\u78b3\u5132\u91cf\u63db\u7b97\u4f9d\u4ee5\u4e0b\u901a\u5f0f\u8a08\u7b97\uff0c\u516c\u5f0f\u4fc2\u6578\u4f86\u6e90\u5206\u70ba\u5169\u985e\uff1a\n\n- **official**\uff1a\u6797\u696d\u5c40\u5b98\u65b9\u516c\u5f0f\n- **approx**\uff1a\u4f9d Global Wood Density Database \u540c\u79d1\u6a39\u7a2e\u63a8\u7b97\uff08\u975e\u6797\u696d\u5c40\u5b98\u65b9\u6578\u64da\uff0c\u8ad6\u6587\u5f15\u7528\u6642\u8acb\u6a19\u6ce8\u6b64\u9650\u5236\uff09\n\n**\u901a\u5f0f**\n\n| \u8a08\u7b97\u9805\u76ee | \u516c\u5f0f |\n|---|---|\n| \u6a39\u9ad8\u4f30\u7b97 | H (m) = hdA \u00d7 DBH^hdB |\n| \u6750\u7a4d | V (m\u00b3) = volA \u00d7 DBH^volB \u00d7 H^volC |\n| \u78b3\u5132\u91cf | C (kg C) = V \u00d7 \u6728\u6750\u5bc6\u5ea6 \u00d7 BEF \u00d7 0.5 |\n\n---\n\n### 3.1 \u6797\u696d\u5c40\u5b98\u65b9\u6a39\u7a2e\n\n| \u6a39\u7a2e\uff08\u4e2d\u6587\uff09 | \u5b78\u540d | hdA | hdB | volA | volB | volC | \u6728\u6750\u5bc6\u5ea6 (kg/m\u00b3) | BEF |\n|---|---|---|---|---|---|---|---|---|\n| \u6a1f\u6a39 | *Cinnamomum camphora* | 4.2 | 0.55 | 0.00005 | 1.90 | 0.90 | 560 | 1.30 |\n| \u67f3\u6749 | *Cryptomeria japonica* | 5.1 | 0.52 | 0.000045 | 1.95 | 0.85 | 380 | 1.25 |\n| \u53f0\u7063\u6749 | *Taiwania cryptomerioides* | 5.8 | 0.50 | 0.000048 | 1.92 | 0.88 | 430 | 1.28 |\n| \u76f8\u601d\u6a39 | *Acacia confusa* | 3.8 | 0.58 | 0.000055 | 1.85 | 0.92 | 700 | 1.35 |\n| \u6953\u9999 | *Liquidambar formosana* | 4.5 | 0.53 | 0.000052 | 1.88 | 0.90 | 520 | 1.30 |\n| \u5149\u81d8\u6a39 | *Fraxinus griffithii* | 4.0 | 0.56 | 0.00005 | 1.90 | 0.90 | 600 | 1.32 |\n| \u6728\u9ebb\u9ec3 | *Casuarina equisetifolia* | 4.8 | 0.51 | 0.000046 | 1.93 | 0.87 | 850 | 1.20 |\n\n---\n\n### 3.2 \u63a8\u7b97\u6a39\u7a2e\uff08approx\uff09\n\n| \u6a39\u7a2e\uff08\u4e2d\u6587\uff09 | \u5b78\u540d | hdA | hdB | \u6728\u6750\u5bc6\u5ea6 (kg/m\u00b3) | BEF | \u985e\u578b |\n|---|---|---|---|---|---|---|\n| \u6b16\u4ec1\u6a39 | *Terminalia catappa* | 3.5 | 0.57 | 480 | 1.30 | \u95ca\u8449 |\n| \u82e6\u695d | *Melia azedarach* | 3.8 | 0.57 | 490 | 1.30 | \u95ca\u8449 |\n| \u9999\u693f | *Toona ciliata* | 4.5 | 0.52 | 450 | 1.28 | \u95ca\u8449 |\n| \u5927\u8449\u6843\u82b1\u5fc3\u6728 | *Swietenia macrophylla* | 5.0 | 0.50 | 600 | 1.28 | \u95ca\u8449 |\n| \u5c0f\u8449\u6843\u82b1\u5fc3\u6728 | *Swietenia mahagoni* | 5.0 | 0.50 | 640 | 1.28 | \u95ca\u8449 |\n| \u6af8\u6728 | *Zelkova serrata* | 4.2 | 0.55 | 700 | 1.35 | \u95ca\u8449 |\n| \u6b12\u6a39 | *Koelreuteria elegans* | 3.8 | 0.57 | 490 | 1.30 | \u95ca\u8449 |\n| \u6734\u6a39 | *Celtis sinensis* | 4.0 | 0.55 | 580 | 1.32 | \u95ca\u8449 |\n| \u5927\u8449\u5408\u6b61 | *Albizia lebbeck* | 4.5 | 0.53 | 600 | 1.30 | \u95ca\u8449 |\n| \u8304\u82f3 | *Bischofia javanica* | 4.0 | 0.55 | 670 | 1.32 | \u95ca\u8449 |\n| \u6c34\u9ec3\u76ae | *Pongamia pinnata* | 3.8 | 0.57 | 620 | 1.30 | \u95ca\u8449 |\n| \u7121\u60a3\u5b50 | *Sapindus mukorossi* | 4.0 | 0.55 | 620 | 1.30 | \u95ca\u8449 |\n| \u69d0\u6a39 | *Styphnolobium japonicum* | 4.2 | 0.54 | 650 | 1.28 | \u95ca\u8449 |\n| \u523a\u69d0 | *Robinia pseudoacacia* | 5.0 | 0.50 | 750 | 1.25 | \u95ca\u8449 |\n| \u74ca\u5d16\u6d77\u68e0 | *Calophyllum inophyllum* | 3.8 | 0.56 | 720 | 1.28 | \u95ca\u8449 |\n| \u897f\u73ed\u7259\u96ea\u677e | *Cedrela odorata* | 4.8 | 0.52 | 450 | 1.28 | \u95ca\u8449 |\n| \u5370\u5ea6\u695d | *Azadirachta indica* | 4.2 | 0.54 | 620 | 1.28 | \u95ca\u8449 |\n| \u7f8e\u6d32\u6953\u9999 | *Liquidambar styraciflua* | 4.5 | 0.53 | 500 | 1.28 | \u95ca\u8449 |\n| \u7e56\u694a | *Thespesia populnea* | 4.0 | 0.56 | 620 | 1.30 | \u95ca\u8449 |\n| \u7f8e\u6d32\u5c71\u6838\u6843 | *Carya illinoinensis* | 4.5 | 0.53 | 700 | 1.25 | \u95ca\u8449 |\n| \u8840\u6850 | *Macaranga tanarius* | 3.0 | 0.60 | 350 | 1.40 | \u5148\u9a45 |\n| \u4e94\u854a\u67f3 | *Salix pentandra* | 3.5 | 0.58 | 430 | 1.35 | \u95ca\u8449 |\n";
+document.getElementById("sop-content").innerHTML = marked.parse(md);
+</script>
+</body>
+</html>

@@ -230,6 +230,42 @@ app.get('/api/evaluation/dsr-checklist', (req, res) => {
   res.json(buildDsrChecklist(metrics, getDb()))
 })
 
+
+// GET /api/tx/:hash — 查詢 Hyperledger Besu 鏈上的交易資料
+app.get('/api/tx/:hash', async (req, res) => {
+  const { hash } = req.params
+  if (!hash || !/^0x[0-9a-fA-F]{64}$/.test(hash)) {
+    return res.status(400).json({ error: 'invalid hash' })
+  }
+  const RPC = process.env.BESU_RPC_URL || 'http://10.142.0.2:8545'
+  try {
+    const [txResp, rcptResp] = await Promise.all([
+      fetch(RPC, {
+        method: 'POST', headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ jsonrpc:'2.0', method:'eth_getTransactionByHash', params:[hash], id:1 }),
+      }).then(r => r.json()),
+      fetch(RPC, {
+        method: 'POST', headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ jsonrpc:'2.0', method:'eth_getTransactionReceipt', params:[hash], id:2 }),
+      }).then(r => r.json()),
+    ])
+    const tx   = txResp.result
+    const rcpt = rcptResp.result
+    if (!tx) return res.status(404).json({ error: 'transaction not found' })
+    res.json({
+      hash,
+      blockNumber: tx.blockNumber ? parseInt(tx.blockNumber, 16) : null,
+      from: tx.from,
+      to: tx.to,
+      value: tx.value,
+      gasUsed: rcpt?.gasUsed ? parseInt(rcpt.gasUsed, 16) : null,
+      status: rcpt?.status === '0x1' ? 'success' : rcpt ? 'failed' : 'pending',
+      input: tx.input,
+    })
+  } catch (e) {
+    res.status(502).json({ error: e.message })
+  }
+})
 // GET /api/trees（所有量測紀錄，含區塊鏈與校準資料）
 app.get('/api/trees', (req, res) => {
   const rows = getDb().prepare(`
@@ -265,7 +301,7 @@ app.get('/api/trees', (req, res) => {
     LEFT JOIN ground_truth gtm ON gtm.id = (
       SELECT id FROM ground_truth WHERE tree_id = t.id AND source = 'manual' LIMIT 1
     )
-    LEFT JOIN stories s ON s.tree_id = t.id AND s.story_type = 'A'
+    LEFT JOIN stories s ON s.id = (SELECT id FROM stories WHERE tree_id = t.id AND story_type = 'A' ORDER BY created_at DESC LIMIT 1)
     LEFT JOIN environmental_context env ON env.id = (
       SELECT id FROM environmental_context WHERE tree_id = t.id ORDER BY fetched_at DESC LIMIT 1
     )
@@ -406,9 +442,9 @@ app.get('/api/trees/:id/frame-at', (req, res) => {
   if (!tree) return res.status(404).json({ error: 'tree not found' })
   const vidName = tree.video_original_name
   if (!vidName) return res.status(404).json({ error: 'no video for this tree' })
-  const vidPath = path.join(__dirname, 'video_cache', vidName)
+  const vidPath = path.join(__dirname, '..', 'video_cache', vidName)
   if (!fs.existsSync(vidPath)) return res.status(404).json({ error: 'video_cache miss: ' + vidName })
-  const cacheDir = path.join(__dirname, 'tmp_frames', 'frame_at_cache')
+  const cacheDir = path.join(__dirname, '..', 'tmp_frames', 'frame_at_cache')
   fs.mkdirSync(cacheDir, { recursive: true })
   const cacheFile = path.join(cacheDir, id + '_' + sec + '.jpg')
   if (fs.existsSync(cacheFile)) {

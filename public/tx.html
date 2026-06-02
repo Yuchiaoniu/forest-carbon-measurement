@@ -5,53 +5,169 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>區塊鏈交易查詢 — Forest Carbon</title>
 <style>
-:root{--bg:#0f1117;--card:#1a1d27;--border:#2a2d3a;--accent:#4ade80;--blue:#60a5fa;--muted:#6b7280;--text:#e5e7eb;--red:#f87171}
+:root{--bg:#0f1117;--card:#1a1d27;--border:#2a2d3a;--accent:#4ade80;--blue:#60a5fa;--muted:#6b7280;--text:#e5e7eb;--red:#f87171;--yellow:#fbbf24}
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:var(--bg);color:var(--text);font-family:system-ui,sans-serif;padding:24px;font-size:14px}
 h1{font-size:1.2rem;color:var(--accent);margin-bottom:4px}
+h2{font-size:0.88rem;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.06em;margin:20px 0 8px}
 .subtitle{color:var(--muted);font-size:0.82rem;margin-bottom:20px}
-.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;max-width:700px}
-.status-success{color:var(--accent);font-weight:700}
-.status-failed{color:var(--red);font-weight:700}
-.status-pending{color:#fbbf24;font-weight:700}
+.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;max-width:740px;margin-bottom:14px}
+.ok{color:var(--accent);font-weight:700}
+.fail{color:var(--red);font-weight:700}
+.pend{color:var(--yellow);font-weight:700}
 table{width:100%;border-collapse:collapse}
-td{padding:8px 0;border-bottom:1px solid var(--border);font-size:0.85rem;word-break:break-all}
-td:first-child{color:var(--muted);width:38%;word-break:normal}
-.hash{font-family:monospace;font-size:0.78rem;color:var(--blue)}
+td{padding:9px 0;border-bottom:1px solid var(--border);font-size:0.85rem;word-break:break-all;vertical-align:top}
+td:first-child{color:var(--muted);width:36%;word-break:normal;padding-right:12px}
+tr:last-child td{border-bottom:none}
+.mono{font-family:monospace;font-size:0.78rem;color:var(--blue)}
 .loading{color:var(--muted);text-align:center;padding:40px}
 .err{color:var(--red);padding:16px}
-a{color:var(--blue)}
 .back{margin-bottom:16px}
 .back a{color:var(--muted);font-size:0.85rem;text-decoration:none}
 .back a:hover{color:var(--text)}
+.copy-btn{background:none;border:1px solid var(--border);color:var(--muted);padding:2px 8px;border-radius:4px;cursor:pointer;font-size:0.72rem;margin-left:6px;vertical-align:middle}
+.copy-btn:hover{color:var(--text)}
+.chain-badge{display:inline-block;padding:3px 10px;border-radius:12px;font-size:0.75rem;font-weight:700}
+.badge-ok{background:#052e16;color:var(--accent)}
+.badge-fail{background:#450a0a;color:var(--red)}
+.badge-pend{background:#422006;color:var(--yellow)}
 </style>
 </head>
 <body>
 <div class="back"><a href="javascript:history.back()">← 返回</a></div>
-<h1>🔗 區塊鏈交易查詢</h1>
-<p class="subtitle">Hyperledger Besu QBFT 私鏈 — Forest Carbon</p>
+<h1>🔗 區塊鏈存證查詢</h1>
+<p class="subtitle">Hyperledger Besu QBFT 私鏈 — Forest Carbon Measurement</p>
 <div id="content" class="loading">查詢中…</div>
+
 <script>
-const API_BASE = location.hostname.includes("github.io") ? "https://forest-carbon.duckdns.org" : ""
-const hash = new URLSearchParams(location.search).get("hash") || ""
-if (!hash) { document.getElementById("content").innerHTML = "<div class=err>缺少 hash 參數</div>" }
-else {
-  fetch(API_BASE + "/api/tx/" + hash).then(r=>r.json()).then(tx => {
-    const statusClass = "status-" + (tx.status || "pending")
-    document.getElementById("content").innerHTML = \`<div class="card">
-<table>
-<tr><td>交易雜湊</td><td class="hash">\${tx.hash || hash}</td></tr>
-<tr><td>狀態</td><td class="\${statusClass}">\${tx.status === "success" ? "✓ 成功" : tx.status === "failed" ? "✗ 失敗" : "⏳ 待確認"}</td></tr>
-<tr><td>區塊號</td><td>\${tx.blockNumber != null ? tx.blockNumber.toLocaleString() : "—"}</td></tr>
-<tr><td>區塊雜湊</td><td class="hash">\${tx.blockHash || "—"}</td></tr>
-<tr><td>發送地址 (From)</td><td class="hash">\${tx.from || "—"}</td></tr>
-<tr><td>合約地址 (To)</td><td class="hash">\${tx.to || "—"}</td></tr>
-<tr><td>Gas 消耗</td><td>\${tx.gasUsed != null ? tx.gasUsed.toLocaleString() : "—"}</td></tr>
-</table>
-</div>\`
-  }).catch(e => {
-    document.getElementById("content").innerHTML = \`<div class="err">查詢失敗：\${e.message}</div>\`
-  })
+const API_BASE = location.hostname.includes('github.io') ? 'https://forest-carbon.duckdns.org' : ''
+const hash = new URLSearchParams(location.search).get('hash') || ''
+
+function copy(text, btn) {
+  navigator.clipboard.writeText(text).then(() => { btn.textContent = '已複製'; setTimeout(() => btn.textContent = '複製', 1500) })
+}
+
+// ABI decode for recordMeasurement(string gps, string species, uint32 dbhMm,
+//   uint32 volumeCm3x100, uint32 carbonG, bytes32 videoHash,
+//   uint256 localTreeId, uint32 originalDbhMm, uint32 correctionFactorX10000)
+function decodeInput(input) {
+  try {
+    if (!input || input.length < 10) return null
+    const data = input.slice(2)           // strip 0x
+    const selector = data.slice(0, 8)    // 4 bytes = 8 hex chars
+    const params = data.slice(8)          // rest is ABI-encoded params
+
+    function readWord(offset) { return params.slice(offset * 64, offset * 64 + 64) }
+    function readUint(offset) { return parseInt(readWord(offset), 16) }
+    function readBytes32(offset) { return '0x' + readWord(offset) }
+    function readStr(offset) {
+      const strOffset = readUint(offset) * 2   // bytes → hex chars
+      const len = parseInt(params.slice(strOffset, strOffset + 64), 16)
+      const hexStr = params.slice(strOffset + 64, strOffset + 64 + len * 2)
+      return hexStr.match(/.{2}/g).map(b => String.fromCharCode(parseInt(b, 16))).join('')
+    }
+
+    // param layout: gps(dyn), species(dyn), dbhMm, volumeCm3x100, carbonG, videoHash, localTreeId, originalDbhMm, correctionFactorX10000
+    const gps      = readStr(0)
+    const species  = readStr(1)
+    const dbhMm    = readUint(2)
+    const volCm3x100 = readUint(3)
+    const carbonG  = readUint(4)
+    const videoHash = readBytes32(5)
+    const localTreeId = readUint(6)
+    const origDbhMm = readUint(7)
+    const cfX10000 = readUint(8)
+
+    return {
+      selector,
+      gps,
+      species,
+      dbhCm: (dbhMm / 10).toFixed(1),
+      volumeM3: (volCm3x100 / 100 / 1e6).toFixed(4),
+      carbonKg: (carbonG / 1000).toFixed(1),
+      videoHashHex: videoHash,
+      videoHashAscii: hexToAscii(videoHash.slice(2)),
+      localTreeId,
+      origDbhCm: origDbhMm ? (origDbhMm / 10).toFixed(1) : null,
+      calibFactor: cfX10000 ? (cfX10000 / 10000).toFixed(4) : null,
+    }
+  } catch(e) { return null }
+}
+
+function hexToAscii(hex) {
+  let s = ''
+  for (let i = 0; i < hex.length; i += 2) {
+    const code = parseInt(hex.slice(i, i+2), 16)
+    if (code === 0) break
+    s += String.fromCharCode(code)
+  }
+  return s
+}
+
+function shortHash(h, pre=10, suf=8) {
+  if (!h || h.length < pre+suf) return h || '—'
+  return `<span class="mono">${h.slice(0,pre)}…${h.slice(-suf)}</span>`
+}
+
+function row(label, val, mono=false) {
+  if (val == null || val === '') return ''
+  const display = mono ? `<span class="mono">${val}</span>` : val
+  return `<tr><td>${label}</td><td>${display}</td></tr>`
+}
+
+if (!hash) {
+  document.getElementById('content').innerHTML = '<div class="err">缺少 hash 參數</div>'
+} else {
+  fetch(API_BASE + '/api/tx/' + hash)
+    .then(r => r.json())
+    .then(tx => {
+      const dec = decodeInput(tx.input)
+      const statusLabel = tx.status === 'success' ? '✅ 成功' : tx.status === 'failed' ? '❌ 失敗' : '⏳ 待確認'
+      const statusClass = tx.status === 'success' ? 'badge-ok' : tx.status === 'failed' ? 'badge-fail' : 'badge-pend'
+
+      let html = `
+        <h2>📋 交易資訊</h2>
+        <div class="card"><table>
+          <tr><td>Tx Hash</td><td>
+            <span class="mono">${tx.hash || hash}</span>
+            <button class="copy-btn" onclick="copy('${tx.hash || hash}', this)">複製</button>
+          </td></tr>
+          ${row('狀態', `<span class="chain-badge ${statusClass}">${statusLabel}</span>`)}
+          ${row('區塊號', tx.blockNumber != null ? tx.blockNumber.toLocaleString() : null)}
+          ${row('發送方 (From)', tx.from, true)}
+          ${row('合約地址 (To)', tx.to, true)}
+          ${row('Gas 消耗', tx.gasUsed != null ? tx.gasUsed.toLocaleString() : null)}
+        </table></div>`
+
+      if (dec) {
+        html += `
+        <h2>🌳 鏈上存證資料（CarbonCredit.sol）</h2>
+        <div class="card"><table>
+          ${row('GPS 座標', dec.gps)}
+          ${row('樹種', dec.species)}
+          ${row('DBH（校準後）', dec.dbhCm + ' cm')}
+          ${dec.origDbhCm ? row('DBH（原始）', dec.origDbhCm + ' cm') : ''}
+          ${dec.calibFactor ? row('校準因子', '×' + dec.calibFactor) : ''}
+          ${row('材積', dec.volumeM3 + ' m³')}
+          ${row('碳儲量', dec.carbonKg + ' kg C')}
+        </table></div>
+
+        <h2>📹 影片存證</h2>
+        <div class="card"><table>
+          <tr><td>影片雜湊（SHA-256 前 32 bytes）</td><td>
+            <div class="mono" style="font-size:0.75rem;word-break:break-all">${dec.videoHashHex}</div>
+            ${dec.videoHashAscii ? `<div style="margin-top:4px;color:var(--muted);font-size:0.78rem;">ASCII: ${dec.videoHashAscii}</div>` : ''}
+          </td></tr>
+        </table></div>`
+      } else {
+        html += `<div class="card" style="color:var(--muted);font-size:0.85rem;">合約輸入資料無法解碼（selector: ${tx.input ? tx.input.slice(0,10) : '—'}）</div>`
+      }
+
+      document.getElementById('content').innerHTML = html
+    })
+    .catch(e => {
+      document.getElementById('content').innerHTML = `<div class="err">查詢失敗：${e.message}</div>`
+    })
 }
 </script>
 </body>
