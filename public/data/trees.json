@@ -7,8 +7,8 @@
     "dbhCm": 29.5,
     "originalDbhCm": null,
     "appliedCorrectionFactor": null,
-    "volumeM3": 0.5768,
-    "carbonKg": 187.47,
+    "volumeM3": 0.6027234571972477,
+    "carbonKg": 284.7868335256996,
     "confidence": "0.83",
     "gps": "22.7353,121.0696",
     "focalLengthMm": 5.7,
@@ -30,138 +30,9 @@
       "dbhCm": 20.2,
       "source": "direct_measurement"
     },
-    "videoFilename": null,
-    "videoOriginalName": "IMG_5787.mov",
-    "videoDriveUrl": "https://drive.google.com/file/d/13fgOJO--W4opami5ZVKoqIl7Nxk-Ec6F/view",
-    "winnerPath": "p4v2",
-    "paths": {
-      "path0": {
-        "computed": false
-      },
-      "pathA": {
-        "computed": false
-      },
-      "pathB": {
-        "computed": false
-      }
-    },
-    "manualTape": {
-      "circCm": 85.5,
-      "dbhCm": 27.2,
-      "frameTsSec": 4,
-      "annotator": "yuchi"
-    },
     "hasStory": true,
     "storyMarkdown": "# 🌳 未知樹種 的故事\n\n> **台灣南端山野** ｜ 2026年5月23日\n\n---\n\n## 🌿 生態多樣性貢獻\n\n| 項目 | 內容 |\n|------|------|\n| **中文名** | 未知樹種 |\n| **起源** | ❓ 未知 |\n| **林相層次** | 林冠層 |\n| **棲地類型** | 低海拔闊葉林 |\n| **生態多樣性貢獻評分** | ★★☆☆☆（2/5） |\n| **關鍵物種** | 否 |\n| **吸引鳥類** | 各類留鳥 |\n| **吸引昆蟲** | 多種昆蟲 |\n| **哺乳動物** | — |\n| **土壤功能** | 提供遮蔭與有機質，基礎生態服務功能 |\n| **花期** | 視樹種而定 |\n| **提供蜜源** | 否 |\n| **提供果實** | 否 |\n\n### 生態角色\n\n樹木為周遭生態系提供遮蔭、固碳、防風等基礎服務，是陸域生態系的核心組成\n\n\n\n---\n\n## 🍃 此刻的 未知樹種（5 月）\n\n春末花期延續，動物育雛達高峰\n\n---\n\n## 🌍 碳儲量意義\n\n這棵 未知樹種 目前儲存了 **75.7 kg** 的碳。等同於 151 度電的碳排放量。\n\n每多一棵這樣的樹，就是給大氣的一次小小還債。\n\n---\n\n## ✨ 這棵樹的故事\n\n台灣南端山野，電光火石，雷鳴陣陣。正值雨季，濕熱空氣氤氳，近三十度氣溫籠罩大地。微風從東方輕輕拂過，海岸防風林帶，一棵青年樟樹沐浴在驟雨中，它生命力旺盛，胸徑已達二十公分，穩穩紮根大地，今日日照雖稀，卻難掩它生機。\n\n這棵樹，正替我們呼吸，它封存了七十五點七公斤的碳，等同於一百五十一度電的碳排放，宛如大地深藏的綠色承諾。它為林下土壤不斷增添有機質，提供一方清涼庇蔭，更是眾多生命賴以為生的基礎。即便雷雨將至，紫外線依舊不容小覷，而它，撐起一方生命屏障。\n\n此刻樹冠飽滿，正是鳥類繁殖初期。綠繡眼可能正忙碌穿梭，將銜來的蟲子餵養巢中雛鳥。多種昆蟲在枝葉間嬉戲，或許是甲蟲正津津有味汲取樹液。雨後泥土濕潤，菌類子實體將會如雨後春筍般冒出。遠處，飛鼠也開始育幼，這棵青年樟樹，是它們忙碌育雛的見證者。\n\n它不只是一棵樟樹，它是熱帶台灣的活力縮影，是時間寫下的一首詩，充滿生機與無盡希望。看著它在風雨中挺立，我們彷彿看見一封寫給未來的信，字字句句，皆是對地球深遠的愛與承諾。\n\n---\n\n## 📊 拍攝當下環境快照\n\n- **天氣**：雷雨、氣溫 29.3°C、濕度 81%、氣壓 1003.5 hPa、雲量 50%\n- **風況**：東風，1.4 m/s\n- **光環境**：UV 指數 4.7、日照 1 小時、短波輻射 592 W/m²\n- **太陽位置**：日出 下午09:13、日落 上午10:33、日長 13.33 小時、太陽仰角 19.96°、方位 284.61°\n- **棲地座標**：海拔 62 m、海岸防風林帶、雨季\n- **當下物候**：鳥類繁殖初期、昆蟲羽化期、甲蟲樹液取食期、白蟻分飛、低海拔花期高峰、菌類子實體爆發窗口、飛鼠育幼期\n\n---\n\n_資料由 Forest Carbon Measurement 系統自動生成，Gemini 2.5 Flash 驅動，2026/5/25 更新_",
-    "storySummary": "未知樹種，20.2 cm，75.7 kg C，台灣南端山野",
-    "p4v2": {
-      "engine": "P4v2-measure-pure-N10",
-      "repeat": 10,
-      "medianRatio": 2.98,
-      "rawDbhCm": 25.5,
-      "calibratedDbhCm": 29.5,
-      "calibFactor": 1.155,
-      "aggMethodFinal": "median",
-      "cv": 36.104654036806636,
-      "measureTimestamps": [
-        3,
-        4,
-        5.4,
-        4,
-        3,
-        0,
-        4,
-        5,
-        4,
-        5
-      ],
-      "runs": [
-        {
-          "videoTimestampSec": 3,
-          "ratio": 2.87,
-          "confidence": 1
-        },
-        {
-          "videoTimestampSec": 4,
-          "ratio": 2.850746268656716,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 5.4,
-          "ratio": 2.8138,
-          "confidence": 0.8
-        },
-        {
-          "videoTimestampSec": 4,
-          "ratio": 3.6925795,
-          "confidence": 0.95
-        },
-        {
-          "videoTimestampSec": 3,
-          "ratio": 2.02,
-          "confidence": 0.95
-        },
-        {
-          "videoTimestampSec": 0,
-          "ratio": 0,
-          "confidence": 0
-        },
-        {
-          "videoTimestampSec": 4,
-          "ratio": 2.98,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 5,
-          "ratio": 6.63758389261745,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 4,
-          "ratio": 4.440677966101695,
-          "confidence": 0.95
-        },
-        {
-          "videoTimestampSec": 5,
-          "ratio": 4.763,
-          "confidence": 0.95
-        }
-      ],
-      "species": {
-        "agree": false,
-        "primary": "Zelkova serrata",
-        "source": "gemini+plantnet",
-        "gemini": {
-          "species": "Zelkova serrata",
-          "zhName": "未知樹種",
-          "confidence": 0.8,
-          "isDefaultFormula": true,
-          "carbonKg": 187.47,
-          "agbKg": 374.94,
-          "co2eKg": 688.01
-        },
-        "plantnet": {
-          "species": "Camphora officinarum",
-          "zhName": "樟樹",
-          "confidence": 0.51555,
-          "isDefaultFormula": false,
-          "carbonKg": 219.39,
-          "agbKg": 438.78,
-          "co2eKg": 805.17
-        },
-        "leafTimestamps": [
-          14,
-          15,
-          16
-        ]
-      },
-      "carbon": {
-        "primaryKg": 187.47,
-        "agbKg": 374.94,
-        "co2eKg": 688.01,
-        "heightM": 25.922635001821657
-      }
-    }
+    "storySummary": "未知樹種，20.2 cm，75.7 kg C，台灣南端山野"
   },
   {
     "treeNo": "T002",
@@ -171,8 +42,8 @@
     "dbhCm": 25.5,
     "originalDbhCm": null,
     "appliedCorrectionFactor": null,
-    "volumeM3": 0.4069,
-    "carbonKg": 132.24,
+    "volumeM3": 0.3800036440368759,
+    "carbonKg": 118.56113693950529,
     "confidence": "0.915",
     "gps": "22.7346,121.0685",
     "focalLengthMm": 5.7,
@@ -194,139 +65,9 @@
       "dbhCm": 30.4,
       "source": "direct_measurement"
     },
-    "videoFilename": null,
-    "videoOriginalName": "IMG_5792.mov",
-    "videoDriveUrl": "https://drive.google.com/file/d/1oFUNweQ1E2BCJRuuEFgATXYRUV5rWzON/view",
-    "winnerPath": "p4v2",
-    "paths": {
-      "path0": {
-        "computed": false
-      },
-      "pathA": {
-        "computed": false
-      },
-      "pathB": {
-        "computed": false
-      }
-    },
-    "manualTape": {
-      "circCm": 90,
-      "dbhCm": 28.6,
-      "frameTsSec": 6,
-      "annotator": "yuchi"
-    },
     "hasStory": true,
     "storyMarkdown": "# 🌳 相思樹 的故事\n\n> **台灣南端山野** ｜ 2026年5月23日\n\n---\n\n## 🌿 生態多樣性貢獻\n\n| 項目 | 內容 |\n|------|------|\n| **中文名** | 相思樹 |\n| **起源** | 🟢 台灣原生 |\n| **林相層次** | 林冠層 |\n| **棲地類型** | 低海拔闊葉林 |\n| **生態多樣性貢獻評分** | ★★★☆☆（3/5） |\n| **關鍵物種** | 否 |\n| **吸引鳥類** | 白頭翁、斑鳩、五色鳥、紅嘴黑鵯 |\n| **吸引昆蟲** | 小黃斑蛺蝶、台灣白紋鳳蝶、蜜蜂科（多種）、木棉蚜蟲天敵群 |\n| **哺乳動物** | 台灣獼猴 |\n| **土壤功能** | 根瘤菌固氮（每年每公頃可固氮 30–60 kg），改善貧瘠土壤，是台灣低海拔崩塌地最重要的先鋒樹種 |\n| **花期** | 3–5 月 |\n| **提供蜜源** | ✅ 是 |\n| **提供果實** | ✅ 是（鳥類/哺乳類食源） |\n\n### 生態角色\n\n台灣低海拔最常見的先鋒闊葉樹，固氮能力是裸地生態復育的關鍵。金黃色球狀花序盛開期是蜜蜂的重要蜜源，漿果吸引五色鳥等中型鳥類，深根系有效穩定坡地\n\n> **保育備註：** 台灣原生，崩塌地與貧瘠地復育首選，固氮先鋒樹種\n\n---\n\n## 🍃 此刻的 相思樹（5 月）\n\n花期尾聲，台灣白紋鳳蝶於樹冠交尾\n\n---\n\n## 🌍 碳儲量意義\n\n這棵 相思樹 目前儲存了 **303.9 kg** 的碳。相當於 43 個人一個月的呼吸排碳量。\n\n每多一棵這樣的樹，就是給大氣的一次小小還債。\n\n---\n\n## ✨ 這棵樹的故事\n\n一場雷雨在南台灣的山野醞釀，空氣濕潤，溫度逼近三十度，東風輕拂，捎來遠方海洋的氣息。這棵相思樹，胸徑逾三十公分，在海岸防風林帶巍然挺立多年，歲月為它刻畫風霜印記，卻也賦予它無比韌性。烏雲遮蔽一半天空，當日日照雖短暫，它的花期已近尾聲，仍有金黃細穗點綴枝頭。\n\n此刻，雨滴終於落下，模糊了遠方海岸線，卻未曾打擾樹冠間的溫柔。一對台灣白紋鳳蝶，無畏風雨，翩然起舞，完成生命最動人的交尾，承諾下一代的新生。這棵樹不僅是生命的舞台，更是大地的守護者。它粗壯的根系深埋泥土，與根瘤菌共生共榮，將空中遊離的氮氣固鎖，默默滋養這片曾經貧瘠的土地，成為崩塌地最重要的先鋒衛士。\n\n它胸懷廣闊，為我們吸納了三百多公斤的碳，這相當於四十三人一個月的呼吸排放，無聲地平衡著地球的脈動。白頭翁或許正在它濃密的葉間築巢，準備迎接雛鳥降臨；雨季是萬物甦醒的季節，昆蟲們也紛紛羽化。望著它，我心中油然升起一股溫暖感動。這棵相思樹不只活在當下，更是一封寫給未來世代的信。它堅韌的生命，承載希望，守護這片土地的生機與脈動，預示美好明天。\n\n---\n\n## 📊 拍攝當下環境快照\n\n- **天氣**：雷雨、氣溫 29.3°C、濕度 81%、氣壓 1003.6 hPa、雲量 50%\n- **風況**：東風，1.4 m/s\n- **光環境**：UV 指數 4.7、日照 1 小時、短波輻射 592 W/m²\n- **太陽位置**：日出 下午09:13、日落 上午10:33、日長 13.33 小時、太陽仰角 16.41°、方位 285.84°\n- **棲地座標**：海拔 67 m、海岸防風林帶、雨季\n- **當下物候**：鳥類繁殖初期、昆蟲羽化期、甲蟲樹液取食期、白蟻分飛、低海拔花期高峰、菌類子實體爆發窗口、飛鼠育幼期\n\n---\n\n_資料由 Forest Carbon Measurement 系統自動生成，Gemini 2.5 Flash 驅動，2026/5/25 更新_",
-    "storySummary": "相思樹，30.4 cm，303.9 kg C，台灣南端山野",
-    "p4v2": {
-      "engine": "P4v2-measure-pure-N10",
-      "repeat": 10,
-      "medianRatio": 2.5751,
-      "rawDbhCm": 22,
-      "calibratedDbhCm": 25.5,
-      "calibFactor": 1.155,
-      "aggMethodFinal": "median",
-      "cv": 31.827091391707246,
-      "measureTimestamps": [
-        19,
-        5,
-        7,
-        19,
-        19,
-        19,
-        6,
-        19.5,
-        6,
-        19.3
-      ],
-      "runs": [
-        {
-          "videoTimestampSec": 19,
-          "ratio": 2.4,
-          "confidence": 0.95
-        },
-        {
-          "videoTimestampSec": 5,
-          "ratio": 2.016627078384798,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 7,
-          "ratio": 1.94,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 19,
-          "ratio": 3.72,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 19,
-          "ratio": 2.5751,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 19,
-          "ratio": 2.0566037735849054,
-          "confidence": 0.95
-        },
-        {
-          "videoTimestampSec": 6,
-          "ratio": 2.8,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 19.5,
-          "ratio": 1.8855218855218856,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 6,
-          "ratio": 2.7586206896551726,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 19.3,
-          "ratio": 4.707112970711297,
-          "confidence": 0.95
-        }
-      ],
-      "species": {
-        "agree": false,
-        "primary": "Terminalia catappa",
-        "source": "gemini+plantnet",
-        "gemini": {
-          "species": "Terminalia catappa",
-          "zhName": "未知樹種",
-          "confidence": 0.9,
-          "isDefaultFormula": true,
-          "carbonKg": 132.24,
-          "agbKg": 264.49,
-          "co2eKg": 485.33
-        },
-        "plantnet": {
-          "species": "Calophyllum inophyllum",
-          "zhName": "瓊崖海棠",
-          "confidence": 0.80289,
-          "isDefaultFormula": false,
-          "carbonKg": 197.28,
-          "agbKg": 394.56,
-          "co2eKg": 724.03
-        },
-        "leafTimestamps": [
-          11,
-          42,
-          48,
-          50
-        ]
-      },
-      "carbon": {
-        "primaryKg": 132.24,
-        "agbKg": 264.49,
-        "co2eKg": 485.33,
-        "heightM": 21.732657962149265
-      }
-    }
+    "storySummary": "相思樹，30.4 cm，303.9 kg C，台灣南端山野"
   },
   {
     "treeNo": "T003",
@@ -336,8 +77,8 @@
     "dbhCm": 30.7,
     "originalDbhCm": null,
     "appliedCorrectionFactor": null,
-    "volumeM3": 0.6346,
-    "carbonKg": 206.25,
+    "volumeM3": 0.654492465273057,
+    "carbonKg": 263.760463505042,
     "confidence": "0.93",
     "gps": "22.7342,121.0677",
     "focalLengthMm": 5.7,
@@ -359,138 +100,9 @@
       "dbhCm": 34.4,
       "source": "direct_measurement"
     },
-    "videoFilename": null,
-    "videoOriginalName": "IMG_5793.mov",
-    "videoDriveUrl": "https://drive.google.com/file/d/1ZVDRkpkw0M7RYwS03Fdf19pAJKT4AnZ5/view",
-    "winnerPath": "p4v2",
-    "paths": {
-      "path0": {
-        "computed": false
-      },
-      "pathA": {
-        "computed": false
-      },
-      "pathB": {
-        "computed": false
-      }
-    },
-    "manualTape": {
-      "circCm": 106,
-      "dbhCm": 33.7,
-      "frameTsSec": 5,
-      "annotator": "yuchi"
-    },
     "hasStory": true,
     "storyMarkdown": "# 🌳 茄苳 的故事\n\n> **台灣南端山野** ｜ 2026年5月23日\n\n---\n\n## 🌿 生態多樣性貢獻\n\n| 項目 | 內容 |\n|------|------|\n| **中文名** | 茄苳 |\n| **起源** | 🟢 台灣原生 |\n| **林相層次** | 優勢木（突出層） |\n| **棲地類型** | 低海拔闊葉林 |\n| **生態多樣性貢獻評分** | ★★★★★（5/5） |\n| **關鍵物種** | ⭐ 是（關鍵物種） |\n| **吸引鳥類** | 台灣藍鵲、黑枕藍鶲、繡眼畫眉、五色鳥、紅嘴黑鵯 |\n| **吸引昆蟲** | 茄苳天牛、茄苳造型蚜蟲天敵群、台灣鳳蝶（幼蟲寄主） |\n| **哺乳動物** | 台灣獼猴、白鼻心、穿山甲 |\n| **土壤功能** | 老樹根系龐大，維繫深層土壤結構，落葉分解快速提升土壤氮磷含量 |\n| **花期** | 3–4 月 |\n| **提供蜜源** | 否 |\n| **提供果實** | ✅ 是（鳥類/哺乳類食源） |\n\n### 生態角色\n\n台灣平地最長壽的原生樹種，許多縣市的「老樹公」即是茄苳，可存活數百年。成熟果實（紫黑色小漿果）是台灣藍鵲、五色鳥等鳥類的重要食源，老樹洞是穿山甲及多種蝙蝠的棲息場所\n\n> **保育備註：** 台灣原生，民間「聖樹」，生態地位極高，老樹受法定保護\n\n---\n\n## 🍃 此刻的 茄苳（5 月）\n\n果實開始膨大，台灣鳳蝶幼蟲取食嫩葉\n\n---\n\n## 🌍 碳儲量意義\n\n這棵 茄苳 目前儲存了 **270.9 kg** 的碳。相當於 39 個人一個月的呼吸排碳量。\n\n每多一棵這樣的樹，就是給大氣的一次小小還債。\n\n---\n\n## ✨ 這棵樹的故事\n\n南台灣山野，一場雷雨正酣，濕熱的空氣瀰漫，東風輕拂著葉片，天空雲量半遮。海拔四十八公尺的海岸防風林帶，這棵屹立多年的茄苳老樹，胸高直徑三十四點四公分，巍然挺立，迎接著初夏陣雨洗禮。一日短暫的日照，此刻讓樹身更顯沉穩。\n\n此時，茄苳果實正飽滿膨大，雨水輕輕拂過；嫩葉間，台灣鳳蝶幼蟲忙碌啃食，為化蛹積蓄能量。高枝上，或許黑枕藍鶲正忙著孵育，靜候生命破殼；遠處，甲蟲樹液取食期展開，樹幹或許吸引著茄苳天牛的目光。雨水滋潤，菌類子實體也悄然探頭，宣告著雨季的豐饒。\n\n它不僅是生命匯聚的舞台，更是無聲的守護者。龐大根系深鎖土壤，抵禦風雨侵蝕，穩固這片海岸地景。落葉歸根，分解快速，為林間土壤注入氮磷精華，滋養眾生。這棵茄苳，靜默吸納近兩百七十公斤碳量，等同數十人一個月呼吸，是這片防風林帶最堅實的綠色肺臟，更是此地原生，關鍵生態樞紐。\n\n風雨洗禮，陽光短暫露臉，這片生命之網，織得更密更強。一棵樹，是一段時光見證，更是一封寫給未來深情信件。它不語，卻訴說著永續的希望，提醒我們珍惜足下每一寸生命。\n\n---\n\n## 📊 拍攝當下環境快照\n\n- **天氣**：雷雨、氣溫 29.3°C、濕度 81%、氣壓 1003.6 hPa、雲量 50%\n- **風況**：東風，1.4 m/s\n- **光環境**：UV 指數 4.7、日照 1 小時、短波輻射 592 W/m²\n- **太陽位置**：日出 下午09:13、日落 上午10:33、日長 13.33 小時、太陽仰角 15.54°、方位 286.15°\n- **棲地座標**：海拔 48 m、海岸防風林帶、雨季\n- **當下物候**：鳥類繁殖初期、昆蟲羽化期、甲蟲樹液取食期、白蟻分飛、低海拔花期高峰、菌類子實體爆發窗口、飛鼠育幼期\n\n---\n\n_資料由 Forest Carbon Measurement 系統自動生成，Gemini 2.5 Flash 驅動，2026/5/25 更新_",
-    "storySummary": "茄苳，34.4 cm，270.9 kg C，台灣南端山野",
-    "p4v2": {
-      "engine": "P4v2-measure-pure-N10",
-      "repeat": 10,
-      "medianRatio": 3.107,
-      "rawDbhCm": 26.6,
-      "calibratedDbhCm": 30.7,
-      "calibFactor": 1.155,
-      "aggMethodFinal": "median",
-      "cv": 36.9482421252214,
-      "measureTimestamps": [
-        12,
-        5.167,
-        5,
-        4.9,
-        5,
-        5.1,
-        5,
-        4.8,
-        15.1,
-        5
-      ],
-      "runs": [
-        {
-          "videoTimestampSec": 12,
-          "ratio": 2.1176,
-          "confidence": 1
-        },
-        {
-          "videoTimestampSec": 5.167,
-          "ratio": 1.94921875,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 5,
-          "ratio": 3.107,
-          "confidence": 0.95
-        },
-        {
-          "videoTimestampSec": 4.9,
-          "ratio": 3.3201581027667983,
-          "confidence": 0.95
-        },
-        {
-          "videoTimestampSec": 5,
-          "ratio": 2.5,
-          "confidence": 1
-        },
-        {
-          "videoTimestampSec": 5.1,
-          "ratio": 5.725,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 5,
-          "ratio": 2.302,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 4.8,
-          "ratio": 2.065868263473054,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 15.1,
-          "ratio": 4.36111,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 5,
-          "ratio": 3.3333333333333335,
-          "confidence": 0.9
-        }
-      ],
-      "species": {
-        "agree": false,
-        "primary": "Thespesia populnea",
-        "source": "gemini+plantnet",
-        "gemini": {
-          "species": "Thespesia populnea",
-          "zhName": "未知樹種",
-          "confidence": 0.9,
-          "isDefaultFormula": true,
-          "carbonKg": 206.25,
-          "agbKg": 412.51,
-          "co2eKg": 756.95
-        },
-        "plantnet": {
-          "species": "Bischofia javanica",
-          "zhName": "茄苳",
-          "confidence": 0.3451,
-          "isDefaultFormula": false,
-          "carbonKg": 258.62,
-          "agbKg": 517.23,
-          "co2eKg": 949.12
-        },
-        "leafTimestamps": [
-          24,
-          25,
-          26
-        ]
-      },
-      "carbon": {
-        "primaryKg": 206.25,
-        "agbKg": 412.51,
-        "co2eKg": 756.95,
-        "heightM": 23.336908081007667
-      }
-    }
+    "storySummary": "茄苳，34.4 cm，270.9 kg C，台灣南端山野"
   },
   {
     "treeNo": "T004",
@@ -500,8 +112,8 @@
     "dbhCm": 41.5,
     "originalDbhCm": null,
     "appliedCorrectionFactor": null,
-    "volumeM3": 1.3764,
-    "carbonKg": 473.82,
+    "volumeM3": 1.33390622303172,
+    "carbonKg": 424.84913203560285,
     "confidence": "0.935",
     "gps": "22.7365,121.0694",
     "focalLengthMm": 5.7,
@@ -520,138 +132,9 @@
       "createdAt": 1779676003
     },
     "calibration": null,
-    "videoFilename": null,
-    "videoOriginalName": "IMG_5798.mov",
-    "videoDriveUrl": "https://drive.google.com/file/d/1-yXWP7XWpgTeZBDQC9sHyOpIxljxm_tH/view",
-    "winnerPath": "p4v2",
-    "paths": {
-      "path0": {
-        "computed": false
-      },
-      "pathA": {
-        "computed": false
-      },
-      "pathB": {
-        "computed": false
-      }
-    },
-    "manualTape": {
-      "circCm": 132,
-      "dbhCm": 42,
-      "frameTsSec": 78,
-      "annotator": "yuchi"
-    },
     "hasStory": true,
     "storyMarkdown": "# 🌳 未知樹種 的故事\n\n> **台灣南端山野** ｜ 2026年5月24日\n\n---\n\n## 🌿 生態多樣性貢獻\n\n| 項目 | 內容 |\n|------|------|\n| **中文名** | 未知樹種 |\n| **起源** | ❓ 未知 |\n| **林相層次** | 林冠層 |\n| **棲地類型** | 低海拔闊葉林 |\n| **生態多樣性貢獻評分** | ★★☆☆☆（2/5） |\n| **關鍵物種** | 否 |\n| **吸引鳥類** | 各類留鳥 |\n| **吸引昆蟲** | 多種昆蟲 |\n| **哺乳動物** | — |\n| **土壤功能** | 提供遮蔭與有機質，基礎生態服務功能 |\n| **花期** | 視樹種而定 |\n| **提供蜜源** | 否 |\n| **提供果實** | 否 |\n\n### 生態角色\n\n樹木為周遭生態系提供遮蔭、固碳、防風等基礎服務，是陸域生態系的核心組成\n\n\n\n---\n\n## 🍃 此刻的 未知樹種（5 月）\n\n春末花期延續，動物育雛達高峰\n\n---\n\n## 🌍 碳儲量意義\n\n這棵 未知樹種 目前儲存了 **2710.9 kg** 的碳。相當於一輛汽車行駛約 12909 公里所排放的碳。\n\n每多一棵這樣的樹，就是給大氣的一次小小還債。\n\n---\n\n## ✨ 這棵樹的故事\n\n在台灣南端山野間，一棵古老身影巍然矗立，胸高直徑九十公分，歲月紋理刻劃其上。西元二零二六年的五月二十四，正午時分，艷陽高懸。雖是雨季起始，此刻天空澄澈如洗，僅八分雲量點綴，東南風輕柔吹拂，帶來一絲海洋鹹味。溫度攀升至攝氏三十度有餘，濕熱空氣中，生命氣息尤其濃烈。\n\n它的枝枒，即便沒有華麗花朵爭豔，卻是無數生靈的家園。樹冠下，陽光被翠綠葉片濾過，碎金般灑落，鳥聲啁啾，此時正是留鳥育雛高峰。一隻五色鳥正忙碌穿梭，銜來漿果餵食巢中雛鳥，鳴聲清亮。樹皮紋理間，多樣昆蟲正展開牠們的羽化期，甲蟲貪婪吸吮樹液，飽餐一頓，為生命奔波。甚至夜裡，飛鼠也可能在樹洞中安頓幼雛，準備夜行覓食。\n\n這棵老樹，無聲無息間，已為地球貯存了驚人的兩千七百多公斤碳量，這份貢獻，遠勝一輛汽車數萬公里的奔馳所排放，它是大地深邃的呼吸，寧靜而深刻。土壤，因它長年落葉堆疊，厚實而肥沃，供給周遭灌木幼苗養分，也涵養一方水土。它用生命詮釋何謂守護，何謂生生不息。每一次凝望，都像閱讀一封來自遠古的信箋，也啟示我們，每一次種植，都是寫給未來的一首詩，一份不朽的希望。\n\n---\n\n## 📊 拍攝當下環境快照\n\n- **天氣**：晴朗無雲、氣溫 30.2°C、濕度 72%、氣壓 1003.5 hPa、雲量 8%\n- **風況**：東南風，1.2 m/s\n- **光環境**：UV 指數 5.1、日照 1 小時、短波輻射 639 W/m²\n- **太陽位置**：日出 下午09:13、日落 上午10:34、日長 13.34 小時、太陽仰角 23.38°、方位 283.69°\n- **棲地座標**：海拔 61 m、海岸防風林帶、雨季\n- **當下物候**：鳥類繁殖初期、昆蟲羽化期、甲蟲樹液取食期、白蟻分飛、低海拔花期高峰、菌類子實體爆發窗口、飛鼠育幼期\n\n---\n\n_資料由 Forest Carbon Measurement 系統自動生成，Gemini 2.5 Flash 驅動，2026/5/25 更新_",
-    "storySummary": "未知樹種，90 cm，2710.9 kg C，台灣南端山野",
-    "p4v2": {
-      "engine": "P4v2-measure-pure-N10",
-      "repeat": 10,
-      "medianRatio": 4.193,
-      "rawDbhCm": 35.9,
-      "calibratedDbhCm": 41.5,
-      "calibFactor": 1.155,
-      "aggMethodFinal": "median",
-      "cv": 43.85916645336048,
-      "measureTimestamps": [
-        5,
-        7,
-        11,
-        8,
-        8,
-        6,
-        8,
-        8.5,
-        8,
-        8
-      ],
-      "runs": [
-        {
-          "videoTimestampSec": 5,
-          "ratio": 1.68,
-          "confidence": 1
-        },
-        {
-          "videoTimestampSec": 7,
-          "ratio": 1.812680115273775,
-          "confidence": 1
-        },
-        {
-          "videoTimestampSec": 11,
-          "ratio": 5.773,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 8,
-          "ratio": 4.203539823008849,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 8,
-          "ratio": 3.94,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 6,
-          "ratio": 4.193,
-          "confidence": 0.95
-        },
-        {
-          "videoTimestampSec": 8,
-          "ratio": 3.1,
-          "confidence": 1
-        },
-        {
-          "videoTimestampSec": 8.5,
-          "ratio": 4.1132,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 8,
-          "ratio": 8.403614457831326,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 8,
-          "ratio": 4.594,
-          "confidence": 0.9
-        }
-      ],
-      "species": {
-        "agree": false,
-        "primary": "Melia azedarach",
-        "source": "gemini+plantnet",
-        "gemini": {
-          "species": "Melia azedarach",
-          "zhName": "苦楝",
-          "confidence": 0.8,
-          "isDefaultFormula": false,
-          "carbonKg": 473.82,
-          "agbKg": 947.64,
-          "co2eKg": 1738.92
-        },
-        "plantnet": {
-          "species": "Camphora officinarum",
-          "zhName": "樟樹",
-          "confidence": 0.42083,
-          "isDefaultFormula": false,
-          "carbonKg": 496.85,
-          "agbKg": 993.69,
-          "co2eKg": 1823.42
-        },
-        "leafTimestamps": [
-          19,
-          22,
-          24
-        ]
-      },
-      "carbon": {
-        "primaryKg": 473.82,
-        "agbKg": 947.64,
-        "co2eKg": 1738.92,
-        "heightM": 29.542775328103957
-      }
-    }
+    "storySummary": "未知樹種，90 cm，2710.9 kg C，台灣南端山野"
   },
   {
     "treeNo": "T005",
@@ -661,8 +144,8 @@
     "dbhCm": 34.7,
     "originalDbhCm": null,
     "appliedCorrectionFactor": null,
-    "volumeM3": 0.8981,
-    "carbonKg": 309.16,
+    "volumeM3": 0.8661443244817696,
+    "carbonKg": 275.8669673474436,
     "confidence": "0.8",
     "gps": "22.7366,121.0692",
     "focalLengthMm": 5.7,
@@ -681,127 +164,9 @@
       "createdAt": 1779676105
     },
     "calibration": null,
-    "videoFilename": null,
-    "videoOriginalName": "IMG_5799.mov",
-    "videoDriveUrl": "https://drive.google.com/file/d/19hdCOLZKBOLf1F3rtZ1LLeukXUw2NAFy/view",
-    "winnerPath": "p4v2",
-    "paths": {
-      "path0": {
-        "computed": false
-      },
-      "pathA": {
-        "computed": false
-      },
-      "pathB": {
-        "computed": false
-      }
-    },
-    "manualTape": {
-      "circCm": 137,
-      "dbhCm": 43.6,
-      "frameTsSec": 66,
-      "annotator": "yuchi"
-    },
     "hasStory": true,
     "storyMarkdown": "# 🌳 未知樹種 的故事\n\n> **台灣南端山野** ｜ 2026年5月24日\n\n---\n\n## 🌿 生態多樣性貢獻\n\n| 項目 | 內容 |\n|------|------|\n| **中文名** | 未知樹種 |\n| **起源** | ❓ 未知 |\n| **林相層次** | 林冠層 |\n| **棲地類型** | 低海拔闊葉林 |\n| **生態多樣性貢獻評分** | ★★☆☆☆（2/5） |\n| **關鍵物種** | 否 |\n| **吸引鳥類** | 各類留鳥 |\n| **吸引昆蟲** | 多種昆蟲 |\n| **哺乳動物** | — |\n| **土壤功能** | 提供遮蔭與有機質，基礎生態服務功能 |\n| **花期** | 視樹種而定 |\n| **提供蜜源** | 否 |\n| **提供果實** | 否 |\n\n### 生態角色\n\n樹木為周遭生態系提供遮蔭、固碳、防風等基礎服務，是陸域生態系的核心組成\n\n\n\n---\n\n## 🍃 此刻的 未知樹種（5 月）\n\n春末花期延續，動物育雛達高峰\n\n---\n\n## 🌍 碳儲量意義\n\n這棵 未知樹種 目前儲存了 **11830.3 kg** 的碳。相當於一輛汽車行駛約 56335 公里所排放的碳。\n\n每多一棵這樣的樹，就是給大氣的一次小小還債。\n\n---\n\n## ✨ 這棵樹的故事\n\n台灣南端的山野，豔陽高掛，天光澄澈，八分雲量只餘微薄，熱浪輕拂大地。一股東南風輕輕吹送，濕潤空氣中，這棵胸徑碩大的大樹，如時間的座標，屹立海岸防風林帶。它身經百戰，樹冠如傘，為周遭生靈撐起一片清涼天地。\n\n時值雨季，南國春末花期延續著繁茂，樹下菌類子實體正悄然爆發。高掛的枝椏間，隱約傳來畫眉鳥育雛的輕語，牠們忙碌穿梭，餵養著嗷嗷待哺的幼鳥，將生命的喜悅傳遞。而樹皮縫隙裡，多種昆蟲正從羽化期轉為活躍，獨角仙則在樹液流淌處大快朵頤，飽餐一頓，甲蟲的生命週期在此交織，白蟻群也趁勢分飛，開展新世代的旅程。\n\n它不只是一棵樹，更是錯綜複雜生態網的中心。它龐大身軀，為無數生物提供棲所與食物，涵養這片土地的活力。歷經歲月洗禮，它悄無聲息地貯存著一萬多公斤碳，約莫抵銷一輛汽車行駛五萬多公里的排放，這是它為地球深呼吸的承諾，為我們所有人默默付出。根系深植泥土，年年落葉化為有機質，肥沃土壤，滋養一方。\n\n在這個日照尚短的晴朗清晨，這棵大樹的每一片葉脈都閃爍著生機。它用百年時光，寫下一封封給未來的信，關於韌性，關於給予，關於如何在快速變遷的世界中，依然堅守一片綠意。我們看見它，也看見希望，明白守護自然，就是守護我們自己，以及所有世代的共同家園。\n\n---\n\n## 📊 拍攝當下環境快照\n\n- **天氣**：晴朗無雲、氣溫 30.2°C、濕度 72%、氣壓 1003.5 hPa、雲量 8%\n- **風況**：東南風，1.2 m/s\n- **光環境**：UV 指數 5.1、日照 1 小時、短波輻射 639 W/m²\n- **太陽位置**：日出 下午09:13、日落 上午10:34、日長 13.34 小時、太陽仰角 22.61°、方位 283.94°\n- **棲地座標**：海拔 68 m、海岸防風林帶、雨季\n- **當下物候**：鳥類繁殖初期、昆蟲羽化期、甲蟲樹液取食期、白蟻分飛、低海拔花期高峰、菌類子實體爆發窗口、飛鼠育幼期\n\n---\n\n_資料由 Forest Carbon Measurement 系統自動生成，Gemini 2.5 Flash 驅動，2026/5/25 更新_",
-    "storySummary": "未知樹種，166.5 cm，11830.3 kg C，台灣南端山野",
-    "p4v2": {
-      "engine": "P4v2-measure-pure-N10",
-      "repeat": 10,
-      "medianRatio": 3.5088,
-      "rawDbhCm": 30,
-      "calibratedDbhCm": 34.7,
-      "calibFactor": 1.155,
-      "aggMethodFinal": "median",
-      "cv": 33.773500284213945,
-      "measureTimestamps": [
-        4,
-        4,
-        4,
-        6,
-        4,
-        5,
-        7.1,
-        5
-      ],
-      "runs": [
-        {
-          "videoTimestampSec": 4,
-          "ratio": 3.3767605633802815,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 4,
-          "ratio": 4.4921875,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 4,
-          "ratio": 2.9,
-          "confidence": 1
-        },
-        {
-          "videoTimestampSec": 6,
-          "ratio": 0,
-          "confidence": 0
-        },
-        {
-          "videoTimestampSec": 4,
-          "ratio": 3.508771929824561,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 5,
-          "ratio": 0.835,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 7.1,
-          "ratio": 3.8620689655172415,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 5,
-          "ratio": 4.115384615384615,
-          "confidence": 0.9
-        }
-      ],
-      "species": {
-        "agree": true,
-        "primary": "Melia azedarach",
-        "source": "agree",
-        "gemini": {
-          "species": "Melia azedarach",
-          "zhName": "苦楝",
-          "confidence": 0.9,
-          "isDefaultFormula": false,
-          "carbonKg": 309.16,
-          "agbKg": 618.31,
-          "co2eKg": 1134.6
-        },
-        "plantnet": {
-          "species": "Melia azedarach",
-          "zhName": "苦楝",
-          "confidence": 0.68108,
-          "isDefaultFormula": false,
-          "carbonKg": 309.16,
-          "agbKg": 618.31,
-          "co2eKg": 1134.6
-        },
-        "leafTimestamps": [
-          15,
-          17,
-          50,
-          52
-        ]
-      },
-      "carbon": {
-        "primaryKg": 309.16,
-        "agbKg": 618.31,
-        "co2eKg": 1134.6,
-        "heightM": 27.810219177617398
-      }
-    }
+    "storySummary": "未知樹種，166.5 cm，11830.3 kg C，台灣南端山野"
   },
   {
     "treeNo": "T006",
@@ -811,8 +176,8 @@
     "dbhCm": 43.8,
     "originalDbhCm": null,
     "appliedCorrectionFactor": null,
-    "volumeM3": 1.4865,
-    "carbonKg": 483.1,
+    "volumeM3": 1.543992645756992,
+    "carbonKg": 602.1571318452269,
     "confidence": "0.94",
     "gps": "22.7356,121.0669",
     "focalLengthMm": 5.7,
@@ -831,138 +196,9 @@
       "createdAt": 1779677034
     },
     "calibration": null,
-    "videoFilename": null,
-    "videoOriginalName": "IMG_5802.mov",
-    "videoDriveUrl": "https://drive.google.com/file/d/1lVacWtaNhrMq3oM2cfOgWYa7namSLlrK/view",
-    "winnerPath": "p4v2",
-    "paths": {
-      "path0": {
-        "computed": false
-      },
-      "pathA": {
-        "computed": false
-      },
-      "pathB": {
-        "computed": false
-      }
-    },
-    "manualTape": {
-      "circCm": 138,
-      "dbhCm": 43.9,
-      "frameTsSec": 116,
-      "annotator": "yuchi"
-    },
     "hasStory": true,
     "storyMarkdown": "# 🌳 相思樹 的故事\n\n> **台灣南端山野** ｜ 2026年5月24日\n\n---\n\n## 🌿 生態多樣性貢獻\n\n| 項目 | 內容 |\n|------|------|\n| **中文名** | 相思樹 |\n| **起源** | 🟢 台灣原生 |\n| **林相層次** | 林冠層 |\n| **棲地類型** | 低海拔闊葉林 |\n| **生態多樣性貢獻評分** | ★★★☆☆（3/5） |\n| **關鍵物種** | 否 |\n| **吸引鳥類** | 白頭翁、斑鳩、五色鳥、紅嘴黑鵯 |\n| **吸引昆蟲** | 小黃斑蛺蝶、台灣白紋鳳蝶、蜜蜂科（多種）、木棉蚜蟲天敵群 |\n| **哺乳動物** | 台灣獼猴 |\n| **土壤功能** | 根瘤菌固氮（每年每公頃可固氮 30–60 kg），改善貧瘠土壤，是台灣低海拔崩塌地最重要的先鋒樹種 |\n| **花期** | 3–5 月 |\n| **提供蜜源** | ✅ 是 |\n| **提供果實** | ✅ 是（鳥類/哺乳類食源） |\n\n### 生態角色\n\n台灣低海拔最常見的先鋒闊葉樹，固氮能力是裸地生態復育的關鍵。金黃色球狀花序盛開期是蜜蜂的重要蜜源，漿果吸引五色鳥等中型鳥類，深根系有效穩定坡地\n\n> **保育備註：** 台灣原生，崩塌地與貧瘠地復育首選，固氮先鋒樹種\n\n---\n\n## 🍃 此刻的 相思樹（5 月）\n\n花期尾聲，台灣白紋鳳蝶於樹冠交尾\n\n---\n\n## 🌍 碳儲量意義\n\n這棵 相思樹 目前儲存了 **584.6 kg** 的碳。相當於一輛汽車行駛約 2784 公里所排放的碳。\n\n每多一棵這樣的樹，就是給大氣的一次小小還債。\n\n---\n\n## ✨ 這棵樹的故事\n\n在台灣南端山野，海岸防風林帶中，這棵相思樹已屹立許多春秋，胸徑寬達四十公分，儼然是這片土地的沉默守護者。此刻五月下旬，驕陽炙熱，東南微風輕拂，空氣中滿是雨季帶來豐沛濕意。儘管當日日照僅一小時，陽光仍透過稀疏雲層，將翠綠樹冠鍍上金邊，紫外線指數已高，宣告這片山林生機盎然。\n\n樹冠上，台灣白紋鳳蝶成雙交尾，翩然飛舞，譜寫生命新章。花期雖已近尾聲，金黃絮語仍為蜜蜂提供最後的甘甜。白頭翁築巢育雛，紅嘴黑鵯清脆鳴唱，甲蟲在樹皮裂縫間，享用樹液甘霖。低海拔花期正盛，樹底更有新雨催生的菌菇，悄然探出頭，預告生命的循環。\n\n這棵相思樹，不僅是風景。它深紮土壤的根系，與共生根瘤菌勤懇固氮，默默豐沃貧瘠土地，更是台灣低海拔崩塌地，最重要的先鋒樹種，為大地紮穩腳步，抓牢希望。它身體封存了五百八十四點六公斤的碳，靜靜鎖於樹身，相當於讓一輛車少跑兩千七百多公里路程，排放減輕許多。\n\n凝望這棵相思樹，它不只是一棵樹木，更是生命匯聚之所，一份無聲承諾。每一棵種下的樹，都是我們寫給未來的一封信，蘊含驚奇與希望。\n\n---\n\n## 📊 拍攝當下環境快照\n\n- **天氣**：晴朗無雲、氣溫 30.2°C、濕度 72%、氣壓 1003.4 hPa、雲量 8%\n- **風況**：東南風，1.2 m/s\n- **光環境**：UV 指數 5.1、日照 1 小時、短波輻射 639 W/m²\n- **太陽位置**：日出 下午09:13、日落 上午10:34、日長 13.34 小時、太陽仰角 18.68°、方位 285.26°\n- **棲地座標**：海拔 75 m、海岸防風林帶、雨季\n- **當下物候**：鳥類繁殖初期、昆蟲羽化期、甲蟲樹液取食期、白蟻分飛、低海拔花期高峰、菌類子實體爆發窗口、飛鼠育幼期\n\n---\n\n_資料由 Forest Carbon Measurement 系統自動生成，Gemini 2.5 Flash 驅動，2026/5/25 更新_",
-    "storySummary": "相思樹，40 cm，584.6 kg C，台灣南端山野",
-    "p4v2": {
-      "engine": "P4v2-measure-pure-N10",
-      "repeat": 10,
-      "medianRatio": 4.43,
-      "rawDbhCm": 37.9,
-      "calibratedDbhCm": 43.8,
-      "calibFactor": 1.155,
-      "aggMethodFinal": "median",
-      "cv": 33.289851821194354,
-      "measureTimestamps": [
-        16,
-        14,
-        17,
-        16,
-        14,
-        14,
-        14,
-        18,
-        15,
-        16
-      ],
-      "runs": [
-        {
-          "videoTimestampSec": 16,
-          "ratio": 6,
-          "confidence": 0.85
-        },
-        {
-          "videoTimestampSec": 14,
-          "ratio": 2.07,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 17,
-          "ratio": 3.245,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 16,
-          "ratio": 4.43,
-          "confidence": 0.95
-        },
-        {
-          "videoTimestampSec": 14,
-          "ratio": 4.8884,
-          "confidence": 1
-        },
-        {
-          "videoTimestampSec": 14,
-          "ratio": 3.558,
-          "confidence": 1
-        },
-        {
-          "videoTimestampSec": 14,
-          "ratio": 5.518918918918919,
-          "confidence": 0.95
-        },
-        {
-          "videoTimestampSec": 18,
-          "ratio": 6.253333333333333,
-          "confidence": 0.95
-        },
-        {
-          "videoTimestampSec": 15,
-          "ratio": 2.447,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 16,
-          "ratio": 3.368217054263566,
-          "confidence": 1
-        }
-      ],
-      "species": {
-        "agree": false,
-        "primary": "Albizia lebbeck",
-        "source": "gemini+plantnet",
-        "gemini": {
-          "species": "Albizia lebbeck",
-          "zhName": "未知樹種",
-          "confidence": 0.9,
-          "isDefaultFormula": true,
-          "carbonKg": 483.1,
-          "agbKg": 966.2,
-          "co2eKg": 1772.98
-        },
-        "plantnet": {
-          "species": "Swietenia mahagoni",
-          "zhName": "大葉桃花心木",
-          "confidence": 0.57644,
-          "isDefaultFormula": false,
-          "carbonKg": 598.55,
-          "agbKg": 1197.11,
-          "co2eKg": 2196.69
-        },
-        "leafTimestamps": [
-          27,
-          29,
-          31
-        ]
-      },
-      "carbon": {
-        "primaryKg": 483.1,
-        "agbKg": 966.2,
-        "co2eKg": 1772.98,
-        "heightM": 28.621715201207426
-      }
-    }
+    "storySummary": "相思樹，40 cm，584.6 kg C，台灣南端山野"
   },
   {
     "treeNo": "T007",
@@ -972,8 +208,8 @@
     "dbhCm": 25.5,
     "originalDbhCm": null,
     "appliedCorrectionFactor": null,
-    "volumeM3": 0.4189,
-    "carbonKg": 165.9,
+    "volumeM3": 0.418934947144633,
+    "carbonKg": 165.89823906927467,
     "confidence": "high",
     "gps": "22.7354,121.0668",
     "focalLengthMm": 5.7,
@@ -995,53 +231,9 @@
       "dbhCm": 7.5,
       "source": "direct_measurement"
     },
-    "videoFilename": null,
-    "videoOriginalName": "IMG_5804.mov",
-    "videoDriveUrl": "https://drive.google.com/file/d/1WOuTQSB1jn_mpeUNUILl0606-9B-VZZR/preview",
-    "winnerPath": "path0",
-    "paths": {
-      "path0": {
-        "dbhCm": 25.5,
-        "volumeM3": 0.4189,
-        "carbonKg": 165.9,
-        "computed": true
-      },
-      "pathA": {
-        "dbhCm": 28.5,
-        "volumeM3": 0.5474,
-        "carbonKg": 216.8,
-        "computed": true
-      },
-      "pathB": {
-        "dbhCm": 49.1,
-        "dbhCmCorrected": null,
-        "volumeM3": 2.0239,
-        "carbonKg": 801.5,
-        "computed": true
-      }
-    },
-    "manualTape": {
-      "circCm": 80,
-      "dbhCm": 24.83,
-      "frameTsSec": 178,
-      "annotator": "yuchi"
-    },
     "hasStory": true,
     "storyMarkdown": "# 🌳 光臘樹 的故事\n\n> **台灣南端山野** ｜ 2026年5月24日\n\n---\n\n## 🌿 生態多樣性貢獻\n\n| 項目 | 內容 |\n|------|------|\n| **中文名** | 光臘樹 |\n| **起源** | 🟢 台灣原生 |\n| **林相層次** | 林冠層 |\n| **棲地類型** | 低海拔闊葉林 |\n| **生態多樣性貢獻評分** | ★★★★★（5/5） |\n| **關鍵物種** | ⭐ 是（關鍵物種） |\n| **吸引鳥類** | 台灣藍鵲、白頭翁、五色鳥、紅頭山雀 |\n| **吸引昆蟲** | 台灣長臂金龜（二級保育類）、獨角仙、台灣大鍬形蟲、深山锹形蟲 |\n| **哺乳動物** | 台灣獼猴、台灣野豬 |\n| **土壤功能** | 樹液分解吸引真菌，促進腐植質循環，林下有機質積累顯著 |\n| **花期** | 4–6 月 |\n| **提供蜜源** | ✅ 是 |\n| **提供果實** | ✅ 是（鳥類/哺乳類食源） |\n\n### 生態角色\n\n台灣低海拔的「生態熱點」樹種，樹幹傷口滲出的樹液是台灣長臂金龜（保育二級）、獨角仙、鍬形蟲等甲蟲夏季最重要的食物來源。單株光臘樹在夏夜可吸引超過百隻甲蟲聚集，是台灣最具代表性的甲蟲寄主植物\n\n> **保育備註：** 台灣原生，台灣長臂金龜指標棲地植物，具高生態保育優先性\n\n---\n\n## 🍃 此刻的 光臘樹（5 月）\n\n盛花期延續，地表幼蟲化蛹\n\n---\n\n## 🌍 碳儲量意義\n\n這棵 光臘樹 目前儲存了 **8.8 kg** 的碳。等同於 18 頓廢紙回收的減碳效益。\n\n每多一棵這樣的樹，就是給大氣的一次小小還債。\n\n---\n\n## ✨ 這棵樹的故事\n\n在台灣南端的山野間，五月二十四日的午後，一棵光臘樹少年正迎向熱烈的陽光。海岸防風林帶的微風輕輕拂過，將南台灣的濕潤氣息帶往四方，氣溫已攀升至 30.2°C，天空澄澈，雲量不到一成。它還是個少年，胸高直徑約 7.5 公分，卻已默默貯存了 8.8 公斤的碳，這綠色效益，約莫等同於回收了 18 噸廢紙的減碳量，它用翠綠姿態，為這片土地寫下承諾。\n\n此時正值盛花期延續，花序雖已漸退，卻仍是昆蟲們的甜蜜天堂。樹皮滲出晶瑩樹液，吸引了獨角仙與台灣長臂金龜，牠們用大顎輕輕舐食，或追逐嬉戲，這是甲蟲的羽化與樹液取食的黃金時節。不遠處，台灣藍鵲鮮麗的身影掠過林梢，牠們正忙於繁殖初期，或許就在附近築巢育幼。林下，土壤濕潤，菌類子實體趁勢冒頭，許多昆蟲幼蟲也蟄伏土中，等待羽化。這一切，都在這棵原生光臘樹周圍盎然發生。\n\n作為生態關鍵物種，這棵光臘樹不僅是多樣生命的庇護所，更是大地腐植質循環的無聲推手。落葉與樹液滲入土壤，滋養真菌，加速有機質分解，為林下生態積累顯著的肥沃養分。它將生命力融入泥土，化作滋養萬物的沃土。這棵小小的光臘樹，它的每一次呼吸，每一次生長，都像一封寄給未來的信。信中，寫滿了青翠的希望與永續的承諾，提醒我們，眼前一切，都是大地最美好的饋贈，值得我們用心守護。\n\n---\n\n## 📊 拍攝當下環境快照\n\n- **天氣**：晴朗無雲、氣溫 30.2°C、濕度 72%、氣壓 1003.4 hPa、雲量 8%\n- **風況**：東南風，1.2 m/s\n- **光環境**：UV 指數 5.1、日照 1 小時、短波輻射 639 W/m²\n- **太陽位置**：日出 下午09:13、日落 上午10:34、日長 13.34 小時、太陽仰角 17.09°、方位 285.81°\n- **棲地座標**：海拔 67 m、海岸防風林帶、雨季\n- **當下物候**：鳥類繁殖初期、昆蟲羽化期、甲蟲樹液取食期、白蟻分飛、低海拔花期高峰、菌類子實體爆發窗口、飛鼠育幼期\n\n---\n\n_資料由 Forest Carbon Measurement 系統自動生成，Gemini 2.5 Flash 驅動，2026/5/25 更新_",
-    "storySummary": "光臘樹，7.5 cm，8.8 kg C，台灣南端山野",
-    "p4v2": {
-      "calibratedDbhCm": 25.5,
-      "calibFactor": 1,
-      "aggMethodFinal": "manual_tape",
-      "measureTimestamps": [],
-      "runs": [],
-      "species": null,
-      "carbon": {
-        "primaryKg": 165.9,
-        "agbKg": 331.8,
-        "co2eKg": 608.85
-      }
-    }
+    "storySummary": "光臘樹，7.5 cm，8.8 kg C，台灣南端山野"
   },
   {
     "treeNo": "T008",
@@ -1051,8 +243,8 @@
     "dbhCm": 33.4,
     "originalDbhCm": null,
     "appliedCorrectionFactor": null,
-    "volumeM3": 0.7766,
-    "carbonKg": 252.39,
+    "volumeM3": 0.7899060964661077,
+    "carbonKg": 251.58509172445528,
     "confidence": "0.83",
     "gps": "22.7353,121.0666",
     "focalLengthMm": 5.7,
@@ -1074,131 +266,9 @@
       "dbhCm": 37.5,
       "source": "reference"
     },
-    "videoFilename": null,
-    "videoOriginalName": "IMG_5808.mov",
-    "videoDriveUrl": "https://drive.google.com/file/d/1Kzcy00bGk-kZjL8lQQ66wD1v-OZkOgAb/view",
-    "winnerPath": "p4v2",
-    "paths": {
-      "path0": {
-        "computed": false
-      },
-      "pathA": {
-        "computed": false
-      },
-      "pathB": {
-        "computed": false
-      }
-    },
-    "manualTape": {
-      "circCm": 100,
-      "dbhCm": 31.8,
-      "frameTsSec": 113,
-      "annotator": "yuchi"
-    },
     "hasStory": true,
     "storyMarkdown": "# 🌳 光臘樹 的故事\n\n> **台灣南端山野** ｜ 2026年5月24日\n\n---\n\n## 🌿 生態多樣性貢獻\n\n| 項目 | 內容 |\n|------|------|\n| **中文名** | 光臘樹 |\n| **起源** | 🟢 台灣原生 |\n| **林相層次** | 林冠層 |\n| **棲地類型** | 低海拔闊葉林 |\n| **生態多樣性貢獻評分** | ★★★★★（5/5） |\n| **關鍵物種** | ⭐ 是（關鍵物種） |\n| **吸引鳥類** | 台灣藍鵲、白頭翁、五色鳥、紅頭山雀 |\n| **吸引昆蟲** | 台灣長臂金龜（二級保育類）、獨角仙、台灣大鍬形蟲、深山锹形蟲 |\n| **哺乳動物** | 台灣獼猴、台灣野豬 |\n| **土壤功能** | 樹液分解吸引真菌，促進腐植質循環，林下有機質積累顯著 |\n| **花期** | 4–6 月 |\n| **提供蜜源** | ✅ 是 |\n| **提供果實** | ✅ 是（鳥類/哺乳類食源） |\n\n### 生態角色\n\n台灣低海拔的「生態熱點」樹種，樹幹傷口滲出的樹液是台灣長臂金龜（保育二級）、獨角仙、鍬形蟲等甲蟲夏季最重要的食物來源。單株光臘樹在夏夜可吸引超過百隻甲蟲聚集，是台灣最具代表性的甲蟲寄主植物\n\n> **保育備註：** 台灣原生，台灣長臂金龜指標棲地植物，具高生態保育優先性\n\n---\n\n## 🍃 此刻的 光臘樹（5 月）\n\n盛花期延續，地表幼蟲化蛹\n\n---\n\n## 🌍 碳儲量意義\n\n這棵 光臘樹 目前儲存了 **419.3 kg** 的碳。相當於 60 個人一個月的呼吸排碳量。\n\n每多一棵這樣的樹，就是給大氣的一次小小還債。\n\n---\n\n## ✨ 這棵樹的故事\n\n南島豔陽熱情地灑落，海岸防風林帶裡，一株光臘樹巍然屹立。它深根於海拔六十五公尺的山野，沐浴著東南輕柔的風，此刻氣溫已達攝氏三十度，晴朗無雲的天空下，紫外線指數顯得稍高，這座南端的自然殿堂，正上演一場生命交響樂。\n\n光臘樹，台灣原生樹種，一身潔白的花朵於盛花期中搖曳，彷彿星光點點，引來無數生命讚嘆。樹幹上，台灣長臂金龜那壯碩的身影正專注吸吮樹液，牠們與獨角仙、大鍬形蟲共同分享這份甘甜，也為周遭帶來生機。林間，台灣藍鵲穿梭飛行，牠們正忙碌著鳥類繁殖初期的育雛任務，清亮的鳴聲迴盪山谷，與五色鳥、白頭翁共譜熱鬧樂章。\n\n這不僅是一棵樹，它是生態循環的重要樞紐，一身累積達四百一十九公斤的碳儲量，默默為地球淨化空氣，足足抵銷六十人一個月的呼吸排碳量。它的樹液滋養真菌群落，分解腐植質，讓林下有機質顯著豐厚，沃土因此更加肥沃。雨季的降臨，更催生了菌類子實體爆發的窗口，地底深處，蟄伏的幼蟲正忙於化蛹，等待羽化展翅。飛鼠的幼崽，也在母愛的庇護下漸漸長大。\n\n這棵光臘樹，它以年輪寫下台灣南端的故事，它是我們寫給未來世代，一封關於生命、希望與永續的無字情書，承載著無盡的愛與承諾。\n\n---\n\n## 📊 拍攝當下環境快照\n\n- **天氣**：晴朗無雲、氣溫 30.2°C、濕度 72%、氣壓 1003.5 hPa、雲量 8%\n- **風況**：東南風，1.2 m/s\n- **光環境**：UV 指數 5.1、日照 1 小時、短波輻射 639 W/m²\n- **太陽位置**：日出 下午09:13、日落 上午10:34、日長 13.34 小時、太陽仰角 13.68°、方位 287.03°\n- **棲地座標**：海拔 65 m、海岸防風林帶、雨季\n- **當下物候**：鳥類繁殖初期、昆蟲羽化期、甲蟲樹液取食期、白蟻分飛、低海拔花期高峰、菌類子實體爆發窗口、飛鼠育幼期\n\n---\n\n_資料由 Forest Carbon Measurement 系統自動生成，Gemini 2.5 Flash 驅動，2026/5/25 更新_",
-    "storySummary": "光臘樹，37.5 cm，419.3 kg C，台灣南端山野",
-    "p4v2": {
-      "engine": "P4v2-measure-pure-N10",
-      "repeat": 10,
-      "medianRatio": 3.378,
-      "rawDbhCm": 28.9,
-      "calibratedDbhCm": 33.4,
-      "calibFactor": 1.155,
-      "aggMethodFinal": "median",
-      "cv": 24.470935997133545,
-      "measureTimestamps": [
-        24,
-        20.3,
-        15.1,
-        20,
-        25,
-        24,
-        27,
-        15,
-        0,
-        15
-      ],
-      "runs": [
-        {
-          "videoTimestampSec": 24,
-          "ratio": 3.378,
-          "confidence": 1
-        },
-        {
-          "videoTimestampSec": 20.3,
-          "ratio": 3.354,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 15.1,
-          "ratio": 2.212,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 20,
-          "ratio": 2.8837,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 25,
-          "ratio": 2.920634920634921,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 24,
-          "ratio": 4.128878281622912,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 27,
-          "ratio": 3.8987,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 15,
-          "ratio": 5.26,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 0,
-          "ratio": 0,
-          "confidence": 0
-        },
-        {
-          "videoTimestampSec": 15,
-          "ratio": 4.5714285714,
-          "confidence": 1
-        }
-      ],
-      "species": {
-        "agree": null,
-        "primary": "Koelreuteria elegans",
-        "source": "gemini",
-        "gemini": {
-          "species": "Koelreuteria elegans",
-          "zhName": "未知樹種",
-          "confidence": 0.9,
-          "isDefaultFormula": true,
-          "carbonKg": 252.39,
-          "agbKg": 504.79,
-          "co2eKg": 926.29
-        },
-        "plantnet": null,
-        "leafTimestamps": [
-          34,
-          37,
-          86,
-          89
-        ]
-      },
-      "carbon": {
-        "primaryKg": 252.39,
-        "agbKg": 504.79,
-        "co2eKg": 926.29,
-        "heightM": 26.301837959830628
-      }
-    }
+    "storySummary": "光臘樹，37.5 cm，419.3 kg C，台灣南端山野"
   },
   {
     "treeNo": "T009",
@@ -1208,8 +278,8 @@
     "dbhCm": 25.7,
     "originalDbhCm": null,
     "appliedCorrectionFactor": null,
-    "volumeM3": 0.4586,
-    "carbonKg": 164.38,
+    "volumeM3": 0.4205106624767936,
+    "carbonKg": 161.47609439108874,
     "confidence": "0.735",
     "gps": "22.7353,121.0664",
     "focalLengthMm": 5.7,
@@ -1231,139 +301,9 @@
       "dbhCm": 41.1,
       "source": "direct_measurement"
     },
-    "videoFilename": null,
-    "videoOriginalName": "IMG_5809.mov",
-    "videoDriveUrl": "https://drive.google.com/file/d/1DY1OV8PEPjR3XGIcyVne1AtO1QdpUHUF/view",
-    "winnerPath": "p4v2",
-    "paths": {
-      "path0": {
-        "computed": false
-      },
-      "pathA": {
-        "computed": false
-      },
-      "pathB": {
-        "computed": false
-      }
-    },
-    "manualTape": {
-      "circCm": 96,
-      "dbhCm": 30.6,
-      "frameTsSec": 71,
-      "annotator": "yuchi"
-    },
     "hasStory": true,
     "storyMarkdown": "# 🌳 光臘樹 的故事\n\n> **台灣南端山野** ｜ 2026年5月24日\n\n---\n\n## 🌿 生態多樣性貢獻\n\n| 項目 | 內容 |\n|------|------|\n| **中文名** | 光臘樹 |\n| **起源** | 🟢 台灣原生 |\n| **林相層次** | 林冠層 |\n| **棲地類型** | 低海拔闊葉林 |\n| **生態多樣性貢獻評分** | ★★★★★（5/5） |\n| **關鍵物種** | ⭐ 是（關鍵物種） |\n| **吸引鳥類** | 台灣藍鵲、白頭翁、五色鳥、紅頭山雀 |\n| **吸引昆蟲** | 台灣長臂金龜（二級保育類）、獨角仙、台灣大鍬形蟲、深山锹形蟲 |\n| **哺乳動物** | 台灣獼猴、台灣野豬 |\n| **土壤功能** | 樹液分解吸引真菌，促進腐植質循環，林下有機質積累顯著 |\n| **花期** | 4–6 月 |\n| **提供蜜源** | ✅ 是 |\n| **提供果實** | ✅ 是（鳥類/哺乳類食源） |\n\n### 生態角色\n\n台灣低海拔的「生態熱點」樹種，樹幹傷口滲出的樹液是台灣長臂金龜（保育二級）、獨角仙、鍬形蟲等甲蟲夏季最重要的食物來源。單株光臘樹在夏夜可吸引超過百隻甲蟲聚集，是台灣最具代表性的甲蟲寄主植物\n\n> **保育備註：** 台灣原生，台灣長臂金龜指標棲地植物，具高生態保育優先性\n\n---\n\n## 🍃 此刻的 光臘樹（5 月）\n\n盛花期延續，地表幼蟲化蛹\n\n---\n\n## 🌍 碳儲量意義\n\n這棵 光臘樹 目前儲存了 **522.6 kg** 的碳。相當於一輛汽車行駛約 2489 公里所排放的碳。\n\n每多一棵這樣的樹，就是給大氣的一次小小還債。\n\n---\n\n## ✨ 這棵樹的故事\n\n在南台灣山野，海岸線輕語處，一棵光臘樹巍然佇立多年，胸徑寬達四十餘公分。此刻，南島豔陽烘烤大地，空氣中瀰漫著潮熱水氣，微弱東南風輕撫葉梢，帶來遠方海聲絮語。晴朗天幕下，它以身為盾，默默吞噬空氣中過剩碳元素，將遠方車輪奔馳二千餘公里的痕跡，悄然封存為堅實木質，回饋世間清新氣息。\n\n五月雨季初臨，生命力在樹冠與林下競相勃發。樹梢上，盛花延續，引來無數嗡嗡訪客；樹幹滲出甜美樹液，那是甲蟲們的盛宴。珍稀的台灣長臂金龜、威武獨角仙與深山鍬形蟲，牠們爭相取食，宣告羽化期來到。地表深處，無數幼蟲正蓄積能量，準備破繭成蝶，為這片山林注入新血。\n\n這棵光臘樹，不只是一座綠色堡壘。它肥沃林下土壤，樹液分解滋養真菌，加速有機質循環，積累厚實腐植層，成就生態豐饒殿堂。遠方傳來台灣藍鵲清亮鳴叫，那是繁殖初期愛侶間的宣告；五色鳥翠綠身影穿梭枝椏，為幼雛覓食。它宛如一所生命百貨，供應無盡食糧與居所。這棵光臘樹，不只是一棵樹，它是自然寫給未來，一封充滿綠色驚奇與無限希望的信箋。\n\n---\n\n## 📊 拍攝當下環境快照\n\n- **天氣**：晴朗無雲、氣溫 30.2°C、濕度 72%、氣壓 1003.5 hPa、雲量 8%\n- **風況**：東南風，1.2 m/s\n- **光環境**：UV 指數 5.1、日照 1 小時、短波輻射 639 W/m²\n- **太陽位置**：日出 下午09:13、日落 上午10:34、日長 13.34 小時、太陽仰角 12.9°、方位 287.31°\n- **棲地座標**：海拔 72 m、海岸防風林帶、雨季\n- **當下物候**：鳥類繁殖初期、昆蟲羽化期、甲蟲樹液取食期、白蟻分飛、低海拔花期高峰、菌類子實體爆發窗口、飛鼠育幼期\n\n---\n\n_資料由 Forest Carbon Measurement 系統自動生成，Gemini 2.5 Flash 驅動，2026/5/25 更新_",
-    "storySummary": "光臘樹，41.1 cm，522.6 kg C，台灣南端山野",
-    "p4v2": {
-      "engine": "P4v2-measure-pure-N10",
-      "repeat": 10,
-      "medianRatio": 2.6,
-      "rawDbhCm": 22.3,
-      "calibratedDbhCm": 25.7,
-      "calibFactor": 1.155,
-      "aggMethodFinal": "median",
-      "cv": 38.57122155605283,
-      "measureTimestamps": [
-        21,
-        12,
-        21,
-        11,
-        20,
-        19,
-        12,
-        0,
-        19,
-        10
-      ],
-      "runs": [
-        {
-          "videoTimestampSec": 21,
-          "ratio": 3.678474114441417,
-          "confidence": 1
-        },
-        {
-          "videoTimestampSec": 12,
-          "ratio": 0,
-          "confidence": 0.1
-        },
-        {
-          "videoTimestampSec": 21,
-          "ratio": 2.6,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 11,
-          "ratio": 2.9,
-          "confidence": 0.8
-        },
-        {
-          "videoTimestampSec": 20,
-          "ratio": 1.76,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 19,
-          "ratio": 2.204,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 12,
-          "ratio": 1.9736842105263157,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 0,
-          "ratio": 0,
-          "confidence": 0
-        },
-        {
-          "videoTimestampSec": 19,
-          "ratio": 1.482,
-          "confidence": 0.95
-        },
-        {
-          "videoTimestampSec": 10,
-          "ratio": 4.789,
-          "confidence": 0.9
-        }
-      ],
-      "species": {
-        "agree": false,
-        "primary": "Swietenia macrophylla",
-        "source": "gemini+plantnet",
-        "gemini": {
-          "species": "Swietenia macrophylla",
-          "zhName": "大葉桃花心木",
-          "confidence": 0.9,
-          "isDefaultFormula": false,
-          "carbonKg": 164.38,
-          "agbKg": 328.76,
-          "co2eKg": 603.27
-        },
-        "plantnet": {
-          "species": "Carya illinoinensis",
-          "zhName": "未知樹種",
-          "confidence": 0.68049,
-          "isDefaultFormula": true,
-          "carbonKg": 134.74,
-          "agbKg": 269.48,
-          "co2eKg": 494.5
-        },
-        "leafTimestamps": [
-          29,
-          30,
-          31,
-          32
-        ]
-      },
-      "carbon": {
-        "primaryKg": 164.38,
-        "agbKg": 328.76,
-        "co2eKg": 603.27,
-        "heightM": 22.23967643332225
-      }
-    }
+    "storySummary": "光臘樹，41.1 cm，522.6 kg C，台灣南端山野"
   },
   {
     "treeNo": "T010",
@@ -1373,8 +313,8 @@
     "dbhCm": 30,
     "originalDbhCm": null,
     "appliedCorrectionFactor": null,
-    "volumeM3": 0.6005,
-    "carbonKg": 195.17,
+    "volumeM3": 0.6085631895706699,
+    "carbonKg": 241.4778736216418,
     "confidence": "0.925",
     "gps": "22.7352,121.0665",
     "focalLengthMm": 5.7,
@@ -1393,138 +333,9 @@
       "createdAt": 1779679761
     },
     "calibration": null,
-    "videoFilename": null,
-    "videoOriginalName": "IMG_5810.mov",
-    "videoDriveUrl": "https://drive.google.com/file/d/1v6BthyaAo0uY4HvIs-yK5_YETJnWSV-5/view",
-    "winnerPath": "p4v2",
-    "paths": {
-      "path0": {
-        "computed": false
-      },
-      "pathA": {
-        "computed": false
-      },
-      "pathB": {
-        "computed": false
-      }
-    },
-    "manualTape": {
-      "circCm": 94,
-      "dbhCm": 29.9,
-      "frameTsSec": 92,
-      "annotator": "yuchi"
-    },
     "hasStory": true,
     "storyMarkdown": "# 🌳 光臘樹 的故事\n\n> **台灣南端山野** ｜ 2026年5月24日\n\n---\n\n## 🌿 生態多樣性貢獻\n\n| 項目 | 內容 |\n|------|------|\n| **中文名** | 光臘樹 |\n| **起源** | 🟢 台灣原生 |\n| **林相層次** | 林冠層 |\n| **棲地類型** | 低海拔闊葉林 |\n| **生態多樣性貢獻評分** | ★★★★★（5/5） |\n| **關鍵物種** | ⭐ 是（關鍵物種） |\n| **吸引鳥類** | 台灣藍鵲、白頭翁、五色鳥、紅頭山雀 |\n| **吸引昆蟲** | 台灣長臂金龜（二級保育類）、獨角仙、台灣大鍬形蟲、深山锹形蟲 |\n| **哺乳動物** | 台灣獼猴、台灣野豬 |\n| **土壤功能** | 樹液分解吸引真菌，促進腐植質循環，林下有機質積累顯著 |\n| **花期** | 4–6 月 |\n| **提供蜜源** | ✅ 是 |\n| **提供果實** | ✅ 是（鳥類/哺乳類食源） |\n\n### 生態角色\n\n台灣低海拔的「生態熱點」樹種，樹幹傷口滲出的樹液是台灣長臂金龜（保育二級）、獨角仙、鍬形蟲等甲蟲夏季最重要的食物來源。單株光臘樹在夏夜可吸引超過百隻甲蟲聚集，是台灣最具代表性的甲蟲寄主植物\n\n> **保育備註：** 台灣原生，台灣長臂金龜指標棲地植物，具高生態保育優先性\n\n---\n\n## 🍃 此刻的 光臘樹（5 月）\n\n盛花期延續，地表幼蟲化蛹\n\n---\n\n## 🌍 碳儲量意義\n\n這棵 光臘樹 目前儲存了 **8326 kg** 的碳。相當於一輛汽車行駛約 39648 公里所排放的碳。\n\n每多一棵這樣的樹，就是給大氣的一次小小還債。\n\n---\n\n## ✨ 這棵樹的故事\n\n南台灣山野深處，一棵光臘樹巍然矗立，胸高直徑一米三的大樹，此刻正值盛花期，米白小花簇擁枝頭，空氣中瀰漫著淡淡清香。五月尾聲，驕陽輕撫大地，氣溫直逼三十度，東風送來濕潤氣息，伴隨日頭短暫露臉，UV指數卻已高達六點九。\n\n樹幹上，二級保育的台灣長臂金龜正貪婪吸吮，獨角仙、大鍬形蟲也循著蜜語而來，樹液香甜，引來一場夏日盛宴。不遠處，台灣藍鵲鮮豔的身影穿梭林間，牠們進入繁殖初期，忙著築巢育雛，清亮的鳴聲迴盪在海岸防風林帶。地面下，幼蟲悄悄化蛹，等待羽化成蟲；雨季的豐沛滋養，讓低海拔花卉競相綻放，菌類子實體也趁勢探頭，為腐植質循環揭開新篇。\n\n這棵光臘樹，不只孕育生命，它更是海岸生態的關鍵物種，沉默地承載八千多公斤碳排，為地球緩解近四萬公里車程的負擔。它根系盤繞，將有機質層層積累，讓林下土壤更為豐沃，宛若一方生態寶庫。凝視這棵百年樹木，我彷彿看見過去與未來交織，它是一封寫給後世的綠色信箋，寄託著生生不息的希望與承諾。\n\n---\n\n## 📊 拍攝當下環境快照\n\n- **天氣**：大致晴朗、氣溫 30.8°C、濕度 68%、氣壓 1003.6 hPa、雲量 24%\n- **風況**：東風，1.5 m/s\n- **光環境**：UV 指數 6.9、日照 1 小時、短波輻射 812 W/m²\n- **太陽位置**：日出 下午09:13、日落 上午10:34、日長 13.34 小時、太陽仰角 12.36°、方位 287.51°\n- **棲地座標**：海拔 73 m、海岸防風林帶、雨季\n- **當下物候**：鳥類繁殖初期、昆蟲羽化期、甲蟲樹液取食期、白蟻分飛、低海拔花期高峰、菌類子實體爆發窗口、飛鼠育幼期\n\n---\n\n_資料由 Forest Carbon Measurement 系統自動生成，Gemini 2.5 Flash 驅動，2026/5/25 更新_",
-    "storySummary": "光臘樹，130 cm，8326 kg C，台灣南端山野",
-    "p4v2": {
-      "engine": "P4v2-measure-pure-N10",
-      "repeat": 10,
-      "medianRatio": 3.0296,
-      "rawDbhCm": 25.9,
-      "calibratedDbhCm": 30,
-      "calibFactor": 1.155,
-      "aggMethodFinal": "median",
-      "cv": 58.87914288382585,
-      "measureTimestamps": [
-        13,
-        12,
-        17,
-        17,
-        17,
-        10,
-        10,
-        17,
-        10,
-        11
-      ],
-      "runs": [
-        {
-          "videoTimestampSec": 13,
-          "ratio": 2.55,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 12,
-          "ratio": 2.059,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 17,
-          "ratio": 6.3966666666666665,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 17,
-          "ratio": 1.8275862068965518,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 17,
-          "ratio": 8.88888888888889,
-          "confidence": 1
-        },
-        {
-          "videoTimestampSec": 10,
-          "ratio": 4.146892655367231,
-          "confidence": 1
-        },
-        {
-          "videoTimestampSec": 10,
-          "ratio": 2.226890756302521,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 17,
-          "ratio": 3.0295566502463056,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 10,
-          "ratio": 5.25,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 11,
-          "ratio": 1.783295711060948,
-          "confidence": 0.95
-        }
-      ],
-      "species": {
-        "agree": true,
-        "primary": "Azadirachta indica",
-        "source": "agree",
-        "gemini": {
-          "species": "Azadirachta indica",
-          "zhName": "未知樹種",
-          "confidence": 0.8,
-          "isDefaultFormula": true,
-          "carbonKg": 195.17,
-          "agbKg": 390.34,
-          "co2eKg": 716.27
-        },
-        "plantnet": {
-          "species": "Cedrela odorata",
-          "zhName": "未知樹種",
-          "confidence": 0.36383,
-          "isDefaultFormula": true,
-          "carbonKg": 195.17,
-          "agbKg": 390.34,
-          "co2eKg": 716.27
-        },
-        "leafTimestamps": [
-          26,
-          28,
-          52
-        ]
-      },
-      "carbon": {
-        "primaryKg": 195.17,
-        "agbKg": 390.34,
-        "co2eKg": 716.27,
-        "heightM": 25.683311731384194
-      }
-    }
+    "storySummary": "光臘樹，130 cm，8326 kg C，台灣南端山野"
   },
   {
     "treeNo": "T011",
@@ -1534,8 +345,8 @@
     "dbhCm": 30.3,
     "originalDbhCm": null,
     "appliedCorrectionFactor": null,
-    "volumeM3": 0.615,
-    "carbonKg": 199.88,
+    "volumeM3": 0.6150056304255529,
+    "carbonKg": 247.84726906149783,
     "confidence": "0.9",
     "gps": "22.7353,121.0664",
     "focalLengthMm": 5.7,
@@ -1557,130 +368,9 @@
       "dbhCm": 44.1,
       "source": "direct_measurement"
     },
-    "videoFilename": null,
-    "videoOriginalName": "IMG_5812.mov",
-    "videoDriveUrl": "https://drive.google.com/file/d/1cbNBVVyqf0M0ShepbWT230yF4bddN4yA/view",
-    "winnerPath": "p4v2",
-    "paths": {
-      "path0": {
-        "computed": false
-      },
-      "pathA": {
-        "computed": false
-      },
-      "pathB": {
-        "computed": false
-      }
-    },
-    "manualTape": {
-      "circCm": 97,
-      "dbhCm": 30.9,
-      "frameTsSec": 78,
-      "annotator": "yuchi"
-    },
     "hasStory": true,
     "storyMarkdown": "# 🌳 未知樹種 的故事\n\n> **台灣南端山野** ｜ 2026年5月24日\n\n---\n\n## 🌿 生態多樣性貢獻\n\n| 項目 | 內容 |\n|------|------|\n| **中文名** | 未知樹種 |\n| **起源** | ❓ 未知 |\n| **林相層次** | 林冠層 |\n| **棲地類型** | 低海拔闊葉林 |\n| **生態多樣性貢獻評分** | ★★☆☆☆（2/5） |\n| **關鍵物種** | 否 |\n| **吸引鳥類** | 各類留鳥 |\n| **吸引昆蟲** | 多種昆蟲 |\n| **哺乳動物** | — |\n| **土壤功能** | 提供遮蔭與有機質，基礎生態服務功能 |\n| **花期** | 視樹種而定 |\n| **提供蜜源** | 否 |\n| **提供果實** | 否 |\n\n### 生態角色\n\n樹木為周遭生態系提供遮蔭、固碳、防風等基礎服務，是陸域生態系的核心組成\n\n\n\n---\n\n## 🍃 此刻的 未知樹種（5 月）\n\n春末花期延續，動物育雛達高峰\n\n---\n\n## 🌍 碳儲量意義\n\n這棵 未知樹種 目前儲存了 **491.1 kg** 的碳。相當於 70 個人一個月的呼吸排碳量。\n\n每多一棵這樣的樹，就是給大氣的一次小小還債。\n\n---\n\n## ✨ 這棵樹的故事\n\n台灣南端山野，海岸防風林帶上，一棵高大的桃花心木，在東風輕拂下巍然屹立。五月艷陽炙熱，氣溫攀升至攝氏 30.8 度，濕潤的空氣蒸騰，預告雨季降臨。它寬廣的樹冠如同一座綠色堡壘，將 491.1 公斤的碳儲藏於堅實的木質之中，默默為地球淨化空氣，這份貢獻，足抵七十個人一個月的呼吸排碳量。\n\n此刻，樹木周遭生命力勃發。春末的花期尚未完全落幕，殘留的花朵依然散發微甜氣息，吸引多種昆蟲在枝葉間穿梭。正值鳥類繁殖初期，樹冠深處傳來陣陣雛鳥嗷嗷待哺的鳴叫，親鳥們來回穿梭，銜來口糧。羽化的昆蟲振翅飛舞，甲蟲則忙碌地在樹皮上尋覓樹液，享受一場甜蜜盛宴。夜幕降臨，或許還能瞥見飛鼠媽媽帶著幼崽，在枝椏間輕巧滑翔，這棵大樹，是牠們安心的育幼所。\n\n陽光透過稀疏的雲層（雲量約 24%），灑下斑駁光影，一日僅一小時的直接日照也讓樹木充滿能量。它的根系深入沃土，穩固著周遭環境，巨大樹蔭為林下生物提供庇護，落葉歸根，滋養了大地，成就一片生機盎然。這棵樹不只是一棵樹，它是歲月積累的詩，是無數生命共享的家園。它在此處生長，是我們對大自然最深情的敬意，也是寫給未來世代，一封充滿希望的綠色信箋。\n\n---\n\n## 📊 拍攝當下環境快照\n\n- **天氣**：大致晴朗、氣溫 30.8°C、濕度 68%、氣壓 1003.6 hPa、雲量 24%\n- **風況**：東風，1.5 m/s\n- **光環境**：UV 指數 6.9、日照 1 小時、短波輻射 812 W/m²\n- **太陽位置**：日出 下午09:13、日落 上午10:34、日長 13.34 小時、太陽仰角 11.34°、方位 287.89°\n- **棲地座標**：海拔 67 m、海岸防風林帶、雨季\n- **當下物候**：鳥類繁殖初期、昆蟲羽化期、甲蟲樹液取食期、白蟻分飛、低海拔花期高峰、菌類子實體爆發窗口、飛鼠育幼期\n\n---\n\n_資料由 Forest Carbon Measurement 系統自動生成，Gemini 2.5 Flash 驅動，2026/5/25 更新_",
-    "storySummary": "未知樹種，44.1 cm，491.1 kg C，台灣南端山野",
-    "p4v2": {
-      "engine": "P4v2-measure-pure-N10",
-      "repeat": 10,
-      "medianRatio": 3.06,
-      "rawDbhCm": 26.2,
-      "calibratedDbhCm": 30.3,
-      "calibFactor": 1.155,
-      "aggMethodFinal": "median",
-      "cv": 37.380282776589894,
-      "measureTimestamps": [
-        14.3,
-        14,
-        15,
-        16,
-        14,
-        15,
-        14,
-        14,
-        14.5,
-        14.33
-      ],
-      "runs": [
-        {
-          "videoTimestampSec": 14.3,
-          "ratio": 2.89,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 14,
-          "ratio": 3.06,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 15,
-          "ratio": 3.346,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 16,
-          "ratio": 2.7,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 14,
-          "ratio": 5.48,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 15,
-          "ratio": 2.21875,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 14,
-          "ratio": 4.23,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 14,
-          "ratio": 2.1818181818181817,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 14.5,
-          "ratio": 3.26,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 14.33,
-          "ratio": 1.0695187165775402,
-          "confidence": 0.9
-        }
-      ],
-      "species": {
-        "agree": null,
-        "primary": "Sapindus mukorossi",
-        "source": "gemini",
-        "gemini": {
-          "species": "Sapindus mukorossi",
-          "zhName": "未知樹種",
-          "confidence": 0.9,
-          "isDefaultFormula": true,
-          "carbonKg": 199.88,
-          "agbKg": 399.75,
-          "co2eKg": 733.55
-        },
-        "plantnet": null,
-        "leafTimestamps": [
-          24,
-          25,
-          26
-        ]
-      },
-      "carbon": {
-        "primaryKg": 199.88,
-        "agbKg": 399.75,
-        "co2eKg": 733.55,
-        "heightM": 23.800822869700774
-      }
-    }
+    "storySummary": "未知樹種，44.1 cm，491.1 kg C，台灣南端山野"
   },
   {
     "treeNo": "T012",
@@ -1690,8 +380,8 @@
     "dbhCm": 29.8,
     "originalDbhCm": null,
     "appliedCorrectionFactor": null,
-    "volumeM3": 0.6566,
-    "carbonKg": 235.33,
+    "volumeM3": 0.5963280311866626,
+    "carbonKg": 228.98996397567845,
     "confidence": "0.91",
     "gps": "22.7353,121.0665",
     "focalLengthMm": 5.7,
@@ -1713,138 +403,9 @@
       "dbhCm": 14.2,
       "source": "direct_measurement"
     },
-    "videoFilename": null,
-    "videoOriginalName": "IMG_5813.mov",
-    "videoDriveUrl": "https://drive.google.com/file/d/1e5CytcJRc7XhbdK_j0UWuUiYkH6YqKrD/view",
-    "winnerPath": "p4v2",
-    "paths": {
-      "path0": {
-        "computed": false
-      },
-      "pathA": {
-        "computed": false
-      },
-      "pathB": {
-        "computed": false
-      }
-    },
-    "manualTape": {
-      "circCm": 82,
-      "dbhCm": 26.1,
-      "frameTsSec": 68,
-      "annotator": "yuchi"
-    },
     "hasStory": true,
     "storyMarkdown": "# 🌳 光臘樹 的故事\n\n> **台灣南端山野** ｜ 2026年5月24日\n\n---\n\n## 🌿 生態多樣性貢獻\n\n| 項目 | 內容 |\n|------|------|\n| **中文名** | 光臘樹 |\n| **起源** | 🟢 台灣原生 |\n| **林相層次** | 林冠層 |\n| **棲地類型** | 低海拔闊葉林 |\n| **生態多樣性貢獻評分** | ★★★★★（5/5） |\n| **關鍵物種** | ⭐ 是（關鍵物種） |\n| **吸引鳥類** | 台灣藍鵲、白頭翁、五色鳥、紅頭山雀 |\n| **吸引昆蟲** | 台灣長臂金龜（二級保育類）、獨角仙、台灣大鍬形蟲、深山锹形蟲 |\n| **哺乳動物** | 台灣獼猴、台灣野豬 |\n| **土壤功能** | 樹液分解吸引真菌，促進腐植質循環，林下有機質積累顯著 |\n| **花期** | 4–6 月 |\n| **提供蜜源** | ✅ 是 |\n| **提供果實** | ✅ 是（鳥類/哺乳類食源） |\n\n### 生態角色\n\n台灣低海拔的「生態熱點」樹種，樹幹傷口滲出的樹液是台灣長臂金龜（保育二級）、獨角仙、鍬形蟲等甲蟲夏季最重要的食物來源。單株光臘樹在夏夜可吸引超過百隻甲蟲聚集，是台灣最具代表性的甲蟲寄主植物\n\n> **保育備註：** 台灣原生，台灣長臂金龜指標棲地植物，具高生態保育優先性\n\n---\n\n## 🍃 此刻的 光臘樹（5 月）\n\n盛花期延續，地表幼蟲化蛹\n\n---\n\n## 🌍 碳儲量意義\n\n這棵 光臘樹 目前儲存了 **40.6 kg** 的碳。等同於 81 度電的碳排放量。\n\n每多一棵這樣的樹，就是給大氣的一次小小還債。\n\n---\n\n## ✨ 這棵樹的故事\n\n南台灣山野，五月末的炙熱南風，輕撫著一株年輕光臘樹。雖然雲量僅四分之一，陽光卻早早傾灑，為這海拔六十五公尺的海岸防風林，注入暖烘烘的濕氣。它正值青春，胸徑雖仍纖細，卻已撐起一片翠綠生機，體內靜靜封存著四十多公斤的碳，默默為這片土地，甚至更遠的未來，寫下生命的備註，那份付出，相當於八十一度電的碳足跡。\n\n此刻，正逢光臘樹的盛花期，米白花串在微風中輕搖，散發誘人的清香。濕熱的空氣，催促著地底幼蟲羽化，獨角仙、台灣大鍬形蟲，甚至二級保育的台灣長臂金龜，紛紛循著那股甜蜜誘惑而來。樹幹上，晶瑩的樹液是牠們此刻最豐盛的饗宴，宣告著甲蟲們的羽化與繁衍。不遠處，台灣藍鵲的嘹亮叫聲穿林，築巢育雛的時節已然展開，整個林間充滿了新生的脈動。\n\n它不僅是甲蟲的甘泉，更是這片林帶的生態基石。落葉歸根，滋養了貧瘠土壤，引來無數菌類分解腐植，積累出豐饒的有機質，為底層生命鋪墊出肥沃的搖籃。這棵年輕的光臘樹，在季風吹拂的雨季中，靜靜伸展，它不只是一棵樹，更是一封寫給未來的信，字字句句，都是對永續生命的深情許諾。\n\n---\n\n## 📊 拍攝當下環境快照\n\n- **天氣**：大致晴朗、氣溫 30.8°C、濕度 68%、氣壓 1003.6 hPa、雲量 24%\n- **風況**：東風，1.5 m/s\n- **光環境**：UV 指數 6.9、日照 1 小時、短波輻射 812 W/m²\n- **太陽位置**：日出 下午09:13、日落 上午10:34、日長 13.34 小時、太陽仰角 10.76°、方位 288.11°\n- **棲地座標**：海拔 65 m、海岸防風林帶、雨季\n- **當下物候**：鳥類繁殖初期、昆蟲羽化期、甲蟲樹液取食期、白蟻分飛、低海拔花期高峰、菌類子實體爆發窗口、飛鼠育幼期\n\n---\n\n_資料由 Forest Carbon Measurement 系統自動生成，Gemini 2.5 Flash 驅動，2026/5/25 更新_",
-    "storySummary": "光臘樹，14.2 cm，40.6 kg C，台灣南端山野",
-    "p4v2": {
-      "engine": "P4v2-measure-pure-N10",
-      "repeat": 10,
-      "medianRatio": 3.01,
-      "rawDbhCm": 25.8,
-      "calibratedDbhCm": 29.8,
-      "calibFactor": 1.155,
-      "aggMethodFinal": "median",
-      "cv": 20.47197553706582,
-      "measureTimestamps": [
-        9,
-        9,
-        9,
-        8,
-        8,
-        9,
-        9,
-        9,
-        8,
-        10
-      ],
-      "runs": [
-        {
-          "videoTimestampSec": 9,
-          "ratio": 3.8682634730538923,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 9,
-          "ratio": 2.449,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 9,
-          "ratio": 2.826086956521739,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 8,
-          "ratio": 2.789,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 8,
-          "ratio": 2.597,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 9,
-          "ratio": 3.238,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 9,
-          "ratio": 2,
-          "confidence": 1
-        },
-        {
-          "videoTimestampSec": 9,
-          "ratio": 3.01,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 8,
-          "ratio": 4.19,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 10,
-          "ratio": 3.016,
-          "confidence": 0.9
-        }
-      ],
-      "species": {
-        "agree": true,
-        "primary": "Swietenia macrophylla",
-        "source": "agree",
-        "gemini": {
-          "species": "Swietenia macrophylla",
-          "zhName": "大葉桃花心木",
-          "confidence": 0.75,
-          "isDefaultFormula": false,
-          "carbonKg": 235.33,
-          "agbKg": 470.65,
-          "co2eKg": 863.65
-        },
-        "plantnet": {
-          "species": "Swietenia macrophylla",
-          "zhName": "大葉桃花心木",
-          "confidence": 0.70833,
-          "isDefaultFormula": false,
-          "carbonKg": 235.33,
-          "agbKg": 470.65,
-          "co2eKg": 863.65
-        },
-        "leafTimestamps": [
-          18,
-          20,
-          24
-        ]
-      },
-      "carbon": {
-        "primaryKg": 235.33,
-        "agbKg": 470.65,
-        "co2eKg": 863.65,
-        "heightM": 24.244509803651432
-      }
-    }
+    "storySummary": "光臘樹，14.2 cm，40.6 kg C，台灣南端山野"
   },
   {
     "treeNo": "T013",
@@ -1854,8 +415,8 @@
     "dbhCm": 22.6,
     "originalDbhCm": null,
     "appliedCorrectionFactor": null,
-    "volumeM3": 0.3184,
-    "carbonKg": 115.9,
+    "volumeM3": 0.3184080781564562,
+    "carbonKg": 115.90054044895008,
     "confidence": "0.925",
     "gps": "22.7351,121.0657",
     "focalLengthMm": 5.7,
@@ -1877,138 +438,9 @@
       "dbhCm": 15.8,
       "source": "direct_measurement"
     },
-    "videoFilename": null,
-    "videoOriginalName": "IMG_5818.mov",
-    "videoDriveUrl": "https://drive.google.com/file/d/13qfRS4GWJvWL-ur4F54pndHzsCTl5a9H/view",
-    "winnerPath": "p4v2",
-    "paths": {
-      "path0": {
-        "computed": false
-      },
-      "pathA": {
-        "computed": false
-      },
-      "pathB": {
-        "computed": false
-      }
-    },
-    "manualTape": {
-      "circCm": 55,
-      "dbhCm": 17.5,
-      "frameTsSec": 10,
-      "annotator": "yuchi"
-    },
     "hasStory": true,
     "storyMarkdown": "# 🌳 樟樹 的故事\n\n> **台灣南端山野** ｜ 2026年5月24日\n\n---\n\n## 🌿 生態多樣性貢獻\n\n| 項目 | 內容 |\n|------|------|\n| **中文名** | 樟樹 |\n| **起源** | 🟢 台灣原生 |\n| **林相層次** | 林冠層 |\n| **棲地類型** | 低海拔闊葉林 |\n| **生態多樣性貢獻評分** | ★★★★★（5/5） |\n| **關鍵物種** | ⭐ 是（關鍵物種） |\n| **吸引鳥類** | 紅嘴黑鵯、台灣藍鵲、白頭翁、大冠鷲、灰頭椋鳥、樹鵲 |\n| **吸引昆蟲** | 台灣黃斑蛺蝶、樟蠶蛾、獨角仙、台灣大鍬形蟲、台灣長臂金龜 |\n| **哺乳動物** | 台灣獼猴、白鼻心 |\n| **土壤功能** | 深根系穩固坡面，樟腦揮發物抑制病原菌，落葉腐植質富含有機氮 |\n| **花期** | 3–5 月 |\n| **提供蜜源** | ✅ 是 |\n| **提供果實** | ✅ 是（鳥類/哺乳類食源） |\n\n### 生態角色\n\n台灣低海拔闊葉林的優勢樹種，樟腦化合物為多種昆蟲提供化學信號，成熟黑色核果是紅嘴黑鵯、台灣藍鵲的主要食源，粗獷樹皮與老樹洞提供猛禽及夜棲動物巢位，被列為台灣「國樹候選」之一\n\n> **保育備註：** 台灣本島原生，低海拔次生林重要先鋒樹種\n\n---\n\n## 🍃 此刻的 樟樹（5 月）\n\n花期尾聲，新葉抽長，台灣藍鵲常於樹冠築巢\n\n---\n\n## 🌍 碳儲量意義\n\n這棵 樟樹 目前儲存了 **49.2 kg** 的碳。等同於 98 度電的碳排放量。\n\n每多一棵這樣的樹，就是給大氣的一次小小還債。\n\n---\n\n## ✨ 這棵樹的故事\n\n南台灣山野深處，一株青年樟樹昂揚矗立，迎向2026年5月24日的曦光。海岸防風林帶海拔六十八公尺高處，它胸高直徑僅十五點八公分，卻已默默汲取天地能量，將近五十公斤的碳，轉化為自身強韌的筋骨，為未來存下清新的每一次呼吸。\n\n此刻，陽光穿透薄雲，空氣中瀰漫著三十點八°C的暖意與百分之六十八濕度，東風輕柔，微拂過樹梢。樹冠新葉嫩綠，舊花餘香縈繞空氣，宣告花期尾聲。台灣藍鵲忙碌於上方枝椏，將巢穴築得更穩固，育幼期悄然展開。樹幹上，獨角仙與台灣大鍬形蟲也現身，沉醉於甘甜樹液，享受牠們的羽化盛宴。\n\n身為台灣原生生態關鍵物種，它的生命力連結周遭。深根系緊抓沃土，穩固海岸防風林帶每一寸坡面，任憑雨季風雨，它不曾動搖。葉片散發的樟腦芬芳，默默抑制病原菌，滋養一方清淨。每年落葉化作腐植質，回饋土地富饒有機氮，是無聲的承諾。\n\n這不僅是一株樹，它更是生命脈動。它以青翠姿態，向我們訴說著，每一棵樹，都是寫給未來，最溫柔，也最堅實的一封信。\n\n---\n\n## 📊 拍攝當下環境快照\n\n- **天氣**：大致晴朗、氣溫 30.8°C、濕度 68%、氣壓 1003.3 hPa、雲量 24%\n- **風況**：東風，1.5 m/s\n- **光環境**：UV 指數 6.9、日照 1 小時、短波輻射 812 W/m²\n- **太陽位置**：日出 下午09:13、日落 上午10:34、日長 13.34 小時、太陽仰角 6.99°、方位 289.58°\n- **棲地座標**：海拔 68 m、海岸防風林帶、雨季\n- **當下物候**：鳥類繁殖初期、昆蟲羽化期、甲蟲樹液取食期、白蟻分飛、低海拔花期高峰、菌類子實體爆發窗口、飛鼠育幼期\n\n---\n\n_資料由 Forest Carbon Measurement 系統自動生成，Gemini 2.5 Flash 驅動，2026/5/25 更新_",
-    "storySummary": "樟樹，15.8 cm，49.2 kg C，台灣南端山野",
-    "p4v2": {
-      "engine": "P4v2-measure-pure-N10",
-      "repeat": 10,
-      "medianRatio": 2.29,
-      "rawDbhCm": 19.6,
-      "calibratedDbhCm": 22.6,
-      "calibFactor": 1.155,
-      "aggMethodFinal": "median",
-      "cv": 28.976008153536124,
-      "measureTimestamps": [
-        33,
-        33,
-        33,
-        33.2,
-        34,
-        34,
-        34,
-        37,
-        32,
-        34
-      ],
-      "runs": [
-        {
-          "videoTimestampSec": 33,
-          "ratio": 1.818,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 33,
-          "ratio": 2.1944444444444446,
-          "confidence": 0.95
-        },
-        {
-          "videoTimestampSec": 33,
-          "ratio": 1.918,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 33.2,
-          "ratio": 2.466,
-          "confidence": 0.95
-        },
-        {
-          "videoTimestampSec": 34,
-          "ratio": 2.02,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 34,
-          "ratio": 2.29,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 34,
-          "ratio": 4.446,
-          "confidence": 0.95
-        },
-        {
-          "videoTimestampSec": 37,
-          "ratio": 2.71,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 32,
-          "ratio": 2.8,
-          "confidence": 1
-        },
-        {
-          "videoTimestampSec": 34,
-          "ratio": 2.192,
-          "confidence": 0.9
-        }
-      ],
-      "species": {
-        "agree": true,
-        "primary": "Cinnamomum camphora",
-        "source": "agree",
-        "gemini": {
-          "species": "Cinnamomum camphora",
-          "zhName": "樟樹",
-          "confidence": 0.8,
-          "isDefaultFormula": false,
-          "carbonKg": 115.9,
-          "agbKg": 231.8,
-          "co2eKg": 425.35
-        },
-        "plantnet": {
-          "species": "Cinnamomum camphora",
-          "zhName": "樟樹",
-          "confidence": 0.51027,
-          "isDefaultFormula": false,
-          "carbonKg": 115.9,
-          "agbKg": 231.8,
-          "co2eKg": 425.35
-        },
-        "leafTimestamps": [
-          13,
-          33,
-          44
-        ]
-      },
-      "carbon": {
-        "primaryKg": 115.9,
-        "agbKg": 231.8,
-        "co2eKg": 425.35,
-        "heightM": 21.75797545138015
-      }
-    }
+    "storySummary": "樟樹，15.8 cm，49.2 kg C，台灣南端山野"
   },
   {
     "treeNo": "T014",
@@ -2018,8 +450,8 @@
     "dbhCm": 30.8,
     "originalDbhCm": null,
     "appliedCorrectionFactor": null,
-    "volumeM3": 0.6396,
-    "carbonKg": 207.87,
+    "volumeM3": 0.6395919110268057,
+    "carbonKg": 207.86737108371184,
     "confidence": "0.83",
     "gps": "22.734,121.0675",
     "focalLengthMm": 5.7,
@@ -2041,131 +473,9 @@
       "dbhCm": 17.3,
       "source": "direct_measurement"
     },
-    "videoFilename": null,
-    "videoOriginalName": "IMG_5794.mov",
-    "videoDriveUrl": "https://drive.google.com/file/d/1vk4A2WYgoGBxN581kf5H3vshPOimerGj/view",
-    "winnerPath": "p4v2",
-    "paths": {
-      "path0": {
-        "computed": false
-      },
-      "pathA": {
-        "computed": false
-      },
-      "pathB": {
-        "computed": false
-      }
-    },
-    "manualTape": {
-      "circCm": 98,
-      "dbhCm": 31.2,
-      "frameTsSec": 7,
-      "annotator": "yuchi"
-    },
     "hasStory": true,
     "storyMarkdown": "# 🌳 樟樹 的故事\n\n> **台灣南端山野** ｜ 2026年5月23日\n\n---\n\n## 🌿 生態多樣性貢獻\n\n| 項目 | 內容 |\n|------|------|\n| **中文名** | 樟樹 |\n| **起源** | 🟢 台灣原生 |\n| **林相層次** | 林冠層 |\n| **棲地類型** | 低海拔闊葉林 |\n| **生態多樣性貢獻評分** | ★★★★★（5/5） |\n| **關鍵物種** | ⭐ 是（關鍵物種） |\n| **吸引鳥類** | 紅嘴黑鵯、台灣藍鵲、白頭翁、大冠鷲、灰頭椋鳥、樹鵲 |\n| **吸引昆蟲** | 台灣黃斑蛺蝶、樟蠶蛾、獨角仙、台灣大鍬形蟲、台灣長臂金龜 |\n| **哺乳動物** | 台灣獼猴、白鼻心 |\n| **土壤功能** | 深根系穩固坡面，樟腦揮發物抑制病原菌，落葉腐植質富含有機氮 |\n| **花期** | 3–5 月 |\n| **提供蜜源** | ✅ 是 |\n| **提供果實** | ✅ 是（鳥類/哺乳類食源） |\n\n### 生態角色\n\n台灣低海拔闊葉林的優勢樹種，樟腦化合物為多種昆蟲提供化學信號，成熟黑色核果是紅嘴黑鵯、台灣藍鵲的主要食源，粗獷樹皮與老樹洞提供猛禽及夜棲動物巢位，被列為台灣「國樹候選」之一\n\n> **保育備註：** 台灣本島原生，低海拔次生林重要先鋒樹種\n\n---\n\n## 🍃 此刻的 樟樹（5 月）\n\n花期尾聲，新葉抽長，台灣藍鵲常於樹冠築巢\n\n---\n\n## 🌍 碳儲量意義\n\n這棵 樟樹 目前儲存了 **61.1 kg** 的碳。等同於 122 度電的碳排放量。\n\n每多一棵這樣的樹，就是給大氣的一次小小還債。\n\n---\n\n## ✨ 這棵樹的故事\n\n南台灣的雨季，午後雷雨猛然傾瀉，濕潤空氣裹挾熱氣，將近三十度的蒸騰。在海岸防風林帶，這棵青年樟樹沐浴雨中，東風輕拂，新抽嫩葉晶瑩水珠滾落。雲量雖達一半，日照短暫，然而生命力不減，花期正悄悄步入尾聲，將最後芬芳，獻給這片山野。\n\n它高挺身軀，穩固海岸坡面。台灣藍鵲不畏風雨，正在它密實樹冠忙碌築巢，羽化初期昆蟲則在枝葉間嬉戲。樟蠶蛾振翅飛舞，獨角仙與台灣大鍬形蟲正汲取樹液，宣告甲蟲旺季來臨。地面上，菌類子實體應運而生，白蟻分飛舞動，共同織就一幅生命豐盛畫卷。\n\n這棵原生樟樹，不只庇護眾生，更以獨特樟腦氣息，為周遭築起一道無形屏障，抑制病原菌蔓延。它落葉腐化，將有機氮注入土壤，滋養一方沃土。此刻，它體內封存61.1公斤碳量，這不只是數字，更是大自然贈予的深情祝福。這棵年輕生命，是一封寫給未來地球的信箋，承載希望，生生不息。\n\n---\n\n## 📊 拍攝當下環境快照\n\n- **天氣**：雷雨、氣溫 29.3°C、濕度 81%、氣壓 1003.5 hPa、雲量 50%\n- **風況**：東風，1.4 m/s\n- **光環境**：UV 指數 4.7、日照 1 小時、短波輻射 592 W/m²\n- **太陽位置**：日出 下午09:13、日落 上午10:33、日長 13.33 小時、太陽仰角 14.91°、方位 286.37°\n- **棲地座標**：海拔 54 m、海岸防風林帶、雨季\n- **當下物候**：鳥類繁殖初期、昆蟲羽化期、甲蟲樹液取食期、白蟻分飛、低海拔花期高峰、菌類子實體爆發窗口、飛鼠育幼期\n\n---\n\n_資料由 Forest Carbon Measurement 系統自動生成，Gemini 2.5 Flash 驅動，2026/5/25 更新_",
-    "storySummary": "樟樹，17.3 cm，61.1 kg C，台灣南端山野",
-    "p4v2": {
-      "engine": "P4v2-measure-pure-N10",
-      "repeat": 10,
-      "medianRatio": 3.12,
-      "rawDbhCm": 26.7,
-      "calibratedDbhCm": 30.8,
-      "calibFactor": 1.155,
-      "aggMethodFinal": "median",
-      "cv": 14.991839264675738,
-      "measureTimestamps": [
-        6,
-        8,
-        5.65,
-        8,
-        8.5,
-        6,
-        9,
-        5,
-        7,
-        8
-      ],
-      "runs": [
-        {
-          "videoTimestampSec": 6,
-          "ratio": 4.2,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 8,
-          "ratio": 3.064935064935065,
-          "confidence": 1
-        },
-        {
-          "videoTimestampSec": 5.65,
-          "ratio": 3.12,
-          "confidence": 1
-        },
-        {
-          "videoTimestampSec": 8,
-          "ratio": 3.719,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 8.5,
-          "ratio": 0,
-          "confidence": 0
-        },
-        {
-          "videoTimestampSec": 6,
-          "ratio": 2.724,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 9,
-          "ratio": 4.25,
-          "confidence": 0.8
-        },
-        {
-          "videoTimestampSec": 5,
-          "ratio": 3.094955489614243,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 7,
-          "ratio": 3.423,
-          "confidence": 1
-        },
-        {
-          "videoTimestampSec": 8,
-          "ratio": 3.03,
-          "confidence": 0.9
-        }
-      ],
-      "species": {
-        "agree": null,
-        "primary": "無法判斷",
-        "source": "gemini",
-        "gemini": {
-          "species": "無法判斷",
-          "zhName": "未知樹種",
-          "confidence": 0.3,
-          "isDefaultFormula": true,
-          "carbonKg": 207.87,
-          "agbKg": 415.73,
-          "co2eKg": 762.87
-        },
-        "plantnet": null,
-        "leafTimestamps": [
-          19,
-          22,
-          60,
-          62
-        ]
-      },
-      "carbon": {
-        "primaryKg": 207.87,
-        "agbKg": 415.73,
-        "co2eKg": 762.87,
-        "heightM": 25.442149769887262
-      }
-    }
+    "storySummary": "樟樹，17.3 cm，61.1 kg C，台灣南端山野"
   },
   {
     "treeNo": "T015",
@@ -2175,8 +485,8 @@
     "dbhCm": 27.8,
     "originalDbhCm": null,
     "appliedCorrectionFactor": null,
-    "volumeM3": 0.5004,
-    "carbonKg": 162.63,
+    "volumeM3": 0.46723600953291766,
+    "carbonKg": 145.7776349742703,
     "confidence": "0.9",
     "gps": "22.734,121.0673",
     "focalLengthMm": 5.7,
@@ -2195,137 +505,9 @@
       "createdAt": 1779687786
     },
     "calibration": null,
-    "videoFilename": null,
-    "videoOriginalName": "IMG_5795.mov",
-    "videoDriveUrl": "https://drive.google.com/file/d/1mAsxJchl2JRrYMyxSWBz8yRzTTvNpDmD/view",
-    "winnerPath": "p4v2",
-    "paths": {
-      "path0": {
-        "computed": false
-      },
-      "pathA": {
-        "computed": false
-      },
-      "pathB": {
-        "computed": false
-      }
-    },
-    "manualTape": {
-      "circCm": 69,
-      "dbhCm": 22,
-      "frameTsSec": 9,
-      "annotator": "yuchi"
-    },
     "hasStory": true,
     "storyMarkdown": "# 🌳 楓香 的故事\n\n> **台灣南端山野** ｜ 2026年5月23日\n\n---\n\n## 🌿 生態多樣性貢獻\n\n| 項目 | 內容 |\n|------|------|\n| **中文名** | 楓香 |\n| **起源** | 🟢 台灣原生 |\n| **林相層次** | 林冠層 |\n| **棲地類型** | 低海拔闊葉林 |\n| **生態多樣性貢獻評分** | ★★★★☆（4/5） |\n| **關鍵物種** | 否 |\n| **吸引鳥類** | 台灣藍鵲、冠羽畫眉、台灣山鷓鴣、白耳畫眉 |\n| **吸引昆蟲** | 大紫蛺蝶、枯葉蛺蝶、楓天牛、多種造癭蜂 |\n| **哺乳動物** | 台灣獼猴、赤腹松鼠 |\n| **土壤功能** | 秋季落葉量大，腐植質豐富，提升表土有機碳含量，落葉層是多種無脊椎動物的庇護所 |\n| **花期** | 3–4 月 |\n| **提供蜜源** | 否 |\n| **提供果實** | ✅ 是（鳥類/哺乳類食源） |\n\n### 生態角色\n\n台灣低中海拔重要的季節性樹種，秋冬變紅色葉片是低海拔闊葉林景觀指標。帶刺蒴果提供台灣獼猴及松鼠的食源，大型樹冠成為猛禽的瞭望棲位，多種天牛幼蟲以樹幹為食，間接維繫啄木鳥族群\n\n> **保育備註：** 台灣原生，闊葉林重要伴生樹種，秋冬變色景觀樹\n\n---\n\n## 🍃 此刻的 楓香（5 月）\n\n葉片轉為深綠，造癭蜂於嫩葉產卵\n\n---\n\n## 🌍 碳儲量意義\n\n這棵 楓香 目前儲存了 **4447.2 kg** 的碳。相當於一輛汽車行駛約 21177 公里所排放的碳。\n\n每多一棵這樣的樹，就是給大氣的一次小小還債。\n\n---\n\n## ✨ 這棵樹的故事\n\n南臺灣山野，雷雨交加，空氣濕熱。海岸林帶一棵胸徑逾百公分的楓香老樹，是歲月淬鍊見證。它靜默承載逾四噸碳，默默緩解地球熱浪。\n\n五月雨季，悶熱氣息瀰漫，生命勃發。嫩綠新葉上，造癭蜂忙碌產卵，為下一代築起微型城堡。樹冠深處，臺灣藍鵲夫婦育雛，鳴聲穿透雨幕；楓天牛幼蟲啃食，枯葉蛺蝶蔭下休憩。這是昆蟲羽化與甲蟲樹液取食的盛宴。\n\n它經年豐厚落葉，鋪滿林床化為腐植質，滋養表土並提升有機碳，為無數無脊椎動物提供庇護。厚實落葉層是森林深呼吸的肺，生命循環基石。日照短暫，雲量半掩，雷聲轟鳴，熱帶生機從未停歇。潮濕空氣裡，白蟻分飛，菌菇探頭，花朵綻放。\n\n這棵屹立緯度22.7340°N的楓香，是生態座標，更是時光與生命刻度。它的一呼一吸，一葉一脈，寫給未來，最溫柔而堅韌的綠色詩篇。\n\n---\n\n## 📊 拍攝當下環境快照\n\n- **天氣**：雷雨、氣溫 29.3°C、濕度 81%、氣壓 1003.3 hPa、雲量 50%\n- **風況**：東風，1.4 m/s\n- **光環境**：UV 指數 4.7、日照 1 小時、短波輻射 592 W/m²\n- **太陽位置**：日出 下午09:13、日落 上午10:33、日長 13.33 小時、太陽仰角 14.37°、方位 286.57°\n- **棲地座標**：海拔 82 m、海岸防風林帶、雨季\n- **當下物候**：鳥類繁殖初期、昆蟲羽化期、甲蟲樹液取食期、白蟻分飛、低海拔花期高峰、菌類子實體爆發窗口、飛鼠育幼期\n\n---\n\n_資料由 Forest Carbon Measurement 系統自動生成，Gemini 2.5 Flash 驅動，2026/5/25 更新_",
-    "storySummary": "楓香，110.4 cm，4447.2 kg C，台灣南端山野",
-    "p4v2": {
-      "engine": "P4v2-measure-pure-N10",
-      "repeat": 10,
-      "medianRatio": 2.8125,
-      "rawDbhCm": 24.1,
-      "calibratedDbhCm": 27.8,
-      "calibFactor": 1.155,
-      "aggMethodFinal": "median",
-      "cv": 28.1976100682794,
-      "measureTimestamps": [
-        12.8,
-        10,
-        10,
-        15,
-        11,
-        9,
-        11,
-        11,
-        17,
-        11
-      ],
-      "runs": [
-        {
-          "videoTimestampSec": 12.8,
-          "ratio": 2.21875,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 10,
-          "ratio": 4.351,
-          "confidence": 0.8
-        },
-        {
-          "videoTimestampSec": 10,
-          "ratio": 2.466666666666667,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 15,
-          "ratio": 1.729,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 11,
-          "ratio": 3.17032967032967,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 9,
-          "ratio": 2.8125,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 11,
-          "ratio": 2.4912280701754383,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 11,
-          "ratio": 1.9548,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 17,
-          "ratio": 2.8595744680851065,
-          "confidence": 1
-        },
-        {
-          "videoTimestampSec": 11,
-          "ratio": 3.92857142857,
-          "confidence": 0.9
-        }
-      ],
-      "species": {
-        "agree": false,
-        "primary": "Terminalia catappa",
-        "source": "gemini+plantnet",
-        "gemini": {
-          "species": "Terminalia catappa",
-          "zhName": "未知樹種",
-          "confidence": 0.85,
-          "isDefaultFormula": true,
-          "carbonKg": 162.63,
-          "agbKg": 325.26,
-          "co2eKg": 596.84
-        },
-        "plantnet": {
-          "species": "Cinnamomum camphora",
-          "zhName": "樟樹",
-          "confidence": 0.4343,
-          "isDefaultFormula": false,
-          "carbonKg": 190.32,
-          "agbKg": 380.64,
-          "co2eKg": 698.47
-        },
-        "leafTimestamps": [
-          21,
-          50
-        ]
-      },
-      "carbon": {
-        "primaryKg": 162.63,
-        "agbKg": 325.26,
-        "co2eKg": 596.84,
-        "heightM": 22.65315585160181
-      }
-    }
+    "storySummary": "楓香，110.4 cm，4447.2 kg C，台灣南端山野"
   },
   {
     "treeNo": "T016",
@@ -2335,8 +517,8 @@
     "dbhCm": 28.7,
     "originalDbhCm": null,
     "appliedCorrectionFactor": null,
-    "volumeM3": 0.5401,
-    "carbonKg": 175.52,
+    "volumeM3": 0.5400713500096481,
+    "carbonKg": 217.64875405388818,
     "confidence": "0.9",
     "gps": "22.7353,121.0663",
     "focalLengthMm": 5.7,
@@ -2355,139 +537,9 @@
       "createdAt": 1779688298
     },
     "calibration": null,
-    "videoFilename": null,
-    "videoOriginalName": "IMG_5814.mov",
-    "videoDriveUrl": "https://drive.google.com/file/d/1DgPf1kPfqynAWSJBY44XM65dVkeLross/view",
-    "winnerPath": "p4v2",
-    "paths": {
-      "path0": {
-        "computed": false
-      },
-      "pathA": {
-        "computed": false
-      },
-      "pathB": {
-        "computed": false
-      }
-    },
-    "manualTape": {
-      "circCm": 121,
-      "dbhCm": 38.5,
-      "frameTsSec": 100,
-      "annotator": "yuchi"
-    },
     "hasStory": true,
     "storyMarkdown": "# 🌳 未知樹種 的故事\n\n> **台灣南端山野** ｜ 2026年5月24日\n\n---\n\n## 🌿 生態多樣性貢獻\n\n| 項目 | 內容 |\n|------|------|\n| **中文名** | 未知樹種 |\n| **起源** | ❓ 未知 |\n| **林相層次** | 林冠層 |\n| **棲地類型** | 低海拔闊葉林 |\n| **生態多樣性貢獻評分** | ★★☆☆☆（2/5） |\n| **關鍵物種** | 否 |\n| **吸引鳥類** | 各類留鳥 |\n| **吸引昆蟲** | 多種昆蟲 |\n| **哺乳動物** | — |\n| **土壤功能** | 提供遮蔭與有機質，基礎生態服務功能 |\n| **花期** | 視樹種而定 |\n| **提供蜜源** | 否 |\n| **提供果實** | 否 |\n\n### 生態角色\n\n樹木為周遭生態系提供遮蔭、固碳、防風等基礎服務，是陸域生態系的核心組成\n\n\n\n---\n\n## 🍃 此刻的 未知樹種（5 月）\n\n春末花期延續，動物育雛達高峰\n\n---\n\n## 🌍 碳儲量意義\n\n這棵 未知樹種 目前儲存了 **870.2 kg** 的碳。相當於一輛汽車行駛約 4144 公里所排放的碳。\n\n每多一棵這樣的樹，就是給大氣的一次小小還債。\n\n---\n\n## ✨ 這棵樹的故事\n\n在台灣南端山野，海岸防風林帶六十六公尺海拔，一棵胸高直徑五十六公分的大葉桃花心木，以其屹立多年身姿，靜靜迎接著此刻。天際雲量稀疏，大致晴朗，東風輕拂，空氣中瀰漫著三十點八度C的炙熱與潮濕。儘管陽光強烈，這片巨幅樹冠下，卻是生命的清涼港灣。\n\n這季節，雨季初臨，萬物蠢動。大葉桃花心木枝椏間，春末花期延續，花朵雖小，卻是豐饒預兆。樹幹上，多種昆蟲忙碌不休，獨角仙正貪婪吸食樹液，享受這季節特有甘甜。林間，鳥類繁殖初期，五色鳥夫婦來回穿梭，為樹洞裡嗷嗷待哺雛鳥銜來鮮甜漿果。傍晚，飛鼠即將啟程，外出覓食，溫柔育幼。\n\n樹蔭下土壤，因落葉腐質而肥沃。它不只提供遮蔭，更是周遭生態重要基石。這棵老樹默默為地球貯存八百七十點二公斤碳，等同抵銷一輛汽車跋涉四千一百四十四公里排放，是大自然無聲貢獻。它見證無數世代更迭，以綠色姿態，持續書寫著生命不朽詩篇。這棵樹，不只記憶著過往，更是我們寫給未來世代，一封充滿希望與生機、關於永續共存承諾。\n\n---\n\n## 📊 拍攝當下環境快照\n\n- **天氣**：大致晴朗、氣溫 30.8°C、濕度 68%、氣壓 1003.6 hPa、雲量 24%\n- **風況**：東風，1.5 m/s\n- **光環境**：UV 指數 6.9、日照 1 小時、短波輻射 812 W/m²\n- **太陽位置**：日出 下午09:13、日落 上午10:34、日長 13.34 小時、太陽仰角 10.12°、方位 288.35°\n- **棲地座標**：海拔 66 m、海岸防風林帶、雨季\n- **當下物候**：鳥類繁殖初期、昆蟲羽化期、甲蟲樹液取食期、白蟻分飛、低海拔花期高峰、菌類子實體爆發窗口、飛鼠育幼期\n\n---\n\n_資料由 Forest Carbon Measurement 系統自動生成，Gemini 2.5 Flash 驅動，2026/5/25 更新_",
-    "storySummary": "未知樹種，56 cm，870.2 kg C，台灣南端山野",
-    "p4v2": {
-      "engine": "P4v2-measure-pure-N10",
-      "repeat": 10,
-      "medianRatio": 2.9064,
-      "rawDbhCm": 24.9,
-      "calibratedDbhCm": 28.7,
-      "calibFactor": 1.155,
-      "aggMethodFinal": "median",
-      "cv": 64.12587439065216,
-      "measureTimestamps": [
-        11.2,
-        14,
-        13,
-        8,
-        22,
-        22,
-        17,
-        22,
-        9,
-        12
-      ],
-      "runs": [
-        {
-          "videoTimestampSec": 11.2,
-          "ratio": 5.12,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 14,
-          "ratio": 10.823529411764707,
-          "confidence": 0.8
-        },
-        {
-          "videoTimestampSec": 13,
-          "ratio": 3.910891,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 8,
-          "ratio": 3.987,
-          "confidence": 0.95
-        },
-        {
-          "videoTimestampSec": 22,
-          "ratio": 2.547,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 22,
-          "ratio": 2.8333333333333335,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 17,
-          "ratio": 1.94262295,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 22,
-          "ratio": 2.9064,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 9,
-          "ratio": 2.543554006968641,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 12,
-          "ratio": 2.199,
-          "confidence": 0.95
-        }
-      ],
-      "species": {
-        "agree": false,
-        "primary": "Sapindus saponaria",
-        "source": "gemini+plantnet",
-        "gemini": {
-          "species": "Sapindus saponaria",
-          "zhName": "未知樹種",
-          "confidence": 0.9,
-          "isDefaultFormula": true,
-          "carbonKg": 175.52,
-          "agbKg": 351.05,
-          "co2eKg": 644.17
-        },
-        "plantnet": {
-          "species": "Swietenia macrophylla",
-          "zhName": "大葉桃花心木",
-          "confidence": 0.70069,
-          "isDefaultFormula": false,
-          "carbonKg": 214.82,
-          "agbKg": 429.64,
-          "co2eKg": 788.39
-        },
-        "leafTimestamps": [
-          6,
-          8,
-          32,
-          34
-        ]
-      },
-      "carbon": {
-        "primaryKg": 175.52,
-        "agbKg": 351.05,
-        "co2eKg": 644.17,
-        "heightM": 24.954122524093613
-      }
-    }
+    "storySummary": "未知樹種，56 cm，870.2 kg C，台灣南端山野"
   },
   {
     "treeNo": "T017",
@@ -2497,8 +549,8 @@
     "dbhCm": 29.1,
     "originalDbhCm": null,
     "appliedCorrectionFactor": null,
-    "volumeM3": 0.5679,
-    "carbonKg": 191.96,
+    "volumeM3": 0.567924208020561,
+    "carbonKg": 191.95838231094964,
     "confidence": "0.815",
     "gps": "22.7351,121.0655",
     "focalLengthMm": 5.7,
@@ -2520,139 +572,9 @@
       "dbhCm": 32.5,
       "source": "reference"
     },
-    "videoFilename": null,
-    "videoOriginalName": "IMG_5815.mov",
-    "videoDriveUrl": "https://drive.google.com/file/d/1hAJOWC6SO9urNIn0aLESVQ7u1JUfZeHT/view",
-    "winnerPath": "p4v2",
-    "paths": {
-      "path0": {
-        "computed": false
-      },
-      "pathA": {
-        "computed": false
-      },
-      "pathB": {
-        "computed": false
-      }
-    },
-    "manualTape": {
-      "circCm": 102,
-      "dbhCm": 32.5,
-      "frameTsSec": 97,
-      "annotator": "yuchi"
-    },
     "hasStory": true,
     "storyMarkdown": "# 🌳 相思樹 的故事\n\n> **台灣南端山野** ｜ 2026年5月24日\n\n---\n\n## 🌿 生態多樣性貢獻\n\n| 項目 | 內容 |\n|------|------|\n| **中文名** | 相思樹 |\n| **起源** | 🟢 台灣原生 |\n| **林相層次** | 林冠層 |\n| **棲地類型** | 低海拔闊葉林 |\n| **生態多樣性貢獻評分** | ★★★☆☆（3/5） |\n| **關鍵物種** | 否 |\n| **吸引鳥類** | 白頭翁、斑鳩、五色鳥、紅嘴黑鵯 |\n| **吸引昆蟲** | 小黃斑蛺蝶、台灣白紋鳳蝶、蜜蜂科（多種）、木棉蚜蟲天敵群 |\n| **哺乳動物** | 台灣獼猴 |\n| **土壤功能** | 根瘤菌固氮（每年每公頃可固氮 30–60 kg），改善貧瘠土壤，是台灣低海拔崩塌地最重要的先鋒樹種 |\n| **花期** | 3–5 月 |\n| **提供蜜源** | ✅ 是 |\n| **提供果實** | ✅ 是（鳥類/哺乳類食源） |\n\n### 生態角色\n\n台灣低海拔最常見的先鋒闊葉樹，固氮能力是裸地生態復育的關鍵。金黃色球狀花序盛開期是蜜蜂的重要蜜源，漿果吸引五色鳥等中型鳥類，深根系有效穩定坡地\n\n> **保育備註：** 台灣原生，崩塌地與貧瘠地復育首選，固氮先鋒樹種\n\n---\n\n## 🍃 此刻的 相思樹（5 月）\n\n花期尾聲，台灣白紋鳳蝶於樹冠交尾\n\n---\n\n## 🌍 碳儲量意義\n\n這棵 相思樹 目前儲存了 **356.4 kg** 的碳。相當於 51 個人一個月的呼吸排碳量。\n\n每多一棵這樣的樹，就是給大氣的一次小小還債。\n\n---\n\n## ✨ 這棵樹的故事\n\n南國五月，陽光穿透薄雲，薄薄雲量僅約兩成。這棵相思老樹，海拔七十公尺，屹立在台灣南端山野，海岸防風林帶一角。胸高直徑三十二點五公分，歷經風霜，身形沉穩。此時暑氣正濃，氣溫已達三十點八度，東風輕拂過樹梢，僅一米半每秒，為樹冠捎來一絲涼意。\n\n它默默吸納著三百多公斤的碳，那彷彿是五十餘人一個月的呼吸，深沉又無私。原生於這片土地，它不爭不搶，卻是生態不可或缺一份子。花期已近尾聲，細碎金黃花穗仍餘香。樹冠層上，一對台灣白紋鳳蝶翩然起舞，纏綿交尾，為生命傳承寫下詩篇。白頭翁和五色鳥穿梭枝葉間，為即將到來繁殖季忙碌。\n\n雨季揭開序幕，萬物生機勃發。它的根系深扎，與根瘤菌共生，悄悄為這片貧瘠土地注入氮素，每年固氮數十公斤。它是低海拔崩塌地最勇敢的先鋒，為後繼生命鋪路，改善著土壤肥力。昆蟲羽化，白蟻分飛，菌類子實體冒出頭。這棵相思樹，不僅撐起一片天光，也支撐著無數生命。它以靜默身姿，為這片山林獻上最真摯祝福，也為未來譜寫一封綠色邀請函，許下永續承諾。\n\n---\n\n## 📊 拍攝當下環境快照\n\n- **天氣**：大致晴朗、氣溫 30.8°C、濕度 68%、氣壓 1003.3 hPa、雲量 24%\n- **風況**：東風，1.5 m/s\n- **光環境**：UV 指數 6.9、日照 1 小時、短波輻射 812 W/m²\n- **太陽位置**：日出 下午09:13、日落 上午10:34、日長 13.34 小時、太陽仰角 8.98°、方位 288.79°\n- **棲地座標**：海拔 70 m、海岸防風林帶、雨季\n- **當下物候**：鳥類繁殖初期、昆蟲羽化期、甲蟲樹液取食期、白蟻分飛、低海拔花期高峰、菌類子實體爆發窗口、飛鼠育幼期\n\n---\n\n_資料由 Forest Carbon Measurement 系統自動生成，Gemini 2.5 Flash 驅動，2026/5/25 更新_",
-    "storySummary": "相思樹，32.5 cm，356.4 kg C，台灣南端山野",
-    "p4v2": {
-      "engine": "P4v2-measure-pure-N10",
-      "repeat": 10,
-      "medianRatio": 2.9478,
-      "rawDbhCm": 25.2,
-      "calibratedDbhCm": 29.1,
-      "calibFactor": 1.155,
-      "aggMethodFinal": "median",
-      "cv": 59.536123774224635,
-      "measureTimestamps": [
-        15,
-        12,
-        13,
-        14,
-        14,
-        14.2,
-        10,
-        13,
-        12.5,
-        11.1
-      ],
-      "runs": [
-        {
-          "videoTimestampSec": 15,
-          "ratio": 4.433734939759036,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 12,
-          "ratio": 2.8465,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 13,
-          "ratio": 2.2391304347826084,
-          "confidence": 0.8
-        },
-        {
-          "videoTimestampSec": 14,
-          "ratio": 10.4,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 14,
-          "ratio": 2.727,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 14.2,
-          "ratio": 2.02,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 10,
-          "ratio": 2.9478,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 13,
-          "ratio": 4.849,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 12.5,
-          "ratio": 4.2,
-          "confidence": 0.95
-        },
-        {
-          "videoTimestampSec": 11.1,
-          "ratio": 0,
-          "confidence": 0.1
-        }
-      ],
-      "species": {
-        "agree": false,
-        "primary": "Liquidambar formosana",
-        "source": "gemini+plantnet",
-        "gemini": {
-          "species": "Liquidambar formosana",
-          "zhName": "楓香",
-          "confidence": 0.85,
-          "isDefaultFormula": false,
-          "carbonKg": 191.96,
-          "agbKg": 383.92,
-          "co2eKg": 704.49
-        },
-        "plantnet": {
-          "species": "Liquidambar styraciflua",
-          "zhName": "北美楓香",
-          "confidence": 0.39054,
-          "isDefaultFormula": false,
-          "carbonKg": 191.96,
-          "agbKg": 383.92,
-          "co2eKg": 704.49
-        },
-        "leafTimestamps": [
-          24,
-          26,
-          28,
-          30
-        ]
-      },
-      "carbon": {
-        "primaryKg": 191.96,
-        "agbKg": 383.92,
-        "co2eKg": 704.49,
-        "heightM": 27.10173663436029
-      }
-    }
+    "storySummary": "相思樹，32.5 cm，356.4 kg C，台灣南端山野"
   },
   {
     "treeNo": "T018",
@@ -2662,8 +584,8 @@
     "dbhCm": 18.1,
     "originalDbhCm": null,
     "appliedCorrectionFactor": null,
-    "volumeM3": 0.179,
-    "carbonKg": 58.19,
+    "volumeM3": 0.17904581872467945,
+    "carbonKg": 58.18989108552083,
     "confidence": "high",
     "gps": "22.7346,121.0688",
     "focalLengthMm": 5.7,
@@ -2685,48 +607,9 @@
       "dbhCm": 18.1,
       "source": "direct_measurement"
     },
-    "videoFilename": null,
-    "videoOriginalName": "IMG_5790.mov",
-    "videoDriveUrl": null,
-    "winnerPath": "path0",
-    "paths": {
-      "path0": {
-        "dbhCm": 18.1,
-        "volumeM3": 0.179,
-        "carbonKg": 58.2,
-        "computed": true
-      },
-      "pathA": {
-        "dbhCm": 18.1,
-        "volumeM3": 0.179,
-        "carbonKg": 58.2,
-        "computed": true
-      },
-      "pathB": {
-        "dbhCm": 23.7,
-        "dbhCmCorrected": null,
-        "volumeM3": 0.3415,
-        "carbonKg": 111,
-        "computed": true
-      }
-    },
-    "manualTape": null,
     "hasStory": true,
     "storyMarkdown": "# 🌳 未知樹種 的故事\n\n> **台灣南端山野** ｜ 2026年5月23日\n\n---\n\n## 🌿 生態多樣性貢獻\n\n| 項目 | 內容 |\n|------|------|\n| **中文名** | 未知樹種 |\n| **起源** | ❓ 未知 |\n| **林相層次** | 林冠層 |\n| **棲地類型** | 低海拔闊葉林 |\n| **生態多樣性貢獻評分** | ★★☆☆☆（2/5） |\n| **關鍵物種** | 否 |\n| **吸引鳥類** | 各類留鳥 |\n| **吸引昆蟲** | 多種昆蟲 |\n| **哺乳動物** | — |\n| **土壤功能** | 提供遮蔭與有機質，基礎生態服務功能 |\n| **花期** | 視樹種而定 |\n| **提供蜜源** | 否 |\n| **提供果實** | 否 |\n\n### 生態角色\n\n樹木為周遭生態系提供遮蔭、固碳、防風等基礎服務，是陸域生態系的核心組成\n\n\n\n---\n\n## 🍃 此刻的 未知樹種（5 月）\n\n春末花期延續，動物育雛達高峰\n\n---\n\n## 🌍 碳儲量意義\n\n這棵 未知樹種 目前儲存了 **58.2 kg** 的碳。等同於 116 度電的碳排放量。\n\n每多一棵這樣的樹，就是給大氣的一次小小還債。\n\n---\n\n## ✨ 這棵樹的故事\n\n在台灣南端山野，一棵無名樹挺立著，它身形雖不算高大，胸高直徑十八點一公分，卻已具備青年樹的穩健。五月下旬午後，雷雨前夕的濕熱空氣黏膩纏身，氣溫高達二十九點三度，微弱東風僅輕輕拂過葉梢。陽光被半掩雲層遮擋，今日短暫露臉不到一小時，正是熱帶島嶼雨季的序曲。\n\n此刻，樹冠層下正上演一場生命的狂歡。細密的枝椏間，育雛鳥兒忙碌穿梭，牠們或許是綠繡眼，或許是五色鳥，將嗷嗷待哺的幼雛安藏在茂葉深處。甲蟲貪婪地汲飲著樹液，享受一場來自大地的甘霖，各種昆蟲紛紛羽化，開啟短暫卻璀璨的一生。甚至有白蟻選擇這濕潤時刻分飛，在空中舞動翅膀尋找新的家園。這棵樹不論原生與否，都已然成為多樣生命不可或缺的庇護所，為底層生物遮蔽烈陽與驟雨，將腐葉化為沃土，回饋大地最純粹的有機質。\n\n它默默鎖住五十八點二公斤的碳，足抵一百一十六度電量排放，為這座島嶼默默淨化空氣。在這片海拔僅三十三公尺的海岸防風林帶，它不求成為生態關鍵，只願以最樸實的姿態，承載生命的重量。望著它在雷雨將至的悶熱中展現生機，心中湧現一股暖意。即便我們不識它的名，它仍以堅韌寫下對未來的承諾，深植於這片土地，為所有未知的生命，留下永恆的希望。\n\n---\n\n## 📊 拍攝當下環境快照\n\n- **天氣**：雷雨、氣溫 29.3°C、濕度 81%、氣壓 1003.6 hPa、雲量 50%\n- **風況**：東風，1.4 m/s\n- **光環境**：UV 指數 4.7、日照 1 小時、短波輻射 592 W/m²\n- **太陽位置**：日出 下午09:13、日落 上午10:33、日長 13.33 小時、太陽仰角 18.09°、方位 285.25°\n- **棲地座標**：海拔 33 m、海岸防風林帶、雨季\n- **當下物候**：鳥類繁殖初期、昆蟲羽化期、甲蟲樹液取食期、白蟻分飛、低海拔花期高峰、菌類子實體爆發窗口、飛鼠育幼期\n\n---\n\n_資料由 Forest Carbon Measurement 系統自動生成，Gemini 2.5 Flash 驅動，2026/5/30 更新_",
-    "storySummary": "未知樹種，18.1 cm，58.2 kg C，台灣南端山野",
-    "p4v2": {
-      "calibratedDbhCm": 18.1,
-      "calibFactor": 1,
-      "aggMethodFinal": "manual_tape",
-      "measureTimestamps": [],
-      "runs": [],
-      "species": null,
-      "carbon": {
-        "primaryKg": 58.19,
-        "agbKg": 116.38,
-        "co2eKg": 213.56
-      }
-    }
+    "storySummary": "未知樹種，18.1 cm，58.2 kg C，台灣南端山野"
   },
   {
     "treeNo": "T019",
@@ -2736,8 +619,8 @@
     "dbhCm": 20.1,
     "originalDbhCm": null,
     "appliedCorrectionFactor": null,
-    "volumeM3": 0.2301,
-    "carbonKg": 74.79,
+    "volumeM3": 0.22296951223744638,
+    "carbonKg": 54.62753049817436,
     "confidence": "0.825",
     "gps": "22.7357,121.0676",
     "focalLengthMm": 5.7,
@@ -2756,133 +639,9 @@
       "createdAt": 1780321804
     },
     "calibration": null,
-    "videoFilename": null,
-    "videoOriginalName": "IMG_5801.mov",
-    "videoDriveUrl": "https://drive.google.com/file/d/1vwIqBt4Zob3wno3999dgfQkF5SSggRi6/view",
-    "winnerPath": "p4v2",
-    "paths": {
-      "path0": {
-        "computed": false
-      },
-      "pathA": {
-        "computed": false
-      },
-      "pathB": {
-        "computed": false
-      }
-    },
-    "manualTape": null,
     "hasStory": false,
     "storyMarkdown": null,
-    "storySummary": null,
-    "p4v2": {
-      "engine": "P4v2-measure-pure-N10",
-      "repeat": 10,
-      "medianRatio": 2.0316,
-      "rawDbhCm": 17.4,
-      "calibratedDbhCm": 20.1,
-      "calibFactor": 1.155,
-      "aggMethodFinal": "median",
-      "cv": 25.779239186936238,
-      "measureTimestamps": [
-        13,
-        11,
-        0,
-        11,
-        12,
-        11.8,
-        12,
-        11,
-        12,
-        12
-      ],
-      "runs": [
-        {
-          "videoTimestampSec": 13,
-          "ratio": 2.546583850931677,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 11,
-          "ratio": 1.8295739348370927,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 0,
-          "ratio": 0,
-          "confidence": 0
-        },
-        {
-          "videoTimestampSec": 11,
-          "ratio": 1.29,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 12,
-          "ratio": 1.544280442804428,
-          "confidence": 0.95
-        },
-        {
-          "videoTimestampSec": 11.8,
-          "ratio": 1.681338028169014,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 12,
-          "ratio": 3.1492,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 11,
-          "ratio": 2.144787644787645,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 12,
-          "ratio": 2.206989247311828,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 12,
-          "ratio": 2.0316,
-          "confidence": 1
-        }
-      ],
-      "species": {
-        "agree": false,
-        "primary": "Macaranga tanarius",
-        "source": "gemini+plantnet",
-        "gemini": {
-          "species": "Macaranga tanarius",
-          "zhName": "未知樹種",
-          "confidence": 0.85,
-          "isDefaultFormula": true,
-          "carbonKg": 74.79,
-          "agbKg": 149.59,
-          "co2eKg": 274.49
-        },
-        "plantnet": {
-          "species": "Pongamia pinnata",
-          "zhName": "水黃皮",
-          "confidence": 0.95678,
-          "isDefaultFormula": false,
-          "carbonKg": 93.65,
-          "agbKg": 187.3,
-          "co2eKg": 343.7
-        },
-        "leafTimestamps": [
-          21,
-          23,
-          24
-        ]
-      },
-      "carbon": {
-        "primaryKg": 74.79,
-        "agbKg": 149.59,
-        "co2eKg": 274.49,
-        "heightM": 19.063728840419223
-      }
-    }
+    "storySummary": null
   },
   {
     "treeNo": "T020",
@@ -2892,8 +651,8 @@
     "dbhCm": 29.6,
     "originalDbhCm": null,
     "appliedCorrectionFactor": null,
-    "volumeM3": 0.5815,
-    "carbonKg": 189,
+    "volumeM3": 0.5429229173606479,
+    "carbonKg": 169.39195021652213,
     "confidence": "0.92",
     "gps": "22.7354,121.0696",
     "focalLengthMm": 5.7,
@@ -2912,134 +671,9 @@
       "createdAt": 1780323072
     },
     "calibration": null,
-    "videoFilename": null,
-    "videoOriginalName": "IMG_5786.mov",
-    "videoDriveUrl": "https://drive.google.com/file/d/1lpkf7TYbWLylUKtG0ABFdZDitkW2T0wN/view",
-    "winnerPath": "p4v2",
-    "paths": {
-      "path0": {
-        "computed": false
-      },
-      "pathA": {
-        "computed": false
-      },
-      "pathB": {
-        "computed": false
-      }
-    },
-    "manualTape": null,
     "hasStory": false,
     "storyMarkdown": null,
-    "storySummary": null,
-    "p4v2": {
-      "engine": "P4v2-measure-pure-N10",
-      "repeat": 10,
-      "medianRatio": 2.99,
-      "rawDbhCm": 25.6,
-      "calibratedDbhCm": 29.6,
-      "calibFactor": 1.155,
-      "aggMethodFinal": "median",
-      "cv": 24.770109019771354,
-      "measureTimestamps": [
-        9.5,
-        2,
-        2.03,
-        2.07,
-        2.07,
-        2,
-        124,
-        2.05,
-        122,
-        125
-      ],
-      "runs": [
-        {
-          "videoTimestampSec": 9.5,
-          "ratio": 2.9176470588235293,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 2,
-          "ratio": 2.99,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 2.03,
-          "ratio": 3.818,
-          "confidence": 0.95
-        },
-        {
-          "videoTimestampSec": 2.07,
-          "ratio": 2.88,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 2.07,
-          "ratio": 2.620087336244542,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 2,
-          "ratio": 4.6796875,
-          "confidence": 0.95
-        },
-        {
-          "videoTimestampSec": 124,
-          "ratio": 2.885,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 2.05,
-          "ratio": 4.36214,
-          "confidence": 1
-        },
-        {
-          "videoTimestampSec": 122,
-          "ratio": 3.9027777777777777,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 125,
-          "ratio": 1.904,
-          "confidence": 0.9
-        }
-      ],
-      "species": {
-        "agree": true,
-        "primary": "Terminalia catappa",
-        "source": "agree",
-        "gemini": {
-          "species": "Terminalia catappa",
-          "zhName": "未知樹種",
-          "confidence": 0.9,
-          "isDefaultFormula": true,
-          "carbonKg": 189,
-          "agbKg": 377.99,
-          "co2eKg": 693.61
-        },
-        "plantnet": {
-          "species": "Salix pentandra",
-          "zhName": "未知樹種",
-          "confidence": 0.33819,
-          "isDefaultFormula": true,
-          "carbonKg": 189,
-          "agbKg": 377.99,
-          "co2eKg": 693.61
-        },
-        "leafTimestamps": [
-          15,
-          36,
-          140,
-          145
-        ]
-      },
-      "carbon": {
-        "primaryKg": 189,
-        "agbKg": 377.99,
-        "co2eKg": 693.61,
-        "heightM": 25.101345467630015
-      }
-    }
+    "storySummary": null
   },
   {
     "treeNo": "T021",
@@ -3049,8 +683,8 @@
     "dbhCm": 28.3,
     "originalDbhCm": null,
     "appliedCorrectionFactor": null,
-    "volumeM3": 0.5222,
-    "carbonKg": 169.72,
+    "volumeM3": 0.48759815060215067,
+    "carbonKg": 152.13062298787102,
     "confidence": "0.925",
     "gps": "22.7352,121.0696",
     "focalLengthMm": 5.7,
@@ -3069,133 +703,9 @@
       "createdAt": 1780323643
     },
     "calibration": null,
-    "videoFilename": null,
-    "videoOriginalName": "IMG_5788.mov",
-    "videoDriveUrl": "https://drive.google.com/file/d/1F0437umBsIGv_-oetcpKQokZW9KSXjcp/view",
-    "winnerPath": "p4v2",
-    "paths": {
-      "path0": {
-        "computed": false
-      },
-      "pathA": {
-        "computed": false
-      },
-      "pathB": {
-        "computed": false
-      }
-    },
-    "manualTape": null,
     "hasStory": false,
     "storyMarkdown": null,
-    "storySummary": null,
-    "p4v2": {
-      "engine": "P4v2-measure-pure-N10",
-      "repeat": 10,
-      "medianRatio": 2.8624,
-      "rawDbhCm": 24.5,
-      "calibratedDbhCm": 28.3,
-      "calibFactor": 1.155,
-      "aggMethodFinal": "median",
-      "cv": 24.073436367421696,
-      "measureTimestamps": [
-        6,
-        5,
-        4,
-        4,
-        5,
-        5,
-        5.1,
-        4,
-        4.5,
-        4
-      ],
-      "runs": [
-        {
-          "videoTimestampSec": 6,
-          "ratio": 1.872340425531915,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 5,
-          "ratio": 3.616,
-          "confidence": 0.95
-        },
-        {
-          "videoTimestampSec": 4,
-          "ratio": 1.95,
-          "confidence": 0.95
-        },
-        {
-          "videoTimestampSec": 4,
-          "ratio": 2.4118,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 5,
-          "ratio": 3.4426229508196724,
-          "confidence": 1
-        },
-        {
-          "videoTimestampSec": 5,
-          "ratio": 1.714,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 5.1,
-          "ratio": 3.25,
-          "confidence": 0.95
-        },
-        {
-          "videoTimestampSec": 4,
-          "ratio": 2.8,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 4.5,
-          "ratio": 2.862369337979094,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 4,
-          "ratio": 3.1707,
-          "confidence": 0.9
-        }
-      ],
-      "species": {
-        "agree": false,
-        "primary": "Terminalia catappa",
-        "source": "gemini+plantnet",
-        "gemini": {
-          "species": "Terminalia catappa",
-          "zhName": "未知樹種",
-          "confidence": 0.9,
-          "isDefaultFormula": true,
-          "carbonKg": 169.72,
-          "agbKg": 339.44,
-          "co2eKg": 622.88
-        },
-        "plantnet": {
-          "species": "Calophyllum inophyllum",
-          "zhName": "瓊崖海棠",
-          "confidence": 0.83788,
-          "isDefaultFormula": false,
-          "carbonKg": 254.28,
-          "agbKg": 508.56,
-          "co2eKg": 933.2
-        },
-        "leafTimestamps": [
-          15,
-          16,
-          17
-        ]
-      },
-      "carbon": {
-        "primaryKg": 169.72,
-        "agbKg": 339.44,
-        "co2eKg": 622.88,
-        "heightM": 22.5998599517609
-      }
-    }
+    "storySummary": null
   },
   {
     "treeNo": "T022",
@@ -3205,8 +715,8 @@
     "dbhCm": 26.1,
     "originalDbhCm": null,
     "appliedCorrectionFactor": null,
-    "volumeM3": 0.4302,
-    "carbonKg": 139.82,
+    "volumeM3": 0.4017518114091194,
+    "carbonKg": 125.34656515964527,
     "confidence": "0.92",
     "gps": "22.7348,121.0693",
     "focalLengthMm": 5.7,
@@ -3225,133 +735,9 @@
       "createdAt": 1780323944
     },
     "calibration": null,
-    "videoFilename": null,
-    "videoOriginalName": "IMG_5789.mov",
-    "videoDriveUrl": "https://drive.google.com/file/d/1LLyAp4BjgjwX5cPHdP42rmasGPcZSycH/view",
-    "winnerPath": "p4v2",
-    "paths": {
-      "path0": {
-        "computed": false
-      },
-      "pathA": {
-        "computed": false
-      },
-      "pathB": {
-        "computed": false
-      }
-    },
-    "manualTape": null,
     "hasStory": false,
     "storyMarkdown": null,
-    "storySummary": null,
-    "p4v2": {
-      "engine": "P4v2-measure-pure-N10",
-      "repeat": 10,
-      "medianRatio": 2.641,
-      "rawDbhCm": 22.6,
-      "calibratedDbhCm": 26.1,
-      "calibFactor": 1.155,
-      "aggMethodFinal": "median",
-      "cv": 31.826332222363018,
-      "measureTimestamps": [
-        4.5,
-        27.3,
-        27,
-        27,
-        4.5,
-        28.1,
-        29,
-        4.4,
-        27,
-        4.5
-      ],
-      "runs": [
-        {
-          "videoTimestampSec": 4.5,
-          "ratio": 1.7401129943502824,
-          "confidence": 1
-        },
-        {
-          "videoTimestampSec": 27.3,
-          "ratio": 3,
-          "confidence": 0.95
-        },
-        {
-          "videoTimestampSec": 27,
-          "ratio": 2.641025641025641,
-          "confidence": 0.95
-        },
-        {
-          "videoTimestampSec": 27,
-          "ratio": 3.319,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 4.5,
-          "ratio": 4.470588235294118,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 28.1,
-          "ratio": 2.627906976744186,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 29,
-          "ratio": 2.25,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 4.4,
-          "ratio": 1.80189,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 27,
-          "ratio": 2.7,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 4.5,
-          "ratio": 1.5085,
-          "confidence": 0.9
-        }
-      ],
-      "species": {
-        "agree": false,
-        "primary": "Terminalia catappa",
-        "source": "gemini+plantnet",
-        "gemini": {
-          "species": "Terminalia catappa",
-          "zhName": "未知樹種",
-          "confidence": 0.95,
-          "isDefaultFormula": true,
-          "carbonKg": 139.82,
-          "agbKg": 279.63,
-          "co2eKg": 513.13
-        },
-        "plantnet": {
-          "species": "Calophyllum inophyllum",
-          "zhName": "瓊崖海棠",
-          "confidence": 0.98208,
-          "isDefaultFormula": false,
-          "carbonKg": 208.78,
-          "agbKg": 417.56,
-          "co2eKg": 766.23
-        },
-        "leafTimestamps": [
-          15,
-          16,
-          17
-        ]
-      },
-      "carbon": {
-        "primaryKg": 139.82,
-        "agbKg": 279.63,
-        "co2eKg": 513.13,
-        "heightM": 21.622262937503827
-      }
-    }
+    "storySummary": null
   },
   {
     "treeNo": "T023",
@@ -3361,8 +747,8 @@
     "dbhCm": 20.7,
     "originalDbhCm": null,
     "appliedCorrectionFactor": null,
-    "volumeM3": 0.2469,
-    "carbonKg": 80.25,
+    "volumeM3": 0.23070348031693982,
+    "carbonKg": 71.97948585888523,
     "confidence": "0.91",
     "gps": "22.7346,121.0688",
     "focalLengthMm": 5.7,
@@ -3381,134 +767,9 @@
       "createdAt": 1780324316
     },
     "calibration": null,
-    "videoFilename": null,
-    "videoOriginalName": "IMG_5790.mov",
-    "videoDriveUrl": "https://drive.google.com/file/d/1HrK9Iz2h2PqyeyC1b1rLvFipP6jpwD-P/view",
-    "winnerPath": "p4v2",
-    "paths": {
-      "path0": {
-        "computed": false
-      },
-      "pathA": {
-        "computed": false
-      },
-      "pathB": {
-        "computed": false
-      }
-    },
-    "manualTape": null,
     "hasStory": false,
     "storyMarkdown": null,
-    "storySummary": null,
-    "p4v2": {
-      "engine": "P4v2-measure-pure-N10",
-      "repeat": 10,
-      "medianRatio": 2.0958,
-      "rawDbhCm": 17.9,
-      "calibratedDbhCm": 20.7,
-      "calibFactor": 1.155,
-      "aggMethodFinal": "median",
-      "cv": 24.973509727280693,
-      "measureTimestamps": [
-        4,
-        4,
-        3,
-        7,
-        5,
-        3.7,
-        6,
-        4,
-        3,
-        4
-      ],
-      "runs": [
-        {
-          "videoTimestampSec": 4,
-          "ratio": 2.095808383233533,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 4,
-          "ratio": 2.857142857142857,
-          "confidence": 1
-        },
-        {
-          "videoTimestampSec": 3,
-          "ratio": 2.2126436781609193,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 7,
-          "ratio": 2.102,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 5,
-          "ratio": 2.03,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 3.7,
-          "ratio": 2.6747,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 6,
-          "ratio": 1.1044,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 4,
-          "ratio": 1.7142857142857142,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 3,
-          "ratio": 1.46,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 4,
-          "ratio": 1.748,
-          "confidence": 0.9
-        }
-      ],
-      "species": {
-        "agree": false,
-        "primary": "Terminalia catappa",
-        "source": "gemini+plantnet",
-        "gemini": {
-          "species": "Terminalia catappa",
-          "zhName": "未知樹種",
-          "confidence": 0.9,
-          "isDefaultFormula": true,
-          "carbonKg": 80.25,
-          "agbKg": 160.5,
-          "co2eKg": 294.53
-        },
-        "plantnet": {
-          "species": "Calophyllum inophyllum",
-          "zhName": "瓊崖海棠",
-          "confidence": 0.65694,
-          "isDefaultFormula": false,
-          "carbonKg": 118.7,
-          "agbKg": 237.41,
-          "co2eKg": 435.64
-        },
-        "leafTimestamps": [
-          8,
-          10,
-          11,
-          12
-        ]
-      },
-      "carbon": {
-        "primaryKg": 80.25,
-        "agbKg": 160.5,
-        "co2eKg": 294.53,
-        "heightM": 19.12496447549783
-      }
-    }
+    "storySummary": null
   },
   {
     "treeNo": "T024",
@@ -3518,8 +779,8 @@
     "dbhCm": 22.8,
     "originalDbhCm": null,
     "appliedCorrectionFactor": null,
-    "volumeM3": 0.3112,
-    "carbonKg": 101.15,
+    "volumeM3": 0.29072019307337355,
+    "carbonKg": 90.70470023889254,
     "confidence": "0.895",
     "gps": "22.7346,121.0686",
     "focalLengthMm": 5.7,
@@ -3538,133 +799,9 @@
       "createdAt": 1780324563
     },
     "calibration": null,
-    "videoFilename": null,
-    "videoOriginalName": "IMG_5791.mov",
-    "videoDriveUrl": "https://drive.google.com/file/d/1fFNvMJSiDo6h0cGK7VBfDW7_Q9pE7aL4/view",
-    "winnerPath": "p4v2",
-    "paths": {
-      "path0": {
-        "computed": false
-      },
-      "pathA": {
-        "computed": false
-      },
-      "pathB": {
-        "computed": false
-      }
-    },
-    "manualTape": null,
     "hasStory": false,
     "storyMarkdown": null,
-    "storySummary": null,
-    "p4v2": {
-      "engine": "P4v2-measure-pure-N10",
-      "repeat": 10,
-      "medianRatio": 2.3013,
-      "rawDbhCm": 19.7,
-      "calibratedDbhCm": 22.8,
-      "calibFactor": 1.155,
-      "aggMethodFinal": "median",
-      "cv": 41.10252713246276,
-      "measureTimestamps": [
-        8,
-        10,
-        9,
-        8,
-        10.75,
-        14,
-        10,
-        5,
-        9,
-        9
-      ],
-      "runs": [
-        {
-          "videoTimestampSec": 8,
-          "ratio": 2.854838709677419,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 10,
-          "ratio": 2.301255230125523,
-          "confidence": 0.95
-        },
-        {
-          "videoTimestampSec": 9,
-          "ratio": 2.065,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 8,
-          "ratio": 5.2,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 10.75,
-          "ratio": 2.016,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 14,
-          "ratio": 4.21,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 10,
-          "ratio": 1.4675,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 5,
-          "ratio": 3.39,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 9,
-          "ratio": 2.1944,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 9,
-          "ratio": 1.746031746031746,
-          "confidence": 0.8
-        }
-      ],
-      "species": {
-        "agree": false,
-        "primary": "Terminalia catappa",
-        "source": "gemini+plantnet",
-        "gemini": {
-          "species": "Terminalia catappa",
-          "zhName": "未知樹種",
-          "confidence": 0.9,
-          "isDefaultFormula": true,
-          "carbonKg": 101.15,
-          "agbKg": 202.3,
-          "co2eKg": 371.22
-        },
-        "plantnet": {
-          "species": "Calophyllum inophyllum",
-          "zhName": "瓊崖海棠",
-          "confidence": 0.6485,
-          "isDefaultFormula": false,
-          "carbonKg": 150.21,
-          "agbKg": 300.41,
-          "co2eKg": 551.25
-        },
-        "leafTimestamps": [
-          19,
-          21,
-          58
-        ]
-      },
-      "carbon": {
-        "primaryKg": 101.15,
-        "agbKg": 202.3,
-        "co2eKg": 371.22,
-        "heightM": 22.006659673961025
-      }
-    }
+    "storySummary": null
   },
   {
     "treeNo": "T025",
@@ -3674,8 +811,8 @@
     "dbhCm": 25.9,
     "originalDbhCm": null,
     "appliedCorrectionFactor": null,
-    "volumeM3": 0.4224,
-    "carbonKg": 137.27,
+    "volumeM3": 0.42235431108785243,
+    "carbonKg": 161.67723028442992,
     "confidence": "0.9",
     "gps": "22.7362,121.0691",
     "focalLengthMm": 5.7,
@@ -3694,133 +831,9 @@
       "createdAt": 1780327219
     },
     "calibration": null,
-    "videoFilename": null,
-    "videoOriginalName": "IMG_5800.mov",
-    "videoDriveUrl": "https://drive.google.com/file/d/1yvo9_vja1TJOFl8TTiHQDHi9vMNbRfTf/view",
-    "winnerPath": "p4v2",
-    "paths": {
-      "path0": {
-        "computed": false
-      },
-      "pathA": {
-        "computed": false
-      },
-      "pathB": {
-        "computed": false
-      }
-    },
-    "manualTape": null,
     "hasStory": false,
     "storyMarkdown": null,
-    "storySummary": null,
-    "p4v2": {
-      "engine": "P4v2-measure-pure-N10",
-      "repeat": 10,
-      "medianRatio": 2.62,
-      "rawDbhCm": 22.4,
-      "calibratedDbhCm": 25.9,
-      "calibFactor": 1.155,
-      "aggMethodFinal": "median",
-      "cv": 35.61891067954143,
-      "measureTimestamps": [
-        6,
-        7.5,
-        6,
-        6,
-        24,
-        6,
-        25,
-        6,
-        7,
-        6
-      ],
-      "runs": [
-        {
-          "videoTimestampSec": 6,
-          "ratio": 2.15310998,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 7.5,
-          "ratio": 3.1,
-          "confidence": 0.8
-        },
-        {
-          "videoTimestampSec": 6,
-          "ratio": 2.96,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 6,
-          "ratio": 1.54,
-          "confidence": 0.8
-        },
-        {
-          "videoTimestampSec": 24,
-          "ratio": 1.4,
-          "confidence": 1
-        },
-        {
-          "videoTimestampSec": 6,
-          "ratio": 4.06,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 25,
-          "ratio": 2.62,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 6,
-          "ratio": 1.547,
-          "confidence": 1
-        },
-        {
-          "videoTimestampSec": 7,
-          "ratio": 3.743455497382199,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 6,
-          "ratio": 1.98,
-          "confidence": 0.9
-        }
-      ],
-      "species": {
-        "agree": false,
-        "primary": "Celtis sinensis",
-        "source": "gemini+plantnet",
-        "gemini": {
-          "species": "Celtis sinensis",
-          "zhName": "未知樹種",
-          "confidence": 0.8,
-          "isDefaultFormula": true,
-          "carbonKg": 137.27,
-          "agbKg": 274.53,
-          "co2eKg": 503.76
-        },
-        "plantnet": {
-          "species": "Camphora officinarum",
-          "zhName": "樟樹",
-          "confidence": 0.3652,
-          "isDefaultFormula": false,
-          "carbonKg": 160.64,
-          "agbKg": 321.28,
-          "co2eKg": 589.54
-        },
-        "leafTimestamps": [
-          33,
-          34,
-          35
-        ]
-      },
-      "carbon": {
-        "primaryKg": 137.27,
-        "agbKg": 274.53,
-        "co2eKg": 503.76,
-        "heightM": 21.344235471178926
-      }
-    }
+    "storySummary": null
   },
   {
     "treeNo": "T026",
@@ -3830,8 +843,8 @@
     "dbhCm": 24.7,
     "originalDbhCm": null,
     "appliedCorrectionFactor": null,
-    "volumeM3": 0.3991,
-    "carbonKg": 137.38,
+    "volumeM3": 0.3813756751704824,
+    "carbonKg": 121.46815254179864,
     "confidence": "0.915",
     "gps": "22.7354,121.0668",
     "focalLengthMm": 5.7,
@@ -3850,133 +863,9 @@
       "createdAt": 1780328146
     },
     "calibration": null,
-    "videoFilename": null,
-    "videoOriginalName": "IMG_5803.mov",
-    "videoDriveUrl": "https://drive.google.com/file/d/1U3Mi5Gtu_BqsYV2CjAyVQB4wy6J2ZbAu/view",
-    "winnerPath": "p4v2",
-    "paths": {
-      "path0": {
-        "computed": false
-      },
-      "pathA": {
-        "computed": false
-      },
-      "pathB": {
-        "computed": false
-      }
-    },
-    "manualTape": null,
     "hasStory": false,
     "storyMarkdown": null,
-    "storySummary": null,
-    "p4v2": {
-      "engine": "P4v2-measure-pure-N10",
-      "repeat": 10,
-      "medianRatio": 2.5,
-      "rawDbhCm": 21.4,
-      "calibratedDbhCm": 24.7,
-      "calibFactor": 1.155,
-      "aggMethodFinal": "median",
-      "cv": 30.16355006281112,
-      "measureTimestamps": [
-        8,
-        11,
-        8,
-        10,
-        9.5,
-        9,
-        9,
-        10,
-        8,
-        9
-      ],
-      "runs": [
-        {
-          "videoTimestampSec": 8,
-          "ratio": 1.7354368932038835,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 11,
-          "ratio": 4.616613418529999,
-          "confidence": 0.95
-        },
-        {
-          "videoTimestampSec": 8,
-          "ratio": 3.217,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 10,
-          "ratio": 2.36,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 9.5,
-          "ratio": 2.1416,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 9,
-          "ratio": 1.975,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 9,
-          "ratio": 3.125,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 10,
-          "ratio": 2.5,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 8,
-          "ratio": 2.1733,
-          "confidence": 1
-        },
-        {
-          "videoTimestampSec": 9,
-          "ratio": 3.3333333333333335,
-          "confidence": 0.9
-        }
-      ],
-      "species": {
-        "agree": false,
-        "primary": "Melia azedarach",
-        "source": "gemini+plantnet",
-        "gemini": {
-          "species": "Melia azedarach",
-          "zhName": "苦楝",
-          "confidence": 0.85,
-          "isDefaultFormula": false,
-          "carbonKg": 137.38,
-          "agbKg": 274.76,
-          "co2eKg": 504.19
-        },
-        "plantnet": {
-          "species": "Swietenia mahagoni",
-          "zhName": "大葉桃花心木",
-          "confidence": 0.38198,
-          "isDefaultFormula": false,
-          "carbonKg": 149.3,
-          "agbKg": 298.6,
-          "co2eKg": 547.94
-        },
-        "leafTimestamps": [
-          17,
-          19,
-          21
-        ]
-      },
-      "carbon": {
-        "primaryKg": 137.38,
-        "agbKg": 274.76,
-        "co2eKg": 504.19,
-        "heightM": 23.525415498089448
-      }
-    }
+    "storySummary": null
   },
   {
     "treeNo": "T027",
@@ -3986,8 +875,8 @@
     "dbhCm": 43,
     "originalDbhCm": null,
     "appliedCorrectionFactor": null,
-    "volumeM3": 1.4223,
-    "carbonKg": 462.24,
+    "volumeM3": 1.37975777331578,
+    "carbonKg": 397.37023871494466,
     "confidence": "0.81",
     "gps": "22.7354,121.0667",
     "focalLengthMm": 5.7,
@@ -4006,133 +895,9 @@
       "createdAt": 1780335550
     },
     "calibration": null,
-    "videoFilename": null,
-    "videoOriginalName": "IMG_5805.mov",
-    "videoDriveUrl": "https://drive.google.com/file/d/1z1kzhPx4kUOj6opGt4ZILyawIQjcSvyp/view",
-    "winnerPath": "p4v2",
-    "paths": {
-      "path0": {
-        "computed": false
-      },
-      "pathA": {
-        "computed": false
-      },
-      "pathB": {
-        "computed": false
-      }
-    },
-    "manualTape": null,
     "hasStory": false,
     "storyMarkdown": null,
-    "storySummary": null,
-    "p4v2": {
-      "engine": "P4v2-measure-pure-N10",
-      "repeat": 10,
-      "medianRatio": 4.348,
-      "rawDbhCm": 37.2,
-      "calibratedDbhCm": 43,
-      "calibFactor": 1.155,
-      "aggMethodFinal": "median",
-      "cv": 25.024646250515563,
-      "measureTimestamps": [
-        10,
-        9,
-        8,
-        10,
-        123.5,
-        9.7,
-        14,
-        10,
-        14,
-        9
-      ],
-      "runs": [
-        {
-          "videoTimestampSec": 10,
-          "ratio": 3.241,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 9,
-          "ratio": 3.0625,
-          "confidence": 0.95
-        },
-        {
-          "videoTimestampSec": 8,
-          "ratio": 0,
-          "confidence": 0
-        },
-        {
-          "videoTimestampSec": 10,
-          "ratio": 6.576923076923077,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 123.5,
-          "ratio": 5.555555555555555,
-          "confidence": 0.95
-        },
-        {
-          "videoTimestampSec": 9.7,
-          "ratio": 5.3913043478,
-          "confidence": 0.8
-        },
-        {
-          "videoTimestampSec": 14,
-          "ratio": 4.348,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 10,
-          "ratio": 3.374340949033392,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 14,
-          "ratio": 4.458,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 9,
-          "ratio": 4.197530864197531,
-          "confidence": 0.9
-        }
-      ],
-      "species": {
-        "agree": false,
-        "primary": "Toona ciliata",
-        "source": "gemini+plantnet",
-        "gemini": {
-          "species": "Toona ciliata",
-          "zhName": "未知樹種",
-          "confidence": 0.75,
-          "isDefaultFormula": true,
-          "carbonKg": 462.24,
-          "agbKg": 924.47,
-          "co2eKg": 1696.41
-        },
-        "plantnet": {
-          "species": "Swietenia macrophylla",
-          "zhName": "大葉桃花心木",
-          "confidence": 0.53658,
-          "isDefaultFormula": false,
-          "carbonKg": 572.4,
-          "agbKg": 1144.79,
-          "co2eKg": 2100.69
-        },
-        "leafTimestamps": [
-          22,
-          25,
-          27
-        ]
-      },
-      "carbon": {
-        "primaryKg": 462.24,
-        "agbKg": 924.47,
-        "co2eKg": 1696.41,
-        "heightM": 29.31833970034954
-      }
-    }
+    "storySummary": null
   },
   {
     "treeNo": "T028",
@@ -4142,8 +907,8 @@
     "dbhCm": 31.5,
     "originalDbhCm": null,
     "appliedCorrectionFactor": null,
-    "volumeM3": 0.7129,
-    "carbonKg": 245.43,
+    "volumeM3": 0.6858017793569845,
+    "carbonKg": 218.42786672519958,
     "confidence": "0.72",
     "gps": "22.7353,121.0666",
     "focalLengthMm": 5.7,
@@ -4162,125 +927,9 @@
       "createdAt": 1780335840
     },
     "calibration": null,
-    "videoFilename": null,
-    "videoOriginalName": "IMG_5806.mov",
-    "videoDriveUrl": "https://drive.google.com/file/d/1ybyFmKlFRx3kuNFVSNYJBP4dMa2KfcL7/view",
-    "winnerPath": "p4v2",
-    "paths": {
-      "path0": {
-        "computed": false
-      },
-      "pathA": {
-        "computed": false
-      },
-      "pathB": {
-        "computed": false
-      }
-    },
-    "manualTape": null,
     "hasStory": false,
     "storyMarkdown": null,
-    "storySummary": null,
-    "p4v2": {
-      "engine": "P4v2-measure-pure-N10",
-      "repeat": 10,
-      "medianRatio": 3.19,
-      "rawDbhCm": 27.3,
-      "calibratedDbhCm": 31.5,
-      "calibFactor": 1.155,
-      "aggMethodFinal": "median",
-      "cv": 53.363055983422925,
-      "measureTimestamps": [
-        15,
-        0,
-        15,
-        11,
-        0,
-        15,
-        15,
-        14,
-        18,
-        16
-      ],
-      "runs": [
-        {
-          "videoTimestampSec": 15,
-          "ratio": 2.64,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 0,
-          "ratio": 0,
-          "confidence": 0
-        },
-        {
-          "videoTimestampSec": 15,
-          "ratio": 2.71,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 11,
-          "ratio": 3.19,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 0,
-          "ratio": 0,
-          "confidence": 0
-        },
-        {
-          "videoTimestampSec": 15,
-          "ratio": 8.352941176470589,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 15,
-          "ratio": 4.75,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 14,
-          "ratio": 2.48,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 18,
-          "ratio": 1.8462,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 16,
-          "ratio": 3.194,
-          "confidence": 0.9
-        }
-      ],
-      "species": {
-        "agree": null,
-        "primary": "Melia azedarach",
-        "source": "gemini",
-        "gemini": {
-          "species": "Melia azedarach",
-          "zhName": "苦楝",
-          "confidence": 0.85,
-          "isDefaultFormula": false,
-          "carbonKg": 245.43,
-          "agbKg": 490.85,
-          "co2eKg": 900.71
-        },
-        "plantnet": null,
-        "leafTimestamps": [
-          28,
-          30,
-          32
-        ]
-      },
-      "carbon": {
-        "primaryKg": 245.43,
-        "agbKg": 490.85,
-        "co2eKg": 900.71,
-        "heightM": 26.137021406571186
-      }
-    }
+    "storySummary": null
   },
   {
     "treeNo": "T029",
@@ -4290,8 +939,8 @@
     "dbhCm": 35.1,
     "originalDbhCm": null,
     "appliedCorrectionFactor": null,
-    "volumeM3": 0.8747,
-    "carbonKg": 284.26,
+    "volumeM3": 0.8515113665756007,
+    "carbonKg": 245.23527357377301,
     "confidence": "0.815",
     "gps": "22.7353,121.0666",
     "focalLengthMm": 5.7,
@@ -4310,133 +959,9 @@
       "createdAt": 1780336168
     },
     "calibration": null,
-    "videoFilename": null,
-    "videoOriginalName": "IMG_5807.mov",
-    "videoDriveUrl": "https://drive.google.com/file/d/1EbJkGAZpmb9CbMm0YlnKQhqEKaJ9olzB/view",
-    "winnerPath": "p4v2",
-    "paths": {
-      "path0": {
-        "computed": false
-      },
-      "pathA": {
-        "computed": false
-      },
-      "pathB": {
-        "computed": false
-      }
-    },
-    "manualTape": null,
     "hasStory": false,
     "storyMarkdown": null,
-    "storySummary": null,
-    "p4v2": {
-      "engine": "P4v2-measure-pure-N10",
-      "repeat": 10,
-      "medianRatio": 3.552,
-      "rawDbhCm": 30.4,
-      "calibratedDbhCm": 35.1,
-      "calibFactor": 1.155,
-      "aggMethodFinal": "median",
-      "cv": 27.080509534775803,
-      "measureTimestamps": [
-        12,
-        9.9,
-        11,
-        11.1,
-        11,
-        12,
-        9,
-        12,
-        11,
-        0
-      ],
-      "runs": [
-        {
-          "videoTimestampSec": 12,
-          "ratio": 3.830508474576271,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 9.9,
-          "ratio": 2.2904,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 11,
-          "ratio": 4.127659574468085,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 11.1,
-          "ratio": 2.603,
-          "confidence": 0.95
-        },
-        {
-          "videoTimestampSec": 11,
-          "ratio": 3.866090712743002,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 12,
-          "ratio": 2.2766,
-          "confidence": 1
-        },
-        {
-          "videoTimestampSec": 9,
-          "ratio": 4.569,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 12,
-          "ratio": 3.552,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 11,
-          "ratio": 2.09,
-          "confidence": 0.8
-        },
-        {
-          "videoTimestampSec": 0,
-          "ratio": 0,
-          "confidence": 0
-        }
-      ],
-      "species": {
-        "agree": true,
-        "primary": "Toona ciliata",
-        "source": "agree",
-        "gemini": {
-          "species": "Toona ciliata",
-          "zhName": "未知樹種",
-          "confidence": 0.65,
-          "isDefaultFormula": true,
-          "carbonKg": 284.26,
-          "agbKg": 568.52,
-          "co2eKg": 1043.24
-        },
-        "plantnet": {
-          "species": "Cedrela odorata",
-          "zhName": "未知樹種",
-          "confidence": 0.3333,
-          "isDefaultFormula": true,
-          "carbonKg": 284.26,
-          "agbKg": 568.52,
-          "co2eKg": 1043.24
-        },
-        "leafTimestamps": [
-          20,
-          23,
-          26
-        ]
-      },
-      "carbon": {
-        "primaryKg": 284.26,
-        "agbKg": 568.52,
-        "co2eKg": 1043.24,
-        "heightM": 24.80618546832031
-      }
-    }
+    "storySummary": null
   },
   {
     "treeNo": "T030",
@@ -4446,8 +971,8 @@
     "dbhCm": 30.5,
     "originalDbhCm": null,
     "appliedCorrectionFactor": null,
-    "volumeM3": 0.6482,
-    "carbonKg": 306.3,
+    "volumeM3": 0.6299157423850319,
+    "carbonKg": 295.2730042429837,
     "confidence": "0.855",
     "gps": "22.7353,121.0665",
     "focalLengthMm": 5.7,
@@ -4466,133 +991,9 @@
       "createdAt": 1780337387
     },
     "calibration": null,
-    "videoFilename": null,
-    "videoOriginalName": "IMG_5811.mov",
-    "videoDriveUrl": "https://drive.google.com/file/d/1CgeLGT-k2NiW54MXdInjuI5OAlYsTlf5/view",
-    "winnerPath": "p4v2",
-    "paths": {
-      "path0": {
-        "computed": false
-      },
-      "pathA": {
-        "computed": false
-      },
-      "pathB": {
-        "computed": false
-      }
-    },
-    "manualTape": null,
     "hasStory": false,
     "storyMarkdown": null,
-    "storySummary": null,
-    "p4v2": {
-      "engine": "P4v2-measure-pure-N10",
-      "repeat": 10,
-      "medianRatio": 3.081,
-      "rawDbhCm": 26.4,
-      "calibratedDbhCm": 30.5,
-      "calibFactor": 1.155,
-      "aggMethodFinal": "median",
-      "cv": 27.2710589684866,
-      "measureTimestamps": [
-        8,
-        8,
-        7,
-        9,
-        6,
-        8,
-        6,
-        8,
-        7,
-        8
-      ],
-      "runs": [
-        {
-          "videoTimestampSec": 8,
-          "ratio": 3.1782945736434107,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 8,
-          "ratio": 3.081,
-          "confidence": 1
-        },
-        {
-          "videoTimestampSec": 7,
-          "ratio": 3.33,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 9,
-          "ratio": 1.99,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 6,
-          "ratio": 4.18,
-          "confidence": 0.95
-        },
-        {
-          "videoTimestampSec": 8,
-          "ratio": 2.79,
-          "confidence": 1
-        },
-        {
-          "videoTimestampSec": 6,
-          "ratio": 1.8,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 8,
-          "ratio": 1.805,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 7,
-          "ratio": 3.3950617283950617,
-          "confidence": 1
-        },
-        {
-          "videoTimestampSec": 8,
-          "ratio": 0,
-          "confidence": 0.1
-        }
-      ],
-      "species": {
-        "agree": false,
-        "primary": "Robinia pseudoacacia",
-        "source": "gemini+plantnet",
-        "gemini": {
-          "species": "Robinia pseudoacacia",
-          "zhName": "相思樹",
-          "confidence": 0.9,
-          "isDefaultFormula": false,
-          "carbonKg": 306.3,
-          "agbKg": 612.59,
-          "co2eKg": 1124.11
-        },
-        "plantnet": {
-          "species": "Styphnolobium japonicum",
-          "zhName": "未知樹種",
-          "confidence": 0.50786,
-          "isDefaultFormula": true,
-          "carbonKg": 203.05,
-          "agbKg": 406.1,
-          "co2eKg": 745.2
-        },
-        "leafTimestamps": [
-          18,
-          20,
-          22
-        ]
-      },
-      "carbon": {
-        "primaryKg": 306.3,
-        "agbKg": 612.59,
-        "co2eKg": 1124.11,
-        "heightM": 23.94718003099679
-      }
-    }
+    "storySummary": null
   },
   {
     "treeNo": "T031",
@@ -4602,8 +1003,8 @@
     "dbhCm": 35,
     "originalDbhCm": null,
     "appliedCorrectionFactor": null,
-    "volumeM3": 0.8775,
-    "carbonKg": 296.61,
+    "volumeM3": 0.8775320488933729,
+    "carbonKg": 296.60583252596,
     "confidence": "0.9",
     "gps": "22.735,121.0655",
     "focalLengthMm": 5.7,
@@ -4622,133 +1023,9 @@
       "createdAt": 1780338891
     },
     "calibration": null,
-    "videoFilename": null,
-    "videoOriginalName": "IMG_5817.mov",
-    "videoDriveUrl": "https://drive.google.com/file/d/1MYhIVJI2SBkbpAZFBoq7OdJgA4N5pog6/view",
-    "winnerPath": "p4v2",
-    "paths": {
-      "path0": {
-        "computed": false
-      },
-      "pathA": {
-        "computed": false
-      },
-      "pathB": {
-        "computed": false
-      }
-    },
-    "manualTape": null,
     "hasStory": false,
     "storyMarkdown": null,
-    "storySummary": null,
-    "p4v2": {
-      "engine": "P4v2-measure-pure-N10",
-      "repeat": 10,
-      "medianRatio": 3.5361,
-      "rawDbhCm": 30.3,
-      "calibratedDbhCm": 35,
-      "calibFactor": 1.155,
-      "aggMethodFinal": "median",
-      "cv": 27.1838407827639,
-      "measureTimestamps": [
-        45,
-        43,
-        43,
-        43,
-        43,
-        43,
-        43,
-        44,
-        44,
-        43
-      ],
-      "runs": [
-        {
-          "videoTimestampSec": 45,
-          "ratio": 1.7391304347826086,
-          "confidence": 0.8
-        },
-        {
-          "videoTimestampSec": 43,
-          "ratio": 1.811,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 43,
-          "ratio": 2.856031128404669,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 43,
-          "ratio": 3.577,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 43,
-          "ratio": 3.29,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 43,
-          "ratio": 3.7116564417177913,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 43,
-          "ratio": 3.536082474226804,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 44,
-          "ratio": 4.32,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 44,
-          "ratio": 4.194,
-          "confidence": 1
-        },
-        {
-          "videoTimestampSec": 43,
-          "ratio": 2.5396825396825395,
-          "confidence": 0.9
-        }
-      ],
-      "species": {
-        "agree": true,
-        "primary": "Liquidambar formosana",
-        "source": "agree",
-        "gemini": {
-          "species": "Liquidambar formosana",
-          "zhName": "楓香",
-          "confidence": 0.9,
-          "isDefaultFormula": false,
-          "carbonKg": 296.61,
-          "agbKg": 593.21,
-          "co2eKg": 1088.54
-        },
-        "plantnet": {
-          "species": "Liquidambar formosana",
-          "zhName": "楓香",
-          "confidence": 0.85877,
-          "isDefaultFormula": false,
-          "carbonKg": 296.61,
-          "agbKg": 593.21,
-          "co2eKg": 1088.54
-        },
-        "leafTimestamps": [
-          5,
-          13,
-          55
-        ]
-      },
-      "carbon": {
-        "primaryKg": 296.61,
-        "agbKg": 593.21,
-        "co2eKg": 1088.54,
-        "heightM": 25.964425443520163
-      }
-    }
+    "storySummary": null
   },
   {
     "treeNo": "T032",
@@ -4758,8 +1035,8 @@
     "dbhCm": 29.4,
     "originalDbhCm": null,
     "appliedCorrectionFactor": null,
-    "volumeM3": 0.5818,
-    "carbonKg": 196.66,
+    "volumeM3": 0.5818208276882566,
+    "carbonKg": 186.1826648602421,
     "confidence": "0.92",
     "gps": "22.7351,121.0657",
     "focalLengthMm": 5.7,
@@ -4778,132 +1055,8 @@
       "createdAt": 1780339498
     },
     "calibration": null,
-    "videoFilename": null,
-    "videoOriginalName": "IMG_5819.mov",
-    "videoDriveUrl": "https://drive.google.com/file/d/1dFF4DF0JVlZqgxCQeOSxMSvnlybOCOfn/view",
-    "winnerPath": "p4v2",
-    "paths": {
-      "path0": {
-        "computed": false
-      },
-      "pathA": {
-        "computed": false
-      },
-      "pathB": {
-        "computed": false
-      }
-    },
-    "manualTape": null,
     "hasStory": false,
     "storyMarkdown": null,
-    "storySummary": null,
-    "p4v2": {
-      "engine": "P4v2-measure-pure-N10",
-      "repeat": 10,
-      "medianRatio": 2.971,
-      "rawDbhCm": 25.4,
-      "calibratedDbhCm": 29.4,
-      "calibFactor": 1.155,
-      "aggMethodFinal": "median",
-      "cv": 23.137446090459573,
-      "measureTimestamps": [
-        33,
-        33.333,
-        33.2,
-        34,
-        33,
-        33.5,
-        33,
-        33,
-        33,
-        33
-      ],
-      "runs": [
-        {
-          "videoTimestampSec": 33,
-          "ratio": 2.8758,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 33.333,
-          "ratio": 3.9335664335664333,
-          "confidence": 1
-        },
-        {
-          "videoTimestampSec": 33.2,
-          "ratio": 3.3615,
-          "confidence": 0.95
-        },
-        {
-          "videoTimestampSec": 34,
-          "ratio": 2.55,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 33,
-          "ratio": 1.438,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 33.5,
-          "ratio": 3.4006,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 33,
-          "ratio": 2.928,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 33,
-          "ratio": 2.971,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 33,
-          "ratio": 2.88,
-          "confidence": 0.9
-        },
-        {
-          "videoTimestampSec": 33,
-          "ratio": 4.059,
-          "confidence": 0.95
-        }
-      ],
-      "species": {
-        "agree": false,
-        "primary": "Liquidambar styraciflua",
-        "source": "gemini+plantnet",
-        "gemini": {
-          "species": "Liquidambar styraciflua",
-          "zhName": "北美楓香",
-          "confidence": 0.9,
-          "isDefaultFormula": false,
-          "carbonKg": 196.66,
-          "agbKg": 393.31,
-          "co2eKg": 721.73
-        },
-        "plantnet": {
-          "species": "Liquidambar formosana",
-          "zhName": "楓香",
-          "confidence": 0.89431,
-          "isDefaultFormula": false,
-          "carbonKg": 196.66,
-          "agbKg": 393.31,
-          "co2eKg": 721.73
-        },
-        "leafTimestamps": [
-          7,
-          15,
-          32
-        ]
-      },
-      "carbon": {
-        "primaryKg": 196.66,
-        "agbKg": 393.31,
-        "co2eKg": 721.73,
-        "heightM": 25.609422268792677
-      }
-    }
+    "storySummary": null
   }
 ]
