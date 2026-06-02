@@ -12,6 +12,7 @@
     "@ffprobe-installer/ffprobe": "^2.1.2",
     "@google/generative-ai": "^0.21.0",
     "axios": "^1.6.2",
+    "better-sqlite3": "^11.5.0",
     "dotenv": "^16.3.1",
     "ethers": "^6.9.0",
     "exiftool-vendored": "^28.3.1",
