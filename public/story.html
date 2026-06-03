@@ -143,7 +143,7 @@ const treeId = params.get('id')
 
 function fmtDate(iso) {
   if (!iso) return '—'
-  const d = new Date(typeof iso === 'number' ? iso : iso)
+  const d = new Date(typeof iso === 'number' ? (iso < 2e10 ? iso * 1000 : iso) : iso)
   if (isNaN(d)) return '—'
   return d.toLocaleDateString('zh-TW', { year: 'numeric', month: 'long', day: 'numeric' })
 }
@@ -160,7 +160,7 @@ function renderMeta(tree) {
   const items = [
     { label: '樹種', value: tree.species || '未知樹種' },
     { label: '胸徑 (DBH)', value: tree.dbhCm ? `${Number(tree.dbhCm).toFixed(1)} cm` : '—' },
-    { label: '碳儲量', value: tree.carbonKg ? `${Number(tree.carbonKg).toFixed(1)} kg` : '—' },
+    { label: '碳儲量', value: tree.carbonKg ? `${Number(tree.carbonKg).toFixed(3)} kg` : '—' },
     { label: '拍攝日期', value: fmtDate(tree.createdAt) },
     gps ? { label: 'GPS', value: `<a href="${gps.url}" target="_blank">${gps.lat}, ${gps.lng}</a>` } : null,
     tree.altitude ? { label: '海拔', value: `${Math.round(tree.altitude)} m` } : null,
@@ -176,7 +176,7 @@ function renderMeta(tree) {
 function renderStory(markdown, generatedAt) {
   const sc = document.getElementById('storyCard')
   if (!markdown) {
-    sc.innerHTML = `<div class="no-story"><div class="no-story-icon">🌱</div><p>這棵樹的故事正在生成中，請稍後再來。<br>故事在影片上傳後由 AI 非同步產生。</p></div>`
+    sc.innerHTML = `<div class="no-story"><div class="no-story-icon">🌱</div><p>這棵樹的永續故事載入中，請稍後再來。<br>故事在影片上傳後由 AI 非同步產生。</p></div>`
     return
   }
   const html = marked.parse(markdown)
@@ -226,7 +226,7 @@ async function main() {
     document.title = `${species} 的永續故事`
     document.getElementById('hdrTitle').textContent = `🌿 ${species} 的永續故事`
     document.getElementById('hdrSub').textContent =
-      tree.dbhCm ? `胸徑 ${Number(tree.dbhCm).toFixed(1)} cm・碳儲量 ${Number(tree.carbonKg || 0).toFixed(1)} kg` : ''
+      tree.dbhCm ? `胸徑 ${Number(tree.dbhCm).toFixed(1)} cm・碳儲量 ${Number(tree.carbonKg || 0).toFixed(3)} kg` : ''
 
     renderMeta(tree)
     renderStory(markdown, generatedAt)
