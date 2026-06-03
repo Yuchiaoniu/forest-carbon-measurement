@@ -232,6 +232,7 @@ body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color
     <div class="header-nav">
       <a href="/">← 測量系統</a>
       <a href="./showcase.html">📈 評估與演進旅程</a>
+      <a href="./stories.html">🌿 永續故事集</a>
       <a href="./sop.html">📋 SOP</a>
     </div>
     <h1>🌿 量測結果</h1>
@@ -613,6 +614,19 @@ function buildCard(r) {
     </div>`
 
   // ── Section 8: 影片
+  const storySection = r.hasStory ? `
+    <div>
+      <div class="section-title">🌿 永續故事</div>
+      <a href="story.html?id=${r.id}" target="_blank"
+         style="display:inline-block;margin-top:6px;font-size:0.82rem;font-weight:600;
+                padding:6px 16px;border-radius:20px;text-decoration:none;
+                background:#d1fae5;color:#065f46;transition:background 0.2s;"
+         onmouseover="this.style.background='#a7f3d0'"
+         onmouseout="this.style.background='#d1fae5'">
+        閱讀這棵樹的永續故事 →
+      </a>
+    </div>` : ''
+
   const videoSection = r.videoDriveUrl
     ? `<div style="grid-column: 1 / -1">
         <div class="section-title">🎬 原始影片
@@ -649,7 +663,6 @@ function buildCard(r) {
       ${errBadge}
       ${bcBadge}
       ${r.videoDriveUrl ? `<a class="badge badge-pending" href="${r.videoDriveUrl}" target="_blank" onclick="event.stopPropagation()" title="原始影片">🎬 影片</a>` : ''}
-      ${r.hasStory ? `<a class="badge badge-story" href="story.html?id=${r.id}" target="_blank" onclick="event.stopPropagation()">🌿 永續故事</a>` : ''}
     </div>
     <span class="chevron">▼</span>
   </div>
@@ -664,6 +677,7 @@ function buildCard(r) {
       ${blockchainSection}
       ${exifSection}
       ${videoSection}
+      ${storySection}
     </div>
   </div>
 </div>`
