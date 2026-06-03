@@ -22,31 +22,41 @@
 
 ---
 
-## 現況（2026-06-03，網站頁面整理完成）
+## 現況（2026-06-03，網站頁面整理 + 永續故事功能完成）
 
 **本次對話完成的工作：**
 
 1. **Expedition 區塊鏈瀏覽器修復（完成）：**
-   - 根本原因：`sites-enabled/forest-carbon` 是舊版複製檔，`/explorer/` 和 `/rpc` location 區塊從未生效
+   - 根本原因：`sites-enabled/forest-carbon` 是舊版複製檔，`/explorer/` 和 `/rpc` location 從未生效
    - 修法：`sudo cp sites-available/forest-carbon sites-enabled/forest-carbon && systemctl reload nginx`
-   - 現在 `/explorer/tx/<hash>?rpcUrl=...` 可正常存取
 
 2. **showcase.html 頁面整理（完成）：**
-   - 移除「▶ 生產版成果（32 棵量測 + Verra 碳信用憑證）：dashboard02.html」
-   - 任務編號 #39–#44 從表格移除，欄位「要做的事」改「任務名稱」，句子拿掉「由六件任務（編號 #39 至 #44）構成，」
-   - Footer 清空舊內容（最後更新、dashboard02 連結）
-   - 新增 §10 Verra VM0047 官方文件區塊（含三條認證條件的 PDF 搜尋關鍵字表格）
-   - Nav 改為：← 測量系統 ｜ 📊 量測結果 ｜ 📋 SOP
+   - 移除「▶ 生產版成果…dashboard02.html」、任務編號 #39–#44、舊 footer
+   - 欄位「要做的事」→「任務名稱」；句子移除「由六件任務（編號 #39 至 #44）構成，」
+   - 新增 §10 Verra VM0047 官方文件區塊（PDF 搜尋關鍵字表格）
+   - Nav：← 測量系統 ｜ 📊 量測結果 ｜ 📋 SOP
 
 3. **dashboard.html 調整（完成）：**
-   - 大標題從「🌿 Pipeline 4 v2 量測結果」改為「🌿 量測結果」
-   - Nav 補回 showcase 連結：← 測量系統 ｜ 📈 評估與演進旅程 ｜ 📋 SOP
+   - 大標題改「🌿 量測結果」
+   - Nav：← 測量系統 ｜ 📈 評估與演進旅程 ｜ 🌿 永續故事集 ｜ 📋 SOP
+   - 每個樹卡片展開後有「🌿 永續故事」區塊（在影片上方），連到 `story.html?id=<treeId>`
 
-4. **sop.html 新增（完成）：**
-   - 內容：拍攝 Protocol（§1）、Ground Truth 標準（§2.1–§2.2）、林業局公式表格（§3）
-   - Nav：← 測量系統 ｜ 📊 量測記錄 ｜ 📈 評估與演進旅程
+4. **stories.html 新增（完成）：**
+   - 全部 32 棵樹的永續故事目錄，有故事排前、無故事排後
+   - 每張卡片顯示樹種（中英文）、DBH、碳儲量、故事摘要第一段
+   - 連結到個別 `story.html?id=<treeId>`
 
-5. **GitHub 同步（完成）：** 最新 commit `6a5ab10`，master branch
+5. **story.html 修復（完成）：**
+   - 移除「故事生成時間」顯示（含 1970 年 bug）
+   - 修復 JS 語法錯誤（移除 generated-at 時留下懸空 `+`）
+   - 返回連結從 `dashboard02.html` 改為 `dashboard.html`
+
+6. **DB 故事 markdown 批次修正（完成）：**
+   - 51 筆全部移除底部「_資料由 Forest Carbon Measurement 系統自動生成…_」
+   - 28 棵「未知樹種」標題換成正確中文名（台灣欅、大葉欖仁、苦楝、大葉合歡等）
+   - T014（無法判斷）、T018（Unknown）維持原樣
+
+7. **GitHub 同步（完成）：** 最新 commit `cbaf867`，master branch
 
 ---
 
@@ -56,6 +66,8 @@
 - 量測結果（dashboard）：https://forest-carbon.duckdns.org/dashboard.html
 - 評估與演進旅程（showcase）：https://forest-carbon.duckdns.org/showcase.html
 - SOP：https://forest-carbon.duckdns.org/sop.html
+- 永續故事集：https://forest-carbon.duckdns.org/stories.html
+- 個別故事：https://forest-carbon.duckdns.org/story.html?id=\<treeId\>
 - 區塊鏈瀏覽器：https://forest-carbon.duckdns.org/explorer/
 
 ---
@@ -70,8 +82,8 @@
 
 ## 給接手 Claude 的提醒
 
-- nginx `sites-enabled/forest-carbon` 是普通檔案（非 symlink），每次改 `sites-available` 要記得複製過去再 reload
-- dashboard.html 現在就是生產版（原 dashboard02 內容），dashboard02.html 仍存在作相容備份
+- nginx `sites-enabled/forest-carbon` 是普通檔案（非 symlink），每次改 `sites-available` 要記得 `sudo cp` 再 reload
+- dashboard.html 現在就是生產版（原 dashboard02 內容），dashboard02.html 仍作相容備份
 - showcase.html 有來自其他對話的隱藏 RQ3/RO3 區塊，修改時注意不要蓋掉
-- 不要用大段 sed 讀整份 HTML，改用 grep -n 定位行號再縮範圍讀
+- 故事 markdown 已在 DB 中直接修正，若重新生成故事會覆蓋修正結果
 - 修 index.js 後記得 PM2 重啟：`pm2 restart forest-carbon`
