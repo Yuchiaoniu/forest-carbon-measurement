@@ -1,4 +1,4 @@
-# Forest Carbon — 專案狀態快照（2026-06-02 更新）
+# Forest Carbon — 專案狀態快照（2026-06-03 更新）
 
 ## 研究問題（RQ）與研究目標（RO）— 動態修正中
 
@@ -22,35 +22,41 @@
 
 ---
 
-## 現況（2026-06-02，dashboard02 三個 Bug 已修 + UI 補齊 + 故事升級完成）
+## 現況（2026-06-03，網站頁面整理完成）
 
-**已完成的工作（本次對話）：**
+**本次對話完成的工作：**
 
-1. **dashboard02 Bug 修正（全部完成）：**
-   - frame-at 路徑 Bug：`index.js` 加 `..` → 關鍵幀截圖 HTTP 200 ✓
-   - CV 精度等級全 LOW：閾值改 `cv <= 10`（HIGH）、`cv <= 25`（MEDIUM）；顯示移除多餘 ×100 ✓
-   - Drive 影片嵌入空白：iframe src 加 `.replace('/view', '/preview')` ✓
+1. **Expedition 區塊鏈瀏覽器修復（完成）：**
+   - 根本原因：`sites-enabled/forest-carbon` 是舊版複製檔，`/explorer/` 和 `/rpc` location 區塊從未生效
+   - 修法：`sudo cp sites-available/forest-carbon sites-enabled/forest-carbon && systemctl reload nginx`
+   - 現在 `/explorer/tx/<hash>?rpcUrl=...` 可正常存取
 
-2. **dashboard02 UI 補齊（全部完成）：**
-   - section title 去掉「P4v2」字眼，改中文通用描述
-   - 物種辨識「信心」改「可靠評分」
-   - 新增「🌿 拍攝當下環境快照（CBD 生物多樣性）」區塊（lazy-load，展開時呼叫 `/api/trees/:id/environment`）
-   - 區塊鏈存證連結格式確認正確（`tx.html?hash=…`）
+2. **showcase.html 頁面整理（完成）：**
+   - 移除「▶ 生產版成果（32 棵量測 + Verra 碳信用憑證）：dashboard02.html」
+   - 任務編號 #39–#44 從表格移除，欄位「要做的事」改「任務名稱」，句子拿掉「由六件任務（編號 #39 至 #44）構成，」
+   - Footer 清空舊內容（最後更新、dashboard02 連結）
+   - 新增 §10 Verra VM0047 官方文件區塊（含三條認證條件的 PDF 搜尋關鍵字表格）
+   - Nav 改為：← 測量系統 ｜ 📊 量測結果 ｜ 📋 SOP
 
-3. **§28.8 永續故事 prompt 升級（完成）：**
-   - `storyService.js` `generateStoryA()` 升級：讀 `environmental_context` 表，注入季節、林帶、氣溫、濕度、UV、日照時數、太陽仰角、物候標籤進 prompt
-   - Markdown 末段補「📊 拍攝當下環境快照」表格
-   - `regen_stories.js` 對 32 棵全部重新生成：**成功 32、跳過 0、失敗 0**
-   - 升級版 prompt 架構已存入 `memory.md` §18
+3. **dashboard.html 調整（完成）：**
+   - 大標題從「🌿 Pipeline 4 v2 量測結果」改為「🌿 量測結果」
+   - Nav 補回 showcase 連結：← 測量系統 ｜ 📈 評估與演進旅程 ｜ 📋 SOP
+
+4. **sop.html 新增（完成）：**
+   - 內容：拍攝 Protocol（§1）、Ground Truth 標準（§2.1–§2.2）、林業局公式表格（§3）
+   - Nav：← 測量系統 ｜ 📊 量測記錄 ｜ 📈 評估與演進旅程
+
+5. **GitHub 同步（完成）：** 最新 commit `6a5ab10`，master branch
 
 ---
 
 ## 可存取頁面
 
-- dashboard02（主目標）：https://forest-carbon.duckdns.org/dashboard02.html
-- dashboard（原版三路徑）：https://forest-carbon.duckdns.org/dashboard.html
-- tx 查詢：https://forest-carbon.duckdns.org/tx.html?hash=\<txHash\>
-- journey：https://forest-carbon.duckdns.org/journey/
+- 主畫面：https://forest-carbon.duckdns.org/
+- 量測結果（dashboard）：https://forest-carbon.duckdns.org/dashboard.html
+- 評估與演進旅程（showcase）：https://forest-carbon.duckdns.org/showcase.html
+- SOP：https://forest-carbon.duckdns.org/sop.html
+- 區塊鏈瀏覽器：https://forest-carbon.duckdns.org/explorer/
 
 ---
 
@@ -58,14 +64,14 @@
 
 - **§30.5**：paper 章節更新，明示「對 manual ground truth」與「自比」兩種數字
 - **§35.3–35.5**：Path A OpenCV 兩階段重構部署（VM pip install + 主流程整合）
-- **永續故事連結補齊**：`hasStory` 32 棵已全部重生成新版故事（含環境快照），dashboard02 的故事連結已可用
 - **RO2/RO3 定案**：UTAUT vs D&M 問卷模型選擇待確認
 
 ---
 
 ## 給接手 Claude 的提醒
 
-- dashboard02 `hasStory` 連結格式 `story.html?id=...`，故事端點 `/api/trees/:id/story?format=json`
-- 新版故事含「📊 拍攝當下環境快照」表格（季節/林帶/氣溫/UV/日照/物候標籤），只在 `environmental_context` 有資料的樹才出現
+- nginx `sites-enabled/forest-carbon` 是普通檔案（非 symlink），每次改 `sites-available` 要記得複製過去再 reload
+- dashboard.html 現在就是生產版（原 dashboard02 內容），dashboard02.html 仍存在作相容備份
+- showcase.html 有來自其他對話的隱藏 RQ3/RO3 區塊，修改時注意不要蓋掉
 - 不要用大段 sed 讀整份 HTML，改用 grep -n 定位行號再縮範圍讀
 - 修 index.js 後記得 PM2 重啟：`pm2 restart forest-carbon`
