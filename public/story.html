@@ -109,7 +109,6 @@ body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color
 .no-story-icon { font-size: 2.5rem; margin-bottom: 12px; }
 .no-story p { font-size: 0.88rem; line-height: 1.6; max-width: 320px; margin: 0 auto; }
 
-.generated-at { font-size: 0.75rem; color: var(--muted); margin-top: 20px; text-align: right; }
 </style>
 </head>
 <body>
@@ -117,7 +116,7 @@ body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color
 <div class="header">
   <div class="header-inner">
     <nav class="header-nav">
-      <a href="./dashboard02.html">← 返回量測記錄</a>
+      <a href="./dashboard.html">← 返回量測記錄</a>
     </nav>
     <div class="header-title" id="hdrTitle">🌿 永續故事</div>
     <div class="header-sub" id="hdrSub">載入中…</div>
@@ -182,7 +181,6 @@ function renderStory(markdown, generatedAt) {
   }
   const html = marked.parse(markdown)
   sc.innerHTML = `<div class="story-body">${html}</div>` +
-    (generatedAt ? `<div class="generated-at">故事生成時間：${fmtDate(generatedAt)}</div>` : '')
 }
 
 async function loadFromGhPages() {
