@@ -56,7 +56,13 @@
    - 28 棵「未知樹種」標題換成正確中文名（台灣欅、大葉欖仁、苦楝、大葉合歡等）
    - T014（無法判斷）、T018（Unknown）維持原樣
 
-7. **GitHub 同步（完成）：** 最新 commit `cbaf867`，master branch
+7. **story.html 細節修正（完成）：**
+   - 拍攝日期修正：`fmtDate` 將 Unix 秒 ×1000 再傳給 `new Date()`
+   - 碳儲量顯示：`toFixed(1)` → `toFixed(3)`（meta 卡片和 header subtitle）
+   - 無故事提示文字改為「這棵樹的永續故事載入中」
+   - DB 51 筆故事 markdown 移除 `| **起源** | ... |` 表格列
+
+8. **GitHub 同步（完成）：** 最新 commit `1650a55`，master branch
 
 ---
 
