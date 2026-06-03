@@ -655,7 +655,7 @@ function buildCard(r) {
     <div class="conf-bar conf-bar-${conf}"></div>
     <span class="tree-no">${r.treeNo}</span>
     <span class="species-name">
-      ${primarySpecies}${zhStr ? ` <span class="species-src">（${zhStr}）</span>` : ''}
+      ${zhStr || primarySpecies}${zhStr ? ` <span class="species-src">${primarySpecies}</span>` : ''}
     </span>
     <div class="badges">
 
