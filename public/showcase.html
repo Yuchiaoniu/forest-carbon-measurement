@@ -208,6 +208,9 @@ footer {
 }
 footer a { color: var(--blue-500); text-decoration: none; }
 footer a:hover { text-decoration: underline; }
+.footer-verra { display: flex; flex-direction: column; gap: 8px; }
+.footer-verra-title { font-weight: 600; color: var(--text); font-size: 0.82rem; }
+.footer-verra-links { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
 
 code { background: #f1f5f9; padding: 2px 6px; border-radius: 4px; font-size: 0.82rem; color: #1e40af; }
 p { margin-bottom: 10px; }
@@ -272,7 +275,6 @@ li { margin-bottom: 4px; }
 <div class="section-card amber">
   <div class="section-card-inner">
     <p>此頁面完整呈現此專案在 2026 年 5 月對 31 棵實驗樹所進行的 DBH（胸高直徑，Diameter at Breast Height）測量系統演進歷程。系統從最初採用單一處理流程（pipeline）、整體通過率不足六成的起點出發，逐步發展為以 5 條處理流程並行對照、為每棵樹挑選表現最佳路徑（winner）的架構，最終讓誤差 ≤15% 的通過率提升至 <strong>73%（22/30 棵）</strong>。</p>
-    <p style="margin-bottom:0">▶ 生產版成果（32 棵量測 + Verra 碳信用憑證）：<a class="anchor" href="https://forest-carbon.duckdns.org/dashboard02.html" target="_blank" rel="noopener">dashboard02.html</a></p>
   </div>
 </div>
 
@@ -298,15 +300,15 @@ li { margin-bottom: 4px; }
             <tr><td>3</td><td>不確定性扣減至少扣除 10%</td><td>屬強制扣減，未構成及格門檻</td><td>屬核發時固定扣減，無法避免</td></tr>
           </table>
           <p>真正決定核發與否的條件，僅有第 2 條那道紅線。第 1 條僅規範採用哪一種演算法，第 3 條僅規範最終固定扣減的數量，兩者皆未構成通過與否的判準。</p>
-          <p>支撐這項精度宣稱的合規工作，由六件任務（編號 #39 至 #44）構成，目前六件全數完成：</p>
+          <p>支撐這項精度宣稱的合規工作，目前六件全數完成：</p>
           <table>
-            <tr><th>任務</th><th>要做的事</th><th>對應 Verra 規範</th><th>完成證據</th></tr>
-            <tr><td>#39</td><td>嚴格計算比例校準法（ratio method）的 90% 信賴區間</td><td>§9.2</td><td class="pass">8.63%，遠低於 100% 紅線 ✓</td></tr>
-            <tr><td>#40</td><td>撰寫標準作業程序文件（SOP，含品質管控流程）</td><td>§9.3</td><td class="pass">sop.md 完成 ✓</td></tr>
-            <tr><td>#41</td><td>確認材積與碳換算公式（allometric equation）對應正確生態區</td><td>§9.1</td><td class="pass">採台灣林業局公式 ✓</td></tr>
-            <tr><td>#42</td><td>證明皮尺真值量法符合 Kershaw 教科書標準作法</td><td>§9.1</td><td class="pass">鐵捲尺定 1.3 公尺、皮尺繞一圈量周長 ✓</td></tr>
-            <tr><td>#43</td><td>撰寫適用範圍宣告（界定方法成立的條件）</td><td>§9.1</td><td class="pass">sop.md 第 8 節完成 ✓</td></tr>
-            <tr><td>#44</td><td>以配對 t 檢定（paired t-test）證明量測無系統性偏誤</td><td>§9.1</td><td class="pass">t=0.126，遠小於臨界值 2.052 ✓</td></tr>
+            <tr><th>任務名稱</th><th>對應 Verra 規範</th><th>完成證據</th></tr>
+            <tr><td>嚴格計算比例校準法（ratio method）的 90% 信賴區間</td><td>§9.2</td><td class="pass">8.63%，遠低於 100% 紅線 ✓</td></tr>
+            <tr><td>撰寫標準作業程序文件（SOP，含品質管控流程）</td><td>§9.3</td><td class="pass">sop.md 完成 ✓</td></tr>
+            <tr><td>確認材積與碳換算公式（allometric equation）對應正確生態區</td><td>§9.1</td><td class="pass">採台灣林業局公式 ✓</td></tr>
+            <tr><td>證明皮尺真值量法符合 Kershaw 教科書標準作法</td><td>§9.1</td><td class="pass">鐵捲尺定 1.3 公尺、皮尺繞一圈量周長 ✓</td></tr>
+            <tr><td>撰寫適用範圍宣告（界定方法成立的條件）</td><td>§9.1</td><td class="pass">sop.md 第 8 節完成 ✓</td></tr>
+            <tr><td>以配對 t 檢定（paired t-test）證明量測無系統性偏誤</td><td>§9.1</td><td class="pass">t=0.126，遠小於臨界值 2.052 ✓</td></tr>
           </table>
         </div>
       </div>
@@ -744,26 +746,32 @@ li { margin-bottom: 4px; }
   </div>
 </div>
 
+<!-- ════════════════════════════════════════════
+     §10 Verra 官方文件
+════════════════════════════════════════════ -->
+<div id="s10" class="section-card">
+  <div class="section-card-inner">
+    <div class="section-h2">§10 Verra VM0047 方法學官方文件</div>
+    <p>以下為 Verra VM0047 方法學的官方連結。開啟 PDF 後，可直接以 Ctrl+F 搜尋以下英文關鍵字，快速定位本頁三條認證條件在原文的段落（均在 §8.4）。</p>
+    <div style="margin-bottom:14px;display:flex;gap:12px;flex-wrap:wrap;">
+      <a class="anchor" href="https://verra.org/wp-content/uploads/2023/09/VM0047_ARR_v1.0-1.pdf" target="_blank" rel="noopener">VM0047 v1.0 全文 PDF</a>
+      <a class="anchor" href="https://verra.org/methodologies/vm0047-afforestation-reforestation-and-revegetation-v1-1/" target="_blank" rel="noopener">Verra 方法學頁面</a>
+    </div>
+    <table>
+      <tr><th>條件</th><th>PDF 搜尋關鍵字</th><th>內容說明</th></tr>
+      <tr><td>條件一</td><td><code>confidence interval</code></td><td>規範採 90%（而非常見的 95%）信頼區間計算不確定性</td></tr>
+      <tr><td>條件二</td><td><code>half-width</code></td><td>信頼區間半寬 ÷ 平均估計値必須低於 100%（唯一决定核發與否的紅線）</td></tr>
+      <tr><td>條件三</td><td><code>uncertainty deduction</code></td><td>固定扣減至少 10%（核發時強制執行，不構成通過門殄）</td></tr>
+    </table>
+  </div>
+</div>
+
 </div><!-- /container -->
 
 <!-- ══════════════════════════════════════════
      FOOTER
 ══════════════════════════════════════════ -->
-<footer>
-  <div>
-    最後更新：2026-06-02（§7 生產版統計補入；§42 dashboard02 完成）
-    · 實作於 <code>scripts/dryrun-rerun-kf*.js</code> + <code>scripts/dryrun-video*.js</code> + <code>scripts/rerun_p4.js</code>
-  </div>
-  <div>
-    生產版量測記錄：<a href="https://forest-carbon.duckdns.org/dashboard02.html" target="_blank" rel="noopener">dashboard02.html</a>
-  </div>
-  <div>
-    Verra VM0047 方法學官方文件：
-    <a href="https://verra.org/wp-content/uploads/2023/09/VM0047_ARR_v1.0-1.pdf" target="_blank" rel="noopener">VM0047 v1.0 全文 PDF</a>
-    ·
-    <a href="https://verra.org/methodologies/vm0047-afforestation-reforestation-and-revegetation-v1-1/" target="_blank" rel="noopener">Verra 方法學頁面</a>
-  </div>
-</footer>
+<footer></footer>
 
 </body>
 </html>
