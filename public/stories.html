@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>永續故事集 — 森林碳匯測量系統</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --green-900: #14532d; --green-800: #166534; --green-700: #15803d;
+  --green-600: #16a34a; --green-500: #22c55e; --green-100: #dcfce7;
+  --green-50: #f0fdf4; --bg: #f1f5f1; --text: #1a2e1a;
+  --muted: #6b7280; --border: #e5e7eb;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.08); --shadow-md: 0 4px 16px rgba(0,0,0,0.10);
+}
+body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+
+.header {
+  background: linear-gradient(135deg, var(--green-900) 0%, var(--green-700) 60%, #2d6a4f 100%);
+  padding: 24px 24px 28px; position: relative;
+}
+.header-inner { max-width: 960px; margin: 0 auto; }
+.header-nav { display: flex; gap: 16px; margin-bottom: 18px; flex-wrap: wrap; }
+.header-nav a {
+  font-size: 0.8rem; color: rgba(255,255,255,0.75); text-decoration: none;
+  padding: 4px 10px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.2);
+  transition: all 0.2s;
+}
+.header-nav a:hover { background: rgba(255,255,255,0.15); color: white; }
+.header h1 { font-size: 1.5rem; font-weight: 700; color: white; margin-bottom: 4px; }
+.header p  { font-size: 0.88rem; color: rgba(255,255,255,0.7); }
+
+.container { max-width: 960px; margin: 28px auto 0; padding: 0 16px 64px; }
+
+.summary-bar {
+  background: white; border-radius: 10px; padding: 14px 20px;
+  box-shadow: var(--shadow-sm); margin-bottom: 20px;
+  display: flex; gap: 24px; font-size: 0.85rem; color: var(--muted);
+}
+.summary-bar strong { color: var(--text); }
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.story-card {
+  background: white; border-radius: 12px; box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border); overflow: hidden;
+  transition: box-shadow 0.2s, transform 0.15s;
+  display: flex; flex-direction: column;
+}
+.story-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+.story-card.no-story { opacity: 0.5; }
+.story-card.no-story:hover { transform: none; box-shadow: var(--shadow-sm); }
+
+.card-top {
+  background: linear-gradient(135deg, var(--green-900) 0%, var(--green-700) 100%);
+  padding: 14px 16px 12px;
+}
+.card-top .tree-no { font-size: 0.68rem; font-weight: 700; color: rgba(255,255,255,0.6); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px; }
+.card-top .species { font-size: 0.95rem; font-weight: 600; color: white; }
+.card-top .species-zh { font-size: 0.78rem; color: rgba(255,255,255,0.7); margin-top: 2px; }
+
+.card-meta {
+  padding: 10px 16px; display: flex; gap: 16px; font-size: 0.78rem;
+  color: var(--muted); border-bottom: 1px solid var(--border);
+}
+.card-meta span strong { color: var(--text); font-weight: 600; }
+
+.card-body { padding: 12px 16px; flex: 1; }
+.summary-text {
+  font-size: 0.82rem; line-height: 1.6; color: #374151;
+  display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.no-story-msg { font-size: 0.8rem; color: var(--muted); font-style: italic; }
+
+.card-footer { padding: 10px 16px 14px; }
+.read-btn {
+  display: inline-block; font-size: 0.78rem; font-weight: 600;
+  padding: 6px 14px; border-radius: 20px; text-decoration: none;
+  background: var(--green-100); color: var(--green-800);
+  transition: background 0.2s;
+}
+.read-btn:hover { background: #bbf7d0; }
+.no-story-label {
+  font-size: 0.75rem; color: var(--muted); padding: 6px 0;
+}
+
+.loading { text-align: center; padding: 60px; color: var(--muted); font-size: 0.9rem; }
+.error-box { background: #fee2e2; color: #991b1b; padding: 16px; border-radius: 8px; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-inner">
+    <div class="header-nav">
+      <a href="/">← 測量系統</a>
+      <a href="./dashboard.html">📊 量測結果</a>
+      <a href="./sop.html">📋 SOP</a>
+    </div>
+    <h1>🌿 永續故事集</h1>
+    <p>32 棵受測樹木的 AI 生成永續故事 · 每棵故事含環境快照與碳匯貢獻</p>
+  </div>
+</div>
+
+<div class="container">
+  <div class="summary-bar" id="summaryBar">載入中…</div>
+  <div class="grid" id="grid"><div class="loading">載入故事目錄中…</div></div>
+</div>
+
+<script>
+const API_BASE = ''
+
+const ZH_NAMES = {
+  'Machilus thunbergii': '紅楠', 'Quercus glauca': '青剛櫟',
+  'Liquidambar formosana': '楓香', 'Cinnamomum camphora': '樟樹',
+  'Zelkova serrata': '台灣欅', 'Castanopsis cuspidata': '長尾栲',
+  'Calocedrus formosana': '台灣肖楠', 'Cyclobalanopsis': '環孔槲',
+  'Schima superba': '木荷', 'Lithocarpus': '石柯',
+  'Pinus taiwanensis': '台灣二葉松', 'Cryptomeria japonica': '柳杉',
+  'Chamaecyparis': '扁柏', 'Araucaria': '南洋杉',
+  'Ficus': '榕樹', 'Cinnamomum': '樟屬',
+}
+
+function zhName(en) {
+  if (!en) return ''
+  for (const [k, v] of Object.entries(ZH_NAMES)) {
+    if (en.toLowerCase().startsWith(k.toLowerCase())) return v
+  }
+  return ''
+}
+
+function fmtNum(v, dec=1) {
+  const n = parseFloat(v)
+  return isNaN(n) ? '—' : n.toFixed(dec)
+}
+
+function buildCard(r) {
+  const species = r.p4v2?.species?.primary || r.species || '未知樹種'
+  const zh = zhName(species)
+  const dbh = fmtNum(r.p4v2?.calibratedDbhCm)
+  const carbon = fmtNum(r.p4v2?.carbon?.carbonKg)
+  const hasStory = !!r.hasStory
+
+  return `
+  <div class="story-card${hasStory ? '' : ' no-story'}">
+    <div class="card-top">
+      <div class="tree-no">${r.treeNo || ('Tree #' + r.id)}</div>
+      <div class="species">${species}</div>
+      ${zh ? `<div class="species-zh">${zh}</div>` : ''}
+    </div>
+    <div class="card-meta">
+      <span>DBH <strong>${dbh} cm</strong></span>
+      <span>碳儲量 <strong>${carbon} kg</strong></span>
+    </div>
+    <div class="card-body">
+      ${hasStory
+        ? `<div class="summary-text" id="sum-${r.id}">載入摘要中…</div>`
+        : `<div class="no-story-msg">永續故事尚未生成</div>`}
+    </div>
+    <div class="card-footer">
+      ${hasStory
+        ? `<a class="read-btn" href="story.html?id=${r.id}" target="_blank">閱讀完整故事 →</a>`
+        : `<span class="no-story-label">— 故事待生成</span>`}
+    </div>
+  </div>`
+}
+
+async function loadSummary(treeId) {
+  try {
+    const res = await fetch(`${API_BASE}/api/trees/${treeId}/story?format=json`)
+    if (!res.ok) return
+    const data = await res.json()
+    const el = document.getElementById('sum-' + treeId)
+    if (!el) return
+    if (data.markdown) {
+      // Extract first non-heading paragraph as summary
+      const lines = data.markdown.split('\n').filter(l => l.trim() && !l.startsWith('#'))
+      el.textContent = lines[0]?.replace(/\*\*/g, '') || '（故事內容載入中）'
+    }
+  } catch(e) {}
+}
+
+async function main() {
+  try {
+    const res = await fetch(`${API_BASE}/api/trees`)
+    if (!res.ok) throw new Error('無法載入樹木資料')
+    const trees = await res.json()
+
+    const withStory = trees.filter(r => r.hasStory)
+    const withoutStory = trees.filter(r => !r.hasStory)
+
+    document.getElementById('summaryBar').innerHTML =
+      `共 <strong>${trees.length}</strong> 棵受測樹木・` +
+      `<strong style="color:var(--green-700)">${withStory.length}</strong> 棵已有永續故事・` +
+      `${withoutStory.length} 棵待生成`
+
+    // Show trees with story first, then without
+    const sorted = [...withStory, ...withoutStory]
+    document.getElementById('grid').innerHTML = sorted.map(buildCard).join('')
+
+    // Load summaries for trees with stories (max 12 at a time to avoid overload)
+    const chunks = []
+    for (let i = 0; i < withStory.length; i += 6) chunks.push(withStory.slice(i, i+6))
+    for (const chunk of chunks) {
+      await Promise.all(chunk.map(r => loadSummary(r.id)))
+    }
+  } catch(e) {
+    document.getElementById('grid').innerHTML = `<div class="error-box">載入失敗：${e.message}</div>`
+  }
+}
+
+main()
+</script>
+</body>
+</html>

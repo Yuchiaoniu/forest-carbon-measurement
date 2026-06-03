@@ -129,6 +129,7 @@ body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color
 .badge-pending { background: #f1f5f9; color: #64748b; }
 .badge-failed  { background: #fee2e2; color: #991b1b; }
 .badge-p4v2    { background: #ede9fe; color: #5b21b6; }
+.badge-story   { background: #d1fae5; color: #065f46; }
 
 .chevron { font-size: 0.75rem; color: var(--muted); transition: transform 0.25s; }
 .card.open .chevron { transform: rotate(180deg); }
@@ -648,6 +649,7 @@ function buildCard(r) {
       ${errBadge}
       ${bcBadge}
       ${r.videoDriveUrl ? `<a class="badge badge-pending" href="${r.videoDriveUrl}" target="_blank" onclick="event.stopPropagation()" title="原始影片">🎬 影片</a>` : ''}
+      ${r.hasStory ? `<a class="badge badge-story" href="story.html?id=${r.id}" target="_blank" onclick="event.stopPropagation()">🌿 永續故事</a>` : ''}
     </div>
     <span class="chevron">▼</span>
   </div>
