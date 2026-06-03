@@ -629,13 +629,12 @@ function buildCard(r) {
 
   const videoSection = r.videoDriveUrl
     ? `<div style="grid-column: 1 / -1">
-        <div class="section-title">🎬 原始影片
-          <span style="font-weight:400;color:var(--muted);font-size:0.85rem;margin-left:6px;">${r.videoOriginalName || r.videoFilename || ''}（Google Drive）</span>
-        </div>
-        <div style="position:relative;width:100%;padding-top:56.25%;background:#000;border-radius:6px;overflow:hidden;" onclick="event.stopPropagation()">
-          <iframe src="${r.videoDriveUrl.replace('/view', '/preview')}" allow="autoplay" allowfullscreen
-                  style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;"></iframe>
-        </div>
+        <div class="section-title">🎬 原始影片</div>
+        <a href="${r.videoDriveUrl}" target="_blank" rel="noopener" onclick="event.stopPropagation()"
+           style="display:inline-flex;align-items:center;gap:6px;padding:8px 14px;background:var(--green-50);border:1.5px solid var(--green-600);border-radius:8px;color:var(--green-800);font-size:0.85rem;font-weight:600;text-decoration:none;">
+          ▶ 在 Google Drive 開啟影片
+          <span style="font-weight:400;color:var(--muted);">${r.videoOriginalName || r.videoFilename || ''}</span>
+        </a>
        </div>`
     : r.videoFilename
     ? `<div style="grid-column: 1 / -1">
