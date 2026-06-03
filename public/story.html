@@ -129,7 +129,7 @@ body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color
   <div class="story-card" id="storyCard">
     <div class="loading" id="loadingEl">
       <div class="loading-spinner"></div>
-      正在生成永續故事…
+      永續故事載入中…
     </div>
   </div>
 </div>
@@ -176,7 +176,7 @@ function renderMeta(tree) {
 function renderStory(markdown, generatedAt) {
   const sc = document.getElementById('storyCard')
   if (!markdown) {
-    sc.innerHTML = `<div class="no-story"><div class="no-story-icon">🌱</div><p>這棵樹的永續故事載入中，請稍後再來。<br>故事在影片上傳後由 AI 非同步產生。</p></div>`
+    sc.innerHTML = `<div class="no-story"><div class="no-story-icon">🌱</div><p>這棵樹的永續故事尚未生成，請稍後再來。</p></div>`
     return
   }
   const html = marked.parse(markdown)
