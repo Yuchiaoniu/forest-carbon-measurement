@@ -180,7 +180,7 @@ function renderStory(markdown, generatedAt) {
     return
   }
   const html = marked.parse(markdown)
-  sc.innerHTML = `<div class="story-body">${html}</div>` +
+  sc.innerHTML = `<div class="story-body">${html}</div>`
 }
 
 async function loadFromGhPages() {
