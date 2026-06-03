@@ -191,7 +191,8 @@ async function main() {
   try {
     const res = await fetch(`${API_BASE}/api/trees`)
     if (!res.ok) throw new Error('無法載入樹木資料')
-    const trees = await res.json()
+    const allTrees = await res.json()
+    const trees = allTrees.filter(r => r.p4v2)
 
     const withStory = trees.filter(r => r.hasStory)
     const withoutStory = trees.filter(r => !r.hasStory)
