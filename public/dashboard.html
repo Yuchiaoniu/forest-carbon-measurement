@@ -556,7 +556,7 @@ function buildCard(r) {
   const txRow  = txHash
     ? `<tr><td>Tx Hash</td><td><span class="hash-val">${txHash.slice(0,10)}…${txHash.slice(-6)}</span>
         <button class="copy-btn" onclick="event.stopPropagation();copy('${txHash}')">複製</button>
-        <a href="https://forest-carbon.duckdns.org/explorer/?rpcUrl=https://forest-carbon.duckdns.org/rpc#/tx/${txHash}" onclick="event.stopPropagation();window.open(this.href,'_blank');return false;" style="font-size:0.72rem;color:var(--green-700);margin-left:4px;">查看區塊鏈存證 →</a>
+        <a href="https://forest-carbon.duckdns.org/explorer/tx/${txHash}?rpcUrl=https://forest-carbon.duckdns.org/rpc" onclick="event.stopPropagation();window.open(this.href,'_blank');return false;" style="font-size:0.72rem;color:var(--green-700);margin-left:4px;">查看區塊鏈存證 →</a>
         </td></tr>`
     : `<tr><td>Tx Hash</td><td class="warn">—</td></tr>`
 
