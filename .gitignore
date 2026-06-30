@@ -36,3 +36,51 @@ npm-debug.log*
 
 # 編譯輸出
 artifacts/
+
+# 資料庫備份
+data.db.bak*
+data.db-shm.bak*
+data.db-wal.bak*
+trees.db
+
+# 影片快取與臨時幀
+video_cache/
+species_frames/
+public/dryrun-frames/
+public/variance-tests/
+
+# 開發期診斷腳本（非正式腳本）
+tmp_*.js
+check_*.js
+check_*.sh
+tmp_*.sh
+analyze_*.js
+diag_*.js
+test_*.js
+verify2.js
+status_check_all.js
+detect_card*.py
+gen_d02.py
+get_schema.js
+dump_*.js
+fill-event.js
+fill-missing.js
+patch_*.js
+timing.js
+do_push_tmp.js
+push_gh.js
+push_trees_json.js
+reanalyze.js
+recalc_*.js
+fix_*.js
+inject_blockchain_log_api.js
+
+# Python 快取
+scripts/__pycache__/
+*.pyc
+
+# 備份源碼檔
+src/*.bak*
+src/**/*.bak*
+scripts/*.bak*
+public/*.broken-bak

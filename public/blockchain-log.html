@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>區塊鏈量測存證 — 森林碳匯量測系統</title>
+<style>
+  :root {
+    --bg: #0d1117; --surface: #161b22; --border: #30363d;
+    --text: #c9d1d9; --muted: #8b949e; --green: #3fb950;
+    --blue: #58a6ff; --yellow: #e3b341; --red: #f85149;
+    --accent: #238636;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif; }
+  a { color: var(--blue); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  .header { padding: 32px 24px 24px; border-bottom: 1px solid var(--border); }
+  .header h1 { font-size: 1.6rem; font-weight: 600; color: var(--green); margin-bottom: 6px; }
+  .header p  { color: var(--muted); font-size: 0.9rem; line-height: 1.6; }
+  .meta-bar  { display: flex; gap: 24px; margin-top: 14px; flex-wrap: wrap; }
+  .meta-item { font-size: 0.78rem; color: var(--muted); }
+  .meta-item span { color: var(--text); font-family: monospace; }
+
+  .section { padding: 28px 24px; border-bottom: 1px solid var(--border); }
+  .section h2 { font-size: 1rem; font-weight: 600; color: var(--blue); margin-bottom: 16px; letter-spacing: 0.5px; text-transform: uppercase; }
+
+  /* 演化時間軸 */
+  .timeline { display: flex; flex-direction: column; gap: 10px; }
+  .round-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px; display: flex; align-items: center; gap: 16px; }
+  .round-card.official { border-color: var(--accent); }
+  .round-badge { min-width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.85rem; background: var(--border); color: var(--muted); }
+  .round-card.official .round-badge { background: var(--accent); color: #fff; }
+  .round-info { flex: 1; }
+  .round-label { font-size: 0.9rem; font-weight: 500; margin-bottom: 3px; }
+  .round-meta  { font-size: 0.78rem; color: var(--muted); font-family: monospace; }
+  .round-count { font-size: 1.1rem; font-weight: 700; color: var(--yellow); min-width: 60px; text-align: right; }
+  .round-count small { display: block; font-size: 0.7rem; color: var(--muted); font-weight: 400; }
+
+  /* 統計列 */
+  .stats { display: flex; gap: 16px; flex-wrap: wrap; }
+  .stat-box { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 14px 20px; min-width: 140px; }
+  .stat-box .val { font-size: 1.8rem; font-weight: 700; color: var(--green); }
+  .stat-box .lbl { font-size: 0.78rem; color: var(--muted); margin-top: 2px; }
+
+  /* 樹木表格 */
+  .tree-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 14px; }
+  .tree-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; display: flex; flex-direction: column; }
+  .tree-card:hover { border-color: var(--accent); }
+  .tree-frame { width: 100%; height: 160px; object-fit: cover; background: #1c2128; display: block; }
+  .tree-frame-placeholder { width: 100%; height: 160px; background: #1c2128; display: flex; align-items: center; justify-content: center; color: var(--muted); font-size: 0.8rem; }
+  .tree-body { padding: 12px 14px; flex: 1; display: flex; flex-direction: column; gap: 6px; }
+  .tree-header { display: flex; align-items: center; gap: 8px; }
+  .tree-no { font-weight: 700; font-size: 0.95rem; color: var(--green); }
+  .tree-img { font-family: monospace; font-size: 0.8rem; color: var(--muted); }
+  .tree-species { font-size: 0.82rem; font-style: italic; color: var(--text); }
+  .tree-dbh { font-size: 0.85rem; }
+  .tree-dbh strong { color: var(--yellow); }
+  .tree-block { font-size: 0.75rem; font-family: monospace; color: var(--muted); }
+  .ok-badge  { font-size: 0.7rem; padding: 1px 7px; border-radius: 12px; background: #0d2818; color: var(--green); border: 1px solid var(--accent); }
+  .err-badge { font-size: 0.7rem; padding: 1px 7px; border-radius: 12px; background: #2d1117; color: var(--red);   border: 1px solid var(--red); }
+  .tree-links { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 4px; }
+  .btn { font-size: 0.75rem; padding: 4px 10px; border-radius: 6px; border: 1px solid var(--border); color: var(--text); cursor: pointer; white-space: nowrap; }
+  .btn:hover { border-color: var(--blue); color: var(--blue); }
+  .btn-chain { border-color: var(--accent); color: var(--green); }
+  .btn-chain:hover { background: var(--accent); color: #fff; }
+
+  .loading { text-align: center; padding: 60px; color: var(--muted); }
+  .error   { padding: 20px; color: var(--red); background: #2d1117; border-radius: 8px; margin: 20px; }
+
+  footer { padding: 20px 24px; color: var(--muted); font-size: 0.78rem; border-top: 1px solid var(--border); }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>區塊鏈量測存證稽核紀錄</h1>
+  <p>Forest Carbon Measurement System — Hyperledger Besu QBFT 私有鏈<br>
+  本頁展示 32 棵樣本樹的完整區塊鏈存證演化歷程，及最終授權版本的逐棵比對驗證結果。</p>
+  <div class="meta-bar" id="metaBar">
+    <div class="meta-item">合約地址 <span id="contractAddr">載入中…</span></div>
+    <div class="meta-item">目前區塊 <span id="currentBlock">—</span></div>
+    <div class="meta-item">事件總計 <span id="totalEvents">—</span></div>
+  </div>
+</div>
+
+<div class="section" id="sec-evolution">
+  <h2>區塊鏈演化歷程</h2>
+  <div class="timeline" id="timeline"><div class="loading">載入中…</div></div>
+</div>
+
+<div class="section">
+  <h2>驗證摘要</h2>
+  <div class="stats" id="stats"><div class="loading">載入中…</div></div>
+</div>
+
+<div class="section">
+  <h2>32 棵樣本樹 — 最終授權版逐棵存證</h2>
+  <p style="font-size:0.82rem;color:var(--muted);margin-bottom:16px;">
+    IMG 編號即為鏈上 localTreeId，可在區塊鏈事件記錄中直接查詢對應影片。
+    點擊「鏈上記錄」可在交易查詢頁面驗證原始事件。
+  </p>
+  <div class="tree-grid" id="treeGrid"><div class="loading">載入中…</div></div>
+</div>
+
+<footer>
+  資料來源：Hyperledger Besu QBFT 私有鏈 · 合約 0xb7278A61aa25c888815aFC32Ad3cC52fF24fE575<br>
+  本頁資料每 10 分鐘自動更新一次，首次載入需約 30–60 秒（查詢 32 筆鏈上交易）。
+</footer>
+
+<script>
+const CONTRACT = '0xb7278A61aa25c888815aFC32Ad3cC52fF24fE575';
+
+async function load() {
+  document.getElementById('contractAddr').textContent = CONTRACT;
+  let data;
+  try {
+    const r = await fetch('/api/blockchain-log');
+    if (!r.ok) throw new Error(await r.text());
+    data = await r.json();
+  } catch(e) {
+    document.getElementById('timeline').innerHTML = `<div class="error">載入失敗：${e.message}</div>`;
+    return;
+  }
+
+  document.getElementById('currentBlock').textContent = '#' + data.currentBlock.toLocaleString();
+  document.getElementById('totalEvents').textContent = data.totalEvents + ' 筆';
+
+  // 演化時間軸
+  const tl = document.getElementById('timeline');
+  tl.innerHTML = '';
+  const isLast = i => i === data.rounds.length - 1;
+  data.rounds.forEach((r, i) => {
+    if (r.count === 0) return;
+    const card = document.createElement('div');
+    card.className = 'round-card' + (isLast(i) ? ' official' : '');
+    const blockRange = r.blockStart ? `區塊 #${r.blockStart.toLocaleString()} – #${r.blockEnd.toLocaleString()}` : '';
+    card.innerHTML = `
+      <div class="round-badge">${i + 1}</div>
+      <div class="round-info">
+        <div class="round-label">${r.label}</div>
+        <div class="round-meta">${blockRange}</div>
+      </div>
+      <div class="round-count">${r.count}<small>筆事件</small></div>`;
+    tl.appendChild(card);
+  });
+
+  // 統計摘要
+  const trees = data.trees;
+  const okCount  = trees.filter(t => t.dbhMatch && t.idMatch).length;
+  const stats = document.getElementById('stats');
+  stats.innerHTML = `
+    <div class="stat-box"><div class="val">${trees.length}</div><div class="lbl">樣本樹總數</div></div>
+    <div class="stat-box"><div class="val">${okCount}</div><div class="lbl">完全吻合（DBH + IMG ID）</div></div>
+    <div class="stat-box"><div class="val">${(okCount/trees.length*100).toFixed(0)}%</div><div class="lbl">一致性比率</div></div>
+    <div class="stat-box"><div class="val">${data.totalEvents}</div><div class="lbl">鏈上事件總計</div></div>`;
+
+  // 樹木卡片
+  const grid = document.getElementById('treeGrid');
+  grid.innerHTML = '';
+  trees.forEach(t => {
+    const card = document.createElement('div');
+    card.className = 'tree-card';
+
+    let frameHtml = '';
+    if (t.evidenceFrameUrl) {
+      frameHtml = `<img class="tree-frame" src="${t.evidenceFrameUrl}" alt="${t.treeNo}" loading="lazy" onerror="this.parentNode.replaceChild(Object.assign(document.createElement('div'),{className:'tree-frame-placeholder',textContent:'關鍵幀不可用'}),this)">`;
+    } else {
+      frameHtml = `<div class="tree-frame-placeholder">無關鍵幀</div>`;
+    }
+
+    const dbhOk  = t.dbhMatch ? '<span class="ok-badge">DBH ✓</span>' : '<span class="err-badge">DBH ✗</span>';
+    const idOk   = t.idMatch  ? '<span class="ok-badge">IMG ID ✓</span>' : '<span class="err-badge">IMG ID ✗</span>';
+    const blk    = t.blockNumber ? `blk #${t.blockNumber.toLocaleString()}` : '—';
+    const chainV = t.chainDbhCm !== null ? `鏈上 ${t.chainDbhCm.toFixed(1)} cm` : '—';
+
+    let links = '';
+    if (t.txUrl) links += `<a class="btn btn-chain" href="${t.txUrl}" target="_blank">鏈上記錄</a>`;
+    if (t.videoPreviewUrl) links += `<a class="btn" href="${t.videoPreviewUrl}" target="_blank">原始影片</a>`;
+
+    card.innerHTML = `
+      ${frameHtml}
+      <div class="tree-body">
+        <div class="tree-header">
+          <span class="tree-no">${t.treeNo}</span>
+          <span class="tree-img">${t.imgFilename}</span>
+          ${dbhOk} ${idOk}
+        </div>
+        <div class="tree-species">${t.species}</div>
+        <div class="tree-dbh">資料庫 <strong>${t.dbhCm ? t.dbhCm.toFixed(1) : '—'} cm</strong> · ${chainV}</div>
+        <div class="tree-block">${blk} · IMG ID: ${t.imgId}</div>
+        <div class="tree-links">${links}</div>
+      </div>`;
+    grid.appendChild(card);
+  });
+}
+
+load();
+</script>
+</body>
+</html>

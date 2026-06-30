@@ -289,7 +289,7 @@ li { margin-bottom: 4px; }
           <table>
             <tr><th>#</th><th>準則內容</th><th>性質</th><th>此專案符合狀況</th></tr>
             <tr><td>1</td><td>不確定性需採 90% 信賴區間計算，而非常見的 95%，對應顯著水準 α=0.1</td><td>屬計算方法規範，未構成及格門檻</td><td class="pass">已採 90% 信賴區間計算 ✓</td></tr>
-            <tr><td>2</td><td>信賴區間半寬 ÷ 平均估計值 &lt; 100%</td><td><strong>唯一一道決定能否核發碳權的紅線</strong></td><td class="pass">P4 實測 8%，遠低於 100%（寬裕約 12.5 倍）✓</td></tr>
+            <tr><td>2</td><td>信賴區間半寬 ÷ 平均估計值 &lt; 100%</td><td><strong>唯一一道決定能否核發碳權的紅線</strong></td><td class="pass">P4 實測 6.5%，遠低於 100%（寬裕約 15 倍）✓</td></tr>
             <tr><td>3</td><td>不確定性扣減至少扣除 10%</td><td>屬強制扣減，未構成及格門檻</td><td>屬核發時固定扣減，無法避免</td></tr>
           </table>
           <p>真正決定核發與否的條件，僅有第 2 條那道紅線。第 1 條僅規範採用哪一種演算法，第 3 條僅規範最終固定扣減的數量，兩者皆未構成通過與否的判準。</p>
@@ -447,18 +447,18 @@ li { margin-bottom: 4px; }
     </table>
     <p>真正決定「通過或不通過」的只有<strong>規定 2</strong>。規定 1 規範的是「如何計算」，規定 3 則代表「無論精度多高都固定扣除 10%」。</p>
 
-    <div class="section-h3">P4 流程對 28 棵樹的 Verra 標準對齊計算</div>
+    <div class="section-h3">P4 流程對 30 棵樹的 Verra 標準對齊計算</div>
     <table>
       <tr><th>項目</th><th>數值</th></tr>
-      <tr><td>樣本數 n</td><td>28 棵（5788 cap N/A 排除）</td></tr>
-      <tr><td>mean tape</td><td>30.4 cm</td></tr>
-      <tr><td>mean P4 DBH</td><td>27.05 cm</td></tr>
-      <tr><td>bias</td><td>-3.35 cm（-11.0%）← 系統性偏差、可校準</td></tr>
-      <tr><td>std of error</td><td>6.74 cm</td></tr>
-      <tr><td>SE</td><td>6.74 / √28 = 1.27 cm</td></tr>
-      <tr><td>t(α=0.1, df=27)</td><td>1.703</td></tr>
-      <tr><td>90% CI half-width</td><td>1.27 × 1.703 = 2.16 cm</td></tr>
-      <tr><td>CI half-width / mean</td><td><strong class="pass">8.0%</strong>（Verra 紅線為 100%，此結果寬裕約 12.5 倍）</td></tr>
+      <tr><td>樣本數 n</td><td>30 棵（全數可比對，含校準後 IMG_5788）</td></tr>
+      <tr><td>mean tape</td><td>29.88 cm</td></tr>
+      <tr><td>mean P4 DBH（校準後）</td><td>29.89 cm</td></tr>
+      <tr><td>bias（校準後）</td><td>0.01 cm（0.0%）← 校準因子 ×1.155 已消除系統性偏差</td></tr>
+      <tr><td>std of error</td><td>6.22 cm</td></tr>
+      <tr><td>SE</td><td>6.22 / √30 = 1.14 cm</td></tr>
+      <tr><td>t(α=0.1, df=29)</td><td>1.699</td></tr>
+      <tr><td>90% CI half-width</td><td>1.14 × 1.699 = 1.93 cm</td></tr>
+      <tr><td>CI half-width / mean</td><td><strong class="pass">6.5%</strong>（Verra 紅線為 100%，此結果寬裕約 15 倍）</td></tr>
     </table>
 
     <div class="backtags">↑ 返回研究問題：<a href="#rq1">RQ1</a><a href="#rq2">RQ2</a></div>

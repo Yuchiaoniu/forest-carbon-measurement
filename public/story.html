@@ -129,7 +129,7 @@ body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color
   <div class="story-card" id="storyCard">
     <div class="loading" id="loadingEl">
       <div class="loading-spinner"></div>
-      正在生成永續故事…
+      永續故事載入中…
     </div>
   </div>
 </div>
@@ -158,7 +158,7 @@ function fmtGps(gps) {
 function renderMeta(tree) {
   const gps = fmtGps(tree.gps)
   const items = [
-    { label: '樹種', value: tree.species || '未知樹種' },
+    { label: '樹種', value: (() => { const zh = tree.p4v2?.species?.gemini?.zhName || tree.p4v2?.species?.plantnet?.zhName; const en = tree.p4v2?.species?.primary || tree.species; return zh ? `${zh} <span style="color:var(--muted);font-size:0.85em;font-style:italic">${en}</span>` : (en || '未知樹種'); })() },
     { label: '胸徑 (DBH)', value: tree.dbhCm ? `${Number(tree.dbhCm).toFixed(1)} cm` : '—' },
     { label: '碳儲量', value: tree.carbonKg ? `${Number(tree.carbonKg).toFixed(3)} kg` : '—' },
     { label: '拍攝日期', value: fmtDate(tree.createdAt) },
@@ -176,7 +176,7 @@ function renderMeta(tree) {
 function renderStory(markdown, generatedAt) {
   const sc = document.getElementById('storyCard')
   if (!markdown) {
-    sc.innerHTML = `<div class="no-story"><div class="no-story-icon">🌱</div><p>這棵樹的永續故事載入中，請稍後再來。<br>故事在影片上傳後由 AI 非同步產生。</p></div>`
+    sc.innerHTML = `<div class="no-story"><div class="no-story-icon">🌱</div><p>這棵樹的永續故事尚未生成，請稍後再來。</p></div>`
     return
   }
   const html = marked.parse(markdown)
@@ -222,11 +222,15 @@ async function main() {
       ? await loadFromGhPages()
       : await loadFromApi()
 
-    const species = tree.species || '未知樹種'
+    const zhSpecies = tree.p4v2?.species?.gemini?.zhName || tree.p4v2?.species?.plantnet?.zhName || ''
+    const enSpecies = tree.p4v2?.species?.primary || tree.species || '未知樹種'
+    const species = zhSpecies || enSpecies
     document.title = `${species} 的永續故事`
     document.getElementById('hdrTitle').textContent = `🌿 ${species} 的永續故事`
-    document.getElementById('hdrSub').textContent =
-      tree.dbhCm ? `胸徑 ${Number(tree.dbhCm).toFixed(1)} cm・碳儲量 ${Number(tree.carbonKg || 0).toFixed(3)} kg` : ''
+    const subParts = []
+    if (zhSpecies) subParts.push(enSpecies)
+    if (tree.dbhCm) subParts.push(`胸徑 ${Number(tree.dbhCm).toFixed(1)} cm・碳儲量 ${Number(tree.carbonKg || 0).toFixed(3)} kg`)
+    document.getElementById('hdrSub').textContent = subParts.join(' · ')
 
     renderMeta(tree)
     renderStory(markdown, generatedAt)

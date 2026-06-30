@@ -105,7 +105,7 @@ body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color
       <a href="./sop.html">📋 SOP</a>
     </div>
     <h1>🌿 永續故事集</h1>
-    <p>32 棵受測樹木的 AI 生成永續故事 · 每棵故事含環境快照與碳匯貢獻</p>
+    <p id="hdr-sub">永續故事 · 每棵故事含環境快照與碳匯貢獻</p>
   </div>
 </div>
 
@@ -142,10 +142,10 @@ function fmtNum(v, dec=1) {
 }
 
 function buildCard(r) {
-  const species = r.p4v2?.species?.primary || r.species || '未知樹種'
+  const species = r.p4v2?.species?.gemini?.zhName || r.p4v2?.species?.plantnet?.zhName || r.p4v2?.species?.primary || r.species || '未知樹種'
   const zh = zhName(species)
   const dbh = fmtNum(r.p4v2?.calibratedDbhCm)
-  const carbon = fmtNum(r.p4v2?.carbon?.carbonKg)
+  const carbon = fmtNum(r.p4v2?.carbon?.primaryKg)
   const hasStory = !!r.hasStory
 
   return `
@@ -162,7 +162,7 @@ function buildCard(r) {
     <div class="card-body">
       ${hasStory
         ? `<div class="summary-text" id="sum-${r.id}">載入摘要中…</div>`
-        : `<div class="no-story-msg">永續故事尚未生成</div>`}
+        : `<div class="no-story-msg">尚無永續故事</div>`}
     </div>
     <div class="card-footer">
       ${hasStory
@@ -191,15 +191,17 @@ async function main() {
   try {
     const res = await fetch(`${API_BASE}/api/trees`)
     if (!res.ok) throw new Error('無法載入樹木資料')
-    const trees = await res.json()
+    const allTrees = await res.json()
+    const trees = allTrees.filter(r => r.p4v2)
 
     const withStory = trees.filter(r => r.hasStory)
     const withoutStory = trees.filter(r => !r.hasStory)
 
+    document.getElementById('hdr-sub').textContent =
+      `${trees.length} 棵受測樹木的永續故事 · 每棵故事含環境快照與碳匯貢獻`
     document.getElementById('summaryBar').innerHTML =
       `共 <strong>${trees.length}</strong> 棵受測樹木・` +
-      `<strong style="color:var(--green-700)">${withStory.length}</strong> 棵已有永續故事・` +
-      `${withoutStory.length} 棵待生成`
+      `<strong style="color:var(--green-700)">${withStory.length}</strong> 棵已有永續故事`
 
     // Show trees with story first, then without
     const sorted = [...withStory, ...withoutStory]

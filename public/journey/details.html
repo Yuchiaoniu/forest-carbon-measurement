@@ -1,0 +1,85 @@
+<!DOCTYPE html><html lang="zh-TW"><head><meta charset="utf-8">
+<title>詳細誤差表 N times cv — 5-way journey</title>
+<style>
+body{font-family:sans-serif;background:#111;color:#eee;margin:0;padding:20px;max-width:1400px;margin-left:auto;margin-right:auto;line-height:1.6;font-size:13px}
+h1{font-size:22px}h2{font-size:16px;color:#fc6;margin-top:24px}
+table{border-collapse:collapse;width:100%;margin:8px 0;font-size:11px}
+th,td{border:1px solid #333;padding:4px 6px;text-align:center;vertical-align:top}
+th{background:#1a1a1a;color:#fc6;font-weight:600}
+.green{background:#1e3320}.yellow{background:#3a3018}.red{background:#3a1818}.gray{background:#1a1a1a;color:#666}
+.best{font-weight:bold;color:#fc6}
+.note{font-size:11px;color:#888}
+a{color:#8af}
+</style></head><body>
+
+<h1>詳細誤差表（含 N 次 Gemini call 的變異係數）</h1>
+
+<p><a href="/journey/">← 回主旅程頁</a></p>
+
+<p class="note">每格格式：<b>err% / cv%</b>（cv = N 次 ratio 的變異係數，cv 越小代表 Gemini 看同支影片時越穩定）。
+<br>背景色：<span class="green">綠 ≤15%</span> <span class="yellow">黃 15-30%</span> <span class="red">紅 &gt;30%</span> <span class="gray">灰 N/A</span>
+<br>† = 從歷史 dryrun_runs 同 pipeline_version 紀錄取得（mass run 期間 API cap 或 detect_card 跑不通）</p>
+
+<h2>30 棵 × 5 pipeline 完整數據</h2>
+
+<table>
+<tr><th>IMG</th><th>tape</th>
+  <th>P1a kf-sharp-960</th>
+  <th>P1b kf-sharp-orig</th>
+  <th>P2 kf-time-960</th>
+  <th>P3 video-v1</th>
+  <th>P4 video-v2</th>
+  <th>best</th>
+</tr>
+<tr><td>5786</td><td>22.6</td><td class="gray">—</td><td class="red">39.8 / 51</td><td class="red">58.4 / 48</td><td class="green best">7.1 / 77</td><td class="green">8.0 / 25</td><td class="green best">7.1 (P3)</td></tr>
+<tr><td>5787</td><td>27.2</td><td class="green">14.7 / 51</td><td class="green">9.9 / 14</td><td class="red">37.1 / 10</td><td class="green">9.6 / 43</td><td class="green best">2.2 / 28</td><td class="green best">2.2 (P4)</td></tr>
+<tr><td>5788</td><td>27.7</td><td class="gray">—</td><td class="gray">—</td><td class="gray">—</td><td class="gray">cap</td><td class="gray">cap</td><td class="gray">N/A</td></tr>
+<tr><td>5789</td><td>26.3</td><td class="green">10.6 / 16</td><td class="green">11.8 / 22</td><td class="green best">3.8 / 27</td><td class="yellow">20.2 / 19</td><td class="green">15.2 / 36</td><td class="green best">3.8 (P2)</td></tr>
+<tr><td>5790</td><td>19.4</td><td class="gray">—</td><td class="gray">—</td><td class="gray">—</td><td class="yellow">25.8 †</td><td class="yellow best">15.5 †</td><td class="yellow">15.5 (P4)</td></tr>
+<tr><td>5791</td><td>30.2</td><td class="red">44.7 / 6</td><td class="red">40.1 / 32</td><td class="red">48.7 / 18</td><td class="red">38.7 / 32</td><td class="green best">0.7 / 30</td><td class="green best">0.7 (P4)</td></tr>
+<tr><td>5792</td><td>28.6</td><td class="red">42.0 / 23</td><td class="red">37.4 / 28</td><td class="red">30.4 / 24</td><td class="green best">12.2 / 14</td><td class="yellow">19.2 / 75</td><td class="green best">12.2 (P3)</td></tr>
+<tr><td>5793</td><td>33.7</td><td class="red">38.6 / 20</td><td class="gray">—</td><td class="green best">2.1 / 25</td><td class="red">30.6 / 33</td><td class="red">41.2 / 25</td><td class="green best">2.1 (P2)</td></tr>
+<tr><td>5794</td><td>31.2</td><td class="yellow">29.8 / 24</td><td class="yellow">25.6 / 25</td><td class="red">31.7 / 25</td><td class="yellow">25.3 / 35</td><td class="green best">5.4 / 31</td><td class="green best">5.4 (P4)</td></tr>
+<tr><td>5795</td><td>22.0</td><td class="green">12.3 / 22</td><td class="yellow">17.3 / 20</td><td class="green best">1.8 / 42</td><td class="green">5.0 / 39</td><td class="red">30.0 / 24</td><td class="green best">1.8 (P2)</td></tr>
+<tr><td>5798</td><td>42.0</td><td class="gray">—</td><td class="red">44.3 / —</td><td class="gray">—</td><td class="red">56.9 / 71</td><td class="green best">14.5 / 48</td><td class="green best">14.5 (P4)</td></tr>
+<tr><td>5799</td><td>43.6</td><td class="green best">5.7 / 2</td><td class="yellow">19.5 / 49</td><td class="gray">—</td><td class="red">47.5 / 27</td><td class="yellow">27.1 / 27</td><td class="green best">5.7 (P1a)</td></tr>
+<tr><td>5800</td><td>17.5</td><td class="green best">10.3 / 32</td><td class="yellow">22.3 / 53</td><td class="yellow">18.9 / 8</td><td class="red">35.4 / 38</td><td class="green">11.4 / 18</td><td class="green best">10.3 (P1a)</td></tr>
+<tr><td>5801</td><td>16.9</td><td class="green">13.6 / 12</td><td class="green">2.4 / 20</td><td class="yellow">24.3 / 16</td><td class="green">9.5 / 59</td><td class="green best">0.6 / 24</td><td class="green best">0.6 (P4)</td></tr>
+<tr><td>5802</td><td>43.9</td><td class="red">36.9 / 20</td><td class="red">44.6 / 29</td><td class="red">45.1 / 41</td><td class="yellow">25.1 / 45</td><td class="yellow best">22.3 / 26</td><td class="yellow">22.3 (P4)</td></tr>
+<tr><td>5803</td><td>43.0</td><td class="red">59.8 / 12</td><td class="red">55.1 / 26</td><td class="red">51.2 / 26</td><td class="red best">39.3 / 45</td><td class="red">45.6 / 62</td><td class="red">39.3 (P3)</td></tr>
+<tr><td>5805</td><td>35.7</td><td class="red">42.6 / 13</td><td class="gray">—</td><td class="yellow">27.2 / 20</td><td class="red">42.9 / 69</td><td class="green best">9.5 / 56</td><td class="green best">9.5 (P4)</td></tr>
+<tr><td>5806</td><td>38.8</td><td class="gray">—</td><td class="gray">—</td><td class="gray">—</td><td class="red">48.7 †</td><td class="yellow best">22.7 †</td><td class="yellow">22.7 (P4)</td></tr>
+<tr><td>5807</td><td>31.5</td><td class="gray">—</td><td class="gray">—</td><td class="red">31.4 / 16</td><td class="green best">2.9 †</td><td class="green">11.7 †</td><td class="green best">2.9 (P3)</td></tr>
+<tr><td>5808</td><td>31.8</td><td class="green best">15.4 / 20</td><td class="yellow">27.4 / 15</td><td class="yellow">23.0 / 12</td><td class="yellow">28.0 / 52</td><td class="yellow">21.4 / 16</td><td class="yellow">15.4 (P1a)</td></tr>
+<tr><td>5809</td><td>30.6</td><td class="gray">—</td><td class="gray">—</td><td class="red">34.3 / 32</td><td class="red">43.1 / 47</td><td class="yellow best">29.4 / 41</td><td class="yellow">29.4 (P4)</td></tr>
+<tr><td>5810</td><td>29.9</td><td class="red">46.2 / 64</td><td class="green">11.7 / 13</td><td class="green">6.7 / 17</td><td class="red">64.5 / 62</td><td class="green best">3.7 / 48</td><td class="green best">3.7 (P4)</td></tr>
+<tr><td>5811</td><td>30.6</td><td class="gray">—</td><td class="gray">—</td><td class="gray">—</td><td class="red">34.0 / 31</td><td class="green best">4.6 / 27</td><td class="green best">4.6 (P4)</td></tr>
+<tr><td>5812</td><td>30.9</td><td class="gray">—</td><td class="gray">—</td><td class="green">9.1 / 20</td><td class="red">49.5 / 76</td><td class="green best">4.2 / 35</td><td class="green best">4.2 (P4)</td></tr>
+<tr><td>5813</td><td>26.1</td><td class="red">30.3 / 12</td><td class="yellow">25.7 / 31</td><td class="green">4.6 / 18</td><td class="green best">0.4 / 34</td><td class="green">4.6 / 54</td><td class="green best">0.4 (P3)</td></tr>
+<tr><td>5814</td><td>38.5</td><td class="red">38.4 / 18</td><td class="yellow">27.3 / 17</td><td class="red">52.2 / 54</td><td class="yellow best">20.0 / 27</td><td class="red">51.2 / 63</td><td class="yellow">20.0 (P3)</td></tr>
+<tr><td>5815</td><td>32.5</td><td class="green">14.5 / 26</td><td class="gray">—</td><td class="gray">—</td><td class="green">7.1 / 32</td><td class="green best">1.2 / 14</td><td class="green best">1.2 (P4)</td></tr>
+<tr><td>5817</td><td>24.5</td><td class="red">35.5 / 22</td><td class="gray">—</td><td class="green">16.3 / 11</td><td class="green">11.4 / 36</td><td class="green best">4.9 / 58</td><td class="green best">4.9 (P4)</td></tr>
+<tr><td>5818</td><td>17.5</td><td class="red">71.4 / 27</td><td class="gray">—</td><td class="red">32.6 / 24</td><td class="yellow">19.4 / 41</td><td class="green best">11.4 / 42</td><td class="green best">11.4 (P4)</td></tr>
+<tr><td>5819</td><td>21.6</td><td class="green">12.0 / 24</td><td class="green best">1.9 / 12</td><td class="green">6.0 / 16</td><td class="green">7.4 / 28</td><td class="green">7.9 / 33</td><td class="green best">1.9 (P1b)</td></tr>
+</table>
+
+<h2>每條 pipeline 的 cv 統計</h2>
+<table>
+<tr><th>Pipeline</th><th>有效樣本</th><th>平均 cv</th><th>cv 中位數</th><th>最高 cv</th></tr>
+<tr><td>P1a kf-sharp-960</td><td>20</td><td>22.4%</td><td>22</td><td>64</td></tr>
+<tr><td>P1b kf-sharp-orig</td><td>17</td><td>25.6%</td><td>22</td><td>53</td></tr>
+<tr><td>P2 kf-time-960</td><td>17</td><td>24.0%</td><td>22</td><td>54</td></tr>
+<tr><td>P3 video-v1</td><td>27</td><td>41.2%</td><td>38</td><td>77</td></tr>
+<tr><td>P4 video-v2 N=10</td><td>26</td><td>37.0%</td><td>33</td><td>75</td></tr>
+</table>
+
+<p class="note">cv 觀察：</p>
+<ul>
+<li><b>OpenCV-based 三條（P1a/P1b/P2）的 cv 較低</b>（平均 22-26%）—— OpenCV 已先篩過 frame、Gemini 看到的 8 張品質一致</li>
+<li><b>video-direct 兩條（P3/P4）的 cv 較高</b>（平均 37-41%）—— Gemini 每次看影片自己挑不同 frame、ratio 散布大</li>
+<li>但 P4 winner 次數最多 —— 「N=10 + 取 median」壓平了散布、median 仍命中真實值</li>
+</ul>
+
+<p style="margin-top:40px"><a href="/journey/">← 回主旅程頁</a></p>
+
+</body></html>

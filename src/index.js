@@ -1127,4 +1127,107 @@ app.use((err, req, res, next) => {
   res.status(400).json({ error: err.message })
 })
 
+
+// GET /api/blockchain-log — 區塊鏈完整演化歷程 + 32 棵樹逐筆比對
+let _blockchainLogCache = null;
+let _blockchainLogCacheAt = 0;
+app.get('/api/blockchain-log', async (req, res) => {
+  const CACHE_TTL = 10 * 60 * 1000; // 10 分鐘快取
+  if (_blockchainLogCache && Date.now() - _blockchainLogCacheAt < CACHE_TTL) {
+    return res.json(_blockchainLogCache);
+  }
+  try {
+    const { ethers } = require('ethers');
+    const RPC = process.env.BESU_RPC_URL || 'http://35.227.93.38:8545';
+    const CONTRACT_ADDR = process.env.CONTRACT_ADDRESS || '0xb7278A61aa25c888815aFC32Ad3cC52fF24fE575';
+    const EVENT_ABI = ['event MeasurementRecorded(uint256 indexed id, string gps, string species, uint32 dbhMm, uint32 volumeCm3x100, uint32 carbonG, bytes32 videoHash, uint256 timestamp, uint256 localTreeId, uint32 originalDbhMm, uint32 correctionFactorX10000)'];
+    const provider = new ethers.JsonRpcProvider(RPC);
+    const iface = new ethers.Interface(EVENT_ABI);
+    const contract = new ethers.Contract(CONTRACT_ADDR, EVENT_ABI, provider);
+    const currentBlock = await provider.getBlockNumber();
+
+    const ROUND_DEFS = [
+      { label: 'Round 1 — 開發測試（修正因子套用前）', from: 84000, to: 86000 },
+      { label: 'Round 2 — 單棵驗證測試',               from: 115000, to: 116000 },
+      { label: 'Round 3 — 第一次正式上鏈（修正前）',   from: 127000, to: 130000 },
+      { label: 'Round 4 — 套用修正因子後重新上鏈',     from: 292300, to: 292510 },
+      { label: 'Round 5 — IMG 編號對齊（最終授權版）', from: 292510, to: currentBlock },
+    ];
+
+    const rounds = [];
+    let totalEvents = 0;
+    for (const r of ROUND_DEFS) {
+      const from = BigInt(r.from), to = BigInt(Math.min(r.to, currentBlock));
+      if (from > BigInt(currentBlock)) { rounds.push({ ...r, count: 0 }); continue; }
+      try {
+        const logs = await contract.queryFilter(contract.filters.MeasurementRecorded(), from, to);
+        const blocks = logs.map(l => Number(l.blockNumber));
+        totalEvents += logs.length;
+        rounds.push({
+          label: r.label,
+          blockStart: blocks.length ? Math.min(...blocks) : null,
+          blockEnd:   blocks.length ? Math.max(...blocks) : null,
+          count: logs.length,
+        });
+      } catch(e) {
+        rounds.push({ label: r.label, count: -1, error: e.message });
+      }
+    }
+
+    const dbTrees = getDb().prepare(`
+      SELECT id, video_original_name, species, dbh_cm, tx_hash, video_drive_url
+      FROM trees WHERE tx_hash IS NOT NULL ORDER BY video_original_name
+    `).all();
+
+    const trees = [];
+    for (let i = 0; i < dbTrees.length; i++) {
+      const t = dbTrees[i];
+      const treeNo = `T${String(i + 1).padStart(3, '0')}`;
+      const imgNum = parseInt((t.video_original_name || '').replace(/[^0-9]/g, ''), 10) || 0;
+      let blockNumber = null, chainDbhCm = null, chainImgId = null;
+      try {
+        const receipt = await provider.getTransactionReceipt(t.tx_hash);
+        if (receipt) {
+          blockNumber = receipt.blockNumber;
+          for (const log of receipt.logs) {
+            try {
+              const p = iface.parseLog(log);
+              if (p && p.name === 'MeasurementRecorded') {
+                chainDbhCm = Number(p.args.dbhMm) / 10;
+                chainImgId = Number(p.args.localTreeId);
+                break;
+              }
+            } catch(e) {}
+          }
+        }
+      } catch(e) {}
+      const driveUrl = t.video_drive_url
+        ? t.video_drive_url.replace('/view', '/preview') : null;
+      const hasFrame = fs.existsSync(path.join(EVIDENCE_DIR, `${t.id}.jpg`));
+      trees.push({
+        treeNo, id: t.id,
+        imgFilename: (t.video_original_name || '').replace('.mov', ''),
+        imgId: imgNum,
+        species: t.species || '未辨識',
+        dbhCm: t.dbh_cm,
+        txHash: t.tx_hash,
+        blockNumber,
+        chainDbhCm,
+        chainImgId,
+        dbhMatch: chainDbhCm !== null && Math.abs(chainDbhCm - t.dbh_cm) < 0.15,
+        idMatch: chainImgId !== null && chainImgId === imgNum,
+        evidenceFrameUrl: hasFrame ? `/api/trees/${t.id}/evidence-frame` : null,
+        videoPreviewUrl: driveUrl,
+        txUrl: t.tx_hash ? `/tx.html?hash=${t.tx_hash}` : null,
+      });
+    }
+
+    _blockchainLogCache = { currentBlock, totalEvents, rounds, trees };
+    _blockchainLogCacheAt = Date.now();
+    res.json(_blockchainLogCache);
+  } catch(e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
 app.listen(PORT, () => console.log(`🌲 Forest Carbon Measurement 啟動：http://localhost:${PORT}`))
