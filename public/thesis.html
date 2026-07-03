@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>畢業專題論文下載 — 林業碳匯測量系統</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --green-900: #14532d;
+  --green-800: #166534;
+  --green-700: #15803d;
+  --green-600: #16a34a;
+  --green-500: #22c55e;
+  --green-100: #dcfce7;
+  --green-50:  #f0fdf4;
+  --bg:        #f1f5f1;
+  --text:      #1a2e1a;
+  --text-muted:#6b7280;
+  --border:    #e5e7eb;
+  --white:     #ffffff;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.10);
+  --shadow-lg: 0 8px 32px rgba(0,0,0,0.12);
+}
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+.header {
+  background: linear-gradient(135deg, var(--green-900) 0%, var(--green-700) 60%, #2d6a4f 100%);
+  padding: 28px 24px 32px;
+  position: relative;
+  overflow: hidden;
+}
+.header::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 5 L20 25 H40 Z M18 22 L8 42 H28 Z M42 22 L32 42 H52 Z' fill='white' fill-opacity='0.04'/%3E%3C/svg%3E") repeat;
+  pointer-events: none;
+}
+.header-inner {
+  max-width: 640px;
+  margin: 0 auto;
+  position: relative;
+}
+.header-nav {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 24px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.header-nav a {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #fff;
+  text-decoration: none;
+  padding: 10px 24px;
+  border-radius: 32px;
+  border: 2px solid rgba(255,255,255,0.55);
+  background: rgba(255,255,255,0.14);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+  transition: all 0.2s;
+}
+.header-nav a:hover {
+  background: rgba(255,255,255,0.30);
+  transform: translateY(-2px);
+}
+.header h1 {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 6px;
+}
+.header p {
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.75);
+  line-height: 1.5;
+}
+
+.container {
+  max-width: 640px;
+  margin: -16px auto 0;
+  padding: 0 16px 64px;
+}
+
+.card {
+  background: var(--white);
+  border-radius: 16px;
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+  margin-top: 24px;
+}
+.card-header {
+  padding: 20px 24px 0;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 16px;
+}
+.card-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--green-800);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.card-body { padding: 20px 24px; }
+
+/* meta rows */
+.meta-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.88rem;
+}
+.meta-row:last-child { border-bottom: none; }
+.meta-label {
+  flex-shrink: 0;
+  width: 80px;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+.meta-value { color: var(--text); line-height: 1.5; }
+
+/* download button */
+.download-area {
+  margin-top: 24px;
+  text-align: center;
+}
+.btn-download {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: linear-gradient(135deg, var(--green-700), var(--green-600));
+  color: #fff;
+  font-size: 1.05rem;
+  font-weight: 700;
+  padding: 16px 40px;
+  border-radius: 40px;
+  text-decoration: none;
+  box-shadow: 0 4px 16px rgba(22,163,74,0.35);
+  transition: all 0.2s;
+}
+.btn-download:hover {
+  background: linear-gradient(135deg, var(--green-800), var(--green-700));
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(22,163,74,0.45);
+}
+.btn-download svg { flex-shrink: 0; }
+
+.file-note {
+  margin-top: 12px;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+/* abstract */
+.abstract-box {
+  background: var(--green-50);
+  border-left: 4px solid var(--green-500);
+  border-radius: 8px;
+  padding: 16px 18px;
+  font-size: 0.85rem;
+  line-height: 1.75;
+  color: var(--text);
+}
+
+/* stats strip */
+.stats-strip {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+.stat-chip {
+  background: var(--green-100);
+  border-radius: 10px;
+  padding: 10px 16px;
+  flex: 1;
+  min-width: 120px;
+  text-align: center;
+}
+.stat-chip .num { font-size: 1.25rem; font-weight: 700; color: var(--green-800); }
+.stat-chip .lbl { font-size: 0.75rem; color: var(--green-700); margin-top: 2px; }
+
+footer {
+  text-align: center;
+  padding: 24px;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-inner">
+    <nav class="header-nav">
+      <a href="index.html">🏠 首頁</a>
+      <a href="dashboard.html">📊 Dashboard</a>
+      <a href="showcase.html">🔬 Showcase</a>
+      <a href="blockchain-log.html">⛓ 區塊鏈記錄</a>
+    </nav>
+    <h1>📄 畢業專題論文</h1>
+    <p>植樹造林碳匯監測系統—以 AI 視覺辨識結合區塊鏈不可篡改技術為核心</p>
+  </div>
+</header>
+
+<div class="container">
+
+  <!-- 論文資訊卡 -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">📋 論文基本資料</div>
+    </div>
+    <div class="card-body">
+      <div class="meta-row">
+        <span class="meta-label">論文題目</span>
+        <span class="meta-value">植樹造林碳匯監測系統—以 AI 視覺辨識結合區塊鏈不可篡改技術為核心</span>
+      </div>
+      <div class="meta-row">
+        <span class="meta-label">作者</span>
+        <span class="meta-value">牛宇喬</span>
+      </div>
+      <div class="meta-row">
+        <span class="meta-label">版本</span>
+        <span class="meta-value">v23（最終版）</span>
+      </div>
+      <div class="meta-row">
+        <span class="meta-label">年份</span>
+        <span class="meta-value">2026</span>
+      </div>
+      <div class="meta-row">
+        <span class="meta-label">格式</span>
+        <span class="meta-value">Microsoft Word（.docx）</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 核心成果 -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">📊 核心研究成果</div>
+    </div>
+    <div class="card-body">
+      <div class="stats-strip">
+        <div class="stat-chip">
+          <div class="num">15.6%</div>
+          <div class="lbl">整體 MAPE</div>
+        </div>
+        <div class="stat-chip">
+          <div class="num">74.2%</div>
+          <div class="lbl">通過率（APE ≤ 25%）</div>
+        </div>
+        <div class="stat-chip">
+          <div class="num">6.3%</div>
+          <div class="lbl">Verra CI（目標 ≤ 8%）</div>
+        </div>
+        <div class="stat-chip">
+          <div class="num">100%</div>
+          <div class="lbl">區塊鏈完整性</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 摘要 -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">📝 研究摘要</div>
+    </div>
+    <div class="card-body">
+      <div class="abstract-box">
+        本研究設計並實作一套植樹造林碳匯監測系統，以單眼相機拍攝樹幹影片為輸入，透過 AI 視覺辨識 Pipeline（P4v2）自動估算胸徑（DBH），並結合區塊鏈技術將量測結果不可篡改地上鏈記錄。田野量測 31 棵樣本樹，整體 MAPE 達 15.6%，符合 Verra VM0047 精度要求（MAPE ≤ 25%）；Verra 保守性折扣因子（CI）為 6.3%，低於 8% 門檻，驗證本系統具備碳信用核算的實務可行性。
+      </div>
+    </div>
+  </div>
+
+  <!-- 下載區 -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">⬇️ 論文下載</div>
+    </div>
+    <div class="card-body">
+      <div class="download-area">
+        <a class="btn-download" href="畢業專題_全文_final_v23.docx" download>
+          <svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5 5-5M12 4v11"/>
+          </svg>
+          下載完整論文（.docx）
+        </a>
+        <p class="file-note">畢業專題_全文_final_v23.docx &nbsp;·&nbsp; 約 611 KB</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  林業碳匯測量系統 · Forest Carbon Measurement System · 2026
+</footer>
+
+</body>
+</html>
