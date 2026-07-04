@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>論文閱覽 — 基於 AI 視覺辨識與區塊鏈之森林碳匯量測系統</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="slides_data.js"></script>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --g900: #14532d; --g800: #166534; --g700: #15803d; --g600: #16a34a;
+  --g500: #22c55e; --g100: #dcfce7; --g50: #f0fdf4;
+  --bg: #f0f5f0; --text: #1a2e1a; --muted: #6b7280;
+  --border: #d1fae5; --white: #ffffff;
+}
+body {
+  font-family: 'Noto Sans TC', 'PingFang TC', 'Microsoft JhengHei', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Header ── */
+.header {
+  background: linear-gradient(135deg, var(--g900) 0%, var(--g700) 60%, #2d6a4f 100%);
+  padding: 20px 24px 0;
+  position: relative;
+}
+.header-inner { max-width: 1200px; margin: 0 auto; }
+.header-title {
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+  opacity: 0.9;
+  margin-bottom: 16px;
+  line-height: 1.5;
+}
+.header-title span { font-size: 0.8rem; opacity: 0.7; display: block; }
+
+/* ── Tabs ── */
+.tabs {
+  display: flex;
+  gap: 4px;
+}
+.tab-btn {
+  background: rgba(255,255,255,0.15);
+  color: rgba(255,255,255,0.8);
+  border: none;
+  padding: 10px 24px;
+  font-size: 0.92rem;
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: 8px 8px 0 0;
+  transition: all 0.2s;
+  font-family: inherit;
+  letter-spacing: 0.02em;
+}
+.tab-btn:hover { background: rgba(255,255,255,0.25); color: white; }
+.tab-btn.active { background: var(--bg); color: var(--g800); }
+
+/* ── Content area ── */
+.content { flex: 1; max-width: 1200px; margin: 0 auto; width: 100%; padding: 0; }
+.tab-panel { display: none; }
+.tab-panel.active { display: flex; flex-direction: column; }
+
+/* ── Thesis viewer ── */
+.thesis-iframe {
+  width: 100%;
+  height: calc(100vh - 120px);
+  border: none;
+  background: white;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+}
+
+/* ── Slides viewer ── */
+.slides-shell {
+  background: white;
+  border-radius: 0 0 16px 16px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+  overflow: hidden;
+}
+.slides-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--g900);
+  padding: 12px 20px;
+  color: white;
+}
+.slides-nav button {
+  background: rgba(255,255,255,0.15);
+  color: white;
+  border: none;
+  padding: 8px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: background 0.2s;
+  font-family: inherit;
+}
+.slides-nav button:hover { background: rgba(255,255,255,0.3); }
+.slides-nav button:disabled { opacity: 0.3; cursor: not-allowed; }
+.slide-counter {
+  font-size: 0.9rem;
+  opacity: 0.85;
+  font-weight: 500;
+}
+.slide-title-nav {
+  font-size: 0.85rem;
+  opacity: 0.7;
+  max-width: 300px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.slides-stage {
+  padding: 32px 48px 40px;
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+}
+.slide-display { display: none; }
+.slide-display.active { display: flex; flex-direction: column; gap: 16px; }
+
+.slide-badge {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--g700);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  background: var(--g50);
+  border: 1px solid var(--g100);
+  border-radius: 20px;
+  padding: 3px 12px;
+  width: fit-content;
+}
+.slide-h {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--g900);
+  line-height: 1.4;
+  border-left: 5px solid var(--g500);
+  padding-left: 16px;
+}
+.slide-body {
+  color: #2d4a2d;
+  font-size: 1rem;
+  line-height: 1.85;
+}
+.slide-body p { margin-bottom: 8px; }
+
+/* ── Thumbnails ── */
+.slides-thumbs {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding: 16px 20px;
+  background: var(--g50);
+  border-top: 1px solid var(--border);
+}
+.thumb {
+  background: white;
+  border: 2px solid var(--border);
+  border-radius: 6px;
+  padding: 6px 10px;
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: all 0.15s;
+  color: var(--muted);
+  max-width: 120px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.thumb:hover { border-color: var(--g500); color: var(--g800); }
+.thumb.active { border-color: var(--g700); background: var(--g100); color: var(--g900); font-weight: 600; }
+
+/* ── Download buttons ── */
+.dl-bar {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  padding: 12px 24px 0;
+  background: transparent;
+}
+.dl-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--g800);
+  color: white;
+  text-decoration: none;
+  padding: 8px 18px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  transition: background 0.2s;
+}
+.dl-btn:hover { background: var(--g900); }
+.dl-btn.secondary { background: #4b7a4b; }
+
+/* ── Back link ── */
+.footer-nav {
+  text-align: center;
+  padding: 20px;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+.footer-nav a { color: var(--g700); text-decoration: none; margin: 0 8px; }
+.footer-nav a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-inner">
+    <div class="header-title">
+      基於 AI 視覺辨識與區塊鏈之森林碳匯量測系統設計與實作
+      <span>畢業專題論文 · 2026 · 線上全文閱覽</span>
+    </div>
+    <div class="tabs">
+      <button class="tab-btn active" onclick="switchTab('thesis')">📄 論文全文</button>
+      <button class="tab-btn" onclick="switchTab('slides')">📊 口試簡報（30 張）</button>
+    </div>
+  </div>
+</div>
+
+<div class="content">
+
+  <!-- ── 下載列 ── -->
+  <div class="dl-bar">
+    <a class="dl-btn secondary" href="thesis_final_v33.docx" download="畢業專題_全文_final_v33.docx">⬇ 下載論文 (.docx)</a>
+    <a class="dl-btn" href="thesis_defense.pptx" download="thesis_defense.pptx">⬇ 下載簡報 (.pptx)</a>
+  </div>
+
+  <!-- ── 論文全文 ── -->
+  <div class="tab-panel active" id="panel-thesis">
+    <iframe class="thesis-iframe" src="thesis_content.html" title="論文全文"></iframe>
+  </div>
+
+  <!-- ── 口試簡報 ── -->
+  <div class="tab-panel" id="panel-slides">
+    <div class="slides-shell">
+      <div class="slides-nav">
+        <button onclick="prevSlide()" id="btn-prev">‹ 上一張</button>
+        <div>
+          <div class="slide-counter" id="counter">1 / 30</div>
+          <div class="slide-title-nav" id="nav-title"></div>
+        </div>
+        <button onclick="nextSlide()" id="btn-next">下一張 ›</button>
+      </div>
+      <div class="slides-stage" id="stage"><!-- JS 動態產生 --></div>
+      <div class="slides-thumbs" id="thumbs"><!-- JS 動態產生 --></div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer-nav">
+  <a href="thesis-download.html">← 下載頁面</a> ·
+  <a href="showcase.html">系統展示</a> ·
+  <a href="dashboard.html">量測儀錶板</a>
+</div>
+
+<script>
+// ── Tab 切換 ──
+function switchTab(tab) {
+  document.querySelectorAll('.tab-btn').forEach((b, i) => {
+    b.classList.toggle('active', (i === 0 && tab === 'thesis') || (i === 1 && tab === 'slides'));
+  });
+  document.getElementById('panel-thesis').classList.toggle('active', tab === 'thesis');
+  document.getElementById('panel-slides').classList.toggle('active', tab === 'slides');
+}
+
+// ── 投影片 ──
+let current = 0;
+const total = SLIDES_DATA.length;
+
+function renderSlides() {
+  const stage = document.getElementById('stage');
+  const thumbs = document.getElementById('thumbs');
+  stage.innerHTML = '';
+  thumbs.innerHTML = '';
+
+  SLIDES_DATA.forEach((s, i) => {
+    // 投影片內容
+    const div = document.createElement('div');
+    div.className = 'slide-display' + (i === 0 ? ' active' : '');
+    div.id = 'slide-' + i;
+
+    const contentHtml = s.content.map(c => {
+      const safe = c.replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\n/g, '<br>');
+      return `<p>${safe}</p>`;
+    }).join('');
+
+    div.innerHTML = `
+      <div class="slide-badge">投影片 ${s.index} / ${total}</div>
+      <div class="slide-h">${s.title.replace(/\n/g, ' ').replace(/</g, '&lt;')}</div>
+      <div class="slide-body">${contentHtml}</div>`;
+    stage.appendChild(div);
+
+    // 縮圖按鈕
+    const t = document.createElement('div');
+    t.className = 'thumb' + (i === 0 ? ' active' : '');
+    t.id = 'thumb-' + i;
+    const shortTitle = s.title.replace(/\n/g, ' ').substring(0, 20);
+    t.textContent = s.index + '. ' + shortTitle;
+    t.onclick = () => goTo(i);
+    thumbs.appendChild(t);
+  });
+
+  updateNav();
+}
+
+function goTo(idx) {
+  document.getElementById('slide-' + current).classList.remove('active');
+  document.getElementById('thumb-' + current).classList.remove('active');
+  current = idx;
+  document.getElementById('slide-' + current).classList.add('active');
+  document.getElementById('thumb-' + current).classList.add('active');
+  updateNav();
+  // 滾動縮圖到可見
+  document.getElementById('thumb-' + current).scrollIntoView({behavior: 'smooth', block: 'nearest', inline: 'nearest'});
+}
+
+function prevSlide() { if (current > 0) goTo(current - 1); }
+function nextSlide() { if (current < total - 1) goTo(current + 1); }
+
+function updateNav() {
+  document.getElementById('counter').textContent = (current + 1) + ' / ' + total;
+  const s = SLIDES_DATA[current];
+  document.getElementById('nav-title').textContent = s.title.replace(/\n/g, ' ').substring(0, 40);
+  document.getElementById('btn-prev').disabled = current === 0;
+  document.getElementById('btn-next').disabled = current === total - 1;
+}
+
+// 鍵盤導航
+document.addEventListener('keydown', e => {
+  if (document.getElementById('panel-slides').classList.contains('active')) {
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') prevSlide();
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') nextSlide();
+  }
+});
+
+renderSlides();
+</script>
+</body>
+</html>
